@@ -7,8 +7,8 @@ import { isProduction } from 'helpers/isProduction';
  * @returns {string}
  */
 export const getDomain = () => {
-  const prodUrl ='https://sopra-fs22-admingroup-server.herokuapp.com'; // TODO: insert your groups heroku prod url for server (once deployed)
-  const devUrl = 'https://git.heroku.com/sopra-fs22-psalvi-server.git';
+  const prodUrl ='https://git.heroku.com/sopra-fs22-psalvi-server.git'; // TODO: insert your groups heroku prod url for server (once deployed)
+  const devUrl = 'http://localhost:8080';
 
   return isProduction() ? prodUrl : devUrl;
 };
