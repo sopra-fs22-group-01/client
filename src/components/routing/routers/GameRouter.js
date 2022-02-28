@@ -21,6 +21,7 @@ const GameRouter = props => {
 * Don't forget to export your component!
  */
 
+//(?) used to check if props are of type string (?)
 GameRouter.propTypes = {
   base: PropTypes.string
 }
