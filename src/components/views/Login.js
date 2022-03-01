@@ -74,7 +74,7 @@ const Login = props => {
           />
           <div className="login button-container">
             <Button
-              disabled={!username || !password}
+              disabled={!username || !password} //if no password or username is entered, button cant be clicked
               width="100%"
               onClick={() => doLogin()}
             >
