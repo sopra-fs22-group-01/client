@@ -77,7 +77,7 @@ const Login = props => {
                 width="100%"
                 onClick={() =>  history.push(`/registration`)}
             >
-              No account? Go and register here
+              No account? Click here to register
             </Button>
           </div>
 
