@@ -3,7 +3,7 @@ import {api, handleError} from 'helpers/api';
 import User from 'models/User';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
-import 'styles/views/Login.scss';
+import 'styles/views/Registration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 
@@ -15,12 +15,12 @@ specific components that belong to the main one in the same file.
  */
 const FormField = props => {
     return (
-        <div className="login field">
-            <label className="login label">
+        <div className="registration field">
+            <label className="registration label">
                 {props.label}
             </label>
             <input
-                className="login input"
+                className="registration input"
                 placeholder="enter here.."
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
@@ -35,12 +35,12 @@ FormField.propTypes = {
     onChange: PropTypes.func
 };
 
-const Login = props => {
+const Registration = props => {
     const history = useHistory();
     const [password, setPassword] = useState(null);
     const [username, setUsername] = useState(null);
 
-    const doLogin = async () => {
+    const doRegistration = async () => {
         try {
             const requestBody = JSON.stringify({username, password});
             const response = await api.post('/users', requestBody); //request get to restcontoller
@@ -60,8 +60,8 @@ const Login = props => {
 
     return (
         <BaseContainer>
-            <div className="login container">
-                <div className="login form">
+            <div className="registration container">
+                <div className="registration form">
                     <FormField
                         label="Username"
                         value={username}
@@ -73,13 +73,13 @@ const Login = props => {
                         onChange={n => setPassword(n)}
                     />
 
-                    <div className="login button-container">
+                    <div className="registration button-container">
                         <Button
                             disabled={!username || !password} //if no password or username is entered, button cant be clicked
                             width="100%"
-                            onClick={() => doLogin()}
+                            onClick={() => doRegistration()}
                         >
-                            Login
+                            Register
                         </Button>
                     </div>
 
@@ -94,4 +94,4 @@ const Login = props => {
  * You can get access to the history object's properties via the withRouter.
  * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
  */
-export default Login;
+export default Registration;
