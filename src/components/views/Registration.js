@@ -43,7 +43,7 @@ const Registration = props => {
     const doRegistration = async () => {
         try {
             const requestBody = JSON.stringify({username, password});
-            const response = await api.post('/users', requestBody); //request get to restcontoller
+            const response = await api.post('/users', requestBody); //request get to restcontoller (POST sends to server)
 
             // Get the returned user and update a new object.
             const user = new User(response.data);
