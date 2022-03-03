@@ -36,15 +36,23 @@ FormField.propTypes = {
 };
 
 const Registration = props => {
+   //const current = new Date();
+   // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
     const history = useHistory();
     const [password, setPassword] = useState(null);
     const [username, setUsername] = useState(null);
+    const [date, setDate] = useState(null);
+
+    //in what order does the "Registration" run?
 
     const doRegistration = async () => {
         try {
-            const requestBody = JSON.stringify({username, password});
+            const requestBody = JSON.stringify({username, password, date});
             const response = await api.post('/users', requestBody); //request get to restcontoller (POST sends to server)
-
+            /*await makes sure doRegistration waits until it gets a response before it goes on.
+              however, other functions in the program can already run. so the return, where the username and password get asked
+              can already be executed(?)
+                * */
             // Get the returned user and update a new object.
             const user = new User(response.data);
 
@@ -70,7 +78,7 @@ const Registration = props => {
                     <FormField
                         label="Password"
                         value={password}
-                        onChange={n => setPassword(n)}
+                        onChange={(n) => {setPassword(n) ; setDate('03.03.22')}} //hard coded to see if it would work like this
                     />
 
                     <div className="registration button-container">

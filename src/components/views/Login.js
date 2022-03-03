@@ -48,7 +48,7 @@ const Login = props => {
       // Get the returned user and update a new object.
       const user = new User(response.data);
 
-      if(user.password === password){ //something wrong
+      if(user.password == password){ //something wrong
         history.push('/game');
       }
 
