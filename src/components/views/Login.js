@@ -43,17 +43,17 @@ const Login = props => {
   const doLogin = async () => {
     try {
       const requestBody = JSON.stringify({username, password}); //creates .json file (?)
-      const response = await api.get('/users', requestBody); //request get to restcontoller (POST sends to server)
+      const response = await api.post('/login', requestBody); //request get to userController (POST sends to server)
 
       // Get the returned user and update a new object.
       const user = new User(response.data);
 
-      if(user.password == password){ //something wrong
-        history.push('/game');
-      }
 
       // Store the token into the local storage.
-      //localStorage.setItem('token', user.token);
+      localStorage.setItem('token', user.token);
+      localStorage.setItem('status', user.status);
+
+      history.push('/game');
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
       //history.push(`/game`);
