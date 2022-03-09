@@ -32,6 +32,7 @@ const Game = () => {
   const [users, setUsers] = useState(null);
 
   const logout = () => {
+
     localStorage.removeItem('token');
     history.push('/login');
   }
