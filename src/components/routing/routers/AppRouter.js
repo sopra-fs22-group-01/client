@@ -5,6 +5,8 @@ import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
 import Registration from "../../views/Registration";
 import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
+import ProfilePage from "../../views/ProfilePage";
+import Game from "../../views/Game";
 
 /**
  * Main router of your application.
@@ -21,6 +23,11 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
+        <Route path="/profile/:username">
+          <GameGuard>
+            <ProfilePage/>
+          </GameGuard>
+        </Route>
         <Route path="/game">
           <GameGuard>
             <GameRouter base="/game"/>
