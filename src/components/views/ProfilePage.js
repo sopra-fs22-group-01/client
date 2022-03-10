@@ -18,7 +18,7 @@ const ProfilePage = () => {
   // a component can have as many state variables as you like.
   // more information can be found under https://reactjs.org/docs/hooks-state.html
   const [user, setUser] = useState(null);
-  const {username} = useParams();
+  const {id} = useParams();
 
 
   // the effect hook can be used to react to change in your component.
@@ -29,7 +29,7 @@ const ProfilePage = () => {
     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
     async function fetchData() {
       try {
-        const response = await api.get(`/users/fetch?username=${username}`);
+        const response = await api.get(`/users/?id=${id}`);
 
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
@@ -56,7 +56,9 @@ const ProfilePage = () => {
     }
 
     fetchData();
-  }, []);
+  }, []); //there cold be something in this array,  the code inside
+  //of the useEffect hook only renders, if something in the array changes. Since the
+  //empty array never changes, the code inside useEffect never runs again
 
   //ul = unordered list
   let content = <Spinner/>;
@@ -64,18 +66,31 @@ const ProfilePage = () => {
   if(user){
     content =(
     <div className="game">
+      <div>
       <p>ID: {user.id} </p>
-      <p>Username: {username.username}</p>
-      <p>Creation Date: Null </p>
+      <p>Username: {user.username}</p>
+      <p>Creation Date: {user.date} </p>
       <p>Status: {user.status}</p>
       <p>Birthday: </p>
+      </div>
+
+      <div className="profilePage button-container">
+        <Button
+          width="30%"
+          onClick={() => history.goBack()}
+        >
+          Back
+        </Button>
+      </div>
     </div>
+
+
     );
   }
 
   return (
     <BaseContainer className="profilePage container">
-      <h2>Profile of {username}!</h2>
+      <h2>Profile of {id}!</h2>
       {content}
     </BaseContainer>
   );

@@ -30,6 +30,11 @@
   & p,h2 {
     margin: 0.5em 0;
   }
+  &.button-container {
+    display: flex;
+    justify-content: left;
+    margin-top: 2em;
+  }
 }
 
 .player {

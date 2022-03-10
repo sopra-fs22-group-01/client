@@ -81,7 +81,7 @@ const Game = () => {
       <div className="game">
         <ul className="game user-list">
           {users.map(user => (
-            <Link to={`/profile/${user.username}`} style={{color: 'white'}}>
+            <Link to={`/users/${user.id}`} style={{color: 'white'}}>
               <Player user={user} key={user.id}/>
             </Link>
           ))}

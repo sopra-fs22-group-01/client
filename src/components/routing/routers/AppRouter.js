@@ -23,7 +23,7 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/profile/:username">
+        <Route path="/users/:id">
           <GameGuard>
             <ProfilePage/>
           </GameGuard>
