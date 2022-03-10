@@ -69,7 +69,7 @@ const ProfilePage = () => {
       <div>
       <p>ID: {user.id} </p>
       <p>Username: {user.username}</p>
-      <p>Creation Date: {user.date} </p>
+      <p>Date: {user.date} </p>
       <p>Status: {user.status}</p>
       <p>Birthday: </p>
       </div>
