@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import User from 'models/User';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
@@ -40,10 +40,11 @@ const Login = props => {
   const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
 
+
   const doLogin = async () => {
     try {
       const requestBody = JSON.stringify({username, password}); //creates .json file (?)
-      const response = await api.post('/login', requestBody); //request get to userController (POST sends to server)
+      const response = await api.put(`/users/?username=${username}&password=${password}`); //request get to userController (GET sends to server)
 
       // Get the returned user and update a new object.
       const user = new User(response.data);

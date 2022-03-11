@@ -18,7 +18,7 @@ const ProfilePage = () => {
   // a component can have as many state variables as you like.
   // more information can be found under https://reactjs.org/docs/hooks-state.html
   const [user, setUser] = useState(null);
-  const {id} = useParams();
+  const {id} = useParams(); //extracts the id from the URL
 
 
   // the effect hook can be used to react to change in your component.
