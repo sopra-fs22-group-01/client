@@ -39,14 +39,14 @@ const Registration = props => {
    //const current = new Date();
    // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
     const history = useHistory();
-    const [birthdate, setPassword] = useState(null);
+    const [password, setPassword] = useState(null);
     const [username, setUsername] = useState(null);
 
     //in what order does the "Registration" run?
 
     const doRegistration = async () => {
         try {
-            const requestBody = JSON.stringify({username, birthdate});
+            const requestBody = JSON.stringify({username, password});
             const response = await api.post('/users', requestBody); //request get to restcontoller (POST sends to server)
             /*await makes sure doRegistration waits until it gets a response before it goes on.
               however, other functions in the program can already run. so the return, where the username and birthdate get asked
@@ -76,13 +76,13 @@ const Registration = props => {
                     />
                     <FormField
                         label="Password"
-                        value={birthdate}
+                        value={password}
                         onChange={(n) => setPassword(n) }
                     />
 
                     <div className="registration button-container">
                         <Button
-                            disabled={!username || !birthdate} //if no birthdate or username is entered, button cant be clicked
+                            disabled={!username || !password} //if no birthdate or username is entered, button cant be clicked
                             width="100%"
                             onClick={() => doRegistration()}
                         >
