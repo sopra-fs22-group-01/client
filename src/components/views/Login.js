@@ -37,13 +37,13 @@ FormField.propTypes = {
 
 const Login = props => {
   const history = useHistory();
-  const [birthdate, setPassword] = useState(null);
+  const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
 
 
   const doLogin = async () => {
     try {
-      const requestBody = JSON.stringify({username, birthdate}); //creates .json file (?)
+      const requestBody = JSON.stringify({username, password}); //creates .json file (?)
       const response = await api.post(`/users/`, requestBody);//request get to userController (GET sends to server)
 
       // Get the returned user and update a new object.
@@ -74,7 +74,7 @@ const Login = props => {
           />
           <FormField
             label="Password"
-            value={birthdate}
+            value={password}
             onChange={n => setPassword(n)}
           />
           <div className="login button-container">
@@ -88,7 +88,7 @@ const Login = props => {
 
           <div className="login button-container">
             <Button
-              disabled={!username || !birthdate} //if no birthdate or username is entered, button cant be clicked
+              disabled={!username || !password} //if no password or username is entered, button cant be clicked
               width="100%"
               onClick={() => doLogin()}
             >
