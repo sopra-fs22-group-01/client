@@ -4,6 +4,7 @@ import User from 'models/User';
 import {useHistory, useParams} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/Login.scss';
+import 'styles/views/EditProfile.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 
@@ -15,12 +16,12 @@ specific components that belong to the main one in the same file.
  */
 const FormField = props => {
   return (
-    <div className="login field">
-      <label className="login label">
+    <div className="editProfile field">
+      <label className="editProfile label">
         {props.label}
       </label>
       <input
-        className="login input"
+        className="editProfile input"
         placeholder="enter here.."
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
@@ -35,15 +36,15 @@ FormField.propTypes = {
   onChange: PropTypes.func
 };
 
-const Login = props => {
+const Edit = props => {
   const history = useHistory();
-  const [birthdate, setPassword] = useState(null);
+  const [birthdate, setBirthdate] = useState(null);
   const [username, setUsername] = useState(null);
 
 
-  const doLogin = async () => {
+  const doEdit = async () => {
     try {
-      const requestBody = JSON.stringify({username, birthdate}); //creates .json file (?)
+      const requestBody = JSON.stringify({username, birthdate: birthdate}); //creates .json file (?)
       const response = await api.post(`/users/`, requestBody);//request get to userController (GET sends to server)
 
       // Get the returned user and update a new object.
@@ -65,34 +66,34 @@ const Login = props => {
 
   return (
     <BaseContainer>
-      <div className="login container">
-        <div className="login form">
+      <div className="editProfile container">
+        <div className="editProfile form">
           <FormField
-            label="Username"
+            label="Change username"
             value={username}
             onChange={un => setUsername(un)}
           />
-          <FormField
-            label="Password"
-            value={birthdate}
-            onChange={n => setPassword(n)}
-          />
-          <div className="login button-container">
+          <div className="editProfile button-container">
             <Button
-                width="100%"
-                onClick={() =>  history.push(`/registration`)}
+              width="100%"
+              onClick={() =>  history.push(`/game`)}
             >
-              No account? Click here to register
+             Save username
             </Button>
           </div>
 
-          <div className="login button-container">
+          <FormField
+            label="Change birthdate"
+            value={birthdate}
+            onChange={bd => setBirthdate(bd)}
+          />
+
+          <div className="editProfile button-container">
             <Button
-              disabled={!username || !birthdate} //if no birthdate or username is entered, button cant be clicked
               width="100%"
-              onClick={() => doLogin()}
+              onClick={() => doEdit()}
             >
-              Login
+              Save birthdate
             </Button>
           </div>
 
@@ -107,4 +108,4 @@ const Login = props => {
  * You can get access to the history object's properties via the withRouter.
  * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
  */
-export default Login;
+export default Edit;

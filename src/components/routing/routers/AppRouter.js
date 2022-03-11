@@ -3,6 +3,7 @@ import {GameGuard} from "components/routing/routeProtectors/GameGuard";
 import GameRouter from "components/routing/routers/GameRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
+import EditProfile from "components/views/EditProfile";
 import Registration from "../../views/Registration";
 import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
 import ProfilePage from "../../views/ProfilePage";
@@ -23,6 +24,11 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
+        <Route path="/editor/:id">
+          <GameGuard>
+            <EditProfile/>
+          </GameGuard>
+        </Route>
         <Route path="/users/:id">
           <GameGuard>
             <ProfilePage/>

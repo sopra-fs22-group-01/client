@@ -81,9 +81,16 @@ const ProfilePage = () => {
         >
           Back
         </Button>
+
+        <Button
+          disabled={!(localStorage.getItem('token')=== user.token)}
+          width="30%"
+          onClick={() => history.push(`/editor/${user.id}`)}
+        >
+          Edit
+        </Button>
       </div>
     </div>
-
 
     );
   }

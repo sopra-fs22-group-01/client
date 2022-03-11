@@ -12,7 +12,7 @@ const Player = ({user}) => (
     <div className="player username">{user.username}</div>
     <div className="player name">{user.name}</div>
     <div className="player id">id: {user.id}</div>
-      <div className="player password">{user.password} </div>
+      <div className="player birthdate">{user.birthdate} </div>
   </div>
 );
 
@@ -31,7 +31,19 @@ const Game = () => {
   // more information can be found under https://reactjs.org/docs/hooks-state.html
   const [users, setUsers] = useState(null);
 
-  const logout = () => {
+  const logout = async () => {
+    try{
+      let currentToken = localStorage.getItem('token');
+
+      const response = await api.put(`/users/?token=${currentToken}`)
+
+
+      localStorage.removeItem('token');
+      history.push('/login');
+    }
+    catch (error){
+      alert(`Something went wrong during the logout: \n${handleError(error)}`);
+    }
 
     localStorage.removeItem('token');
     history.push('/login');
