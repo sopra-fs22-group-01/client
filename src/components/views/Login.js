@@ -44,11 +44,11 @@ const Login = props => {
   const doLogin = async () => {
     try {
       const requestBody = JSON.stringify({username, password}); //creates .json file (?)
-      const response = await api.put(`/users/?username=${username}&password=${password}`); //request get to userController (GET sends to server)
+      const response = await api.post(`/users/`, requestBody);//request get to userController (GET sends to server)
 
       // Get the returned user and update a new object.
       const user = new User(response.data);
-
+      console.log(response.data);
 
       // Store the token into the local storage.
       localStorage.setItem('token', user.token);
