@@ -123,6 +123,15 @@ const EditProfile = () =>{
             </Button>
           </div>
 
+          <div className="editProfile button-container">
+            <Button
+              width="100%"
+              onClick={() => history.goBack()}
+            >
+              Back
+            </Button>
+          </div>
+
         </div>
 
       </div>

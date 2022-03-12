@@ -77,7 +77,7 @@ const ProfilePage = () => {
       <div className="profilePage button-container">
         <Button
           width="30%"
-          onClick={() => history.goBack()}
+          onClick={() => history.push(`/game`)}
         >
           Back
         </Button>
