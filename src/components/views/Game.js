@@ -35,7 +35,7 @@ const Game = () => {
     try{
       let currentToken = localStorage.getItem('token');
 
-      const response = await api.put(`/users/?token=${currentToken}`)
+      const response = await api.put(`/logout/?token=${currentToken}`)
 
 
       localStorage.removeItem('token');

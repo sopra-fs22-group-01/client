@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import User from 'models/User';
 import {useHistory, useParams} from 'react-router-dom';
@@ -36,33 +36,67 @@ FormField.propTypes = {
   onChange: PropTypes.func
 };
 
-const Edit = props => {
+
+const EditProfile = () =>{
+
   const history = useHistory();
   const [birthdate, setBirthdate] = useState(null);
   const [username, setUsername] = useState(null);
+  const [user, setUser] = useState(null);
+  const {id} = useParams();
 
+  const saveChanges = async () => {
 
-  const doEdit = async () => {
     try {
-      const requestBody = JSON.stringify({username, birthdate: birthdate}); //creates .json file (?)
-      const response = await api.post(`/users/`, requestBody);//request get to userController (GET sends to server)
 
-      // Get the returned user and update a new object.
-      const user = new User(response.data);
-      console.log(response.data);
+      //maybe fails due to date -> creation_date renaming?
+      console.log({"id":user.id,"username":username, "date":user.date, "isLoggedIn":user.isLoggedIn, birthdate});
+      const requestBody = JSON.stringify({"id":user.id,"username":username, "date":user.date, "isLoggedIn":user.isLoggedIn, birthdate}); //creates .json file (?)
+      await api.put(`/users/`+ user.id, requestBody);//request get to userController (GET sends to server)
 
-      // Store the token into the local storage.
-      localStorage.setItem('token', user.token);
-      //localStorage.setItem('status', user.status);
+      history.push(`/users/${id}`)
 
-      history.push('/game');
-
-      // Login successfully worked --> navigate to the route /game in the GameRouter
-      //history.push(`/game`);
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong during the editing: \n${handleError(error)}`);
     }
-  };
+
+  }
+
+//getting user data
+  useEffect(() => {
+    // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
+    async function fetchData() {
+      try {
+        const response = await api.get(`/users/?id=${id}`);
+
+        // delays continuous execution of an async operation for 1 second.
+        // This is just a fake async call, so that the spinner can be displayed
+        // feel free to remove it :)
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Get the returned users and update the state.
+        setUser(response.data);
+
+        // This is just some data for you to see what is available.
+        // Feel free to remove it.
+        console.log('request to:', response.request.responseURL);
+        console.log('status code:', response.status);
+        console.log('status text:', response.statusText);
+        console.log('requested data:', response.data);
+
+        // See here to get more data.
+        console.log(response);
+      } catch (error) {
+        console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+        console.error("Details:", error);
+        alert("Something went wrong while fetching the users! See the console for details.");
+      }
+    }
+
+    fetchData();
+  }, []);
+
+
 
   return (
     <BaseContainer>
@@ -73,14 +107,6 @@ const Edit = props => {
             value={username}
             onChange={un => setUsername(un)}
           />
-          <div className="editProfile button-container">
-            <Button
-              width="100%"
-              onClick={() =>  history.push(`/game`)}
-            >
-             Save username
-            </Button>
-          </div>
 
           <FormField
             label="Change birthdate"
@@ -91,9 +117,9 @@ const Edit = props => {
           <div className="editProfile button-container">
             <Button
               width="100%"
-              onClick={() => doEdit()}
+              onClick={() => saveChanges()}
             >
-              Save birthdate
+              Save changes
             </Button>
           </div>
 
@@ -108,4 +134,4 @@ const Edit = props => {
  * You can get access to the history object's properties via the withRouter.
  * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
  */
-export default Edit;
+export default EditProfile;
