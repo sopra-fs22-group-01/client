@@ -82,7 +82,7 @@ const Registration = props => {
 
                     <div className="registration button-container">
                         <Button
-                            disabled={!username || !password} //if no birthdate or username is entered, button cant be clicked
+                            disabled={!username || !password} //if no birthday or username is entered, button cant be clicked
                             width="100%"
                             onClick={() => doRegistration()}
                         >

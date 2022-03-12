@@ -30,6 +30,7 @@ const FormField = props => {
   );
 };
 
+
 FormField.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
@@ -40,7 +41,7 @@ FormField.propTypes = {
 const EditProfile = () =>{
 
   const history = useHistory();
-  const [birthdate, setBirthdate] = useState(null);
+  const [birthday, setBirthday] = useState(null);
   const [username, setUsername] = useState(null);
   const [user, setUser] = useState(null);
   const {id} = useParams();
@@ -50,8 +51,8 @@ const EditProfile = () =>{
     try {
 
       //maybe fails due to date -> creation_date renaming?
-      console.log({"id":user.id,"username":username, "date":user.date, "isLoggedIn":user.isLoggedIn, birthdate});
-      const requestBody = JSON.stringify({"id":user.id,"username":username, "date":user.date, "isLoggedIn":user.isLoggedIn, birthdate}); //creates .json file (?)
+      console.log({"id":user.id,"username":username, "date":user.date, "isLoggedIn":user.isLoggedIn, birthday});
+      const requestBody = JSON.stringify({"id":user.id,"username":username, "date":user.date, "isLoggedIn":user.isLoggedIn, birthday}); //creates .json file (?)
       await api.put(`/users/`+ user.id, requestBody);//request get to userController (GET sends to server)
 
       history.push(`/users/${id}`)
@@ -109,11 +110,11 @@ const EditProfile = () =>{
           />
 
           <FormField
-            label="Change birthdate"
-            value={birthdate}
-            onChange={bd => setBirthdate(bd)}
+            label="Change birthday"
+            value={birthday}
+            onChange={bd => setBirthday(bd)}
           />
-
+          <div> Birthday has to be of form YYYY-MM-DD </div>
           <div className="editProfile button-container">
             <Button
               width="100%"

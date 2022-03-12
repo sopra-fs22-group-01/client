@@ -7,6 +7,8 @@ import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/ProfilePage.scss";
 
 
+
+
 const ProfilePage = () => {
   // use react-router-dom's hook to access the history
 
@@ -71,7 +73,7 @@ const ProfilePage = () => {
       <p>Username: {user.username}</p>
       <p>Date: {user.date} </p>
       <p>Token:{user.token}</p>
-      <p>Birthday: </p>
+      <p>Birthday:{user.birthday}</p>
       </div>
 
       <div className="profilePage button-container">
