@@ -1,26 +1,11 @@
 name: Deploy Project
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
 
-pull_request:
-  types: [opened, synchronize, reopened]
-
 jobs:
-  sonarcloud:
-    name: SonarCloud
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   build:
     runs-on: ubuntu-latest
     env:
@@ -29,19 +14,19 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # auto-generated
       HEROKU_KEY: ${{ secrets.HEROKU_API_KEY }}
       HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-      HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}  
+      HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
 
     steps:
-    # checkout repository code
-    - uses: actions/checkout@v1
-   
-    # uncomment for assignment 2-4
-     - name: SonarCloud Scan
-       uses: sonarsource/sonarcloud-github-action@master
-    
-    # create .netrc file for heroku authentication
-    # https://devcenter.heroku.com/articles/authentication
-    - run: |+
+      # checkout repository code
+      - uses: actions/checkout@v1
+
+      # uncomment for assignment 2-4
+       - name: SonarCloud Scan
+         uses: sonarsource/sonarcloud-github-action@master
+
+      # create .netrc file for heroku authentication
+      # https://devcenter.heroku.com/articles/authentication
+      - run: |+
           cat >~/.netrc <<EOF
           machine api.heroku.com
               login $HEROKU_EMAIL
@@ -50,12 +35,12 @@ jobs:
               login $HEROKU_EMAIL
               password $HEROKU_KEY
           EOF
-    
-    # login with .netrc file
-    - run: heroku login    
-      
-    # deploy code
-    - run: heroku git:remote -a $HEROKU_APP_NAME 
-    - run: git push heroku HEAD:refs/heads/master
+
+      # login with .netrc file
+      - run: heroku login
+
+      # deploy code
+      - run: heroku git:remote -a $HEROKU_APP_NAME
+      - run: git push heroku HEAD:refs/heads/master
 
 
