@@ -5,7 +5,7 @@ import {Button} from 'components/ui/Button';
 import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/ProfilePage.scss";
-
+import profileIcon from 'images/profileIcon2.png';
 
 
 
@@ -67,18 +67,14 @@ const ProfilePage = () => {
 
   if(user){
     content =(
+
     <div className="game">
       <div>
-      <p>ID: {user.id} </p>
-      <p>Username: {user.username}</p>
-      <p>Date: {user.date} </p>
-      <p>Token:{user.token}</p>
-      <p>Birthday:{user.birthday}</p>
+      <p>Hello {user.username}!</p>
       </div>
-
       <div className="profilePage button-container">
         <Button
-          width="30%"
+          width="60%"
           onClick={() => history.push(`/game`)}
         >
           Back
@@ -86,10 +82,10 @@ const ProfilePage = () => {
 
         <Button
           disabled={!(localStorage.getItem('token')=== user.token)}
-          width="30%"
+          width="60%"
           onClick={() => history.push(`/editor/${user.id}`)}
         >
-          Edit
+          Edit Username
         </Button>
       </div>
     </div>
@@ -99,7 +95,10 @@ const ProfilePage = () => {
 
   return (
     <BaseContainer className="profilePage container">
-      <h2>Profile of {id}!</h2>
+      <h2>Profile Page</h2>
+      <div>
+        <img className="profilePage photo" src={profileIcon} alt=""/>
+      </div>
       {content}
     </BaseContainer>
   );
