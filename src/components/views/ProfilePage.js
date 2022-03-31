@@ -2,10 +2,11 @@ import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
+import {Card} from 'components/ui/Card';
 import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/ProfilePage.scss";
-import profileIcon from 'images/profileIcon2.png';
+//import profileIcon from 'images/profileIcon2.png';
 
 
 
@@ -97,11 +98,12 @@ const ProfilePage = () => {
     <BaseContainer className="profilePage container">
       <h2>Profile Page</h2>
       <div>
-        <img className="profilePage photo" src={profileIcon} alt=""/>
+        <></>
       </div>
       {content}
     </BaseContainer>
   );
+  //<img className="profilePage photo" src={profileIcon} alt=""/>
 
 }
 

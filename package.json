@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.24.0",
+    "images": "^3.2.4",
     "node-gyp": "^8.4.1",
     "node-sass": "^7.0.1",
     "react": "^17.0.2",

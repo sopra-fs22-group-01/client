@@ -6,7 +6,6 @@ import {Link, useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Game.scss";
-import {Card} from "../ui/Card";
 
 const Player = ({user}) => (
   <div className="player container">
@@ -98,6 +97,7 @@ const Game = () => {
             </Link>
           ))}
         </ul>
+
         <Button
           width="100%"
           onClick={() => logout()}
@@ -115,11 +115,6 @@ const Game = () => {
         Get all users from secure endpoint:
       </p>
       {content}
-      <Card
-          //width="75%"
-      >
-        The White Card.
-      </Card>
     </BaseContainer>
   );
 }
