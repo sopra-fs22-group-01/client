@@ -51,8 +51,8 @@ const EditProfile = () =>{
     try {
 
       //maybe fails due to date -> creation_date renaming?
-      console.log({"id":user.id,"username":username, "date":user.date, "isLoggedIn":user.isLoggedIn, birthday});
-      const requestBody = JSON.stringify({"id":user.id,"username":username, "date":user.date, "isLoggedIn":user.isLoggedIn, birthday}); //creates .json file (?)
+      console.log({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, birthday});
+      const requestBody = JSON.stringify({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, birthday}); //creates .json file (?)
       await api.put(`/users/`+ user.id, requestBody);//request get to userController (GET sends to server)
 
       history.push(`/users/${id}`)
