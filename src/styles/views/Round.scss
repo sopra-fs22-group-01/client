@@ -7,7 +7,7 @@
   for more information visit https://sass-lang.com/guide
  */
 
-.game {
+.round {
   &.container {
     background: $background;
     padding: 1.5em;
@@ -19,7 +19,7 @@
   }
   &.user-list {
     list-style: none;
-    padding-left: 5px;
+    padding-left: 0;
   }
   &.user-item {
     display: flex;
@@ -36,7 +36,7 @@
 .player {
   &.container {
     margin: 0.5em 0;
-    width: 150em;
+    width: 20em;
     padding: 10px;
     border-radius: $borderRadius;
     display: flex;
@@ -48,35 +48,10 @@
     margin-left: 5px;
   }
   &.username {
-    vertical-align: text-top;
     font-weight: 500;
     color: $fontMono;
   }
   &.id {
-    margin-left: auto;
-    margin-right: 10px;
-    font-family: $fontMono;
-    font-weight: 300;
-  }
-}
-
-.hand {
-  &.container {
-    background-color: palevioletred;
-    margin: 0.5em 0; // rand between container & logout button
-    //width: 150em;
-    padding: 10px; // rand between edge & cards
-    border-radius: $borderRadius;
-    //display: flex;
-    align-items: center;
-    //background: lighten($background, 5);
-  }
-  &.username {
-    font-weight: 700;
-    color: $fontMono;
-  }
-  &.id {
-    color: pink;
     margin-left: auto;
     margin-right: 10px;
     font-family: $fontMono;
