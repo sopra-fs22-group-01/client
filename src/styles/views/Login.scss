@@ -1,13 +1,16 @@
 @import 'styles/theme';
 
 .login {
+
   &.container {
-    margin-top: 2em;
+    margin-top: 10em;
     min-height: 300px;
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
     flex-direction: column;
   }
+
+  /*this values define the black box around the username and password field*/
   &.form {
     display: flex;
     flex-direction: column;
@@ -24,27 +27,32 @@
     transition: opacity 0.5s ease, transform 0.5s ease;
     box-shadow: $dropShadow;
   }
+ /*this is the field from  login field defined in login.js as template on top of the file*/
   &.field {
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
+  /*this values define the two input fields for username and password*/
   &.input {
     height: 35px;
     padding-left: 15px;
     margin-left: -4px;
     border: none;
-    border-radius: 0.75em;
+    border-radius: 0.4em;
     margin-bottom: 20px;
-    background: transparentize(white, 0.85);
-    color: $textColor;
+    background: white;
+    color: black;
+    font-weight: bold;
   }
+  /*this values define the labels (the texts "Username" and "Password")*/
   &.label {
     color: $textColor;
     margin-bottom: 10px;
-    text-transform: lowercase;
-    font-weight: 300;
+    text-transform: capitalize;
+    font-weight: bold;
   }
+  /*this values define the position of the login button*/
   &.button-container {
     display: flex;
     justify-content: center;

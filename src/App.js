@@ -9,7 +9,7 @@ import AppRouter from "components/routing/routers/AppRouter";
 const App = () => {
   return (
     <div>
-      <Header height="100"/>
+      {/*<Header height="100"/>   uncomment this line to make header appear again*/}
       <AppRouter/>
     </div>
   );
