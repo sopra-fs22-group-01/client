@@ -8,6 +8,7 @@
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
     flex-direction: column;
+    background-color:$background;
   }
 
   /*this values define the black box around the username and password field*/
