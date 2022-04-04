@@ -70,14 +70,14 @@ const ProfilePage = () => {
     content =(
     <div className="lobby">
       <div>
-      <p>Hello {user.username}!</p>
+      <p>Hello {user.username} !</p>
       </div>
       <div className="profilePage button-container">
         <Button
           width="60%"
           onClick={() => history.push(`/lobby`)}
         >
-          Back
+          Go to Game Lobby
         </Button>
 
         <Button
@@ -95,9 +95,18 @@ const ProfilePage = () => {
 
   return (
     <BaseContainer className="profilePage container">
-      <h2>Profile Page</h2>
+      <h2>Profile</h2>
       <div>
-        <><img className="profilePage photo" src={profileIcon} alt=""/></>
+        <div>
+          <img className="profilePage photo" src={profileIcon} alt=""/>
+          <div className="avatar user-item">
+            <Button
+                width="100%"
+            >
+              avatar</Button>
+          </div>
+
+        </div>
       </div>
       {content}
     </BaseContainer>
