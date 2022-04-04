@@ -79,6 +79,7 @@ const Login = props => {
                     <div className="login button-container">
                         <Button
                             disabled={!username || !password} //if no password or username is entered, button cant be clicked
+                            width="50%" //define size of button here so it can be 100% in the button template
                             onClick={() => doLogin()}
                         >
                             Login
