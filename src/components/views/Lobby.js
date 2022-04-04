@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
@@ -11,7 +11,6 @@ import {Card} from "../ui/Card";
 const Player = ({user}) => (
   <div className="player container">
     <div className="player username">{user.username}</div>
-    <div className="player id">id: {user.id}</div>
       <div className="player id">{user.userStatus}</div>
 
   </div>
@@ -31,8 +30,10 @@ const Lobby = () => {
   // a component can have as many state variables as you like.
   // more information can be found under https://reactjs.org/docs/hooks-state.html
   const [users, setUsers] = useState(null);
-  const [curToken, setCurToken] = useState(null);
+  const [user, setUser] = useState(null);
   const [readyText, setReadyText] = useState("I am Ready");
+  const [readyStatus, setReadyStatus] = useState('UNREADY')
+  const {id} = useParams();
 
   const logout = async () => {
     try{
@@ -52,10 +53,24 @@ const Lobby = () => {
     history.push('/login');
   }
 
-  const readyStatus = async  () => {
-      //try{
-         // const response = await api.put(`/lobby/users/${user.id}`)
-      //}
+  const isReady = async  () => {
+      if (readyText === "I am Ready"){
+          setReadyText("Unready")
+          setReadyStatus("READY")
+      }
+      else{
+          setReadyText("I am Ready")
+          setReadyStatus('UNREADY');
+      }
+      try{
+
+          const requestBody = JSON.stringify({"id":user.id,"username":user.username, "date":user.date, "userStatus":user.userStatus, "readyStatus":{ready: readyStatus}}); //creates .json file (?)
+          const response = await api.put(`/users/`+ user.id, requestBody);
+          console.log(response)
+      }
+      catch (error) {
+          alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
+      }
   }
 
 
@@ -69,6 +84,7 @@ const Lobby = () => {
     async function fetchData() {
       try {
         const response = await api.get('/users');
+        const userResponse = await api.get(`/users/?id=${id}`);
 
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
@@ -77,6 +93,7 @@ const Lobby = () => {
 
         // Get the returned users and update the state.
         setUsers(response.data);
+        setUser(userResponse.data);
 
         // This is just some data for you to see what is available.
         // Feel free to remove it.
@@ -117,11 +134,7 @@ const Lobby = () => {
         </Button>
           <Button
               width="100%"
-              onClick={() => {
-                  if (readyText === "I am Ready")
-                  setReadyText("Unready");
-                  else setReadyText("I am Ready")
-              }}
+              onClick={() => isReady()}
           >
               {readyText}
           </Button>
@@ -131,9 +144,8 @@ const Lobby = () => {
 
   return (
     <BaseContainer className="lobby container">
-      <h2>Happy Coding!</h2>
+      <h2>Lobby: ({user.username}) is {readyStatus}</h2>
       <p className="lobby paragraph">
-        Get all users from secure endpoint:
       </p>
       {content}
     </BaseContainer>
