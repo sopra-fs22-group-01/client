@@ -2,13 +2,28 @@
 
 .login {
 
+  /* component to for the text with the link to the registration page */
+  &.registrationText{
+    margin-top: 15px;
+    text-align: center;
+  }
+
+
+  /* Since Link get's transpiled to an <a>, you can use css to style all <a> and change all links color  and text alligns*/
+  a{
+    color: $textColor;
+  }
+  a:hover {
+    color: grey;
+  }
+
   &.container {
     margin-top: 10em;
     min-height: 300px;
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
     flex-direction: column;
-    background-color:$background;
+    background-color: $background;
   }
 
   /*this values define the black box around the username and password field*/
@@ -18,22 +33,25 @@
     justify-content: center;
     width: 60%;
     max-width: 30em;
-    height: 20em;
+    height: 25em;
     font-size: 16px;
     font-weight: 300;
     padding-left: 37px;
     padding-right: 37px;
     border-radius: 0.75em;
-    background-color: $background;
+    background-color: transparent;
     transition: opacity 0.5s ease, transform 0.5s ease;
     box-shadow: $dropShadow;
+    text-align: left;
   }
- /*this is the field from  login field defined in login.js as template on top of the file*/
+
+  /*this is the field from  login field defined in login.js as template on top of the file*/
   &.field {
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
+
   /*this values define the two input fields for username and password*/
   &.input {
     height: 35px;
@@ -46,6 +64,7 @@
     color: black;
     font-weight: bold;
   }
+
   /*this values define the labels (the texts "Username" and "Password")*/
   &.label {
     color: $textColor;
@@ -53,6 +72,7 @@
     text-transform: capitalize;
     font-weight: bold;
   }
+
   /*this values define the position of the login button*/
   &.button-container {
     display: flex;

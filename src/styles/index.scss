@@ -5,7 +5,7 @@
 This file contains the general and shared style of your application.
  */
 
-/*I guess this defines the whole page with its background color and stuff*/
+/*This defines the whole page with its background color and stuff*/
 body {
   margin: 0;
   padding: 0;
@@ -15,6 +15,7 @@ body {
   background-color: $background;
 }
 
+/* all this elements get the same stuff */
 input,
 textarea,
 select,
