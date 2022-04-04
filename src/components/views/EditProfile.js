@@ -16,17 +16,17 @@ specific components that belong to the main one in the same file.
  */
 const FormField = props => {
   return (
-    <div className="editProfile field">
-      <label className="editProfile label">
-        {props.label}
-      </label>
-      <input
-        className="editProfile input"
-        placeholder="enter here.."
-        value={props.value}
-        onChange={e => props.onChange(e.target.value)}
-      />
-    </div>
+      <div className="editProfile field">
+        <label className="editProfile label">
+          {props.label}
+        </label>
+        <input
+            className="editProfile input"
+            placeholder="enter here.."
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)}
+        />
+      </div>
   );
 };
 
@@ -100,43 +100,43 @@ const EditProfile = () =>{
 
 
   return (
-    <BaseContainer>
-      <div className="editProfile container">
-        <div className="editProfile form">
-          <FormField
-            label="Change username"
-            value={username}
-            onChange={un => setUsername(un)}
-          />
+      <BaseContainer>
+        <div className="editProfile container">
+          <div className="editProfile form">
+            <FormField
+                label="Change username"
+                value={username}
+                onChange={un => setUsername(un)}
+            />
 
-          <FormField
-            label="Change birthday"
-            value={birthday}
-            onChange={bd => setBirthday(bd)}
-          />
-          <div> Birthday has to be of form YYYY-MM-DD </div>
-          <div className="editProfile button-container">
-            <Button
-              width="100%"
-              onClick={() => saveChanges()}
-            >
-              Save changes
-            </Button>
-          </div>
+            <FormField
+                label="Change birthday"
+                value={birthday}
+                onChange={bd => setBirthday(bd)}
+            />
+            <div> Birthday has to be of form YYYY-MM-DD </div>
+            <div className="editProfile button-container">
+              <Button
+                  width="100%"
+                  onClick={() => saveChanges()}
+              >
+                Save changes
+              </Button>
+            </div>
 
-          <div className="editProfile button-container">
-            <Button
-              width="100%"
-              onClick={() => history.goBack()}
-            >
-              Back
-            </Button>
+            <div className="editProfile button-container">
+              <Button
+                  width="100%"
+                  onClick={() => history.goBack()}
+              >
+                Back
+              </Button>
+            </div>
+
           </div>
 
         </div>
-
-      </div>
-    </BaseContainer>
+      </BaseContainer>
   );
 };
 

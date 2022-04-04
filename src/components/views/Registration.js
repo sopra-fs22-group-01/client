@@ -61,7 +61,7 @@ const Registration = props => {
             // Login successfully worked --> navigate to the route /game in the GameRouter
             history.push(`/lobby`);
         } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
+            alert(`Something went wrong during the registration: \n${handleError(error)}`);
         }
     };
 

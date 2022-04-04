@@ -75,7 +75,7 @@ const ProfilePage = () => {
       <div className="profilePage button-container">
         <Button
           width="60%"
-          onClick={() => history.push(`/lobby/players/${user.id}`)}
+          onClick={() => history.push(`/lobby`)}
         >
           Go to Game Lobby
         </Button>

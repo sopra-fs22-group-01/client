@@ -15,17 +15,17 @@ specific components that belong to the main one in the same file.
  */
 const FormField = props => {
   return (
-    <div className="login field">
-      <label className="login label">
-        {props.label}
-      </label>
-      <input
-        className="login input"
-        placeholder="enter here.."
-        value={props.value}
-        onChange={e => props.onChange(e.target.value)}
-      />
-    </div>
+      <div className="login field">
+        <label className="login label">
+          {props.label}
+        </label>
+        <input
+            className="login input"
+            placeholder="enter here.."
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)}
+        />
+      </div>
   );
 };
 
@@ -65,42 +65,42 @@ const Login = props => {
   };
 
   return (
-    <BaseContainer>
-      <div className="login container">
-        <div className="login form">
-          <FormField
-            label="Username"
-            value={username}
-            onChange={un => setUsername(un)}
-          />
-          <FormField
-            label="Password"
-            value={password}
-            onChange={n => setPassword(n)}
-          />
-          <div className="login button-container">
-            <Button
-                width="100%"
-                onClick={() =>  history.push(`/registration`)}
-            >
-              No account? Click here to register
-            </Button>
-          </div>
+      <BaseContainer>
+        <div className="login container">
+          <div className="login form">
+            <FormField
+                label="Username"
+                value={username}
+                onChange={un => setUsername(un)}
+            />
+            <FormField
+                label="Password"
+                value={password}
+                onChange={n => setPassword(n)}
+            />
+            <div className="login button-container">
+              <Button
+                  width="100%"
+                  onClick={() =>  history.push(`/registration`)}
+              >
+                No account? Click here to register
+              </Button>
+            </div>
 
-          <div className="login button-container">
-            <Button
-              disabled={!username || !password} //if no password or username is entered, button cant be clicked
-              width="100%"
-              onClick={() => doLogin()}
-            >
-              Login
-            </Button>
+            <div className="login button-container">
+              <Button
+                  disabled={!username || !password} //if no password or username is entered, button cant be clicked
+                  width="100%"
+                  onClick={() => doLogin()}
+              >
+                Login
+              </Button>
+            </div>
+
           </div>
 
         </div>
-
-      </div>
-    </BaseContainer>
+      </BaseContainer>
   );
 };
 
