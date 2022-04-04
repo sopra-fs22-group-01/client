@@ -5,13 +5,14 @@ import {Button} from 'components/ui/Button';
 import {Link, useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import "styles/views/Game.scss";
+import "styles/views/Lobby.scss";
 import {Card} from "../ui/Card";
 
 const Player = ({user}) => (
   <div className="player container">
     <div className="player username">{user.username}</div>
     <div className="player id">id: {user.id}</div>
+      <div className="player id">{user.userStatus}</div>
 
   </div>
 );
@@ -20,7 +21,7 @@ Player.propTypes = {
   user: PropTypes.object
 };
 
-const Game = () => {
+const Lobby = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
 
@@ -90,8 +91,8 @@ const Game = () => {
 
   if (users) {
     content = (
-      <div className="game">
-        <ul className="game user-list">
+      <div className="lobby">
+        <ul className="lobby user-list">
           {users.map(user => (
             <Link to={`/users/${user.id}`} style={{color: 'white'}}>
               <Player user={user} key={user.id}/>
@@ -109,9 +110,9 @@ const Game = () => {
   }
 
   return (
-    <BaseContainer className="game container">
+    <BaseContainer className="lobby container">
       <h2>Happy Coding!</h2>
-      <p className="game paragraph">
+      <p className="lobby paragraph">
         Get all users from secure endpoint:
       </p>
       {content}
@@ -124,4 +125,4 @@ const Game = () => {
   );
 }
 
-export default Game;
+export default Lobby;

@@ -68,15 +68,14 @@ const ProfilePage = () => {
 
   if(user){
     content =(
-
-    <div className="game">
+    <div className="lobby">
       <div>
       <p>Hello {user.username}!</p>
       </div>
       <div className="profilePage button-container">
         <Button
           width="60%"
-          onClick={() => history.push(`/game`)}
+          onClick={() => history.push(`/lobby`)}
         >
           Back
         </Button>
@@ -98,12 +97,12 @@ const ProfilePage = () => {
     <BaseContainer className="profilePage container">
       <h2>Profile Page</h2>
       <div>
-        <></>
+        <> </>
       </div>
       {content}
     </BaseContainer>
   );
-  //<img className="profilePage photo" src={profileIcon} alt=""/>
+  // at line 100: <img className="profilePage photo" src={profileIcon} alt=""/>
 
 }
 

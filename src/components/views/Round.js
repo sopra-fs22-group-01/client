@@ -5,7 +5,7 @@ import {Button} from 'components/ui/Button';
 import {Link, useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import "styles/views/Game.scss";
+import "styles/views/Lobby.scss";
 
 const Player = ({user}) => (
   <div className="player container">

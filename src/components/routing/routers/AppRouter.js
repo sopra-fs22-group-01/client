@@ -7,7 +7,7 @@ import EditProfile from "components/views/EditProfile";
 import Registration from "../../views/Registration";
 import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
 import ProfilePage from "../../views/ProfilePage";
-import Game from "../../views/Game";
+import Lobby from "../../views/Lobby";
 
 /**
  * Main router of your application.
@@ -34,11 +34,13 @@ const AppRouter = () => {
             <ProfilePage/>
           </GameGuard>
         </Route>
-        <Route path="/game">
+
+        <Route path="/lobby">
           <GameGuard>
-            <GameRouter base="/game"/>
+            <GameRouter base="/lobby"/>
           </GameGuard>
         </Route>
+
         <Route exact path="/login">
           <LoginGuard>
             <Login/>
@@ -49,9 +51,11 @@ const AppRouter = () => {
             <Registration/>
           </RegistrationGuard>
         </Route>
+
         <Route exact path="/">
-          <Redirect to="/game"/>
+          <Redirect to="/lobby"/>
         </Route>
+
       </Switch>
     </BrowserRouter>
   );
