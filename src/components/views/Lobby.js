@@ -31,6 +31,8 @@ const Lobby = () => {
   // a component can have as many state variables as you like.
   // more information can be found under https://reactjs.org/docs/hooks-state.html
   const [users, setUsers] = useState(null);
+  const [curToken, setCurToken] = useState(null);
+  const [readyText, setReadyText] = useState("I am Ready");
 
   const logout = async () => {
     try{
@@ -49,6 +51,14 @@ const Lobby = () => {
     localStorage.removeItem('token');
     history.push('/login');
   }
+
+  const readyStatus = async  () => {
+      //try{
+         // const response = await api.put(`/lobby/users/${user.id}`)
+      //}
+  }
+
+
 
   // the effect hook can be used to react to change in your component.
   // in this case, the effect hook is only run once, the first time the component is mounted
@@ -105,6 +115,16 @@ const Lobby = () => {
         >
           Logout
         </Button>
+          <Button
+              width="100%"
+              onClick={() => {
+                  if (readyText === "I am Ready")
+                  setReadyText("Unready");
+                  else setReadyText("I am Ready")
+              }}
+          >
+              {readyText}
+          </Button>
       </div>
     );
   }
@@ -116,11 +136,6 @@ const Lobby = () => {
         Get all users from secure endpoint:
       </p>
       {content}
-      <Card
-          //width="75%"
-      >
-        The White Card.
-      </Card>
     </BaseContainer>
   );
 }
