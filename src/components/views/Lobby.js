@@ -31,7 +31,6 @@ const Lobby = () => {
     // a component can have as many state variables as you like.
     // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [users, setUsers] = useState(null);
-    const [curToken, setCurToken] = useState(null);
     const [readyText, setReadyText] = useState("I am Ready");
     const [user, setUser] = useState(null);
     const [readyStat, setReadyStat] = useState("UNREADY");
