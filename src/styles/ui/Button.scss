@@ -6,22 +6,25 @@
   }
   &:disabled {
     cursor: default;
-    opacity: 0.4;
+    opacity: 0.5;
     &:hover {
       transform: none;
     }
   }
-  padding: 6px;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 13px;
+
+  margin-right: 30px;
+  margin-left: 30px;
+  padding: 10px;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 25px;
   text-align: center;
-  height: 35px;
+  height: 50px;
   border: none;
   border-radius: $borderRadius;
   cursor: pointer;
   opacity: 1;
-  color: $background;
-  background-color: $accent;
+  color: black;
+  background-color: white;
   transition: all 0.3s ease;
 }

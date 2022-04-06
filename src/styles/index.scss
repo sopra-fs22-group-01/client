@@ -4,15 +4,18 @@
 /**
 This file contains the general and shared style of your application.
  */
+
+/*This defines the whole page with its background color and stuff*/
 body {
   margin: 0;
   padding: 0;
   min-width: 100vw;
   min-height: 100vh;
   font-family: $fontDefault;
-  background-image: linear-gradient(135deg, $accent 10%, $accentDark 100%);
+  background-color: $background;
 }
 
+/* all this elements get the same stuff */
 input,
 textarea,
 select,
