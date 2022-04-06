@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import User from 'models/User';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/Registration.scss';
 import BaseContainer from "components/ui/BaseContainer";
@@ -21,7 +21,6 @@ const FormField = props => {
             </label>
             <input
                 className="registration input"
-                placeholder="enter here.."
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
             />
@@ -70,12 +69,12 @@ const Registration = props => {
             <div className="registration container">
                 <div className="registration form">
                     <FormField
-                        label="Username"
+                        label="Username:"
                         value={username}
                         onChange={un => setUsername(un)}
                     />
                     <FormField
-                        label="Password"
+                        label="Password:"
                         value={password}
                         onChange={(n) => setPassword(n) }
                     />
@@ -83,13 +82,19 @@ const Registration = props => {
                     <div className="registration button-container">
                         <Button
                             disabled={!username || !password} //if no birthday or username is entered, button cant be clicked
-                            width="100%"
+                            width="50%" //define size of button here so it can be 100% in the button template
                             onClick={() => doRegistration()}
                         >
                             Register
                         </Button>
                     </div>
-
+                    <div className="login registrationText">
+                        <text>Already have an account? Click </text>
+                        <Link to={`/login`}>
+                            <text>here</text>
+                        </Link>
+                        <text> to log in.</text>
+                    </div>
                 </div>
 
             </div>

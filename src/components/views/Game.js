@@ -89,7 +89,7 @@ const Game = () => {
   let content = <Spinner/>;
 
   if (users) {
-    content = (
+     content = (
       <div className="game">
         <ul className="game user-list">
           {users.map(user => (

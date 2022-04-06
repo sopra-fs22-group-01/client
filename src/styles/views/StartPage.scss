@@ -1,0 +1,27 @@
+@import 'styles/theme';
+
+.startpage {
+
+  &.container {
+    margin-top: 10em;
+    min-height: 300px;
+    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
+    @include center;
+    flex-direction: column;
+    background-color: $background;
+  }
+
+  &.text-container{
+    font-size: 500%;
+    font-weight: bold;
+  }
+
+
+  /*this values define the position of the login button bc it is inside the button-container*/
+  &.button-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 8em;
+  }
+}
