@@ -6,7 +6,22 @@ import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
+import "styles/ui/PopUp.scss";
 import {Card} from "../ui/Card";
+
+
+
+const Popup = props => {
+    return (
+      <div className="popup-box">
+          <div className="box">
+              <span className="close-icon" onClick={props.handleClose}>x</span>
+              {props.content}
+          </div>
+      </div>
+    );
+};
+
 
 const Player = ({user}) => (
     <div className="player container">
@@ -16,6 +31,7 @@ const Player = ({user}) => (
 
     </div>
 );
+
 
 Player.propTypes = {
     user: PropTypes.object
@@ -35,6 +51,12 @@ const Lobby = () => {
     const [user, setUser] = useState(null);
     const [readyStat, setReadyStat] = useState("UNREADY");
     const {id} = useParams();
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const togglePopup = () => {
+        setIsOpen(!isOpen);
+    }
 
     const logout = async () => {
         try{
@@ -117,7 +139,7 @@ const Lobby = () => {
     }, []);
 
     let content = <Spinner/>;
-
+    let popupContent = <Spinner/>
     if (users) {
         content = (
             <div className="lobby">
@@ -140,7 +162,28 @@ const Lobby = () => {
                 >
                     {readyText}
                 </Button>
+
+                <Button
+                    width= "27%"
+                    onClick={togglePopup}
+                >
+                    Rules
+
+                </Button>
+
+                {isOpen && <Popup
+                  content={<>
+                      <b>Game Rules</b>
+                      <p>Rule 1:................</p>
+                      <p>Rule 2:................</p>
+                      <p>Rule 3:................</p>
+                      <button>Test button</button>
+                  </>}
+                  handleClose={togglePopup}
+                />}
+
             </div>
+
         );
     }
 
