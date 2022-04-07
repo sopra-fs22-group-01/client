@@ -19,6 +19,8 @@
   &.user-list {
     list-style: none;
     padding-left: 0;
+    align-items: stretch;
+    background-color: blueviolet;
   }
   &.user-item {
     display: flex;
@@ -42,7 +44,7 @@
     display: flex;
     align-items: center;
     //background: lighten($background, 5);
-    background-color: gray;
+    background: gray;
   }
   &.name {
     font-weight: 300;

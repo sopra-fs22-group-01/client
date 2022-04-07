@@ -30,10 +30,14 @@ const Popup = props => {
 
 let readyIcon = <BiCircle/>;
 const Player = ({user}) => (
+    //const icon = user.isReady;
+    //if user== curUser:
+        //icon = readyIcon
     <div className="player container">
         <div className="player username">{user.username}</div>
+        <div className="player id">{readyIcon}</div>
         <div className="player id">
-            {readyIcon}
+            {user.isReady}
         </div>
     </div>
 );
@@ -83,7 +87,7 @@ const Lobby = () => {
         history.push('/login');
     }
 
-    const isReady = async  () => {
+    const isReady = async () => {
         if (readyText === "I am Ready"){
             setReadyText("Unready")
             setReadyStat("READY")
@@ -95,10 +99,16 @@ const Lobby = () => {
             readyIcon = <BiCircle/>;
         }
         try{
-            const a =  null;
-            //const requestBody = JSON.stringify({"id":user.id,"username":user.username, "date":user.date, "userStatus":user.userStatus, "readyStatus":{ready: readyStatus}}); //creates .json file (?)
-            //const response = await api.put(`/users/`+ user.id, requestBody);
-            //console.log(response)
+            const requestBody = JSON.stringify(
+                {"id":user.id,
+                    "username":user.username,
+                    "date":user.date,
+                    "userStatus":user.userStatus,
+                    "birthday": user.birthday,
+                    "isReady": readyStat}); //creates .json file (?)
+
+            const response = await api.put(`/lobby/users/${user.id}`, requestBody);
+            console.log(response)
         }
         catch (error) {
             alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
@@ -143,9 +153,8 @@ const Lobby = () => {
                 alert("Something went wrong while fetching the users! See the console for details.");
             }
         }
-
         fetchData();
-    }, []);
+    }, [user]);
 
     let content = <Spinner/>;
     let popupContent = <Spinner/>
@@ -198,7 +207,7 @@ const Lobby = () => {
 
     return (
         <BaseContainer className="lobby container">
-            <h2>Lobby {readyStat}</h2>
+            <h2>Lobby (readyStat){readyStat}</h2>
             <p className="lobby paragraph">
                 Get all users from secure endpoint:
             </p>
