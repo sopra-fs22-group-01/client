@@ -7,7 +7,11 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
 import "styles/ui/PopUp.scss";
-import {Card} from "../ui/Card";
+//import {Card} from "../ui/Card";
+import {AiOutlineCheckCircle} from "react-icons/ai";
+import {BsCircle} from "react-icons/bs";
+import {BiCircle, BiCheckCircle} from "react-icons/bi";
+import user from "../../models/User";
 
 
 
@@ -23,12 +27,14 @@ const Popup = props => {
 };
 
 
+
+let readyIcon = <BiCircle/>;
 const Player = ({user}) => (
     <div className="player container">
         <div className="player username">{user.username}</div>
-        <div className="player id">id: {user.id}</div>
-        <div className="player id">{user.userStatus}</div>
-
+        <div className="player id">
+            {readyIcon}
+        </div>
     </div>
 );
 
@@ -50,6 +56,7 @@ const Lobby = () => {
     const [readyText, setReadyText] = useState("I am Ready");
     const [user, setUser] = useState(null);
     const [readyStat, setReadyStat] = useState("UNREADY");
+    //const [readyIcon, setReadyIcon] = useState(<BiCircle/>);
     const {id} = useParams();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -80,10 +87,12 @@ const Lobby = () => {
         if (readyText === "I am Ready"){
             setReadyText("Unready")
             setReadyStat("READY")
+            readyIcon = <BiCheckCircle/>
         }
         else{
             setReadyText("I am Ready")
             setReadyStat('UNREADY');
+            readyIcon = <BiCircle/>;
         }
         try{
             const a =  null;

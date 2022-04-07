@@ -54,6 +54,7 @@ const AppRouter = () => {
                         <Registration/>
                     </RegistrationGuard>
                 </Route>
+
                 <Route exact path="/">
                     <Redirect to="/lobby"/>
                 </Route>
@@ -63,3 +64,12 @@ const AppRouter = () => {
 };
 //Don't forget to export your component!
 export default AppRouter;
+
+// insert at line 58
+/**
+ * <Route exact path="/">
+ *   <Redirect to="/lobby"/>
+ *  </Route>
+ */
+
+

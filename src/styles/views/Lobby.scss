@@ -41,11 +41,13 @@
     border-radius: $borderRadius;
     display: flex;
     align-items: center;
-    background: lighten($background, 5);
+    //background: lighten($background, 5);
+    background-color: gray;
   }
   &.name {
     font-weight: 300;
     margin-left: 5px;
+
   }
   &.username {
     font-weight: 500;

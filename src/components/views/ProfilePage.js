@@ -103,7 +103,8 @@ const ProfilePage = () => {
             <Button
                 width="100%"
             >
-              avatar</Button>
+              avatar
+            </Button>
           </div>
 
         </div>
