@@ -9,7 +9,10 @@ class User {
     this.password = null;
     this.date = null;
     this.isLoggedIn = null;
+
     this.userStatus = null;
+    this.readyStatus = null;
+
     this.birthday = null;
     Object.assign(this, data);
   }

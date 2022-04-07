@@ -25,8 +25,6 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Switch>
-
-                //provisorisches routing to startpage via GameGuard
                 <Route path="/startpage">
                     <StartPage/>
                 </Route>
@@ -41,9 +39,9 @@ const AppRouter = () => {
                         <ProfilePage/>
                     </GameGuard>
                 </Route>
-                <Route path="/game">
+                <Route path="/lobby">
                     <GameGuard>
-                        <GameRouter base="/game"/>
+                        <GameRouter base="/lobby"/>
                     </GameGuard>
                 </Route>
                 <Route exact path="/login">
@@ -56,8 +54,9 @@ const AppRouter = () => {
                         <Registration/>
                     </RegistrationGuard>
                 </Route>
+
                 <Route exact path="/">
-                    <Redirect to="/game"/>
+                    <Redirect to="/lobby"/>
                 </Route>
             </Switch>
         </BrowserRouter>
@@ -65,3 +64,12 @@ const AppRouter = () => {
 };
 //Don't forget to export your component!
 export default AppRouter;
+
+// insert at line 58
+/**
+ * <Route exact path="/">
+ *   <Redirect to="/lobby"/>
+ *  </Route>
+ */
+
+

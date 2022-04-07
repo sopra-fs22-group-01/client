@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, Component} from 'react';
 import {api, handleError} from 'helpers/api';
 import User from 'models/User';
 import {Link, useHistory} from 'react-router-dom';
@@ -6,6 +6,7 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/Registration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import {AiOutlineCheckCircle} from "react-icons/ai";
 
 
 /*
@@ -59,9 +60,9 @@ const Registration = props => {
             localStorage.setItem('token', user.token);
 
             // Login successfully worked --> navigate to the route /game in the GameRouter
-            history.push(`/game`);
+            history.push(`/users/${user.id}`);
         } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
+            alert(`Something went wrong during the registration: \n${handleError(error)}`);
         }
     };
 
@@ -69,6 +70,7 @@ const Registration = props => {
         <BaseContainer>
             <div className="registration container">
                 <div className="registration form">
+                    <AiOutlineCheckCircle/>
                     <FormField
                         label="Username:"
                         value={username}

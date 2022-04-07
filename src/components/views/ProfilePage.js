@@ -6,7 +6,7 @@ import {Card} from 'components/ui/Card';
 import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/ProfilePage.scss";
-//import profileIcon from 'images/profileIcon2.png';
+import profileIcon from 'images/profileIcon2.png';
 
 
 
@@ -68,17 +68,16 @@ const ProfilePage = () => {
 
   if(user){
     content =(
-
-    <div className="game">
+    <div className="lobby">
       <div>
-      <p>Hello {user.username}!</p>
+      <p>Hello {user.username} !</p>
       </div>
       <div className="profilePage button-container">
         <Button
           width="60%"
-          onClick={() => history.push(`/game`)}
+          onClick={() => history.push(`/lobby/players/${user.id}`)}
         >
-          Back
+          Go to Game Lobby
         </Button>
 
         <Button
@@ -96,14 +95,24 @@ const ProfilePage = () => {
 
   return (
     <BaseContainer className="profilePage container">
-      <h2>Profile Page</h2>
+      <h2>Profile</h2>
       <div>
-        <></>
+        <div>
+          <img className="profilePage photo" src={profileIcon} alt=""/>
+          <div className="avatar user-item">
+            <Button
+                width="100%"
+            >
+              avatar
+            </Button>
+          </div>
+
+        </div>
       </div>
       {content}
     </BaseContainer>
   );
-  //<img className="profilePage photo" src={profileIcon} alt=""/>
+  // at line 100: <img className="profilePage photo" src={profileIcon} alt=""/>
 
 }
 

@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
  * @Guard
  * @param props
  */
-export const GameGuard = props => {
+export const GameGuard = props => { // insert as if-clause line 14: localStorage.getItem("token")
   if (localStorage.getItem("token")) {
     return props.children;
   }
