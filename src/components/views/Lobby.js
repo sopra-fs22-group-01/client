@@ -183,9 +183,20 @@ const Lobby = () => {
                 {isOpen && <Popup
                   content={<>
                       <b>Game Rules</b>
-                      <p>Rule 1:................</p>
-                      <p>Rule 2:................</p>
-                      <p>Rule 3:................</p>
+                      <p>
+
+                        There are two types of cards: Black cards and white cards.
+                        -	Black Card: A Black Card contains a sentence which misses one or several words that have to be completed by a white card.
+                        -	White Card: A white card contains a part of a sentence that can be used to fill in the missing part of a black card.
+                        Start of the Game:
+                        At the start of a game, each player gets 10 white cards from which they can later choose from.
+                        A black card gets displayed for X seconds. During the time the black card gets displayed, each player has to select the white card they want to play by clicking on the one they want to choose.
+                        After the time is up, the cards get displayed to the players one after another. The players then get time to vote for their favourite, by clicking on the white card they like the most.
+                        After the voting time is up, the player with the most voted card gets a point.
+                        The player who first reaches X points wins the game.
+
+                        Special: Each player has a limited number of supervotes, which they can give if they find a card extraordinarily funny. A super vote counts as two votes.
+                      </p>
                       <button>Test button</button>
                   </>}
                   handleClose={togglePopup}
