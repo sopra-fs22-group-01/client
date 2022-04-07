@@ -33,7 +33,7 @@
     width: 60%;
     max-width: 30em;
     height: 25em;
-    font-size: 16px;
+    font-size: 1em;
     font-weight: 300;
     padding-left: 37px;
     padding-right: 37px;
@@ -53,11 +53,11 @@
 
   /*this values define the two input fields for username and password*/
   &.input {
-    height: 35px;
+    height: 3em;
     padding-left: 15px;
     margin-left: -4px;
     border: none;
-    border-radius: 0.4em;
+    border-radius: 0.7em;
     margin-bottom: 20px;
     background: white;
     color: black;
@@ -70,6 +70,7 @@
     margin-bottom: 10px;
     text-transform: capitalize;
     font-weight: bold;
+    font-size: 1.5em;
   }
 
   /*this values define the position of the login button bc it is inside the button-container*/

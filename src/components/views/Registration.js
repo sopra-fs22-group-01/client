@@ -70,7 +70,6 @@ const Registration = props => {
         <BaseContainer>
             <div className="registration container">
                 <div className="registration form">
-                    <AiOutlineCheckCircle/>
                     <FormField
                         label="Username:"
                         value={username}
