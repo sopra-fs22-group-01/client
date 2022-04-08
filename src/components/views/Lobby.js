@@ -29,13 +29,14 @@ const Popup = props => {
 
 
 let readyIcon = <BiCircle/>;
+
 const Player = ({user}) => (
     //const icon = user.isReady;
     //if user== curUser:
         //icon = readyIcon
     <div className="player container">
         <div className="player username">{user.username}</div>
-        <div className="player id">{readyIcon}</div>
+        <div className="player id"></div>
         <div className="player id">
             {user.isReady}
         </div>
@@ -98,17 +99,18 @@ const Lobby = () => {
             setReadyStat('UNREADY');
             readyIcon = <BiCircle/>;
         }
+
         try{
             const requestBody = JSON.stringify(
-                {"id":user.id,
+                {"id":id,
                     "username":user.username,
                     "date":user.date,
                     "userStatus":user.userStatus,
                     "birthday": user.birthday,
                     "isReady": readyStat}); //creates .json file (?)
 
-            const response = await api.put(`/lobby/users/${user.id}`, requestBody);
-            console.log(response)
+            const updateResponse = await api.put(`/lobby/users/${user.id}`, requestBody);
+            console.log(updateResponse)
         }
         catch (error) {
             alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
@@ -116,7 +118,15 @@ const Lobby = () => {
 
     }
 
+    const gameReady = async () => {
+        const response = await api.get('/game/status');
+        const gameStat = response.data;
 
+        console.log(response);
+        if (gameStat === "All_set"){
+            history.push(`/lobby/rounds`)
+        }
+    }
 
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
@@ -129,6 +139,7 @@ const Lobby = () => {
                 const response = await api.get('/users');
                 const u = await api.get(`/users/?id=${id}`);
 
+
                 // delays continuous execution of an async operation for 1 second.
                 // This is just a fake async call, so that the spinner can be displayed
                 // feel free to remove it :)
@@ -137,6 +148,7 @@ const Lobby = () => {
                 // Get the returned users and update the state.
                 setUsers(response.data);
                 setUser(u.data);
+                setTimeout(() => {  console.log("World!"); }, 2000);
 
                 // This is just some data for you to see what is available.
                 // Feel free to remove it.
@@ -147,13 +159,63 @@ const Lobby = () => {
 
                 // See here to get more data.
                 console.log(response);
+
+                const Gresponse = await api.get('/game/status');
+                const gameStat = Gresponse.data;
+                console.log(Gresponse);
+                //setReadyText(gameStat)
+                if (gameStat === "All_Set"){
+                    history.push(`/lobby/rounds`)
+                }
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the users! See the console for details.");
             }
         }
+        /*async function gameReady() {
+            try {
+                const response = await api.get('/game/status');
+                const gameStat = response.data;
+                setReadyText(gameStat);
+
+                console.log(response);
+            } catch (error) {
+                console.error(`Something went wrong while fetching game status: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching game status! See the console for details.");
+            }
+        }
+
+         */
+        /*
+        async function updateReady() {
+            try {
+                const requestBody = JSON.stringify(
+                    {
+                        "id": id,
+                        "username": "",
+                        "date": "",
+                        "isReady": readyStat,
+                        "userStatus": "ONLINE",
+                        "birthday": null,
+                    }); //creates .json file (?)
+
+                const updateResponse = await api.put(`/lobby/users/${user.id}`, requestBody);
+                console.log(updateResponse)
+
+            } catch (error) {
+                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the users! See the console for details.");
+            }
+        }
+
+         */
+
         fetchData();
+        //gameReady();
+        //updateReady();
     }, [user]);
 
     let content = <Spinner/>;
@@ -204,16 +266,17 @@ const Lobby = () => {
 
         );
     }
+        return (
+            <BaseContainer className="lobby container">
+                <h2>Lobby</h2>
+                <p className="lobby paragraph">
+                    Get all users from secure endpoint:
+                </p>
+                {content}
+            </BaseContainer>
+        );
 
-    return (
-        <BaseContainer className="lobby container">
-            <h2>Lobby (readyStat){readyStat}</h2>
-            <p className="lobby paragraph">
-                Get all users from secure endpoint:
-            </p>
-            {content}
-        </BaseContainer>
-    );
+
 }
 
 export default Lobby;

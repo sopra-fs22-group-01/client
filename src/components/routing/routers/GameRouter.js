@@ -1,6 +1,7 @@
 import {Redirect, Route} from "react-router-dom";
 import Lobby from "components/views/Lobby";
 import PropTypes from 'prop-types';
+import Round from "../../views/Round";
 
 const GameRouter = props => {
   /**
@@ -12,9 +13,14 @@ const GameRouter = props => {
         <Lobby/>
       </Route>
 
+      <Route exact path={`${props.base}/rounds`}>
+         <Round/>
+      </Route>
+
       <Route exact path={`${props.base}`}>
         <Redirect to={`${props.base}/players`}/>
       </Route>
+
     </div>
   );
 };
