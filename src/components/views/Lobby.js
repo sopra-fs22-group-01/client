@@ -27,16 +27,13 @@ const Popup = props => {
 };
 
 
-
-let readyIcon = <BiCircle/>;
-
 const Player = ({user}) => (
     //const icon = user.isReady;
     //if user== curUser:
         //icon = readyIcon
     <div className="player container">
         <div className="player username">{user.username}</div>
-        <div className="player id"></div>
+        <div className="player id"> </div>
         <div className="player id">
             {user.isReady}
         </div>
@@ -92,12 +89,10 @@ const Lobby = () => {
         if (readyText === "I am Ready"){
             setReadyText("Unready")
             setReadyStat("READY")
-            readyIcon = <BiCheckCircle/>
         }
         else{
             setReadyText("I am Ready")
             setReadyStat('UNREADY');
-            readyIcon = <BiCircle/>;
         }
 
         try{
