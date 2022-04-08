@@ -44,6 +44,11 @@ const AppRouter = () => {
                         <GameRouter base="/lobby"/>
                     </GameGuard>
                 </Route>
+                <Route path="/rounds">
+                    <GameGuard>
+                        <GameRouter base="/rounds"/>
+                    </GameGuard>
+                </Route>
                 <Route exact path="/login">
                     <LoginGuard>
                         <Login/>
@@ -62,14 +67,4 @@ const AppRouter = () => {
         </BrowserRouter>
     );
 };
-//Don't forget to export your component!
 export default AppRouter;
-
-// insert at line 58
-/**
- * <Route exact path="/">
- *   <Redirect to="/lobby"/>
- *  </Route>
- */
-
-
