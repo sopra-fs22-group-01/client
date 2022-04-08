@@ -78,11 +78,11 @@ const ProfilePage = () => {
                         <div className="profilePage username">
                             <text>Username: </text>
                             {user.username}
-                            <MdOutlineEdit onClick={() => history.push(`/editor/${user.id}`)} />
+                            <MdOutlineEdit className="profilePage icon" onClick={() => history.push(`/editor/${user.id}`)} />
                         </div>
                         <div className="profilePage password">
                             <text>Password:</text>
-                            <MdOutlineEdit onClick={() => history.push(`/editor/${user.id}`)}/>
+                            <MdOutlineEdit className="profilePage icon" onClick={() => history.push(`/editor/${user.id}`)}/>
                         </div>
                     </div>
                     <div className="profilePage button container">
