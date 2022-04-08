@@ -82,7 +82,6 @@ const Round = () => {
         alert("Something went wrong while fetching the users! See the console for details.");
       }
     }
-
     fetchData();
   }, []);
 
@@ -113,20 +112,13 @@ const Round = () => {
     <BaseContainer className="lobby container">
       <h2>ROUND</h2>
       <p className="lobby paragraph">
-        This is your hand and the black Card, chose your solution
+        display: Black Card, Hand, Timer, User-list, Scoreboard
       </p>
       <dic className="lobby user-list">
         <Card>1</Card>
         <Card>2</Card>
         <Card>3</Card>
       </dic>
-      <Button
-          width="60%"
-          onClick={() => history.push(`/lobby/players/1`)}
-      >
-        Go to Game Lobby
-      </Button>
-
     </BaseContainer>
   );
 }

@@ -7,7 +7,6 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
 import "styles/ui/PopUp.scss";
-//import {Card} from "../ui/Card";
 import {AiOutlineCheckCircle} from "react-icons/ai";
 import {BsCircle} from "react-icons/bs";
 import {BiCircle, BiCheckCircle} from "react-icons/bi";

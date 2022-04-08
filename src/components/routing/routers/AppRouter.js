@@ -69,14 +69,7 @@ const AppRouter = () => {
         </BrowserRouter>
     );
 };
-//Don't forget to export your component!
 export default AppRouter;
 
-// insert at line 58
-/**
- * <Route exact path="/">
- *   <Redirect to="/lobby"/>
- *  </Route>
- */
 
 
