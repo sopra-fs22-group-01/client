@@ -14,6 +14,7 @@ import user from "../../models/User";
 
 
 
+
 const Popup = props => {
     return (
       <div className="popup-box">
@@ -57,6 +58,7 @@ const Lobby = () => {
     const [readyText, setReadyText] = useState("I am Ready");
     const [user, setUser] = useState(null);
     const [readyStat, setReadyStat] = useState("UNREADY");
+    const[rules,setRules] = useState(null);
     //const [readyIcon, setReadyIcon] = useState(<BiCircle/>);
     const {id} = useParams();
 
@@ -132,7 +134,7 @@ const Lobby = () => {
             try {
                 const response = await api.get('/users');
                 const u = await api.get(`/users/?id=${id}`);
-
+                const rules = await api.get(`/rules`);
 
                 // delays continuous execution of an async operation for 1 second.
                 // This is just a fake async call, so that the spinner can be displayed
@@ -142,7 +144,7 @@ const Lobby = () => {
                 // Get the returned users and update the state.
                 setUsers(response.data);
                 setUser(u.data);
-                setTimeout(() => {  console.log("World!"); }, 2000);
+                setRules(rules.data);
 
                 // This is just some data for you to see what is available.
                 // Feel free to remove it.
@@ -246,14 +248,18 @@ const Lobby = () => {
                 </Button>
 
                 {isOpen && <Popup
-                  content={<>
-                      <b>Game Rules</b>
-                      <p>Rule 1:................</p>
-                      <p>Rule 2:................</p>
-                      <p>Rule 3:................</p>
-                      <button>Test button</button>
-                  </>}
-                  handleClose={togglePopup}
+                    content={<>
+                        <b>Game Rules</b>
+                        <div>
+                            {rules.map((line,index)=>
+                                (
+                                    <p key={index}>{line}</p>
+                                )
+                            )}
+                        </div>
+                        <button>Test button</button>
+                    </>}
+                    handleClose={togglePopup}
                 />}
 
             </div>
