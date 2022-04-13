@@ -81,11 +81,11 @@ const ProfilePage = () => {
                             <MdOutlineEdit className="profilePage icon" onClick={() => history.push(`/editor/${user.id}`)} />
                         </div>
                         <div className="profilePage password">
-                            <text>Password:</text>
+                            <text>Password: ● ● ● ● ●</text>
                             <MdOutlineEdit className="profilePage icon" onClick={() => history.push(`/editor/${user.id}`)}/>
                         </div>
                     </div>
-                    <div className="profilePage button container">
+                    <div className="profilePage button_container">
                         <Button onClick={() => history.push(`/lobby/players/${user.id}`)}>
                             Go to Game Lobby
                         </Button>

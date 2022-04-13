@@ -24,13 +24,13 @@ const StartPage = props => {
                 </div>
                 <div className="startpage button-container">
                     <Button
-                        width="30%" //define size of button here, so it can be 100% in the button template
+                        width="40%" //define size of button here, so it can be 100% in the button template
                         onClick={() => pressRegistrationButton()}
                     >
                         Register
                     </Button>
                     <Button
-                        width="30%" //define size of button here, so it can be 100% in the button template
+                        width="40%" //define size of button here, so it can be 100% in the button template
                         onClick={() => pressLoginButton()}
                     >
                         Login
