@@ -6,20 +6,21 @@ import {Link, useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
+import {Card} from "../ui/Card";
 
 const Player = ({user}) => (
-  <div className="player container">
-    <div className="player username">{user.username}</div>
-    <div className="player id">id: {user.id}</div>
+    <div className="player container">
+      <div className="player username">{user.username}</div>
+      <div className="player id">id: {user.id}</div>
 
-  </div>
+    </div>
 );
 
 Player.propTypes = {
   user: PropTypes.object
 };
 
-const Game = () => {
+const Round = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
 
@@ -81,7 +82,6 @@ const Game = () => {
         alert("Something went wrong while fetching the users! See the console for details.");
       }
     }
-
     fetchData();
   }, []);
 
@@ -89,34 +89,38 @@ const Game = () => {
 
   if (users) {
     content = (
-      <div className="game">
-        <ul className="game user-list">
-          {users.map(user => (
-            <Link to={`/users/${user.id}`} style={{color: 'white'}}>
-              <Player user={user} key={user.id}/>
-            </Link>
-          ))}
-        </ul>
+        <div className="lobby">
+          <ul className="lobby user-list">
+            {users.map(user => (
+                <Link to={`/users/${user.id}`} style={{color: 'white'}}>
+                  <Player user={user} key={user.id}/>
+                </Link>
+            ))}
+          </ul>
 
-        <Button
-          width="100%"
-          onClick={() => logout()}
-        >
-          Logout
-        </Button>
-      </div>
+          <Button
+              width="100%"
+              onClick={() => logout()}
+          >
+            Logout
+          </Button>
+        </div>
     );
   }
 
   return (
-    <BaseContainer className="game container">
-      <h2>Happy Coding!</h2>
-      <p className="game paragraph">
-        Get all users from secure endpoint:
-      </p>
-      {content}
-    </BaseContainer>
+      <BaseContainer className="lobby container">
+        <h2>ROUND</h2>
+        <p className="lobby paragraph">
+          display: Black Card, Hand, Timer, User-list, Scoreboard
+        </p>
+        <dic className="lobby user-list">
+          <Card>1</Card>
+          <Card>2</Card>
+          <Card>3</Card>
+        </dic>
+      </BaseContainer>
   );
 }
 
-export default Game;
+export default Round;

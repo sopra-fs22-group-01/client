@@ -17,12 +17,12 @@ import user from "../../models/User";
 
 const Popup = props => {
     return (
-      <div className="popup-box">
-          <div className="box">
-              <span className="close-icon" onClick={props.handleClose}>x</span>
-              {props.content}
-          </div>
-      </div>
+        <div className="popup-box">
+            <div className="box">
+                <span className="close-icon" onClick={props.handleClose}>x</span>
+                {props.content}
+            </div>
+        </div>
     );
 };
 
@@ -33,7 +33,7 @@ const Player = ({user}) => (
     <div className="player container">
         <div className="player username">{user.username}</div>
         <div className="player id">
-            {readyIcon}
+            {user.isReady}
         </div>
     </div>
 );
@@ -96,10 +96,16 @@ const Lobby = () => {
             readyIcon = <BiCircle/>;
         }
         try{
-            const a =  null;
-            //const requestBody = JSON.stringify({"id":user.id,"username":user.username, "date":user.date, "userStatus":user.userStatus, "readyStatus":{ready: readyStatus}}); //creates .json file (?)
-            //const response = await api.put(`/users/`+ user.id, requestBody);
-            //console.log(response)
+            const requestBody = JSON.stringify(
+                {"id":id,
+                    "username":user.username,
+                    "date":user.date,
+                    "userStatus":user.userStatus,
+                    "birthday": user.birthday,
+                    "isReady": readyStat}); //creates .json file (?)
+
+            const updateResponse = await api.put(`/lobby/users/${user.id}`, requestBody);
+            console.log(updateResponse)
         }
         catch (error) {
             alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
@@ -139,6 +145,15 @@ const Lobby = () => {
 
                 // See here to get more data.
                 console.log(response);
+
+                const Gresponse = await api.get('/game/status');
+                const gameStat = Gresponse.data;
+                console.log(Gresponse);
+                //setReadyText(gameStat)
+                if (gameStat === "All_Set"){
+                    history.push(`/lobby/rounds`)
+                }
+
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -147,7 +162,7 @@ const Lobby = () => {
         }
 
         fetchData();
-    }, []);
+    }, [user]);
 
     let content = <Spinner/>;
     let popupContent = <Spinner/>
@@ -183,18 +198,18 @@ const Lobby = () => {
                 </Button>
 
                 {isOpen && <Popup
-                  content={<>
-                      <b>Game Rules</b>
-                      <div>
-                          {rules.map((line,index)=>
-                            (
-                              <p key={index}>{line}</p>
-                            )
-                          )}
-                      </div>
-                      <button>Test button</button>
-                  </>}
-                  handleClose={togglePopup}
+                    content={<>
+                        <b>Game Rules</b>
+                        <div>
+                            {rules.map((line,index)=>
+                                (
+                                    <p key={index}>{line}</p>
+                                )
+                            )}
+                        </div>
+                        <button>Test button</button>
+                    </>}
+                    handleClose={togglePopup}
                 />}
 
             </div>
