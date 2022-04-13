@@ -22,7 +22,6 @@ const FormField = props => {
         </label>
         <input
             className="editProfile input"
-            placeholder="enter here.."
             value={props.value}
             onChange={e => props.onChange(e.target.value)}
         />
@@ -41,7 +40,7 @@ FormField.propTypes = {
 const EditProfile = () =>{
 
   const history = useHistory();
-  const [birthday, setBirthday] = useState(null);
+  const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
   const [user, setUser] = useState(null);
   const {id} = useParams();
@@ -51,8 +50,8 @@ const EditProfile = () =>{
     try {
 
       //maybe fails due to date -> creation_date renaming?
-      console.log({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, birthday});
-      const requestBody = JSON.stringify({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, birthday}); //creates .json file (?)
+      console.log({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, "password":password});
+      const requestBody = JSON.stringify({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, password}); //creates .json file (?)
       await api.put(`/users/`+ user.id, requestBody);//request get to userController (GET sends to server)
 
       history.push(`/users/${id}`)
@@ -104,17 +103,16 @@ const EditProfile = () =>{
         <div className="editProfile container">
           <div className="editProfile form">
             <FormField
-                label="Change username"
+                label="Change username:"
                 value={username}
                 onChange={un => setUsername(un)}
             />
 
             <FormField
-                label="Change birthday"
-                value={birthday}
-                onChange={bd => setBirthday(bd)}
+                label="Change password:"
+                value={password}
+                onChange={pw => setPassword(pw)}
             />
-            <div> Birthday has to be of form YYYY-MM-DD </div>
             <div className="editProfile button-container">
               <Button
                   width="100%"
