@@ -7,6 +7,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
 import {Card} from "../ui/Card";
+// test
 
 const Player = ({user}) => (
     <div className="player container">
