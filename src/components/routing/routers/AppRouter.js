@@ -9,6 +9,8 @@ import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
 import ProfilePage from "../../views/ProfilePage";
 import Game from "../../views/Game";
 import StartPage from "../../views/StartPage";
+import UserRouter from "./UserRouter";
+import Round from "../../views/Round";
 
 /**
  * Main router of your application.
@@ -18,7 +20,7 @@ import StartPage from "../../views/StartPage";
  * /login renders another component without any sub-route
  * /game renders a Router that contains other sub-routes that render in turn other react components
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
- */
+ */ // test
 
 
 const AppRouter = () => {
@@ -28,37 +30,46 @@ const AppRouter = () => {
                 <Route path="/startpage">
                     <StartPage/>
                 </Route>
-
-                <Route path="/editor/:id">
-                    <GameGuard>
-                        <EditProfile/>
-                    </GameGuard>
+                <Route exact path="/users/registration">
+                    {/*<RegistrationGuard>*/}
+                    <Registration/>
+                    {/*</RegistrationGuard>*/}
+                </Route>
+                <Route exact path="/users/login">
+                    {/*<LoginGuard>*/}
+                    <Login/>
+                    {/*</LoginGuard>*/}
                 </Route>
                 <Route path="/users/:id">
                     <GameGuard>
                         <ProfilePage/>
                     </GameGuard>
                 </Route>
-                <Route path="/lobby">
+
+                <Route path="/editor/:id">
                     <GameGuard>
-                        <GameRouter base="/lobby"/>
+                        <EditProfile/>
                     </GameGuard>
                 </Route>
+
+                <Route path="/matches/:matchId/hand/:userId">
+                    <GameGuard>
+                        <Round/>
+                    </GameGuard>
+                </Route>
+
+                <Route path="/lobbies">
+                    <GameGuard>
+                        <GameRouter base="/lobbies"/>
+                    </GameGuard>
+                </Route>
+
                 <Route path="/rounds">
                     <GameGuard>
                         <GameRouter base="/rounds"/>
                     </GameGuard>
                 </Route>
-                <Route exact path="/login">
-                    {/*<LoginGuard>*/}
-                        <Login/>
-                    {/*</LoginGuard>*/}
-                </Route>
-                <Route exact path="/registration">
-                    {/*<RegistrationGuard>*/}
-                        <Registration/>
-                    {/*</RegistrationGuard>*/}
-                </Route>
+
 
                 <Route exact path="/">
                     <Redirect to="/startpage"/>
