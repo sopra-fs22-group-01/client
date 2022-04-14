@@ -73,7 +73,7 @@ const Round = () => {
       try {
         const response = await api.get('/users');
         const b = await api.get(`/matches/${1}/blackCard`);
-        const scores = await api.get(`/matches/${1}/scores`);
+        //const scores = await api.get(`/matches/${1}/scores`);
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
         // feel free to remove it :)
@@ -82,7 +82,7 @@ const Round = () => {
         // Get the returned users and update the state.
         setUsers(response.data);
         setBlack(b.data);
-        setScores(scores.data);
+        //setScores(scores.data);
 
         // This is just some data for you to see what is available.
         // Feel free to remove it.
@@ -98,13 +98,13 @@ const Round = () => {
         console.error("Details:", error);
         alert("Something went wrong while fetching the users! See the console for details.");
       }
+      fetchData();
     }
-    fetchData();
   }, []);
 
   let content = <Spinner/>;
   let content2 = null;
-  let scoreContent = null;
+  //let scoreContent = null;
 
   if (users) {
     content = (
@@ -142,12 +142,7 @@ const Round = () => {
           display: Black Card, Hand, Timer, User-list, Scoreboard
         </p>
 
-        <ScoreBoard >
-          <h3>Scoreboard</h3>
 
-          Player 1: 2 points
-          Player 2: 3 points
-        </ScoreBoard >
           <Card className="blackC"
           >
               {black}
