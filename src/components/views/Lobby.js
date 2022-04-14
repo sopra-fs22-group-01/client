@@ -74,14 +74,14 @@ const Lobby = () => {
 
 
             localStorage.removeItem('token');
-            history.push('/login');
+            history.push('/users/login');
         }
         catch (error){
             alert(`Something went wrong during the logout: \n${handleError(error)}`);
         }
 
         localStorage.removeItem('token');
-        history.push('/login');
+        history.push('/users/login');
     }
 
     const isReady = async  () => {

@@ -9,6 +9,7 @@ import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
 import ProfilePage from "../../views/ProfilePage";
 import Game from "../../views/Game";
 import StartPage from "../../views/StartPage";
+import UserRouter from "./UserRouter";
 
 /**
  * Main router of your application.
@@ -28,17 +29,28 @@ const AppRouter = () => {
                 <Route path="/startpage">
                     <StartPage/>
                 </Route>
-
-                <Route path="/editor/:id">
-                    <GameGuard>
-                        <EditProfile/>
-                    </GameGuard>
+                <Route exact path="/users/registration">
+                    {/*<RegistrationGuard>*/}
+                    <Registration/>
+                    {/*</RegistrationGuard>*/}
+                </Route>
+                <Route exact path="/users/login">
+                    {/*<LoginGuard>*/}
+                    <Login/>
+                    {/*</LoginGuard>*/}
                 </Route>
                 <Route path="/users/:id">
                     <GameGuard>
                         <ProfilePage/>
                     </GameGuard>
                 </Route>
+
+                <Route path="/editor/:id">
+                    <GameGuard>
+                        <EditProfile/>
+                    </GameGuard>
+                </Route>
+
                 <Route path="/lobby">
                     <GameGuard>
                         <GameRouter base="/lobby"/>
@@ -49,16 +61,7 @@ const AppRouter = () => {
                         <GameRouter base="/rounds"/>
                     </GameGuard>
                 </Route>
-                <Route exact path="/login">
-                    {/*<LoginGuard>*/}
-                        <Login/>
-                    {/*</LoginGuard>*/}
-                </Route>
-                <Route exact path="/registration">
-                    {/*<RegistrationGuard>*/}
-                        <Registration/>
-                    {/*</RegistrationGuard>*/}
-                </Route>
+
 
                 <Route exact path="/">
                     <Redirect to="/startpage"/>
