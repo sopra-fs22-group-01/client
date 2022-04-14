@@ -7,6 +7,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Round.scss";
 import {Card} from "../ui/Card";
+import {ScoreBoard} from "../ui/ScoreBoard"
 // test: display hand
 
 const Player = ({user}) => (
@@ -14,6 +15,12 @@ const Player = ({user}) => (
       <div className="player username">{user.username}</div>
       <div className="player id">id: {user.id}</div>
 
+    </div>
+);
+
+const PlayerScore = ({score})=> (
+    <div>
+      <li>  {score} </li>
     </div>
 );
 
@@ -41,6 +48,7 @@ const Round = () => {
   const [users, setUsers] = useState(null);
   const [cards, setCards] = useState(null);
   const [black, setBlack] = useState(null);
+  const [scores, setScores] = useState(null);
 
   const exit = async () => {
     try{
@@ -68,7 +76,8 @@ const Round = () => {
     async function fetchData() {
       try {
         const response = await api.get('/users');
-        const b = await api.get(`/matches/${1}/blackCard`)
+        const b = await api.get(`/matches/${1}/blackCard`);
+        const scores = await api.get(`/matches/${1}/scores`);
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
         // feel free to remove it :)
@@ -77,7 +86,7 @@ const Round = () => {
         // Get the returned users and update the state.
         setUsers(response.data);
         setBlack(b.data);
-
+        setScores(scores.data);
 
         // This is just some data for you to see what is available.
         // Feel free to remove it.
@@ -99,20 +108,21 @@ const Round = () => {
 
   let content = <Spinner/>;
   let content2 = null;
-
+  let scoreContent = null;
   if (users) {
     content = (
         <div className="round">
-          <dic className="round user-list">
+          <div className="round user-list">
             {users.map(user => (
                 <Link style={{color: 'red'}}>
                   <Player user={user} key={user.id}/>
                 </Link>
             ))}
-          </dic>
+          </div>
         </div>
     );
   }
+
 
     if (cards) {
         content2 = (
@@ -128,12 +138,31 @@ const Round = () => {
         );
     }
 
+    if(scores){
+      scoreContent = (
+        <div>
+          {scores.map(score =>(
+            <PlayerScore score ={score} key={score}/>
+          ))}
+        </div>
+      )
+    }
+
+
   return (
       <BaseContainer className="round container">
         <h2>ROUND</h2>
+
         <p>
           display: Black Card, Hand, Timer, User-list, Scoreboard
         </p>
+        <ScoreBoard >
+          <h3>Scoreboard</h3>
+
+          <PlayerScore score={scores}/>
+          Player 1: 2 points
+          Player 2: 3 points
+        </ScoreBoard >
           {content}
           <Card className="blackC"
           >
