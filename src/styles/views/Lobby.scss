@@ -7,56 +7,89 @@
  */
 
 .lobby {
-  &.container {
-    background: $background;
-    padding: 1.5em;
-    border-radius: $borderRadius;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: $dropShadow;
+
+  a{
+    color: $textColor;
   }
-  &.user-list {
-    list-style: none;
+  a:hover {
+    color: grey;
+  }
+  a:link{
+    text-decoration: none;
+  }
+
+  &.text-container{
+    padding-top: 2em;
+    font-size: 4em;
+    font-weight: bold;
+    text-align: center;
+    background-color: $background;
+  }
+
+
+
+  &.user-list{
+    width: 60%;
+    background-color: $background;
     padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
   }
-  &.user-item {
+
+  &.button_container{
+    width: 60%;
+    background-color: $background;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3em;
+  }
+
+  &.logout_button{
+    width: 30%;
+    margin-left: 4em;
+  }
+
+  &.ready_button{
+    width: 30%;
+
+  }
+
+  &.rules_button{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    margin-top: 1em;
   }
-  & p,h2 {
-    margin: 0.5em 0;
-    color: white;
+
+
+  &.game_rules{
+    color:white;
   }
 
 }
 
 .player {
   &.container {
-    margin: 0.5em 0;
-    width: 20em;
-    padding: 10px;
-    border-radius: $borderRadius;
-    display: flex;
-    align-items: center;
-    //background: lighten($background, 5);
-    background-color: gray;
-  }
-  &.name {
-    font-weight: 300;
-    margin-left: 5px;
-
-  }
-  &.username {
-    font-weight: 500;
-    color: $accent;
-  }
-  &.id {
     margin-left: auto;
-    margin-right: 10px;
-    font-family: $fontMono;
-    font-weight: 300;
+    margin-right: auto;
+    margin-bottom: 0.5em;
+    width: auto;
+    padding: 15px;
+    border-radius: 0.5em;
+    display: flex;
+    background-color: #524F4F;
+    font-size: 1.5em;
+  }
+
+  &.username {
+    font-weight: bold;
+  }
+  &.ready_status {
+    margin-left: auto;
+    margin-right: 2em;
+
   }
 }
