@@ -10,7 +10,7 @@ export const RegistrationGuard = props => {
         return props.children;
     }
     // if user is already logged in, redirects to the main /app
-    return <Redirect to="/lobby"/>;
+    return <Redirect to="/registration"/>;
 };
 
 RegistrationGuard.propTypes = {

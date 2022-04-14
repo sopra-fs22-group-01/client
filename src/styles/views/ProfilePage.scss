@@ -8,21 +8,34 @@
  */
 
 .profilePage {
-  &.form {
-    display: flex;
-    flex-direction: column;
+
+  &.icon{
+    cursor: pointer;
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  &.titleContainer {
+    font-size: 5em;
+    font-weight: bold;
+  }
+
+  &.username{
+    display: inline-block;
+    vertical-align: text-top;
+    margin: 0 auto;
+  }
+
+  &.infos {
+    padding:0.5em;
     justify-content: center;
-    width: 60%;
-    max-width: 30em;
-    height: 20em;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
+    width:40%;
+    height:4em;
+    font-size: 4em;
     border-radius: 0.75em;
-    background-color: $background;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    box-shadow: $dropShadow;
+    background-color: black;
+    text-align: left;
   }
   &.field {
     display: flex;
@@ -37,54 +50,14 @@
     flex-direction: column;
     align-items: center;
     box-shadow: $dropShadow;
-  }
-  &.user-list {
-    list-style: none;
-    padding-left: 0;
-  }
-  &.user-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  & p,h2 {
-    margin: 0.5em 0;
-  }
-  &.button-container {
-    display: flex;
-    justify-content: left;
-    margin-top: 2em;
+
   }
 
   &.photo{
-    height: 100px;
-    width: 100px;
+    height: 7.5em;
+    width: 8em;
+    margin-bottom: 2em;
+    margin-top: 2em;
   }
 }
 
-.player {
-  &.container {
-    margin: 0.5em 0;
-    width: 20em;
-    padding: 10px;
-    border-radius: $borderRadius;
-    display: flex;
-    align-items: center;
-    background: lighten($background, 5);
-  }
-  &.name {
-    font-weight: 300;
-    margin-left: 5px;
-  }
-  &.username {
-    font-weight: 500;
-    color: $accent;
-  }
-  &.id {
-    margin-left: auto;
-    margin-right: 10px;
-    font-family: $fontMono;
-    font-weight: 300;
-  }
-}
