@@ -18,7 +18,7 @@ import StartPage from "../../views/StartPage";
  * /login renders another component without any sub-route
  * /game renders a Router that contains other sub-routes that render in turn other react components
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
- */
+ */ // test
 
 
 const AppRouter = () => {
