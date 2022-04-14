@@ -54,14 +54,14 @@
   /*this values define the two input fields for username and password*/
   &.input {
     height: 3em;
-    padding-left: 15px;
-    margin-left: -4px;
+    padding: 1em;
     border: none;
     border-radius: 0.7em;
     margin-bottom: 20px;
     background: white;
     color: black;
     font-weight: bold;
+    font-size: 1.3em;
   }
 
   /*this values define the labels (the texts "Username" and "Password")*/

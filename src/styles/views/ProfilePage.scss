@@ -29,12 +29,13 @@
 
   &.infos {
     padding:0.5em;
+    padding-left: 7em;
     justify-content: center;
-    width:40%;
+    width:100%;
     height:4em;
-    font-size: 4em;
+    font-size: 3em;
     border-radius: 0.75em;
-    background-color: black;
+    background-color: $background;
     text-align: left;
   }
   &.field {
@@ -58,6 +59,11 @@
     width: 8em;
     margin-bottom: 2em;
     margin-top: 2em;
+  }
+
+  &.button_container{
+    font-size: 1.2em;
+    margin-top: 4em;
   }
 }
 
