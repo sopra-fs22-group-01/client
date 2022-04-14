@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
@@ -26,7 +26,6 @@ const Popup = props => {
 };
 
 
-let readyIcon = <BiCircle/>;
 const Player = ({user}) => (
     <div className="player container">
         <div className="player username">{user.username}</div>
@@ -80,13 +79,10 @@ const Lobby = () => {
 
     const isReady = async () => {
 
-
         if (user.isReady === "READY") {
-            setReadyText("Unready")
-            readyIcon = <BiCheckCircle/>
-        } else {
             setReadyText("I am Ready")
-            readyIcon = <BiCircle/>;
+        } else {
+            setReadyText("Unready")
         }
 
         try {
@@ -148,42 +144,46 @@ const Lobby = () => {
     }, [user]);
 
     let content = <Spinner/>;
-    let popupContent = <Spinner/>
     if (users) {
         content = (
-            <BaseContainer>
+            <div className="lobby">
+                <div className="lobby text-container">
+                    <text>Lobby</text>
+                </div>
                 <ul className="lobby user-list">
                     {users.map(user => (
-                        <Link to={`/users/${user.id}`} style={{color: 'white'}}>
+                        <Link to={`/users/${user.id}`}>
                             <Player user={user}/>
                         </Link>
                     ))}
                 </ul>
-                <div className="lobby button_container1"
+                <div className="lobby button_container">
                     <Button
-                        width="100%"
+                        width="40%"
                         onClick={() => logout()}
                     >
                         Logout
                     </Button>
                     <Button
-                        width="100%"
+                        width="40%"
                         onClick={() => isReady()}
                     >
                         {readyText}
                     </Button>
-                <div className="lobby button_container2"
-                    <Button
-                        width="27%"
+                </div>
+                    <Button className="lobby rules_button"
+                        width="20%"
                         onClick={togglePopup}
                     >
                         Rules
                     </Button>
+
+                <div className="lobby game_rules">
                     {isOpen && <Popup
                         content={<>
                             <b>Game Rules</b>
                             <div>
-                                {rules.map((line,index)=>
+                                {rules.map((line, index) =>
                                     (
                                         <p key={index}>{line}</p>
                                     )
@@ -194,17 +194,13 @@ const Lobby = () => {
                         handleClose={togglePopup}
                     />}
                 </div>
+            </div>
 
-    )
-        ;
+        );
     }
 
     return (
         <BaseContainer className="lobby container">
-            <h2>Lobby </h2>
-            <p className="lobby paragraph">
-                Get all users from secure endpoint:
-            </p>
             {content}
         </BaseContainer>
     );

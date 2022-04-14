@@ -7,58 +7,79 @@
  */
 
 .lobby {
-  &.container {
-    background: $background;
-    padding: 1.5em;
-    border-radius: $borderRadius;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: $dropShadow;
-    background-color: red;
+
+  a{
+    color: $textColor;
   }
-  &.user-list {
-    list-style: none;
-    padding-left: 0;
+  a:hover {
+    color: grey;
+  }
+  a:link{
+    text-decoration: none;
   }
 
-  &.user-item {
+  &.text-container{
+    font-size: 4em;
+    font-weight: bold;
+    text-align: center;
+    background-color: $background;
+  }
+
+  &.container {
+    width: 50%;
+    margin-top: 5em;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    background-color: $background;
   }
-  & p,h2 {
-    margin: 0.5em 0;
-    color: white;
+
+  &.user-list{
+    background-color: $background;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.button_container{
+    display: flex;
+    width: auto;
+    background-color: $background;
+
+  }
+
+  &.rules_button{
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 20px;
+    padding-left:20px
+  }
+
+
+  &.game_rules{
+    color:white;
   }
 
 }
 
 .player {
   &.container {
-    margin: 0.5em 0;
-    width: 20em;
-    padding: 10px;
-    border-radius: $borderRadius;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.5em;
+    width: auto;
+    padding: 15px;
+    border-radius: 0.5em;
     display: flex;
-    align-items: center;
-    //background: lighten($background, 5);
-    background-color: gray;
+    background-color: #524F4F;
+    font-size: 1.5em;
   }
-  &.name {
-    font-weight: 300;
-    margin-left: 5px;
 
-  }
   &.username {
-    font-weight: 500;
-    color: $accent;
+    font-weight: bold;
   }
   &.ready_status {
     margin-left: auto;
-    margin-right: 10px;
-    font-family: $fontMono;
-    font-weight: 300;
+    margin-right: 2em;
+
   }
 }

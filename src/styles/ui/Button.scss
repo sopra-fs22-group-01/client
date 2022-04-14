@@ -3,12 +3,14 @@
 .primary-button {
   &:hover {
     transform: translateY(-2px);
+    background-color: #c2c1c0;
   }
   &:disabled {
     cursor: default;
-    opacity: 0.5;
+    opacity: 0.2;
     &:hover {
       transform: none;
+      background: white;
     }
   }
 
