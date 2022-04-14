@@ -32,7 +32,7 @@ let readyIcon = <BiCircle/>;
 const Player = ({user}) => (
     <div className="player container">
         <div className="player username">{user.username}</div>
-        <div className="player id">
+        <div className="player ready_status">
             {user.isReady}
         </div>
     </div>
@@ -71,8 +71,6 @@ const Lobby = () => {
             let currentToken = localStorage.getItem('token');
 
             const response = await api.put(`/logout/?token=${currentToken}`)
-
-
             localStorage.removeItem('token');
             history.push('/login');
         }
@@ -98,10 +96,6 @@ const Lobby = () => {
         try{
             const requestBody = JSON.stringify(
                 {"id":id,
-                    "username":user.username,
-                    "date":user.date,
-                    "userStatus":user.userStatus,
-                    "birthday": user.birthday,
                     "isReady": readyStat}); //creates .json file (?)
 
             const updateResponse = await api.put(`/lobby/users/${user.id}`, requestBody);
