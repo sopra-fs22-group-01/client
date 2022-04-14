@@ -5,9 +5,13 @@ import {Button} from 'components/ui/Button';
 import {Link, useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import "styles/views/Lobby.scss";
+import "styles/views/Round.scss";
 import {Card} from "../ui/Card";
+import {ScoreBoard} from "../ui/ScoreBoard";
 // test: display hand
+
+
+
 
 const Player = ({user}) => (
     <div className="player container">
@@ -90,8 +94,8 @@ const Round = () => {
 
   if (users) {
     content = (
-        <div className="lobby">
-          <ul className="lobby user-list">
+        <div className="round">
+          <ul className="round user-list">
             {users.map(user => (
                 <Link to={`/users/${user.id}`} style={{color: 'white'}}>
                   <Player user={user} key={user.id}/>
@@ -110,12 +114,21 @@ const Round = () => {
   }
 
   return (
-      <BaseContainer className="lobby container">
+      <BaseContainer className="round container">
         <h2>ROUND</h2>
-        <p className="lobby paragraph">
+        <ScoreBoard >
+          Scoreboard
+
+          Player 1: 2 points
+          Player 2: 3 points
+        </ScoreBoard >
+
+        <p className="round paragraph">
           display: Black Card, Hand, Timer, User-list, Scoreboard
         </p>
-        <dic className="lobby user-list">
+        <div>
+        </div>
+        <dic className="round user-list">
           <Card>1</Card>
           <Card>2</Card>
           <Card>3</Card>
