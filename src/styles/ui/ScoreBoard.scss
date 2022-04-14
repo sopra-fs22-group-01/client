@@ -17,11 +17,12 @@
   display: inline;
   width: 200px;
   height: 150px;
-  border: none;
+  border: 3px solid white;
   border-radius: $borderRadius; // rounded corner
   cursor: pointer;
   opacity: 1;
   color: $background;
   background-color: $accent;
   transition: all 0.3s ease;
+
 }
