@@ -179,25 +179,21 @@ const Lobby = () => {
                     >
                         Rules
                     </Button>
-
-            {
-                isOpen && <Popup
-                    content={<div>
-                        <b>Game Rules</b>
-                        <div>
-                            {rules.map((line, index) =>
-                                (
-                                    <p key={index}>{line}</p>
-                                )
-                            )}
-                        </div>
-                        <button>Test button</button>
-                    </div>}
-                    handleClose={togglePopup}
-                />
-            }
-    </div>
-            </basecontainer>
+                    {isOpen && <Popup
+                        content={<>
+                            <b>Game Rules</b>
+                            <div>
+                                {rules.map((line,index)=>
+                                    (
+                                        <p key={index}>{line}</p>
+                                    )
+                                )}
+                            </div>
+                            <button>Test button</button>
+                        </>}
+                        handleClose={togglePopup}
+                    />}
+                </div>
 
     )
         ;
