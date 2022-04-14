@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import User from 'models/User';
 import {useHistory, useParams} from 'react-router-dom';
-import {Button} from 'components/ui/Button';
+import {PrimaryButton} from 'components/ui/PrimaryButton';
 import 'styles/views/Login.scss';
 import 'styles/views/EditProfile.scss';
 import BaseContainer from "components/ui/BaseContainer";
@@ -53,7 +53,6 @@ const EditProfile = () =>{
       console.log({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, "password":password});
       const requestBody = JSON.stringify({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, password}); //creates .json file (?)
       await api.put(`/users/`+ user.id, requestBody);//request get to userController (GET sends to server)
-
       history.push(`/users/${id}`)
 
     } catch (error) {
@@ -114,21 +113,21 @@ const EditProfile = () =>{
                 onChange={pw => setPassword(pw)}
             />
             <div className="editProfile button-container">
-              <Button
+              <PrimaryButton
                   width="100%"
                   onClick={() => saveChanges()}
               >
                 Save changes
-              </Button>
+              </PrimaryButton>
             </div>
 
             <div className="editProfile button-container">
-              <Button
+              <PrimaryButton
                   width="100%"
                   onClick={() => history.goBack()}
               >
                 Back
-              </Button>
+              </PrimaryButton>
             </div>
 
           </div>

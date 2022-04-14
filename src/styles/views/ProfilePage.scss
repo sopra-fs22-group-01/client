@@ -10,13 +10,17 @@
 .profilePage {
 
 
-
-  &.icon{
+/*  &.icon {
     cursor: pointer;
+
     &:hover {
       transform: translateY(-3px);
     }
-  }
+    &:disabled {
+      cursor: default;
+      opacity: 0.2;
+    }
+  }*/
 
   &.titleContainer {
     font-size: 5em;

@@ -2,7 +2,7 @@ import React, {useState, Component} from 'react';
 import {api, handleError} from 'helpers/api';
 import User from 'models/User';
 import {Link, useHistory} from 'react-router-dom';
-import {Button} from 'components/ui/Button';
+import {PrimaryButton} from 'components/ui/PrimaryButton';
 import 'styles/views/Registration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
@@ -82,13 +82,13 @@ const Registration = props => {
                     />
 
                     <div className="registration button-container">
-                        <Button
+                        <PrimaryButton
                             disabled={!username || !password} //if no birthday or username is entered, button cant be clicked
                             width="50%" //define size of button here so it can be 100% in the button template
                             onClick={() => doRegistration()}
                         >
                             Register
-                        </Button>
+                        </PrimaryButton>
                     </div>
                     <div className="login registrationText">
                         <text>Already have an account? Click </text>

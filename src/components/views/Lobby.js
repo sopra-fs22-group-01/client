@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
-import {Button} from 'components/ui/Button';
+import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
@@ -158,23 +158,23 @@ const Lobby = () => {
                     ))}
                 </ul>
                 <div className="lobby button_container">
-                    <Button className="lobby logout_button"
+                    <PrimaryButton className="lobby logout_button"
 
-                        onClick={() => logout()}
+                                   onClick={() => logout()}
                     >
                         Logout
-                    </Button>
-                    <Button className="lobby ready_button"
-                        onClick={() => isReady()}
+                    </PrimaryButton>
+                    <PrimaryButton className="lobby ready_button"
+                                   onClick={() => isReady()}
                     >
                         {readyText}
-                    </Button>
+                    </PrimaryButton>
                 </div>
-                    <Button className="lobby rules_button"
-                        onClick={togglePopup}
+                    <PrimaryButton className="lobby rules_button"
+                                   onClick={togglePopup}
                     >
                         Rules
-                    </Button>
+                    </PrimaryButton>
 
                 <div className="lobby game_rules">
                     {isOpen && <Popup

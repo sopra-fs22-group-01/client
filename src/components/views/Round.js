@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
-import {Button} from 'components/ui/Button';
+import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {Link, useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
@@ -98,12 +98,12 @@ const Round = () => {
             ))}
           </ul>
 
-          <Button
+          <PrimaryButton
               width="100%"
               onClick={() => logout()}
           >
             Logout
-          </Button>
+          </PrimaryButton>
         </div>
     );
   }

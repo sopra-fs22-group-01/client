@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {Button} from 'components/ui/Button';
+import {PrimaryButton} from 'components/ui/PrimaryButton';
 import 'styles/views/StartPage.scss';
 import BaseContainer from "components/ui/BaseContainer";
 
@@ -23,18 +23,18 @@ const StartPage = props => {
                     <text>Welcome to Cards Against Humanity 2.0</text>
                 </div>
                 <div className="startpage button-container">
-                    <Button
+                    <PrimaryButton
                         width="40%" //define size of button here, so it can be 100% in the button template
                         onClick={() => pressRegistrationButton()}
                     >
                         Register
-                    </Button>
-                    <Button
+                    </PrimaryButton>
+                    <PrimaryButton
                         width="40%" //define size of button here, so it can be 100% in the button template
                         onClick={() => pressLoginButton()}
                     >
                         Login
-                    </Button>
+                    </PrimaryButton>
                 </div>
             </div>
         </BaseContainer>
