@@ -42,7 +42,8 @@ const Round = () => {
   const [black, setBlack] = useState(null);
   const {userId} = useParams();
   const {matchId} = useParams();
-  const logout = async () => {
+
+  const exit = async () => {
     try{
       let currentToken = localStorage.getItem('token');
 
@@ -157,7 +158,6 @@ const Round = () => {
         </div>
         </BaseContainer>
     );
-  }
 
 }
 
