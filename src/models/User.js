@@ -11,7 +11,7 @@ class User {
     this.isLoggedIn = null;
 
     this.userStatus = null;
-    this.readyStatus = null;
+    this.isReady = null;
 
     this.birthday = null;
     Object.assign(this, data);
