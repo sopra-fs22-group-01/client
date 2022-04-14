@@ -14,9 +14,8 @@
   vertical-align: center; // aligns the card, not text
   text-align: left;
 
-  display: inline;
-  width: 200px;
-  height: 150px;
+  display: inline-block;
+  width: 10em;
   border: 3px solid white;
   border-radius: $borderRadius; // rounded corner
   cursor: pointer;
