@@ -55,7 +55,9 @@ const Lobby = () => {
     const [user, setUser] = useState(null);
     const [rules, setRules] = useState(null);
     //const [readyIcon, setReadyIcon] = useState(<BiCircle/>);
-    const {id} = useParams();
+    const {userId} = useParams();
+    const {lobbyId} = useParams();
+    const [matchId, setMatchId] = useState(null);
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -71,7 +73,7 @@ const Lobby = () => {
             localStorage.removeItem('token');
             history.push('/users/login');
         } catch (error) {
-            alert(`Something went wrong during the logout: \n${handleError(error)}`);
+            alert(`Something went wrong during logout: \n${handleError(error)}`);
         }
 
         localStorage.removeItem('token');
@@ -89,11 +91,11 @@ const Lobby = () => {
         try {
             const requestBody = JSON.stringify(
                 {
-                    "id": id,
+                    "id": userId,
                     "isReady": user.isReady
                 }); //creates .json file
 
-            const updateResponse = await api.put(`/lobby/users/${user.id}`, requestBody);
+            const updateResponse = await api.put(`/lobby/users/${userId}`, requestBody);
             console.log(updateResponse)
         } catch (error) {
             alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
@@ -110,9 +112,39 @@ const Lobby = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
+            setMatchId(1);
+            try{const response = await api.get('/users');
+                setUsers(response.data);
+            }catch (error) {
+                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the users ! See the console for details.");
+            }
+            try{
+                const u = await api.get(`/users/?id=${userId}`);
+                setUser(u.data);
+            }catch (error) {
+                console.error(`Something went wrong while fetching the current user: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the current user ! See the console for details.");
+            }
+            try{
+                const rules = await api.get(`/rules`);
+                setRules(rules.data);
+
+                const lobby_status_response = await api.get('/lobby/status');
+                const lobby_stat = lobby_status_response.data;
+                if (lobby_stat === "All_Ready") {
+                    history.push(`/matches/${matchId}/hand/${user.id}`)
+                }
+            }catch (error) {
+                console.error(`Something went wrong while fetching the rules: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the rules ! See the console for details.");
+            } /*
             try {
                 const response = await api.get('/users');
-                const u = await api.get(`/users/?id=${id}`);
+                const u = await api.get(`/users/?id=${userId}`);
                 const rules = await api.get(`/rules`);
                 // delays continuous execution of an async operation for 1 second.
                 // This is just a fake async call, so that the spinner can be displayed
@@ -123,6 +155,7 @@ const Lobby = () => {
                 setUsers(response.data);
                 setUser(u.data);
                 setRules(rules.data);
+                setMatchId(1);
 
                 // This is just some data for you to see what is available.
                 // Feel free to remove it.
@@ -139,16 +172,15 @@ const Lobby = () => {
                 console.log(lobby_status_response);
                 //setReadyText(gameStat)
                 if (lobby_stat === "All_Ready") {
-                    history.push(`/lobby/rounds`)
+                    history.push(`/matches/${matchId}/hand/${user.id}`)
                 }
 
             } catch (error) {
-                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                console.error(`Something went wrong while fetching the users/user or rules: \n${handleError(error)}`);
                 console.error("Details:", error);
-                alert("Something went wrong while fetching the users! See the console for details.");
-            }
+                alert("Something went wrong while fetching the users/user or rules ! See the console for details.");
+            }*/
         }
-
         fetchData();
     }, [user]);
 
@@ -162,7 +194,7 @@ const Lobby = () => {
                 </div>
                 <ul className="lobby user-list">
                     {users.map(user => (
-                        <Link to={`/users/${user.id}`}>
+                        <Link to={`/users/${userId}`}>
                             <Player user={user}/>
                         </Link>
                     ))}

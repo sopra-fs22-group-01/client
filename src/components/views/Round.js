@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
@@ -30,7 +30,8 @@ const Round = () => {
   // a component can have as many state variables as you like.
   // more information can be found under https://reactjs.org/docs/hooks-state.html
   const [users, setUsers] = useState(null);
-
+  const {userId} = useParams();
+  const {matchId} = useParams();
   const logout = async () => {
     try{
       let currentToken = localStorage.getItem('token');
@@ -46,7 +47,7 @@ const Round = () => {
     }
 
     localStorage.removeItem('token');
-    history.push('/login');
+    history.push('/users/login');
   }
 
   // the effect hook can be used to react to change in your component.
@@ -110,10 +111,6 @@ const Round = () => {
 
   return (
       <BaseContainer className="lobby container">
-        <h2>ROUND</h2>
-        <p className="lobby paragraph">
-          display: Black Card, Hand, Timer, User-list, Scoreboard
-        </p>
         <dic className="lobby user-list">
           <Card>1</Card>
           <Card>2</Card>

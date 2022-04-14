@@ -10,6 +10,7 @@ import ProfilePage from "../../views/ProfilePage";
 import Game from "../../views/Game";
 import StartPage from "../../views/StartPage";
 import UserRouter from "./UserRouter";
+import Round from "../../views/Round";
 
 /**
  * Main router of your application.
@@ -51,11 +52,18 @@ const AppRouter = () => {
                     </GameGuard>
                 </Route>
 
-                <Route path="/lobby">
+                <Route path="/matches/:matchId/hand/:userId">
                     <GameGuard>
-                        <GameRouter base="/lobby"/>
+                        <Round/>
                     </GameGuard>
                 </Route>
+
+                <Route path="/lobbies">
+                    <GameGuard>
+                        <GameRouter base="/lobbies"/>
+                    </GameGuard>
+                </Route>
+
                 <Route path="/rounds">
                     <GameGuard>
                         <GameRouter base="/rounds"/>
