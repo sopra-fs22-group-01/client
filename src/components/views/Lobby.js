@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
@@ -7,12 +7,11 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
 import "styles/ui/PopUp.scss";
-import {MdOutlineModeEditOutline}from "react-icons/ai";
+import {MdOutlineModeEditOutline} from "react-icons/ai";
 import {AiOutlineCheckCircle} from "react-icons/ai";
 import {BsCircle} from "react-icons/bs";
 import {BiCircle, BiCheckCircle} from "react-icons/bi";
 import user from "../../models/User";
-
 
 
 const Popup = props => {
@@ -27,12 +26,10 @@ const Popup = props => {
 };
 
 
-
-let readyIcon = <BiCircle/>;
 const Player = ({user}) => (
     <div className="player container">
         <div className="player username">{user.username}</div>
-        <div className="player id">
+        <div className="player ready_status">
             {user.isReady}
         </div>
     </div>
@@ -55,8 +52,7 @@ const Lobby = () => {
     const [users, setUsers] = useState(null);
     const [readyText, setReadyText] = useState("I am Ready");
     const [user, setUser] = useState(null);
-    const [readyStat, setReadyStat] = useState("UNREADY");
-    const[rules,setRules] = useState(null);
+    const [rules, setRules] = useState(null);
     //const [readyIcon, setReadyIcon] = useState(<BiCircle/>);
     const {id} = useParams();
 
@@ -67,16 +63,13 @@ const Lobby = () => {
     }
 
     const logout = async () => {
-        try{
+        try {
             let currentToken = localStorage.getItem('token');
 
             const response = await api.put(`/logout/?token=${currentToken}`)
-
-
             localStorage.removeItem('token');
             history.push('/login');
-        }
-        catch (error){
+        } catch (error) {
             alert(`Something went wrong during the logout: \n${handleError(error)}`);
         }
 
@@ -84,35 +77,28 @@ const Lobby = () => {
         history.push('/login');
     }
 
-    const isReady = async  () => {
-        if (readyText === "I am Ready"){
-            setReadyText("Unready")
-            setReadyStat("READY")
-            readyIcon = <BiCheckCircle/>
-        }
-        else{
+    const isReady = async () => {
+
+        if (user.isReady === "READY") {
             setReadyText("I am Ready")
-            setReadyStat('UNREADY');
-            readyIcon = <BiCircle/>;
+        } else {
+            setReadyText("Unready")
         }
-        try{
+
+        try {
             const requestBody = JSON.stringify(
-                {"id":id,
-                    "username":user.username,
-                    "date":user.date,
-                    "userStatus":user.userStatus,
-                    "birthday": user.birthday,
-                    "isReady": readyStat}); //creates .json file (?)
+                {
+                    "id": id,
+                    "isReady": user.isReady
+                }); //creates .json file
 
             const updateResponse = await api.put(`/lobby/users/${user.id}`, requestBody);
             console.log(updateResponse)
-        }
-        catch (error) {
+        } catch (error) {
             alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
         }
 
     }
-
 
 
     // the effect hook can be used to react to change in your component.
@@ -136,21 +122,14 @@ const Lobby = () => {
                 setUser(u.data);
                 setRules(rules.data);
 
-                // This is just some data for you to see what is available.
-                // Feel free to remove it.
-                console.log('request to:', response.request.responseURL);
-                console.log('status code:', response.status);
-                console.log('status text:', response.statusText);
-                console.log('requested data:', response.data);
-
                 // See here to get more data.
                 console.log(response);
 
-                const Gresponse = await api.get('/game/status');
-                const gameStat = Gresponse.data;
-                console.log(Gresponse);
+                const lobby_status_response = await api.get('/lobby/status');
+                const lobby_stat = lobby_status_response.data;
+                console.log(lobby_status_response);
                 //setReadyText(gameStat)
-                if (gameStat === "All_Set"){
+                if (lobby_stat === "All_Ready") {
                     history.push(`/lobby/rounds`)
                 }
 
@@ -165,53 +144,54 @@ const Lobby = () => {
     }, [user]);
 
     let content = <Spinner/>;
-    let popupContent = <Spinner/>
     if (users) {
         content = (
             <div className="lobby">
+                <div className="lobby text-container">
+                    <text>Lobby</text>
+                </div>
                 <ul className="lobby user-list">
                     {users.map(user => (
-                        <Link to={`/users/${user.id}`} style={{color: 'white'}}>
-                            <Player user={user} key={user.id}/>
+                        <Link to={`/users/${user.id}`}>
+                            <Player user={user}/>
                         </Link>
                     ))}
                 </ul>
-                <Button
-                    width="100%"
-                    onClick={() => logout()}
-                >
-                    Logout
-                </Button>
-                <Button
-                    width="100%"
-                    onClick={() => isReady()}
-                >
-                    {readyText}
-                </Button>
+                <div className="lobby button_container">
+                    <Button className="lobby logout_button"
 
-                <Button
-                    width= "27%"
-                    onClick={togglePopup}
-                >
-                    Rules
+                        onClick={() => logout()}
+                    >
+                        Logout
+                    </Button>
+                    <Button className="lobby ready_button"
+                        onClick={() => isReady()}
+                    >
+                        {readyText}
+                    </Button>
+                </div>
+                    <Button className="lobby rules_button"
+                        onClick={togglePopup}
+                    >
+                        Rules
+                    </Button>
 
-                </Button>
-
-                {isOpen && <Popup
-                    content={<>
-                        <b>Game Rules</b>
-                        <div>
-                            {rules.map((line,index)=>
-                                (
-                                    <p key={index}>{line}</p>
-                                )
-                            )}
-                        </div>
-                        <button>Test button</button>
-                    </>}
-                    handleClose={togglePopup}
-                />}
-
+                <div className="lobby game_rules">
+                    {isOpen && <Popup
+                        content={<>
+                            <b>Game Rules</b>
+                            <div>
+                                {rules.map((line, index) =>
+                                    (
+                                        <p key={index}>{line}</p>
+                                    )
+                                )}
+                            </div>
+                            <button>Test button</button>
+                        </>}
+                        handleClose={togglePopup}
+                    />}
+                </div>
             </div>
 
         );
@@ -219,10 +199,6 @@ const Lobby = () => {
 
     return (
         <BaseContainer className="lobby container">
-            <h2>Lobby {readyStat}</h2>
-            <p className="lobby paragraph">
-                Get all users from secure endpoint:
-            </p>
             {content}
         </BaseContainer>
     );
