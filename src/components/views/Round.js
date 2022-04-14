@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Round.scss";
@@ -11,24 +11,12 @@ import {ScoreBoard} from "../ui/ScoreBoard"
 // test: display hand
 
 const Player = ({user}) => (
-    <div>
-      <ScoreBoard className="player username">{user.username}</ScoreBoard>
-      <ScoreBoard className="player id">id: {user.score}</ScoreBoard>
+    <div className="player container">
+      <div className="player username">{user.username}</div>
+      <div className="player id">id: {user.id}</div>
 
     </div>
 );
-
-/*const PlayerScore = props => {
-  return (
-
-      <div className="scoreboard">
-        {props.content}
-      </div>
-
-  );
-};*/
-
-
 
 const Whitecard = ({card}) => (
     <div className="whitecard container">
@@ -54,6 +42,8 @@ const Round = () => {
   const [users, setUsers] = useState(null);
   const [cards, setCards] = useState(null);
   const [black, setBlack] = useState(null);
+  const {userId} = useParams();
+  const {matchId} = useParams();
   const [scores, setScores] = useState(null);
 
   const exit = async () => {
@@ -70,7 +60,7 @@ const Round = () => {
     }
 
     localStorage.removeItem('token');
-    history.push('/login');
+    history.push('/users/login');
   }
 
   // the effect hook can be used to react to change in your component.
@@ -121,15 +111,14 @@ const Round = () => {
         <div className="round">
           <div className="round user-list">
             {users.map(user => (
-
-                  <Player user={user} key={user.score}/>
-
+                <Link style={{color: 'red'}}>
+                  <Player user={user} key={user.id}/>
+                </Link>
             ))}
           </div>
         </div>
     );
   }
-
 
     if (cards) {
         content2 = (
@@ -144,14 +133,6 @@ const Round = () => {
             </div>
         );
     }
-
-    if(scores){
-     scoreContent = (
-        <div>
-        </div>
-      )
-    }
-
 
   return (
       <BaseContainer className="round container">
@@ -172,7 +153,7 @@ const Round = () => {
               {black}
           </Card>
 
-          <dic className="round card-list">
+          <div className="round card-list">
 
           <Card className="whiteC">1</Card>
           <Card className="whiteC">1</Card>
@@ -191,9 +172,10 @@ const Round = () => {
           >
               Exit
           </Button>
-        </dic>
-      </BaseContainer>
-  );
+        </div>
+        </BaseContainer>
+    );
+
 }
 
 export default Round;

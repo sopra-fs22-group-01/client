@@ -87,7 +87,7 @@ const Login = props => {
                     </div>
                     <div className="login registrationText">
                         <text>Don't have an account yet? Click </text>
-                        <Link to={`/registration`}>
+                        <Link to={`/users/registration`}>
                             <text>here</text>
                         </Link>
                         <text> to register.</text>
