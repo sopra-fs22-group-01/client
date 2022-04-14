@@ -9,7 +9,6 @@ import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
 import ProfilePage from "../../views/ProfilePage";
 import Game from "../../views/Game";
 import StartPage from "../../views/StartPage";
-import UserRouter from "./UserRouter";
 import Round from "../../views/Round";
 
 /**
