@@ -28,21 +28,21 @@
 
   /*this values define the black box around the username and password field*/
   &.form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 60%;
-    max-width: 30em;
-    height: 25em;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    border-radius: 0.75em;
-    background-color: transparent;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    box-shadow: $dropShadow;
-    text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 60%;
+      max-width: 30em;
+      height: 25em;
+      font-size: 1em;
+      font-weight: 300;
+      padding-left: 37px;
+      padding-right: 37px;
+      border-radius: 0.75em;
+      background-color: transparent;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      box-shadow: $dropShadow;
+      text-align: left;
   }
 
   /*this is the field from  login field defined in login.js as template on top of the file*/
@@ -54,23 +54,23 @@
 
   /*this values define the two input fields for username and password*/
   &.input {
-    height: 35px;
-    padding-left: 15px;
-    margin-left: -4px;
+    height: 3em;
+    padding: 1em;
     border: none;
-    border-radius: 0.4em;
+    border-radius: 0.7em;
     margin-bottom: 20px;
     background: white;
     color: black;
     font-weight: bold;
+    font-size: 1.3em;
   }
-
   /*this values define the labels (the texts "Username" and "Password")*/
   &.label {
     color: $textColor;
     margin-bottom: 10px;
     text-transform: capitalize;
     font-weight: bold;
+    font-size: 1.5em;
   }
 
   /*this values define the position of the login button*/

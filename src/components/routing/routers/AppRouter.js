@@ -50,18 +50,18 @@ const AppRouter = () => {
                     </GameGuard>
                 </Route>
                 <Route exact path="/login">
-                    <LoginGuard>
+                    {/*<LoginGuard>*/}
                         <Login/>
-                    </LoginGuard>
+                    {/*</LoginGuard>*/}
                 </Route>
                 <Route exact path="/registration">
-                    <RegistrationGuard>
+                    {/*<RegistrationGuard>*/}
                         <Registration/>
-                    </RegistrationGuard>
+                    {/*</RegistrationGuard>*/}
                 </Route>
 
                 <Route exact path="/">
-                    <Redirect to="/startpage"/> {/* lobby*/}
+                    <Redirect to="/startpage"/>
                 </Route>
             </Switch>
         </BrowserRouter>
