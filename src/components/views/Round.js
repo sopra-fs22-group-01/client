@@ -130,11 +130,6 @@ const Round = () => {
 
   return (
       <BaseContainer className="round container">
-        <h2>ROUND</h2>
-        <p>
-          display: Black Card, Hand, Timer, User-list, Scoreboard
-        </p>
-          {content}
           <Card className="blackC"
           >
               {black}
