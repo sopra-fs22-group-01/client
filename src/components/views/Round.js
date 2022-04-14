@@ -18,7 +18,7 @@ const Player = ({user}) => (
     </div>
 );
 
-const PlayerScore = props => {
+/*const PlayerScore = props => {
   return (
 
       <div className="scoreboard">
@@ -26,7 +26,7 @@ const PlayerScore = props => {
       </div>
 
   );
-};
+};*/
 
 
 
@@ -146,21 +146,8 @@ const Round = () => {
     }
 
     if(scores){
-      scoreContent = (
+     scoreContent = (
         <div>
-          <PlayerScore
-            content={<>
-              <h3>Score Board</h3>
-              <div>
-                {scores.map((line, index) =>
-                  (
-                    <p key={index}>{line}</p>
-                  )
-                )}
-              </div>
-              <button>Test button</button>
-            </>}
-            />
         </div>
       )
     }
@@ -173,11 +160,10 @@ const Round = () => {
         <p>
           display: Black Card, Hand, Timer, User-list, Scoreboard
         </p>
-        <div>{scoreContent}</div>
+
         <ScoreBoard >
           <h3>Scoreboard</h3>
 
-          {scoreContent}
           Player 1: 2 points
           Player 2: 3 points
         </ScoreBoard >
