@@ -158,21 +158,19 @@ const Lobby = () => {
                     ))}
                 </ul>
                 <div className="lobby button_container">
-                    <Button
-                        width="40%"
+                    <Button className="lobby logout_button"
+
                         onClick={() => logout()}
                     >
                         Logout
                     </Button>
-                    <Button
-                        width="40%"
+                    <Button className="lobby ready_button"
                         onClick={() => isReady()}
                     >
                         {readyText}
                     </Button>
                 </div>
                     <Button className="lobby rules_button"
-                        width="20%"
                         onClick={togglePopup}
                     >
                         Rules
