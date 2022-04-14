@@ -61,7 +61,7 @@ const AppRouter = () => {
                 </Route>
 
                 <Route exact path="/">
-                    <Redirect to="/lobby"/>
+                    <Redirect to="/startpage"/> {/* lobby*/}
                 </Route>
             </Switch>
         </BrowserRouter>
