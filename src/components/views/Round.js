@@ -7,22 +7,20 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Round.scss";
 import {Card} from "../ui/Card";
-import {ScoreBoard} from "../ui/ScoreBoard"
-// test: display hand
+import {ScoreBoard} from "../ui/ScoreBoard";
 
 const Player = ({user}) => (
-    <div className="player container">
-      <div className="player username">{user.username}</div>
-      <div className="player id">id: {user.id}</div>
+  <div >
+    <div className={ScoreBoard} >{user.username} : {user.score}</div>
 
-    </div>
+  </div>
 );
 
 const Whitecard = ({card}) => (
-    <div className="whitecard container">
-        <div className="whitecard username">{card.text}</div>
-        <div className="whitecard id">id: {card.id}</div>
-    </div>
+  <div className="whitecard container">
+    <div className="whitecard username">{card.text}</div>
+    <div className="whitecard id">id: {card.id}</div>
+  </div>
 );
 
 
@@ -44,7 +42,6 @@ const Round = () => {
   const [black, setBlack] = useState(null);
   const {userId} = useParams();
   const {matchId} = useParams();
-  const [scores, setScores] = useState(null);
 
   const exit = async () => {
     try{
@@ -72,8 +69,7 @@ const Round = () => {
     async function fetchData() {
       try {
         const response = await api.get('/users');
-        const b = await api.get(`/matches/${1}/blackCard`);
-        //const scores = await api.get(`/matches/${1}/scores`);
+        const b = await api.get(`/matches/${1}/blackCard`)
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
         // feel free to remove it :)
@@ -82,7 +78,7 @@ const Round = () => {
         // Get the returned users and update the state.
         setUsers(response.data);
         setBlack(b.data);
-        //setScores(scores.data);
+
 
         // This is just some data for you to see what is available.
         // Feel free to remove it.
@@ -98,78 +94,71 @@ const Round = () => {
         console.error("Details:", error);
         alert("Something went wrong while fetching the users! See the console for details.");
       }
-      fetchData();
     }
+    fetchData();
   }, []);
 
   let content = <Spinner/>;
   let content2 = null;
-  //let scoreContent = null;
 
   if (users) {
     content = (
-        <div className="round">
-          <div className="round user-list">
-            {users.map(user => (
-                <Link style={{color: 'red'}}>
-                  <Player user={user} key={user.id}/>
-                </Link>
-            ))}
-          </div>
-        </div>
+      <div className="round">
+          {users.map(user => (
+
+              <Player user={user} key={user.id}/>
+
+          ))}
+      </div>
     );
   }
 
-    if (cards) {
-        content2 = (
-            <div className="round">
-                <dic className="round card-list">
-                    {cards.map(card => (
-                        <Card style={{color: 'red'}}>
-                            <Whitecard card={card} key={card.text}/>
-                        </Card>
-                    ))}
-                </dic>
-            </div>
-        );
-    }
+  if (cards) {
+    content2 = (
+      <div className="round">
+        <dic className="round card-list">
+          {cards.map(card => (
+            <Card style={{color: 'red'}}>
+              <Whitecard card={card} key={card.text}/>
+            </Card>
+          ))}
+        </dic>
+      </div>
+    );
+  }
 
   return (
-      <BaseContainer className="round container">
-        <h2>ROUND</h2>
+    <BaseContainer className="round container">
+      <Card className="blackC"
+      >
+        {black}
+      </Card>
+      <ScoreBoard>
+        <h4>Score Board</h4>
+        {content}
+      </ScoreBoard>
+      <div className="round card-list">
 
-        <p>
-          display: Black Card, Hand, Timer, User-list, Scoreboard
-        </p>
+        <Card className="whiteC">1</Card>
+        <Card className="whiteC">1</Card>
+        <Card className="whiteC">1</Card>
+        <Card className="whiteC">1</Card>
+        <Card className="whiteC">1</Card>
+        <Card className="whiteC">1</Card>
+        <Card className="whiteC">1</Card>
+        <Card className="whiteC">1</Card>
+        <Card className="whiteC">1</Card>
+        <Card className="whiteC">1</Card>
 
-
-          <Card className="blackC"
-          >
-              {black}
-          </Card>
-
-          <div className="round card-list">
-
-          <Card className="whiteC">1</Card>
-          <Card className="whiteC">1</Card>
-          <Card className="whiteC">1</Card>
-          <Card className="whiteC">1</Card>
-          <Card className="whiteC">1</Card>
-          <Card className="whiteC">1</Card>
-          <Card className="whiteC">1</Card>
-          <Card className="whiteC">1</Card>
-          <Card className="whiteC">1</Card>
-          <Card className="whiteC">1</Card>
-
-              <Button
-              width="100%"
-              onClick={() => exit()}
-          >
-              Exit
-          </Button>
-        </div>
-        </BaseContainer>
-    );
+        <Button
+          width="100%"
+          onClick={() => exit()}
+        >
+          Exit
+        </Button>
+      </div>
+    </BaseContainer>
+  );
 
 }
 
