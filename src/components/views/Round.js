@@ -11,18 +11,24 @@ import {ScoreBoard} from "../ui/ScoreBoard"
 // test: display hand
 
 const Player = ({user}) => (
-    <div className="player container">
-      <div className="player username">{user.username}</div>
-      <div className="player id">id: {user.id}</div>
-
-    </div>
-);
-
-const PlayerScore = ({score})=> (
     <div>
-      <li>  {score} </li>
+      <ScoreBoard className="player username">{user.username}</ScoreBoard>
+      <ScoreBoard className="player id">id: {user.score}</ScoreBoard>
+
     </div>
 );
+
+const PlayerScore = props => {
+  return (
+
+      <div className="scoreboard">
+        {props.content}
+      </div>
+
+  );
+};
+
+
 
 const Whitecard = ({card}) => (
     <div className="whitecard container">
@@ -109,14 +115,15 @@ const Round = () => {
   let content = <Spinner/>;
   let content2 = null;
   let scoreContent = null;
+
   if (users) {
     content = (
         <div className="round">
           <div className="round user-list">
             {users.map(user => (
-                <Link style={{color: 'red'}}>
-                  <Player user={user} key={user.id}/>
-                </Link>
+
+                  <Player user={user} key={user.score}/>
+
             ))}
           </div>
         </div>
@@ -141,9 +148,19 @@ const Round = () => {
     if(scores){
       scoreContent = (
         <div>
-          {scores.map(score =>(
-            <PlayerScore score ={score} key={score}/>
-          ))}
+          <PlayerScore
+            content={<>
+              <h3>Score Board</h3>
+              <div>
+                {scores.map((line, index) =>
+                  (
+                    <p key={index}>{line}</p>
+                  )
+                )}
+              </div>
+              <button>Test button</button>
+            </>}
+            />
         </div>
       )
     }
@@ -156,14 +173,14 @@ const Round = () => {
         <p>
           display: Black Card, Hand, Timer, User-list, Scoreboard
         </p>
+        <div>{scoreContent}</div>
         <ScoreBoard >
           <h3>Scoreboard</h3>
 
-          <PlayerScore score={scores}/>
+          {scoreContent}
           Player 1: 2 points
           Player 2: 3 points
         </ScoreBoard >
-          {content}
           <Card className="blackC"
           >
               {black}
