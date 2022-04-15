@@ -194,7 +194,7 @@ const Lobby = () => {
                 </div>
                 <ul className="lobby user-list">
                     {users.map(user => (
-                        <Link to={`/users/${userId}`}>
+                        <Link to={`/users/${user.id}`}>
                             <Player user={user}/>
                         </Link>
                     ))}

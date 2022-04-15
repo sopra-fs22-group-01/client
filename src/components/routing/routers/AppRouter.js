@@ -63,11 +63,11 @@ const AppRouter = () => {
                     </GameGuard>
                 </Route>
 
-                <Route path="/rounds">
+                {/*} <Route path="/rounds">
                     <GameGuard>
                         <GameRouter base="/rounds"/>
                     </GameGuard>
-                </Route>
+                </Route>*/}
 
 
                 <Route exact path="/">
