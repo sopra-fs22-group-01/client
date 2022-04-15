@@ -88,7 +88,11 @@ const ProfilePage = () => {
                         </div>
                         <div className="profilePage password">
                             <text>Password: ● ● ● ● ●</text>
-                            <MdOutlineEdit className="profilePage icon" onClick={() => history.push(`/editor/${user.id}`)}/>
+                            <SecondaryButton
+                                disabled={!(user.token === localStorage.getItem(`token`))}
+                                onClick={() => history.push(`/editor/${user.id}`)}>
+                                <MdOutlineEdit className="profilePage icon"/>
+                            </SecondaryButton>
                         </div>
                     </div>
                     <div className="profilePage button_container">
