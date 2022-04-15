@@ -9,11 +9,11 @@ const StartPage = props => {
     const history = useHistory();
 
     const pressLoginButton = async () => {
-        history.push(`/login`);
+        history.push(`/users/login`);
     };
 
     const pressRegistrationButton = async () => {
-        history.push(`/registration`);
+        history.push(`/users/registration`);
     };
 
     return (

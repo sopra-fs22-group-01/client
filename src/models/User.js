@@ -9,9 +9,10 @@ class User {
     this.password = null;
     this.date = null;
     this.isLoggedIn = null;
-
+    this.score = null;
     this.userStatus = null;
     this.isReady = null;
+
 
     this.birthday = null;
     Object.assign(this, data);

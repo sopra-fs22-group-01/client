@@ -1,5 +1,15 @@
 # SoPra FS22 - Client Template
 
+# Notes Group 01
+ProfilePage.js
+- line 45: artificially set LobbyId to 1
+
+Lobby.js 
+- line 128: artificially set MatchId to 1
+
+
+
+
 ## Getting started
 
 Read and go through these Tutorials. It will make your life easier!

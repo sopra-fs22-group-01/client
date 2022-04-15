@@ -21,6 +21,10 @@
     list-style: none;
     padding-left: 0;
   }
+  &.card-list {
+    list-style: none;
+    padding-left: 0;
+  }
   &.user-item {
     display: flex;
     flex-direction: column;
@@ -34,6 +38,32 @@
 }
 
 .player {
+  &.container {
+    //margin: 0.5em 0;
+    //width: 20em;
+    //padding: 10px;
+    //border-radius: $borderRadius;
+    //display: flex;
+    align-items: center;
+    background: lighten($background, 5);
+  }
+  &.name {
+    font-weight: 300;
+    margin-left: 5px;
+  }
+  &.username {
+    font-weight: 500;
+    color: $fontMono;
+  }
+  &.id {
+    //margin-left: auto;
+    //margin-right: 10px;
+    font-family: $fontMono;
+    font-weight: 300;
+  }
+}
+
+.whitecard {
   &.container {
     margin: 0.5em 0;
     width: 20em;

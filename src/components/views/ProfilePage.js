@@ -23,6 +23,7 @@ const ProfilePage = () => {
     // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [user, setUser] = useState(null);
     const {id} = useParams(); //extracts the id from the URL
+    const [lobbyId, setLobbyId] = useState(null);
 
 
     // the effect hook can be used to react to change in your component.
@@ -42,6 +43,7 @@ const ProfilePage = () => {
 
                 // Get the returned users and update the state.
                 setUser(response.data);
+                setLobbyId(1);
 
                 // This is just some data for you to see what is available.
                 // Feel free to remove it.
