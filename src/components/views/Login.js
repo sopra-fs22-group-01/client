@@ -53,7 +53,7 @@ const Login = props => {
             localStorage.setItem('token', user.token);
             //localStorage.setItem('status', user.status);
 
-            history.push(`/users/${user.id}`);
+            history.push(`/users/profile/${user.id}`);
 
             // Login successfully worked --> navigate to the route /game in the GameRouter
             //history.push(`/game`);

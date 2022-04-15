@@ -13,7 +13,7 @@ const Player = ({user}) => (
   <div >
     <div className={ScoreBoard} >{user.username} : {user.score}</div>
 
-  </div>
+    </div>
 );
 
 const Whitecard = ({card}) => (
@@ -39,7 +39,7 @@ const Round = () => {
   // more information can be found under https://reactjs.org/docs/hooks-state.html
   const [users, setUsers] = useState(null);
   const [cards, setCards] = useState(null);
-  const [black, setBlack] = useState(null);
+  const [blackCard, setBlackCard] = useState(null);
   const {userId} = useParams();
   const {matchId} = useParams();
 
@@ -69,7 +69,7 @@ const Round = () => {
     async function fetchData() {
       try {
         const response = await api.get('/users');
-        const b = await api.get(`/matches/${1}/blackCard`)
+        const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
         // feel free to remove it :)
@@ -77,22 +77,15 @@ const Round = () => {
 
         // Get the returned users and update the state.
         setUsers(response.data);
-        setBlack(b.data);
-
-
-        // This is just some data for you to see what is available.
-        // Feel free to remove it.
-        console.log('request to:', response.request.responseURL);
-        console.log('status code:', response.status);
-        console.log('status text:', response.statusText);
-        console.log('requested data:', response.data);
+        setBlackCard(blackCard_response.data);
 
         // See here to get more data.
         console.log(response);
+        console.log(blackCard_response);
       } catch (error) {
         console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
         console.error("Details:", error);
-        alert("Something went wrong while fetching the users! See the console for details.");
+        alert("Something went wrong while fetching the users or the black Card! See the console for details.");
       }
     }
     fetchData();
@@ -131,7 +124,7 @@ const Round = () => {
     <BaseContainer className="round container">
       <Card className="blackC"
       >
-        {black}
+          {blackCard}
       </Card>
       <ScoreBoard>
         <h4>Score Board</h4>
@@ -139,16 +132,16 @@ const Round = () => {
       </ScoreBoard>
       <div className="round card-list">
 
-        <Card className="whiteC">1</Card>
-        <Card className="whiteC">1</Card>
-        <Card className="whiteC">1</Card>
-        <Card className="whiteC">1</Card>
-        <Card className="whiteC">1</Card>
-        <Card className="whiteC">1</Card>
-        <Card className="whiteC">1</Card>
-        <Card className="whiteC">1</Card>
-        <Card className="whiteC">1</Card>
-        <Card className="whiteC">1</Card>
+          <Card className="whiteC">1</Card>
+          <Card className="whiteC">2</Card>
+          <Card className="whiteC">3</Card>
+          <Card className="whiteC">4</Card>
+          <Card className="whiteC">5</Card>
+          <Card className="whiteC">1</Card>
+          <Card className="whiteC">1</Card>
+          <Card className="whiteC">1</Card>
+          <Card className="whiteC">1</Card>
+          <Card className="whiteC">10</Card>
 
         <Button
           width="100%"

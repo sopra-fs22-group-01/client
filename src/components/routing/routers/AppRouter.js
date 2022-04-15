@@ -2,14 +2,11 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {GameGuard} from "components/routing/routeProtectors/GameGuard";
 import GameRouter from "components/routing/routers/GameRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
-import Login from "components/views/Login";
 import EditProfile from "components/views/EditProfile";
-import Registration from "../../views/Registration";
 import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
-import ProfilePage from "../../views/ProfilePage";
-import Game from "../../views/Game";
 import StartPage from "../../views/StartPage";
-import Round from "../../views/Round";
+import UserRouter from "./UserRouter";
+import MatchRouter from "./MatchRouter";
 
 /**
  * Main router of your application.
@@ -29,21 +26,15 @@ const AppRouter = () => {
                 <Route path="/startpage">
                     <StartPage/>
                 </Route>
-                <Route exact path="/users/registration">
-                    {/*<RegistrationGuard>*/}
-                    <Registration/>
-                    {/*</RegistrationGuard>*/}
+
+                <Route path="/users">
+                     <UserRouter base="/users"/>
                 </Route>
-                <Route exact path="/users/login">
-                    {/*<LoginGuard>*/}
-                    <Login/>
-                    {/*</LoginGuard>*/}
+
+                <Route path="/matches">
+                    <MatchRouter base="/matches"/>
                 </Route>
-                <Route path="/users/:id">
-                    <GameGuard>
-                        <ProfilePage/>
-                    </GameGuard>
-                </Route>
+                {/*-------------------------------*/}
 
                 <Route path="/editor/:id">
                     <GameGuard>
@@ -51,24 +42,23 @@ const AppRouter = () => {
                     </GameGuard>
                 </Route>
 
-                <Route path="/matches/:matchId/hand/:userId">
+                {/* <Route path="/matches/:matchId/hand/:userId">
                     <GameGuard>
                         <Round/>
                     </GameGuard>
                 </Route>
+
+                <Route path="/lobbies/:lobbyId/players/:userId">
+                    <GameGuard>
+                        <Lobby/>
+                    </GameGuard>
+                </Route>*/}
 
                 <Route path="/lobbies">
                     <GameGuard>
                         <GameRouter base="/lobbies"/>
                     </GameGuard>
                 </Route>
-
-                <Route path="/rounds">
-                    <GameGuard>
-                        <GameRouter base="/rounds"/>
-                    </GameGuard>
-                </Route>
-
 
                 <Route exact path="/">
                     <Redirect to="/startpage"/>
