@@ -98,7 +98,8 @@ const ProfilePage = () => {
                         </div>
                     </div>
                     <div className="profilePage button_container">
-                        <PrimaryButton onClick={() => history.push(`/lobby/players/${user.id}`)}>
+                        {/*<PrimaryButton onClick={() => history.push(`/lobby/players/${user.id}`)}>*/}
+                        <PrimaryButton onClick={() => history.push(`/lobby/${user.id}`)}>
                             Go to Game Lobby
                         </PrimaryButton>
                     </div>
