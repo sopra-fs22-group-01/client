@@ -1,0 +1,26 @@
+@import 'styles/theme';
+
+.secondary-button {
+
+  &:hover {
+    transform: translateY(-2px);
+    color: #c2c1c0;
+  }
+  &:disabled {
+    cursor: default;
+    visibility: hidden;
+    &:hover {
+      transform: none;
+      background-color: transparent;
+    }
+  }
+  color: white;
+  border:none;
+  margin-right: 0;
+  margin-left: 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 1;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}

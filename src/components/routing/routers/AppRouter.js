@@ -2,11 +2,14 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {GameGuard} from "components/routing/routeProtectors/GameGuard";
 import GameRouter from "components/routing/routers/GameRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
+import Login from "components/views/Login";
 import EditProfile from "components/views/EditProfile";
+import Registration from "../../views/Registration";
 import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
+import ProfilePage from "../../views/ProfilePage";
+import Game from "../../views/Game";
 import StartPage from "../../views/StartPage";
-import UserRouter from "./UserRouter";
-import MatchRouter from "./MatchRouter";
+import Round from "../../views/Round";
 
 /**
  * Main router of your application.
@@ -59,6 +62,7 @@ const AppRouter = () => {
                         <GameRouter base="/lobbies"/>
                     </GameGuard>
                 </Route>
+
 
                 <Route exact path="/">
                     <Redirect to="/startpage"/>

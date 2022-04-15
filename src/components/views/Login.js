@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import User from 'models/User';
 import {Link, useHistory, useParams} from 'react-router-dom';
-import {Button} from 'components/ui/Button';
+import {PrimaryButton} from 'components/ui/PrimaryButton';
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
@@ -77,13 +77,13 @@ const Login = props => {
                         onChange={n => setPassword(n)}
                     />
                     <div className="login button-container">
-                        <Button
+                        <PrimaryButton
                             disabled={!username || !password} //if no password or username is entered, button cant be clicked
                             width="50%" //define size of button here so it can be 100% in the button template
                             onClick={() => doLogin()}
                         >
                             Login
-                        </Button>
+                        </PrimaryButton>
                     </div>
                     <div className="login registrationText">
                         <text>Don't have an account yet? Click </text>

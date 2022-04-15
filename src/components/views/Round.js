@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
-import {Button} from 'components/ui/Button';
+import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
@@ -143,12 +143,12 @@ const Round = () => {
           <Card className="whiteC">1</Card>
           <Card className="whiteC">10</Card>
 
-        <Button
+        <PrimaryButton
           width="100%"
           onClick={() => exit()}
         >
           Exit
-        </Button>
+        </PrimaryButton>
       </div>
     </BaseContainer>
   );

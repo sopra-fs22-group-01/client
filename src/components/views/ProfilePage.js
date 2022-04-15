@@ -1,12 +1,13 @@
 import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
-import {Button} from 'components/ui/Button';
+import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/ProfilePage.scss";
 import profileIcon from 'images/profileIcon1.png';
 import { MdOutlineEdit } from "react-icons/md";
+import {SecondaryButton} from "../ui/SecondaryButton";
 
 
 
@@ -80,17 +81,26 @@ const ProfilePage = () => {
                         <div className="profilePage username">
                             <text>Username: </text>
                             {user.username}
-                            <MdOutlineEdit className="profilePage icon" onClick={() => history.push(`/editor/${user.id}`)} />
+                            <SecondaryButton
+                                    disabled={!(user.token === localStorage.getItem(`token`))}
+                                    onClick={() => history.push(`/editor/${user.id}`)}>
+                                <MdOutlineEdit className="profilePage icon"/>
+                            </SecondaryButton>
+
                         </div>
                         <div className="profilePage password">
                             <text>Password: ● ● ● ● ●</text>
-                            <MdOutlineEdit className="profilePage icon" onClick={() => history.push(`/editor/${user.id}`)}/>
+                            <SecondaryButton
+                                disabled={!(user.token === localStorage.getItem(`token`))}
+                                onClick={() => history.push(`/editor/${user.id}`)}>
+                                <MdOutlineEdit className="profilePage icon"/>
+                            </SecondaryButton>
                         </div>
                     </div>
                     <div className="profilePage button_container">
-                        <Button onClick={() => history.push(`/lobbies/${lobbyId}/players/${user.id}`)}>
+                        <PrimaryButton onClick={() => history.push(`/lobbies/${lobbyId}/players/${user.id}`)}>
                             Go to Game Lobby
-                        </Button>
+                        </PrimaryButton>
                     </div>
                 </div>
             </BaseContainer>
