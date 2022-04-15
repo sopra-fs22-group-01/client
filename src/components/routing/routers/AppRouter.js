@@ -10,6 +10,8 @@ import ProfilePage from "../../views/ProfilePage";
 import Game from "../../views/Game";
 import StartPage from "../../views/StartPage";
 import Round from "../../views/Round";
+import MatchRouter from "./MatchRouter";
+import UserRouter from "./UserRouter";
 
 /**
  * Main router of your application.
