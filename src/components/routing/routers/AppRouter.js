@@ -29,21 +29,15 @@ const AppRouter = () => {
                 <Route path="/startpage">
                     <StartPage/>
                 </Route>
-                <Route exact path="/users/registration">
-                    {/*<RegistrationGuard>*/}
-                    <Registration/>
-                    {/*</RegistrationGuard>*/}
+
+                <Route path="/users">
+                     <UserRouter base="/users"/>
                 </Route>
-                <Route exact path="/users/login">
-                    {/*<LoginGuard>*/}
-                    <Login/>
-                    {/*</LoginGuard>*/}
+
+                <Route path="/matches">
+                    <MatchRouter base="/matches"/>
                 </Route>
-                <Route path="/users/:id">
-                    <GameGuard>
-                        <ProfilePage/>
-                    </GameGuard>
-                </Route>
+                {/*-------------------------------*/}
 
                 <Route path="/editor/:id">
                     <GameGuard>
@@ -51,23 +45,23 @@ const AppRouter = () => {
                     </GameGuard>
                 </Route>
 
-                <Route path="/matches/:matchId/hand/:userId">
+                {/* <Route path="/matches/:matchId/hand/:userId">
                     <GameGuard>
                         <Round/>
                     </GameGuard>
                 </Route>
+
+                <Route path="/lobbies/:lobbyId/players/:userId">
+                    <GameGuard>
+                        <Lobby/>
+                    </GameGuard>
+                </Route>*/}
 
                 <Route path="/lobbies">
                     <GameGuard>
                         <GameRouter base="/lobbies"/>
                     </GameGuard>
                 </Route>
-
-                {/*} <Route path="/rounds">
-                    <GameGuard>
-                        <GameRouter base="/rounds"/>
-                    </GameGuard>
-                </Route>*/}
 
 
                 <Route exact path="/">

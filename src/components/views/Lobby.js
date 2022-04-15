@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
+import {Button} from 'components/ui/Button';
 import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
@@ -12,6 +13,7 @@ import {AiOutlineCheckCircle} from "react-icons/ai";
 import {BsCircle} from "react-icons/bs";
 import {BiCircle, BiCheckCircle} from "react-icons/bi";
 import user from "../../models/User";
+// test
 
 
 
@@ -194,7 +196,7 @@ const Lobby = () => {
                 </div>
                 <ul className="lobby user-list">
                     {users.map(user => (
-                        <Link to={`/users/${user.id}`}>
+                        <Link to={`/users/profile/${user.id}`}>
                             <Player user={user}/>
                         </Link>
                     ))}
@@ -202,7 +204,7 @@ const Lobby = () => {
                 <div className="lobby button_container">
                     <PrimaryButton className="lobby logout_button"
 
-                                   onClick={() => logout()}
+                        onClick={() => logout()}
                     >
                         Logout
                     </PrimaryButton>
