@@ -22,6 +22,17 @@
     }
   }*/
 
+
+  a{
+    color: $textColor;
+  }
+  a:hover {
+    color: grey;
+  }
+  a:link{
+    text-decoration: none;
+  }
+
   &.titleContainer {
     font-size: 5em;
     font-weight: bold;
@@ -83,7 +94,6 @@
 .lobby {
   &.container {
     margin-bottom: 0.5em;
-    width: auto;
     padding: 5px;
     border-radius: 0.5em;
     display: flex;

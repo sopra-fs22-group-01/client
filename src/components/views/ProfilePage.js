@@ -72,7 +72,7 @@ const ProfilePage = () => {
                 // delays continuous execution of an async operation for 1 second.
                 // This is just a fake async call, so that the spinner can be displayed
                 // feel free to remove it :)
-                await new Promise(resolve => setTimeout(resolve, 10000));
+                //await new Promise(resolve => setTimeout(resolve, 10000));
 
                 // Get the returned users and update the state.
                 setUser(response1.data);
@@ -131,14 +131,19 @@ const ProfilePage = () => {
                             </SecondaryButton>
                         </div>
                     </div>
+
+
                     <div className="profilePage lobbyListContainer">
                         Choose a lobby
                         <ul className="profilePage lobbyList">
                             {lobbies.map(lobbyModel => (
+                                <Link to={`/lobbies/${lobbyModel.id}/players/${user.id}`}>
                                 <Lobby lobbyModel={lobbyModel}/>
+                                </Link>
                             ))}
                         </ul>
                     </div>
+
 
                     <div className="profilePage buttonContainer">
                         <PrimaryButton onClick={() => createNewLobby()}>
