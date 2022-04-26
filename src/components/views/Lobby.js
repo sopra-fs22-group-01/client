@@ -115,6 +115,7 @@ const Lobby = () => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             setMatchId(1);
+
             try{const response = await api.get('/users');
                 setUsers(response.data);
             }catch (error) {
@@ -182,6 +183,7 @@ const Lobby = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the users/user or rules ! See the console for details.");
             }*/
+
         }
         fetchData();
     }, [user]);

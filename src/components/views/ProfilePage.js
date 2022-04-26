@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {PrimaryButton} from 'components/ui/PrimaryButton';
-import {useHistory, useParams} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/ProfilePage.scss";
 import profileIcon from 'images/profileIcon1.png';
@@ -97,6 +97,15 @@ const ProfilePage = () => {
                             </SecondaryButton>
                         </div>
                     </div>
+----------------------------------------
+                    <ul className="profilePage user-list">
+                        {users.map(user => (
+                            <Link to={`/users/profile/${user.id}`}>
+                                <Player user={user}/>
+                            </Link>
+                        ))}
+                    </ul>
+  ----------------------------------------
                     <div className="profilePage button_container">
                         <PrimaryButton onClick={() => history.push(`/lobbies/${lobbyId}/players/${user.id}`)}>
                             Go to Game Lobby

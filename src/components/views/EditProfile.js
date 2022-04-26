@@ -53,7 +53,7 @@ const EditProfile = () =>{
       console.log({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, "password":password});
       const requestBody = JSON.stringify({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, password}); //creates .json file (?)
       await api.put(`/users/`+ user.id, requestBody);//request get to userController (GET sends to server)
-      history.push(`/users/${id}`)
+      history.push(`/users/profile/${user.id}`)
 
     } catch (error) {
       alert(`Something went wrong during the editing: \n${handleError(error)}`);
