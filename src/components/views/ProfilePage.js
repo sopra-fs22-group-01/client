@@ -132,7 +132,6 @@ const ProfilePage = () => {
                         </div>
                     </div>
 
-
                     <div className="profilePage lobbyListContainer">
                         Choose a lobby
                         <ul className="profilePage lobbyList">
