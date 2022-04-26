@@ -97,7 +97,7 @@ const Lobby = () => {
                     "isReady": user.isReady
                 }); //creates .json file
 
-            const updateResponse = await api.put(`/lobby/users/${userId}`, requestBody);
+            const updateResponse = await api.put(`/lobbies/${lobbyId}/users/${userId}`, requestBody);
             console.log(updateResponse)
         } catch (error) {
             alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
@@ -134,7 +134,7 @@ const Lobby = () => {
                 const rules = await api.get(`/rules`);
                 setRules(rules.data);
 
-                const lobby_status_response = await api.get('/lobby/status');
+                const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`);
                 const lobby_stat = lobby_status_response.data;
                 if (lobby_stat === "All_Ready") {
                     history.push(`/matches/${matchId}/hand/${user.id}`)
