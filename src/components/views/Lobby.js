@@ -158,7 +158,7 @@ const Lobby = () => {
                 alert("Something went wrong while fetching the lobby status ! See the console for details.");
             }
         }
-        const t = setInterval(fetchData, 600);//this part is responsible for periodically fetching data
+        const t = setInterval(fetchData, 600);//this part is responsible for periodically fetching data.
         return () => clearInterval(t); // clear
     }, [user]);
 
