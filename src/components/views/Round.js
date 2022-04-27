@@ -67,25 +67,40 @@ const Round = () => {
   useEffect(() => {
     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
     async function fetchData() {
+      try{
+        const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Get the returned users and update the state.
+        setUsers(response.data);
+
+
+        console.log(response);
+      }
+      catch (error){
+        console.error(`Something went wrong while fetching the users of this specific match: \n${handleError(error)}`);
+        console.error("Details:", error);
+        alert("Something went wrong while fetching the users for this specific match! See the console for details.");
+
+      }
       try {
-        const response = await api.get(`/users`);
+        //const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
         const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
         // feel free to remove it :)
         await new Promise(resolve => setTimeout(resolve, 1000));
 
-        // Get the returned users and update the state.
-        setUsers(response.data);
+
         setBlackCard(blackCard_response.data);
 
         // See here to get more data.
-        console.log(response);
         console.log(blackCard_response);
+
       } catch (error) {
-        console.error(`Something went wrong whle fetching the users: \n${handleError(error)}`);
+        console.error(`Something went wrong while fetching the blackcard: \n${handleError(error)}`);
         console.error("Details:", error);
-        alert("Something went wrong while fetching the users or the black Card! See the console for details.");
+        alert("Something went wrong while fetching the black Card! See the console for details.");
       }
     }
     fetchData();
