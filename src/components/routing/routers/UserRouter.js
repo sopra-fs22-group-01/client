@@ -19,7 +19,7 @@ const UserRouter = props => {
                 <Login/>
             </Route>
 
-            <Route exact path={`${props.base}/profile/:id`}>
+            <Route exact path={`${props.base}/profile/:userId`}>
                 <ProfilePage/>
             </Route>
 

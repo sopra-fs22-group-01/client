@@ -42,13 +42,25 @@ const ProfilePage = () => {
     // a component can have as many state variables as you like.
     // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [user, setUser] = useState(null);
-    const {id} = useParams(); //extracts the id from the URL
+    const {userId} = useParams(); //extracts the id from the URL
     const [lobbies, setLobbies] = useState(null);
+    const [clickedLobby, setClickedLobby] = useState(null);
 
 
     const createNewLobby = async () => {
         try {
             const response = await api.post(`/lobbies/`);
+
+        } catch (error) {
+            alert(`Something went wrong when creating a new lobby: \n${handleError(error)}`);
+        }
+    };
+
+    const addUserLobby = async(lobbyId) => {
+        try {
+            const response =  api.post(`/lobbies/${lobbyId}/lists/players/${userId}`);
+            history.push(`/lobbies/${lobbyId}/players/${userId}`);
+
 
         } catch (error) {
             alert(`Something went wrong when creating a new lobby: \n${handleError(error)}`);
@@ -65,7 +77,7 @@ const ProfilePage = () => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             try {
-                const response1 = await api.get(`/users/?id=${id}`);
+                const response1 = await api.get(`/users/?id=${userId}`);
                 const response2 = await api.get('/lobbies');
                 setLobbies(response2.data);
 
@@ -136,9 +148,9 @@ const ProfilePage = () => {
                         Choose a lobby
                         <ul className="profilePage lobbyList">
                             {lobbies.map(lobbyModel => (
-                                <Link to={`/lobbies/${lobbyModel.id}/players/${user.id}`}>
+                                <button onClick={() => addUserLobby(lobbyModel.id)}>
                                 <LobbyObject lobbyModel={lobbyModel}/>
-                                </Link>
+                                </button>
                             ))}
                         </ul>
                     </div>
