@@ -133,16 +133,21 @@ const Lobby = () => {
             try{
                 const rules = await api.get(`/rules`);
                 setRules(rules.data);
-
+            }catch (error) {
+                console.error(`Something went wrong while fetching the rules: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the rules ! See the console for details.");
+            }
+            try{
                 const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`);
                 const lobby_stat = lobby_status_response.data;
                 if (lobby_stat === "All_Ready") {
                     history.push(`/matches/${matchId}/hand/${user.id}`)
                 }
             }catch (error) {
-                console.error(`Something went wrong while fetching the rules: \n${handleError(error)}`);
+                console.error(`Something went wrong while fetching the lobby status: \n${handleError(error)}`);
                 console.error("Details:", error);
-                alert("Something went wrong while fetching the rules ! See the console for details.");
+                alert("Something went wrong while fetching the lobby status ! See the console for details.");
             } /*
             try {
                 const response = await api.get('/users');
@@ -168,8 +173,8 @@ const Lobby = () => {
 
                 // See here to get more data.
                 console.log(response);
-
-                const lobby_status_response = await api.get('/lobby/status');
+                                                                        // lobby/libbyId/status
+                const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`);
                 const lobby_stat = lobby_status_response.data;
                 console.log(lobby_status_response);
                 //setReadyText(gameStat)
