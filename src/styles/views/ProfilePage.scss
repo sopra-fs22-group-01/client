@@ -8,7 +8,7 @@
  */
 
 .profilePage {
- background-color: red;
+ background-color: black;
 
   a{
     color: $textColor;
@@ -39,13 +39,13 @@
   }
 
   &.editIcon{
-    height: 2em;
-    width: 2em;
+    height: 1em;
+    width: 1em;
   }
 
 
   &.infos {
-
+    font-size: 2em;
   }
 
   &.username{
@@ -60,16 +60,7 @@
 
 
   &.lobbyListContainer {
-/*    display: flex;
-    flex-direction: column; !*child elements sind untereinender *!
-    justify-content:center; !* distributes space between and around content items along the main-axis of a flex container *!
-    align-items: center; !* sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. *!
-    margin-bottom: 0.5em;
-    padding: 3px;
-    border-radius: 0.5em;
-    background-color: red;
-    color: white;
-    font-size: 3em;*/
+    margin-top: 20px;
   }
 }
 

@@ -142,7 +142,7 @@ const Lobby = () => {
                 const lobby_stat = lobby_status_response.data;
                 if (lobby_stat === "All_Ready") {
                     try{
-                        await api.put(`/lobbies/${lobbyId}`);
+                        await api.post(`/matches/${lobbyId}`);
                     }
                     catch(error){
                         console.error(`Something went wrong while creating a match: \n${handleError(error)}`);

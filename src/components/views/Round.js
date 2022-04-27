@@ -73,8 +73,6 @@ const Round = () => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         // Get the returned users and update the state.
         setUsers(response.data);
-
-
         console.log(response);
       }
       catch (error){
