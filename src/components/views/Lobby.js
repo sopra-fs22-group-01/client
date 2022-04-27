@@ -59,7 +59,6 @@ const Lobby = () => {
     //const [readyIcon, setReadyIcon] = useState(<BiCircle/>);
     const {userId} = useParams();
     const {lobbyId} = useParams();
-    const [matchId, setMatchId] = useState(null);
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -114,9 +113,8 @@ const Lobby = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
-            setMatchId(1);
 
-            try{const response = await api.get('/users');
+            try{const response = await api.get(`lobbies/${lobbyId}/users`);
                 setUsers(response.data);
             }catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -143,54 +141,13 @@ const Lobby = () => {
                 const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`);
                 const lobby_stat = lobby_status_response.data;
                 if (lobby_stat === "All_Ready") {
-                    history.push(`/matches/${matchId}/hand/${user.id}`)
+                    history.push(`/matches/${lobbyId}/hand/${user.id}`) //because the id of the match is the same as the id of the lobby
                 }
             }catch (error) {
                 console.error(`Something went wrong while fetching the lobby status: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the lobby status ! See the console for details.");
-            } /*
-            try {
-                const response = await api.get('/users');
-                const u = await api.get(`/users/?id=${userId}`);
-                const rules = await api.get(`/rules`);
-                // delays continuous execution of an async operation for 1 second.
-                // This is just a fake async call, so that the spinner can be displayed
-                // feel free to remove it :)
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-
-                // Get the returned users and update the state.
-                setUsers(response.data);
-                setUser(u.data);
-                setRules(rules.data);
-                setMatchId(1);
-
-                // This is just some data for you to see what is available.
-                // Feel free to remove it.
-                console.log('request to:', response.request.responseURL);
-                console.log('status code:', response.status);
-                console.log('status text:', response.statusText);
-                console.log('requested data:', response.data);
-
-                // See here to get more data.
-                console.log(response);
-                                                                        // lobby/libbyId/status
-                const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`);
-                const lobby_stat = lobby_status_response.data;
-                console.log(lobby_status_response);
-                //setReadyText(gameStat)
-                if (lobby_stat === "All_Ready") {
-                    history.push(`/matches/${matchId}/hand/${user.id}`)
-                }
-
-            } catch (error) {
-                console.error(`Something went wrong while fetching the users/user or rules: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the users/user or rules ! See the console for details.");
-            }*/
-
-
+            }
 
         }
         const t = setInterval(fetchData, 600);//this part is responsible for periodically fetching data
