@@ -154,6 +154,7 @@ const Lobby = () => {
                 // feel free to remove it :)
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
+
                 // Get the returned users and update the state.
                 setUsers(response.data);
                 setUser(u.data);
