@@ -160,7 +160,6 @@ const Lobby = () => {
         }
         const t = setInterval(fetchData, 600);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear
-
     }, [user]);
 
     let content = <Spinner/>;
