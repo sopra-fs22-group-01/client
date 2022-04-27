@@ -1,6 +1,6 @@
 import "styles/ui/Card.scss";
 
-export const Card = props => (
+export const CardButton = props => (
   <button
     {...props}
     style={{width: props.width, ...props.style}}
