@@ -19,40 +19,30 @@
   }
 
   &.text-container{
-    padding-top: 2em;
     font-size: 4em;
     font-weight: bold;
     text-align: center;
     background-color: $background;
   }
 
-
+  &.container {
+    width: 50%;
+    margin-top: 5em;
+    display: flex;
+    flex-direction: column;
+    background-color: $background;
+  }
 
   &.user-list{
-    width: 60%;
     background-color: $background;
     padding-left: 0;
     padding-right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2em;
   }
 
   &.button_container{
-    width: 60%;
+    display: flex;
+    width: auto;
     background-color: $background;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 3em;
-  }
-
-  &.logout_button{
-    width: 30%;
-    margin-left: 4em;
-  }
-
-  &.ready_button{
-    width: 30%;
 
   }
 
@@ -60,8 +50,8 @@
     display: flex;
     margin-right: auto;
     margin-left: auto;
-    text-align: center;
-    margin-top: 1em;
+    padding-right: 20px;
+    padding-left:20px
   }
 
 
@@ -80,7 +70,7 @@
     padding: 15px;
     border-radius: 0.5em;
     display: flex;
-    background-color: #524F4F;
+    background-color: green;
     font-size: 1.5em;
   }
 

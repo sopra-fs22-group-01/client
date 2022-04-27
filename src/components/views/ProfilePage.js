@@ -13,20 +13,20 @@ import PropTypes from "prop-types";
 import User from "../../models/User";
 
 
-const Lobby = ({lobbyModel}) => (
-    <div className="lobby container">
-        <div className="lobby id">
+const LobbyObject = ({lobbyModel}) => (
+    <div className="lobbyObject container">
+        <div className="lobbyObject id">
             LobbyID:
             {lobbyModel.id}
         </div>
-        <div className="lobby playerCount">
+        <div className="lobbyObject playerCount">
             Players:
             {lobbyModel.currentPlayerCount}
         </div>
     </div>
 );
 
-Lobby.propTypes = {
+LobbyObject.propTypes = {
     lobby: PropTypes.object
 };
 
@@ -110,7 +110,7 @@ const ProfilePage = () => {
                     <div className="profilePage titleContainer">
                         <text>Profile</text>
                     </div>
-                    <img className="profilePage photo" src={profileIcon} alt=""/>
+                    <img className="profilePage icon" src={profileIcon} alt=""/>
                     <div className="profilePage infos">
                         <div className="profilePage username">
                             <text>Username:</text>
@@ -118,7 +118,7 @@ const ProfilePage = () => {
                             <SecondaryButton
                                 disabled={!(user.token === localStorage.getItem(`token`))}
                                 onClick={() => history.push(`/editor/${user.id}`)}>
-                                <MdOutlineEdit className="profilePage icon"/>
+                                <MdOutlineEdit className="profilePage editIcon"/>
                             </SecondaryButton>
 
                         </div>
@@ -127,7 +127,7 @@ const ProfilePage = () => {
                             <SecondaryButton
                                 disabled={!(user.token === localStorage.getItem(`token`))}
                                 onClick={() => history.push(`/editor/${user.id}`)}>
-                                <MdOutlineEdit className="profilePage icon"/>
+                                <MdOutlineEdit className="profilePage editIcon"/>
                             </SecondaryButton>
                         </div>
                     </div>
@@ -137,7 +137,7 @@ const ProfilePage = () => {
                         <ul className="profilePage lobbyList">
                             {lobbies.map(lobbyModel => (
                                 <Link to={`/lobbies/${lobbyModel.id}/players/${user.id}`}>
-                                <Lobby lobbyModel={lobbyModel}/>
+                                <LobbyObject lobbyModel={lobbyModel}/>
                                 </Link>
                             ))}
                         </ul>
