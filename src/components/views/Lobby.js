@@ -190,6 +190,7 @@ const Lobby = () => {
                 alert("Something went wrong while fetching the users/user or rules ! See the console for details.");
             }*/
 
+
         }
         fetchData();
     }, [user]);
