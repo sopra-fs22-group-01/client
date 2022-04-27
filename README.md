@@ -4,7 +4,7 @@
 ProfilePage.js
 - line 45: artificially set LobbyId to 1
 
-Lobby.js 
+LobbyView.js 
 - line 128: artificially set MatchId to 1
 
 

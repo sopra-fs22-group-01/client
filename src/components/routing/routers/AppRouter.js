@@ -55,7 +55,7 @@ const AppRouter = () => {
 
                 <Route path="/lobbies/:lobbyId/players/:userId">
                     <GameGuard>
-                        <Lobby/>
+                        <LobbyView/>
                     </GameGuard>
                 </Route>*/}
 

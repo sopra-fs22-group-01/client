@@ -1,5 +1,5 @@
 import {Redirect, Route} from "react-router-dom";
-import Lobby from "components/views/Lobby";
+import Lobby from "components/views/Lobby.js";
 import PropTypes from 'prop-types';
 
 const GameRouter = props => {
