@@ -68,7 +68,7 @@ const Round = () => {
     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
     async function fetchData() {
       try {
-        const response = await api.get('/users');
+        const response = await api.get(`/users`);
         const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
@@ -83,7 +83,7 @@ const Round = () => {
         console.log(response);
         console.log(blackCard_response);
       } catch (error) {
-        console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+        console.error(`Something went wrong whle fetching the users: \n${handleError(error)}`);
         console.error("Details:", error);
         alert("Something went wrong while fetching the users or the black Card! See the console for details.");
       }

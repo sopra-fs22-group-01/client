@@ -138,9 +138,18 @@ const Lobby = () => {
                 alert("Something went wrong while fetching the rules ! See the console for details.");
             }
             try{
-                const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`);
+                const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`); //
                 const lobby_stat = lobby_status_response.data;
                 if (lobby_stat === "All_Ready") {
+                    try{
+                        await api.put(`/lobbies/${lobbyId}`);
+                    }
+                    catch(error){
+                        console.error(`Something went wrong while creating a match: \n${handleError(error)}`);
+                        console.error("Details:", error);
+                        alert("Something went wrong while creating a match ! See the console for details.");
+                    }
+
                     history.push(`/matches/${lobbyId}/hand/${user.id}`) //because the id of the match is the same as the id of the lobby
                 }
             }catch (error) {
