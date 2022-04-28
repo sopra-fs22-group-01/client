@@ -128,7 +128,7 @@ const Winner = () => {
 
     return (
         <BaseContainer className="round container">
-            <h1>WINNER(S)</h1>
+            <h1>WINNER</h1>
             {winnersContent}
 
             <div className="round grid-container">
