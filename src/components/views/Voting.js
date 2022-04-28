@@ -111,7 +111,8 @@ const Voting = () => {
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 setBlackCard(blackCard_response.data);
                 // See here to get more data.
-                console.log(blackCard_response);
+                console.log("BlackCard");
+                console.log(blackCard_response.data);
             } catch (error) {
                 console.error(`Something went wrong while fetching the blackcard: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -130,7 +131,7 @@ const Voting = () => {
             }
         }
         fetchData();
-        speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.text))
+        speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard))
         allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
     }, []);
 
