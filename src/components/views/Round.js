@@ -178,7 +178,7 @@ const Round = () => {
         <BaseContainer className="round container">
             <div className="round grid-container">
                 <div className="round grid-content1">
-                    <ScoreBoard>
+                    <ScoreBoard className="round scoreBoard">
                         <h4>Score Board</h4>
                         {scoreboardContent}
                     </ScoreBoard>
