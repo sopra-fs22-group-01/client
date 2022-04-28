@@ -10,6 +10,18 @@
 .profilePage {
  background-color: black;
 
+  h1{
+    font-size: 1em;
+  }
+  h2{
+    font-size: 2em;
+    color: darkgray;
+  }
+
+  button{
+    margin-left: 1em;
+  }
+
   a{
     color: $textColor;
   }
@@ -61,6 +73,10 @@
 
   &.lobbyListContainer {
     margin-top: 20px;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 
