@@ -131,7 +131,7 @@ const Voting = () => {
             }
         }
         fetchData();
-        speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard))
+        speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
         allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
     }, []);
 
