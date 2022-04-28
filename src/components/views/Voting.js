@@ -159,7 +159,7 @@ const Round = () => {
 
     return (
         <BaseContainer className="round container">
-            <h2>YOUR CHOSEN CARD: </h2>
+            <h2>VOTING ROUND TEMPLATE: </h2>
             {clickedCard.text}
             <CardButton className="blackC"
             >

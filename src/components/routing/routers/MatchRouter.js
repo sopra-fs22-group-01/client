@@ -1,6 +1,7 @@
 import {Redirect, Route} from "react-router-dom";
 import PropTypes from 'prop-types';
 import Round from "../../views/Round";
+import Voting from "../../views/Voting";
 
 const MatchRouter = props => {
     /**
@@ -11,6 +12,10 @@ const MatchRouter = props => {
 
             <Route exact path={`${props.base}/:matchId/hand/:userId`}>
                 <Round/>
+            </Route>
+
+            <Route exact path={`${props.base}/:matchId/election/:userId`}>
+                <Voting/>
             </Route>
             {/**/}
 

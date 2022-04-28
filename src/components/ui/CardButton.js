@@ -1,4 +1,4 @@
-import "styles/ui/Card.scss";
+import "styles/ui/CardButton.scss";
 
 export const CardButton = props => (
   <button
