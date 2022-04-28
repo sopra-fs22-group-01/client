@@ -167,7 +167,7 @@ const Lobby = () => {
     if (users) {
         content = (
             <div className="lobby">
-                    <h1>Lobby</h1>
+                    <h1>Lobby {lobbyId}</h1>
                 <ul className="lobby user-list">
                     {users.map(user => (
                         <Link to={`/users/profile/${user.id}`}>

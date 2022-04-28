@@ -1,8 +1,31 @@
 @import 'styles/whiteCard';
 
 .card {
+
+  // padding around the cards
+  margin-left: auto;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  vertical-align: top; // aligns the card, not text
+
+  //distance to the left of text
+  padding: 15px;
+  font-weight: 700;
+  font-size: 20px;
+  text-align: left;
+
+  // card dimensions
+  width: 180px;
+  height: 230px;
+  border: none;
+  border-radius: $borderRadius; // rounded corner
+  opacity: 1;
+  transition: all 0.3s ease;
+
   &:hover {
     opacity: 0.8;
+    cursor: pointer;
   }
   &:disabled {
     cursor: default;
@@ -11,6 +34,8 @@
       transform: none;
     }
   }
+
+
   &.blackCard {
     cursor: default;
     //opacity: 0.4;
@@ -22,11 +47,12 @@
     transition: all 0.3s ease;
     border: 3px solid white; // width: 3px, style: solid, color: white
     vertical-align: text-top;
-
   }
 
-  &.whiteC {
-    cursor: default;
+  &.whiteCard {
+    cursor: pointer;
+    border: 3px solid black;
+
     &:hover {
       transform: none;
     }
@@ -35,30 +61,5 @@
     background-color: white; // color of button aka card
     transition: all 0.3s ease;
   }
-  // padding around the cards
-  margin-left: auto;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  vertical-align: top; // aligns the card, not text
-
-  //distance to the left of text
-  padding: 15px;
-
-  font-weight: 700;
-  font-size: 20px;
-
-  text-align: left;
-
-  // card dimensions
-  width: 180px;
-  height: 230px;
-  border: none;
-  border-radius: $borderRadius; // rounded corner
-  cursor: pointer;
-  opacity: 1;
-
-  transition: all 0.3s ease;
-
 
 }
