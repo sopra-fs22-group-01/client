@@ -82,7 +82,7 @@ const Round = () => {
     };
     //matches/{matchId}/white-card
 
-    const addCard = async() => {
+    const confirmSelectedCard = async() => {
         try {
             const requestBody = JSON.stringify(clickedCard); //creates .json file (?)
 
@@ -150,13 +150,22 @@ const Round = () => {
         fetchData();
     }, []);
 
+    //useEffect for Countdown
     useEffect( () =>{
         async function fetchData() {
             try {
+                //gets countdown
                 const timeResponse = await api.get(`/matches/${matchId}/countdown`);
 
+                //sets time in frontend
                 setTimer(timeResponse.data);
+                if(timeResponse.data === 0){
 
+                    //sends put request to backend to set chosenCard in backend and makes history.push to election
+                    await confirmSelectedCard();
+
+
+                }
 
             } catch (error) {
                 console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);
@@ -223,7 +232,7 @@ const Round = () => {
                 </PrimaryButton>
                 <PrimaryButton
                     width="100%"
-                    onClick={() => addCard()}
+                    onClick={() => confirmSelectedCard()}
                 >
                     Select card, go to voting
                 </PrimaryButton>
