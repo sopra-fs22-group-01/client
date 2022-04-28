@@ -137,7 +137,7 @@ const Round = () => {
                 //sets time in frontend
                 setTimer(timeResponse.data);
 
-                if(timeResponse.data === 5){
+                if(timeResponse.data === 0){
                     console.log("clicked card when timer == 5:")
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
