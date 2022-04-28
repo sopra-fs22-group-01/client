@@ -30,7 +30,7 @@ const Popup = props => {
 
 
 const Player = ({user}) => (
-    <div className="player container">
+    <div className="player playerContainer">
         <div className="player username">{user.username}</div>
         <div className="player ready_status">
             {user.isReady}
@@ -167,9 +167,7 @@ const Lobby = () => {
     if (users) {
         content = (
             <div className="lobby">
-                <div className="lobby text-container">
-                    <text>Lobby</text>
-                </div>
+                    <h1>Lobby</h1>
                 <ul className="lobby user-list">
                     {users.map(user => (
                         <Link to={`/users/profile/${user.id}`}>

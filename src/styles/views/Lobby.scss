@@ -7,6 +7,17 @@
  */
 
 .lobby {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  h1{
+    font-size: 3.5em;
+    font-weight: bold;
+  }
 
   a{
     color: $textColor;
@@ -18,38 +29,31 @@
     text-decoration: none;
   }
 
-  &.text-container{
-    font-size: 4em;
-    font-weight: bold;
-    text-align: center;
-    background-color: $background;
-  }
 
   &.container {
-    width: 50%;
+    width: 100%;
     margin-top: 5em;
     display: flex;
     flex-direction: column;
-    background-color: $background;
+
   }
 
   &.user-list{
-    background-color: $background;
     padding-left: 0;
-    padding-right: 0;
+    align-items: stretch;
+    width: 75%;
   }
 
   &.button_container{
-    display: flex;
-    width: auto;
+    margin:1em;
+    flex-direction: row;
+    width: 100%;
     background-color: $background;
 
   }
 
   &.rules_button{
-    display: flex;
-    margin-right: auto;
-    margin-left: auto;
+    width: 50%;
     padding-right: 20px;
     padding-left:20px
   }
@@ -62,16 +66,13 @@
 }
 
 .player {
-  &.container {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 0.5em;
+  &.playerContainer {
     width: auto;
     padding: 15px;
-    border-radius: 0.5em;
     display: flex;
-    background-color: green;
     font-size: 1.5em;
+    background-color: #383836;
+    border-radius: 0.5em;
   }
 
   &.username {
