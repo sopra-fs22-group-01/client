@@ -73,7 +73,6 @@ const Round = () => {
         } catch (error) {
             alert(`Something went wrong during logging the chosen card into the backend: \n${handleError(error)}`);
         }
-        localStorage.removeItem('token');
     };
 
 
