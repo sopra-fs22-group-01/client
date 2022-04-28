@@ -237,7 +237,7 @@ const Round = () => {
                     </div>
                     <PrimaryButton
                         width="100%"
-                        onClick={() => addCard()}
+                        onClick={() => confirmSelectedCard()}
                     >
                         Select card, go to voting
                     </PrimaryButton>
