@@ -84,9 +84,11 @@ const Round = () => {
 
     const addCard = async() => {
         try {
-            const requestBody = JSON.stringify({clickedCard}); //creates .json file (?)
+            const requestBody = JSON.stringify(clickedCard); //creates .json file (?)
+
             console.log("CLICKED CARD IS THIS (REQUEST BODY)")
             console.log(requestBody)
+
             await api.put(`matches/${matchId}/white-card/selection`, requestBody)
             history.push(`/matches/${matchId}/election/${userId}`);
 
@@ -118,7 +120,7 @@ const Round = () => {
                 alert("Something went wrong while fetching the users for this specific match! See the console for details.");
 
             }
-            try {
+            try {//
                 //const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
                 // delays continuous execution of an async operation for 1 second.

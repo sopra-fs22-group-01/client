@@ -38,7 +38,7 @@ const Round = () => {
     // a component can have as many state variables as you like.
     // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [users, setUsers] = useState(null);
-    const [cards, setCards] = useState(null);
+    const [allChosenCards, setAllChosenCards] = useState(null);
     const [hand, setHand] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
     const [clickedCard, setClickedCard] = useState("your card");
@@ -82,7 +82,8 @@ const Round = () => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             try {
-                const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
+                //retrieves all user from specific match
+                const response = await api.get(`/matches/${matchId}/users`);
 
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get the returned users and update the state.
@@ -110,10 +111,11 @@ const Round = () => {
                 alert("Something went wrong while fetching the black Card! See the console for details.");
             }
             try {
-                //const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
+                // get chosen cards from all players
                 const chosenWhiteCardResponse = await api.get(`/matches/${matchId}/election/white-cards`) ///matches/0/hands/1
-                setCards(chosenWhiteCardResponse.data)
-                console.log(chosenWhiteCardResponse);
+                setAllChosenCards(chosenWhiteCardResponse.data)
+                console.log("ALL THE CHOSEN CARDS");
+                console.log(chosenWhiteCardResponse.data);
             } catch (error) {
                 console.error(`Something went wrong while fetching the white cards: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -137,10 +139,10 @@ const Round = () => {
         );
     }
 
-    if (cards) {
+    if (allChosenCards) {
         cardContent = (
             <div className="round cards">
-                {cards.map(card => (
+                {allChosenCards.map(card => (
                     <CardButton
                         onClick={() => selectCard(card)}
                     >
