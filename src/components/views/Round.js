@@ -113,7 +113,7 @@ const Round = () => {
 
     if (users) {
         scoreboardContent = (
-            <div className="round scoreBoard">
+            <div>
                 {users.map(user => (
                     <Player user={user}/>
                 ))}
