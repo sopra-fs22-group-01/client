@@ -83,6 +83,8 @@ const Round = () => {
     const addCard = async() => {
         try {
             const requestBody = JSON.stringify({clickedCard}); //creates .json file (?)
+            console.log("CLICKED CARD")
+            console.log(clickedCard)
             console.log("CLICKED CARD IS THIS (REQUEST BODY)")
             console.log(requestBody)
             await api.put(`matches/${matchId}/white-card/selection`, requestBody)
@@ -115,7 +117,7 @@ const Round = () => {
                 alert("Something went wrong while fetching the users for this specific match! See the console for details.");
 
             }
-            try {
+            try {//
                 //const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
                 // delays continuous execution of an async operation for 1 second.
@@ -135,6 +137,10 @@ const Round = () => {
                 const whiteCardResponse = await api.get(`/matches/${matchId}/hands/${userId}`) ///matches/0/hands/1
                 setCards(whiteCardResponse.data)
                 console.log(whiteCardResponse);
+                console.log("CLICKED CARD")
+                console.log(clickedCard.data)
+                console.log(clickedCard.owner)
+                console.log(clickedCard.text)
             } catch (error) {
                 console.error(`Something went wrong while fetching your hand: \n${handleError(error)}`);
                 console.error("Details:", error);
