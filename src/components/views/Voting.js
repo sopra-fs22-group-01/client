@@ -69,11 +69,6 @@ const Round = () => {
         try {
             setClickedCard(card);
 
-            // handle color changes
-            btnColor === "red" ? setBtnColor("green") : setBtnColor("red");
-            const newColor = buttonColor === "white" ? "yellow" : "white";
-            setButtonColor(newColor);
-
         } catch (error) {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
         }
@@ -116,9 +111,9 @@ const Round = () => {
             }
             try {
                 //const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
-                const whiteCardResponse = await api.get(`/matches/${matchId}/hands/${userId}`) ///matches/0/hands/1
-                setCards(whiteCardResponse.data)
-                console.log(whiteCardResponse);
+                const chosenWhiteCardResponse = await api.get(`/matches/${matchId}/election/white-cards`) ///matches/0/hands/1
+                setCards(chosenWhiteCardResponse.data)
+                console.log(chosenWhiteCardResponse);
             } catch (error) {
                 console.error(`Something went wrong while fetching the white cards: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -159,7 +154,7 @@ const Round = () => {
 
     return (
         <BaseContainer className="round container">
-            <h2>VOTING ROUND TEMPLATE: </h2>
+            <h2>CHOSE YOUR FAVOURITE COMBINATION </h2>
             {clickedCard.text}
             <CardButton className="blackC"
             >
@@ -171,6 +166,7 @@ const Round = () => {
             </ScoreBoard>
             <div className="round card-list">
                 <h1>show all chosen cards</h1>
+                {cardContent}
                 <PrimaryButton
                     width="100%"
                     onClick={() => exit()}

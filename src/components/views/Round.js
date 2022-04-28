@@ -40,7 +40,6 @@ const Round = () => {
     // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [users, setUsers] = useState(null);
     const [cards, setCards] = useState(null);
-    const [hand, setHand] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
     const [clickedCard, setClickedCard] = useState("your card");
 
@@ -78,6 +77,22 @@ const Round = () => {
         } catch (error) {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
         }
+    };
+    //matches/{matchId}/white-card
+
+    const addCard = async() => {
+        try {
+            const requestBody = JSON.stringify({clickedCard}); //creates .json file (?)
+            console.log("CLICKED CARD IS THIS (REQUEST BODY)")
+            console.log(requestBody)
+            await api.put(`matches/${matchId}/white-card/selection`, requestBody)
+            history.push(`/matches/${matchId}/election/${userId}`);
+
+        } catch (error) {
+            alert(`Something went wrong during adding chosen card: \n${handleError(error)}`);
+        }
+        localStorage.removeItem('token');
+
     };
 
     // the effect hook can be used to react to change in your component.
@@ -121,9 +136,9 @@ const Round = () => {
                 setCards(whiteCardResponse.data)
                 console.log(whiteCardResponse);
             } catch (error) {
-                console.error(`Something went wrong while fetching the white cards: \n${handleError(error)}`);
+                console.error(`Something went wrong while fetching your hand: \n${handleError(error)}`);
                 console.error("Details:", error);
-                alert("Something went wrong while fetching the white cards! See the console for details.");
+                alert("Something went wrong while fetching your hand! See the console for details.");
             }
 
         }
@@ -180,7 +195,7 @@ const Round = () => {
                 </PrimaryButton>
                 <PrimaryButton
                     width="100%"
-                    onClick={() => history.push(`/matches/${matchId}/election/${userId}`)}
+                    onClick={() => addCard()}
                 >
                     Select card, go to voting
                 </PrimaryButton>
