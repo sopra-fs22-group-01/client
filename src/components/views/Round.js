@@ -9,6 +9,7 @@ import "styles/views/Round.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 import {SecondaryButton} from "../ui/SecondaryButton";
+import Card from "../../models/Card";
 
 const ScoreBoardPlayer = ({user}) => (
     <div>
@@ -33,7 +34,7 @@ const Round = () => {
     const [users, setUsers] = useState(null);
     const [cards, setCards] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
-    const [clickedCard, setClickedCard] = useState("your card");
+    let [clickedCard, setClickedCard] = useState(new Card());
 
     const [btnColor, setBtnColor] = useState("red");
     const [buttonColor, setButtonColor] = useState("white");
@@ -43,7 +44,7 @@ const Round = () => {
     const [timer, setTimer] = useState(null);
 
 
-    const exit = async () => {
+/*    const exit = async () => {
         try {
             let currentToken = localStorage.getItem('token');
 
@@ -56,39 +57,39 @@ const Round = () => {
         }
         localStorage.removeItem('token');
         history.push('/users/login');
-    }
+    }*/
 
-    const selectCard = async(card) => {
+    const selectCard = (cardText) => {
         console.log("CLICKED ON  A CARD!")
         try {
-            setClickedCard(card);
+            let clickedCardObject=new Card();
+            clickedCardObject.text=cardText;
+            setClickedCard(clickedCardObject);
 
-            // handle color changes
+           /* // handle color changes
             btnColor === "red" ? setBtnColor("green") : setBtnColor("red");
             const newColor = buttonColor === "white" ? "yellow" : "white";
-            setButtonColor(newColor);
+            setButtonColor(newColor);*/
 
         } catch (error) {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
         }
     };
-    //matches/{matchId}/white-card
 
-    const confirmSelectedCard = async() => {
+    const confirmSelectedCard = async () => {
         try {
-            const requestBody = JSON.stringify(clickedCard); //creates .json file (?)
+            const requestBody = JSON.stringify(clickedCard);
 
             console.log("CLICKED CARD IS THIS (REQUEST BODY)")
             console.log(requestBody)
 
-            await api.put(`matches/${matchId}/white-card/selection`, requestBody)
+            await api.put(`matches/${matchId}/white-card/selection`, requestBody) // does not work when called from useeffect
             history.push(`/matches/${matchId}/election/${userId}`);
 
         } catch (error) {
-            alert(`Something went wrong during adding chosen card: \n${handleError(error)}`);
+            alert(`Something went wrong during logging the chosen card into the backend: \n${handleError(error)}`);
         }
         localStorage.removeItem('token');
-
     };
 
 
@@ -150,12 +151,10 @@ const Round = () => {
                 setTimer(timeResponse.data);
 
                 if(timeResponse.data === 5){
-                    console.log("clicked card when timer == 5")
-                    console.log(clickedCard.data)
+                    console.log("clicked card when timer == 5:")
+                    console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
-                   // await confirmSelectedCard();
-
-
+                     await confirmSelectedCard();
                 }
 
             } catch (error) {
@@ -166,9 +165,8 @@ const Round = () => {
         };
         const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear
-
-
-    }, []); //there cold be something in this a
+    }, [clickedCard]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
+                            // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
 
 
     let scoreboardContent = <Spinner/>;
@@ -189,7 +187,7 @@ const Round = () => {
             <div className="round cards">
                 {cards.map(card => (
                     <CardButton className="card whiteCard"
-                        onClick={() => selectCard(card)}
+                        onClick={() => selectCard(card.text)}
                     >
                         {card.text}
                     </CardButton>

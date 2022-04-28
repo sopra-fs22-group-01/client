@@ -4,7 +4,7 @@
 class Card {
   constructor(data = {}) {
     this.id = null;
-    this.text = null;
+    this.text = "default";
     this.owner = null;
     this.score = null;
   }
