@@ -34,7 +34,7 @@ const Round = () => {
     const [users, setUsers] = useState(null);
     const [cards, setCards] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
-    let [clickedCard, setClickedCard] = useState(new Card());
+    const [clickedCard, setClickedCard] = useState(new Card());
 
     const [btnColor, setBtnColor] = useState("red");
     const [buttonColor, setButtonColor] = useState("white");
