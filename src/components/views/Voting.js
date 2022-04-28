@@ -28,7 +28,7 @@ Player.propTypes = {
     user: PropTypes.object
 };
 
-const Round = () => {
+const Voting = () => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
 
@@ -38,14 +38,9 @@ const Round = () => {
     // a component can have as many state variables as you like.
     // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [users, setUsers] = useState(null);
-    const [cards, setCards] = useState(null);
-    const [hand, setHand] = useState(null);
+    const [allChosenCards, setAllChosenCards] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
     const [clickedCard, setClickedCard] = useState("your card");
-
-    const [btnColor, setBtnColor] = useState("red");
-    const [buttonColor, setButtonColor] = useState("white");
-    //btnColor === "red" ? setBtnColor("green") : setBtnColor("red");
 
     const {userId} = useParams();
     const {matchId} = useParams();
@@ -54,7 +49,7 @@ const Round = () => {
         try {
             let currentToken = localStorage.getItem('token');
 
-            const response = await api.put(`/logout/?token=${currentToken}`)
+            //const response = await api.put(`/logout/?token=${currentToken}`)
 
             localStorage.removeItem('token');
             history.push('/login');
@@ -65,9 +60,11 @@ const Round = () => {
         history.push('/users/login');
     }
 
-    const selectCard = async(card) => {
+    const selectCard = async() => {
         try {
-            setClickedCard(card);
+
+            //await api.put(`matches/${matchId}/white-cards/${clickedCard.owner.id}`)
+            //history.push(`/matches/${matchId}/election/${userId}`);
 
         } catch (error) {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
@@ -82,7 +79,8 @@ const Round = () => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             try {
-                const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
+                //retrieves all user from specific match
+                const response = await api.get(`/matches/${matchId}/users`);
 
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get the returned users and update the state.
@@ -110,10 +108,11 @@ const Round = () => {
                 alert("Something went wrong while fetching the black Card! See the console for details.");
             }
             try {
-                //const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
-                const chosenWhiteCardResponse = await api.get(`/matches/${matchId}/election/white-cards`) ///matches/0/hands/1
-                setCards(chosenWhiteCardResponse.data)
-                console.log(chosenWhiteCardResponse);
+                // get chosen cards from all players
+                const chosenWhiteCardsResponse = await api.get(`/matches/${matchId}/election/white-cards`) ///matches/0/hands/1
+                setAllChosenCards(chosenWhiteCardsResponse.data)
+                console.log("ALL THE CHOSEN CARDS");
+                console.log(chosenWhiteCardsResponse.data);
             } catch (error) {
                 console.error(`Something went wrong while fetching the white cards: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -137,14 +136,14 @@ const Round = () => {
         );
     }
 
-    if (cards) {
+    if (allChosenCards) {
         cardContent = (
             <div className="round cards">
-                {cards.map(card => (
+                {allChosenCards.map(card => (
                     <CardButton
                         onClick={() => selectCard(card)}
                     >
-                        {card.text}
+                        {card.text}{card.score}
                     </CardButton>
                 ))}
             </div>
@@ -154,7 +153,7 @@ const Round = () => {
 
     return (
         <BaseContainer className="round container">
-            <h2>CHOSE YOUR FAVOURITE COMBINATION </h2>
+            <h2>YOUR CURRENT CHOICE </h2>
             {clickedCard.text}
             <CardButton className="blackC"
             >
@@ -165,7 +164,7 @@ const Round = () => {
                 {scoreboardContent}
             </ScoreBoard>
             <div className="round card-list">
-                <h1>show all chosen cards</h1>
+                <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
                 {cardContent}
                 <PrimaryButton
                     width="100%"
@@ -173,10 +172,16 @@ const Round = () => {
                 >
                     Exit
                 </PrimaryButton>
+                <PrimaryButton
+                    width="100%"
+                    onClick={() => selectCard()}
+                >
+                    chose this card
+                </PrimaryButton>
 
             </div>
         </BaseContainer>
     );
 }
 
-export default Round;
+export default Voting;
