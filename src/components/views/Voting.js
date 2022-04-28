@@ -128,9 +128,10 @@ const Voting = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the white cards! See the console for details.");
             }
-
         }
         fetchData();
+        speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.text))
+        allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
     }, []);
 
     let scoreboardContent = <Spinner/>;
