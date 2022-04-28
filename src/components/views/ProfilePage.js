@@ -120,7 +120,7 @@ const ProfilePage = () => {
             <BaseContainer>
                 <div className="profilePage container">
                     <div className="profilePage titleContainer">
-                        <text>Profile</text>
+                        <h1>Profile</h1>
                     </div>
                     <img className="profilePage icon" src={profileIcon} alt=""/>
                     <div className="profilePage infos">
@@ -145,10 +145,10 @@ const ProfilePage = () => {
                     </div>
 
                     <div className="profilePage lobbyListContainer">
-                        Choose a lobby
+                        <h2>Choose a lobby:</h2>
                         <ul className="profilePage lobbyList">
                             {lobbies.map(lobbyModel => (
-                                <button onClick={() => addUserLobby(lobbyModel.id)}>
+                                <button className="profilePage lobbyButton" onClick={() => addUserLobby(lobbyModel.id)}>
                                 <LobbyObject lobbyModel={lobbyModel}/>
                                 </button>
                             ))}
@@ -157,7 +157,7 @@ const ProfilePage = () => {
 
 
                     <div className="profilePage buttonContainer">
-                        <PrimaryButton onClick={() => createNewLobby()}>
+                        <PrimaryButton  onClick={() => createNewLobby()}>
                             Create new lobby
                         </PrimaryButton>
                     </div>

@@ -10,22 +10,14 @@ import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 import {SecondaryButton} from "../ui/SecondaryButton";
 
-const Player = ({user}) => (
+const ScoreBoardPlayer = ({user}) => (
     <div>
         <div className={ScoreBoard}>{user.username} : {user.score}</div>
     </div>
 );
 
-const WhiteCard = ({card}) => (
-    <div className="whitecard container">
-        <div className="whitecard cardText">
-            {card.text}
-        </div>
-    </div>
-);
 
-
-Player.propTypes = {
+ScoreBoardPlayer.propTypes = {
     user: PropTypes.object
 };
 
@@ -45,7 +37,6 @@ const Round = () => {
 
     const [btnColor, setBtnColor] = useState("red");
     const [buttonColor, setButtonColor] = useState("white");
-    //btnColor === "red" ? setBtnColor("green") : setBtnColor("red");
 
     const {userId} = useParams();
     const {matchId} = useParams();
@@ -110,8 +101,6 @@ const Round = () => {
         async function fetchData() {
             try {
                 const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
-
-                await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get the returned users and update the state.
                 setUsers(response.data);
                 console.log(response);
@@ -121,13 +110,12 @@ const Round = () => {
                 alert("Something went wrong while fetching the users for this specific match! See the console for details.");
 
             }
-            try {//
+            try {
                 //const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
                 // delays continuous execution of an async operation for 1 second.
                 // This is just a fake async call, so that the spinner can be displayed
                 // feel free to remove it :)
-                await new Promise(resolve => setTimeout(resolve, 1000));
                 setBlackCard(blackCard_response.data);
                 // See here to get more data.
                 console.log(blackCard_response);
@@ -188,9 +176,9 @@ const Round = () => {
 
     if (users) {
         scoreboardContent = (
-            <div>
+            <div className= "round scoreBoardPlayers">
                 {users.map(user => (
-                    <Player user={user}/>
+                    <ScoreBoardPlayer user={user}/>
                 ))}
             </div>
         );
@@ -200,7 +188,7 @@ const Round = () => {
         cardContent = (
             <div className="round cards">
                 {cards.map(card => (
-                    <CardButton
+                    <CardButton className="card whiteCard"
                         onClick={() => selectCard(card)}
                     >
                         {card.text}
@@ -213,32 +201,43 @@ const Round = () => {
 
     return (
         <BaseContainer className="round container">
-            <h2>YOUR CHOSEN CARD: </h2>
-            {clickedCard.text}
-            <CardButton className="blackC"
-            >
-                {blackCard}
-            </CardButton>
-
-            <ScoreBoard>
-                <h4>Score Board</h4>
-                {scoreboardContent}
-            </ScoreBoard>
-            {timer}
-            <div className="round card-list">
-                {cardContent}
-                <PrimaryButton
-                    width="100%"
-                    onClick={() => exit()}
-                >
-                    Exit
-                </PrimaryButton>
-                <PrimaryButton
-                    width="100%"
-                    onClick={() => confirmSelectedCard()}
-                >
-                    Select card, go to voting
-                </PrimaryButton>
+            <div className="round grid-container">
+                <div className="round grid-content1">
+                    <ScoreBoard className="round scoreBoard">
+                        <h4>Score Board</h4>
+                        {scoreboardContent}
+                    </ScoreBoard>
+                </div>
+                <div className="round grid-content2">
+                    <CardButton className="blackCard"
+                    >
+                        {blackCard}
+                    </CardButton>
+                </div>
+                <div className="round grid-content3">
+                    <div className= "round timer" >
+                        {timer}
+                    </div>
+                </div>
+                <div className="round grid-content4">
+                    <div className="round card-list">
+                        {cardContent}
+                    </div>
+                </div>
+                <div className="round grid-content5">
+                    <PrimaryButton
+                      width="100%"
+                      onClick={() => confirmSelectedCard()}
+                    >
+                        Select card, go to voting
+                    </PrimaryButton>
+                </div>
+                <div className="round grid-content6">
+                    <div className="round clickedCard">
+                        <h2>Your current choice:</h2>
+                        {clickedCard.text}
+                    </div>
+                </div>
 
             </div>
         </BaseContainer>

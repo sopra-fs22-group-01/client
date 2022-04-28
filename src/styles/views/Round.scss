@@ -10,13 +10,36 @@
 .round {
   &.container {
     background: $background;
-    padding: 1.5em;
-    border-radius: $borderRadius;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: $dropShadow;
   }
+  &.grid-container{
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-auto-rows: minmax(200px,auto);
+    grid-row-gap: 30px;
+    grid-column-gap: 2%;
+    justify-content: center; //puts grid into the center of the page
+    text-align: center;
+
+  }
+  &.grid-content1{
+    background-color: blue;
+  }
+  &.scoreBoard{
+    cursor: default;
+  }
+  &.grid-content2{
+    background-color: #490b96;
+  }
+  &.grid-content3{
+    background-color: #6c0b96;
+  }
+  &.grid-content4{
+    background-color: purple;
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+
   &.user-list {
     list-style: none;
     padding-left: 0;
@@ -35,60 +58,28 @@
     margin: 0.5em 0;
   }
   &.cards{
-    background-color: red;
-    color:white;
+/*    background-color: red;*/
+  }
+
+  &.scoreBoardPlayers{
+    font-style: italic;
+  }
+
+  &.timer{
+
+    background-color: black; // color of button aka card
+    border: 3px solid white; // width: 3px, style: solid, color: white
+    padding: 15px;
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+
+    width: 100px;
+    height: 100px;
+    border-radius: 0.5em; // rounded corner
+    margin-left: 3em;
+    margin-top: 1em;
   }
 
 }
 
-.player {
-  &.container {
-    //margin: 0.5em 0;
-    //width: 20em;
-    //padding: 10px;
-    //border-radius: $borderRadius;
-    //display: flex;
-    align-items: center;
-    background: lighten($background, 5);
-  }
-  &.name {
-    font-weight: 300;
-    margin-left: 5px;
-  }
-  &.username {
-    font-weight: 500;
-    color: $fontMono;
-  }
-  &.id {
-    //margin-left: auto;
-    //margin-right: 10px;
-    font-family: $fontMono;
-    font-weight: 300;
-  }
-}
-
-.whitecard {
-  &.container {
-    margin: 0.5em 0;
-    width: 20em;
-    padding: 10px;
-    border-radius: $borderRadius;
-    display: flex;
-    align-items: center;
-    background: lighten($background, 5);
-  }
-  &.name {
-    font-weight: 300;
-    margin-left: 5px;
-  }
-  &.username {
-    font-weight: 500;
-    color: $fontMono;
-  }
-  &.id {
-    margin-left: auto;
-    margin-right: 10px;
-    font-family: $fontMono;
-    font-weight: 300;
-  }
-}
