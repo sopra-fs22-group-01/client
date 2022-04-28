@@ -68,6 +68,7 @@ const Round = () => {
     }
 
     const selectCard = async(card) => {
+        console.log("CLICKED ON  A CARD!")
         try {
             setClickedCard(card);
 
@@ -159,10 +160,12 @@ const Round = () => {
 
                 //sets time in frontend
                 setTimer(timeResponse.data);
-                if(timeResponse.data === 0){
 
+                if(timeResponse.data === 5){
+                    console.log("clicked card when timer == 5")
+                    console.log(clickedCard.data)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
-                    await confirmSelectedCard();
+                   // await confirmSelectedCard();
 
 
                 }
