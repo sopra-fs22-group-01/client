@@ -46,12 +46,12 @@ const Round = () => {
 
 
 
-    const selectCard = (cardText) => {
+    const selectCard = (card) => {
         console.log("CLICKED ON  A CARD!")
         try {
-            let clickedCardObject=new Card();
-            clickedCardObject.text=cardText;
-            setClickedCard(clickedCardObject);
+            //let clickedCardObject=new Card();
+            //clickedCardObject.text=cardText;
+            setClickedCard(card);
 
            /* // handle color changes
             btnColor === "red" ? setBtnColor("green") : setBtnColor("red");
@@ -172,9 +172,10 @@ const Round = () => {
     if (cards) {
         cardContent = (
             <div className="round cards">
+
                 {cards.map(card => (
                     <CardButton className="card whiteCard"
-                        onClick={() => selectCard(card.text)}
+                        onClick={() => selectCard(card)}
                     >
                         {card.text}
                     </CardButton>
