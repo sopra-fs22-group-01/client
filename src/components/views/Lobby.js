@@ -44,7 +44,7 @@ Player.propTypes = {
 };
 
 const Lobby = () => {
-    // use react-router-dom's hook to access the history
+    // use react-router-dom's hook to access the history.
     const history = useHistory();
 
     // define a state variable (using the state hook).

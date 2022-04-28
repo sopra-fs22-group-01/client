@@ -15,7 +15,7 @@ const Player = ({user}) => (
         <div className={ScoreBoard}>{user.username} : {user.score}</div>
     </div>
 );
-/*
+
 const WhiteCard = ({card}) => (
     <div className="whitecard container">
         <div className="whitecard cardText">
@@ -23,7 +23,7 @@ const WhiteCard = ({card}) => (
         </div>
     </div>
 );
-*/
+
 
 Player.propTypes = {
     user: PropTypes.object
@@ -49,6 +49,8 @@ const Round = () => {
 
     const {userId} = useParams();
     const {matchId} = useParams();
+    const [timer, setTimer] = useState(null);
+
 
     const exit = async () => {
         try {
@@ -96,6 +98,7 @@ const Round = () => {
         localStorage.removeItem('token');
 
     };
+
 
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
@@ -147,6 +150,27 @@ const Round = () => {
         fetchData();
     }, []);
 
+    useEffect( () =>{
+        async function fetchData() {
+            try {
+                const timeResponse = await api.get(`/matches/${matchId}/countdown`);
+
+                setTimer(timeResponse.data);
+
+
+            } catch (error) {
+                console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the timer! See the console for details.");
+            }
+        };
+        const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
+        return () => clearInterval(t); // clear
+
+
+    }, []); //there cold be something in this a
+
+
     let scoreboardContent = <Spinner/>;
     let cardContent = "nothing";
 
@@ -183,10 +207,12 @@ const Round = () => {
             >
                 {blackCard}
             </CardButton>
+
             <ScoreBoard>
                 <h4>Score Board</h4>
                 {scoreboardContent}
             </ScoreBoard>
+            {timer}
             <div className="round card-list">
                 {cardContent}
                 <PrimaryButton
@@ -201,6 +227,7 @@ const Round = () => {
                 >
                     Select card, go to voting
                 </PrimaryButton>
+
             </div>
         </BaseContainer>
     );
