@@ -155,7 +155,7 @@ const Voting = () => {
         <BaseContainer className="round container">
             <h2>YOUR CURRENT CHOICE </h2>
             {clickedCard.text}
-            <CardButton className="blackC"
+            <CardButton className="blackCard"
             >
                 {blackCard}
             </CardButton>
