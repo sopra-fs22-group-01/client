@@ -170,13 +170,14 @@ const Round = () => {
                 {scoreboardContent}
             </ScoreBoard>
             <div className="round card-list">
-                {cardContent}
+                <h1>show all chosen cards</h1>
                 <PrimaryButton
                     width="100%"
                     onClick={() => exit()}
                 >
                     Exit
                 </PrimaryButton>
+
             </div>
         </BaseContainer>
     );

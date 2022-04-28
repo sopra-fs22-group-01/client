@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import "styles/views/Round.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
+import {SecondaryButton} from "../ui/SecondaryButton";
 
 const Player = ({user}) => (
     <div>
@@ -176,6 +177,12 @@ const Round = () => {
                     onClick={() => exit()}
                 >
                     Exit
+                </PrimaryButton>
+                <PrimaryButton
+                    width="100%"
+                    onClick={() => history.push(`/matches/${matchId}/election/${userId}`)}
+                >
+                    Select card, go to voting
                 </PrimaryButton>
             </div>
         </BaseContainer>
