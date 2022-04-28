@@ -62,9 +62,9 @@ const Voting = () => {
 
     const selectCard = async(card) => {
         try {
+            console.log("SELECT CARD")
+            console.log(card)
             setClickedCard(card)
-            //await api.put(`matches/${matchId}/white-cards/${clickedCard.owner.id}`)
-            //history.push(`/matches/${matchId}/election/${userId}`);
 
         } catch (error) {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
@@ -77,7 +77,7 @@ const Voting = () => {
             history.push(`/matches/${matchId}/winner/${userId}`);
 
         } catch (error) {
-            alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
+            alert(`Something went wrong with voting the card: \n${handleError(error)}`);
         }
     };
 

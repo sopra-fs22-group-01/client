@@ -145,6 +145,12 @@ const Winner = () => {
                     {whiteCardContent}
                 </div>
             </div>
+            <PrimaryButton
+            onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
+            //onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
+            >
+                next
+            </PrimaryButton>
         </BaseContainer>
     );
 }
