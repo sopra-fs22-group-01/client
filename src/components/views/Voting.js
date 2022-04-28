@@ -8,14 +8,13 @@ import PropTypes from "prop-types";
 import "styles/views/Round.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
-import {SecondaryButton} from "../ui/SecondaryButton";
 
 const Player = ({user}) => (
     <div>
         <div className={ScoreBoard}>{user.username} : {user.score}</div>
     </div>
 );
-
+/*
 const WhiteCard = ({card}) => (
     <div className="whitecard container">
         <div className="whitecard cardText">
@@ -23,7 +22,7 @@ const WhiteCard = ({card}) => (
         </div>
     </div>
 );
-
+*/
 
 Player.propTypes = {
     user: PropTypes.object
@@ -40,6 +39,7 @@ const Round = () => {
     // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [users, setUsers] = useState(null);
     const [cards, setCards] = useState(null);
+    const [hand, setHand] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
     const [clickedCard, setClickedCard] = useState("your card");
 
@@ -49,8 +49,6 @@ const Round = () => {
 
     const {userId} = useParams();
     const {matchId} = useParams();
-    const [timer, setTimer] = useState(null);
-
 
     const exit = async () => {
         try {
@@ -71,32 +69,10 @@ const Round = () => {
         try {
             setClickedCard(card);
 
-            // handle color changes
-            btnColor === "red" ? setBtnColor("green") : setBtnColor("red");
-            const newColor = buttonColor === "white" ? "yellow" : "white";
-            setButtonColor(newColor);
-
         } catch (error) {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
         }
     };
-    //matches/{matchId}/white-card
-
-    const addCard = async() => {
-        try {
-            const requestBody = JSON.stringify({clickedCard}); //creates .json file (?)
-            console.log("CLICKED CARD IS THIS (REQUEST BODY)")
-            console.log(requestBody)
-            await api.put(`matches/${matchId}/white-card/selection`, requestBody)
-            history.push(`/matches/${matchId}/election/${userId}`);
-
-        } catch (error) {
-            alert(`Something went wrong during adding chosen card: \n${handleError(error)}`);
-        }
-        localStorage.removeItem('token');
-
-    };
-
 
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
@@ -135,39 +111,18 @@ const Round = () => {
             }
             try {
                 //const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
-                const whiteCardResponse = await api.get(`/matches/${matchId}/hands/${userId}`) ///matches/0/hands/1
-                setCards(whiteCardResponse.data)
-                console.log(whiteCardResponse);
+                const chosenWhiteCardResponse = await api.get(`/matches/${matchId}/election/white-cards`) ///matches/0/hands/1
+                setCards(chosenWhiteCardResponse.data)
+                console.log(chosenWhiteCardResponse);
             } catch (error) {
-                console.error(`Something went wrong while fetching your hand: \n${handleError(error)}`);
+                console.error(`Something went wrong while fetching the white cards: \n${handleError(error)}`);
                 console.error("Details:", error);
-                alert("Something went wrong while fetching your hand! See the console for details.");
+                alert("Something went wrong while fetching the white cards! See the console for details.");
             }
 
         }
         fetchData();
     }, []);
-
-    useEffect( () =>{
-        async function fetchData() {
-            try {
-                const timeResponse = await api.get(`/matches/${matchId}/countdown`);
-
-                setTimer(timeResponse.data);
-
-
-            } catch (error) {
-                console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the timer! See the console for details.");
-            }
-        };
-        const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
-        return () => clearInterval(t); // clear
-
-
-    }, []); //there cold be something in this a
-
 
     let scoreboardContent = <Spinner/>;
     let cardContent = "nothing";
@@ -199,31 +154,24 @@ const Round = () => {
 
     return (
         <BaseContainer className="round container">
-            <h2>YOUR CHOSEN CARD: </h2>
+            <h2>CHOSE YOUR FAVOURITE COMBINATION </h2>
             {clickedCard.text}
             <CardButton className="blackC"
             >
                 {blackCard}
             </CardButton>
-
             <ScoreBoard>
                 <h4>Score Board</h4>
                 {scoreboardContent}
             </ScoreBoard>
-            {timer}
             <div className="round card-list">
+                <h1>show all chosen cards</h1>
                 {cardContent}
                 <PrimaryButton
                     width="100%"
                     onClick={() => exit()}
                 >
                     Exit
-                </PrimaryButton>
-                <PrimaryButton
-                    width="100%"
-                    onClick={() => addCard()}
-                >
-                    Select card, go to voting
                 </PrimaryButton>
 
             </div>
