@@ -44,20 +44,7 @@ const Round = () => {
     const [timer, setTimer] = useState(null);
 
 
-/*    const exit = async () => {
-        try {
-            let currentToken = localStorage.getItem('token');
 
-            const response = await api.put(`/logout/?token=${currentToken}`)
-
-            localStorage.removeItem('token');
-            history.push('/login');
-        } catch (error) {
-            alert(`Something went wrong during the logout: \n${handleError(error)}`);
-        }
-        localStorage.removeItem('token');
-        history.push('/users/login');
-    }*/
 
     const selectCard = (cardText) => {
         console.log("CLICKED ON  A CARD!")
