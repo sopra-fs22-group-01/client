@@ -8,6 +8,8 @@ import PropTypes from "prop-types";
 import "styles/views/Round.scss";
 import {Card} from "../ui/Card";
 import {ScoreBoard} from "../ui/ScoreBoard";
+import Hand from "../../models/Hand";
+import user from "../../models/User";
 
 const Player = ({user}) => (
   <div >
@@ -19,9 +21,10 @@ const Player = ({user}) => (
 const Whitecard = ({card}) => (
   <div className="whitecard container">
     <div className="whitecard username">{card.text}</div>
-    <div className="whitecard id">id: {card.id}</div>
   </div>
 );
+
+ 
 
 
 Player.propTypes = {
@@ -40,6 +43,13 @@ const Round = () => {
   const [users, setUsers] = useState(null);
   const [cards, setCards] = useState(null);
   const [blackCard, setBlackCard] = useState(null);
+  const [clickedCard, setClickedCard] = useState("your card");
+
+  const [curColor, setCurColor] = useState("white");
+  const [btnColor, setBtnColor] = useState("red");
+  const [buttonColor, setButtonColor] = useState("white");
+  //btnColor === "red" ? setBtnColor("green") : setBtnColor("red");
+
   const {userId} = useParams();
   const {matchId} = useParams();
 
@@ -60,6 +70,22 @@ const Round = () => {
     history.push('/users/login');
   }
 
+    const selectCard = async(card) => {
+        try {
+            setClickedCard(card);
+
+            // handle color changes
+            btnColor === "red" ? setBtnColor("green") : setBtnColor("red");
+            const newColor = buttonColor === "white" ? "yellow" : "white";
+            setButtonColor(newColor);
+
+        } catch (error) {
+            alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
+        }
+    };
+
+
+//ff
   // the effect hook can be used to react to change in your component.
   // in this case, the effect hook is only run once, the first time the component is mounted
   // this can be achieved by leaving the second argument an empty array.
@@ -135,6 +161,8 @@ const Round = () => {
 
   return (
     <BaseContainer className="round container">
+        <h2>YOUR CHOSEN CARD: </h2>
+            {clickedCard.text}
       <Card className="blackC"
       >
           {blackCard}
@@ -144,8 +172,7 @@ const Round = () => {
         {content}
       </ScoreBoard>
       <div className="round card-list">
-
-          <Card className="whiteC">1</Card>
+          {/*<Card className="whiteC">1</Card>
           <Card className="whiteC">2</Card>
           <Card className="whiteC">3</Card>
           <Card className="whiteC">4</Card>
@@ -154,7 +181,7 @@ const Round = () => {
           <Card className="whiteC">1</Card>
           <Card className="whiteC">1</Card>
           <Card className="whiteC">1</Card>
-          <Card className="whiteC">10</Card>
+          <Card className="whiteC">10</Card>*/}
 
         <PrimaryButton
           width="100%"
