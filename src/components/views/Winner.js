@@ -128,11 +128,9 @@ const Winner = () => {
 
     return (
         <BaseContainer className="round container">
-            <h1>WINNER</h1>
-            {winnersContent}
-
+            <h1 className="round user-item">WINNER IS</h1>
+            <h3>{winnersContent}</h3>
             <div className="round grid-container">
-
                 <div className="round grid-content2">
                     <CardButton className="blackCard"
                     >

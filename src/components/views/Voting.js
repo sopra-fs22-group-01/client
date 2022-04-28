@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import "styles/views/Round.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
+import Card from "../../models/Card";
 
 const Player = ({user}) => (
     <div>
@@ -40,7 +41,10 @@ const Voting = () => {
     const [users, setUsers] = useState(null);
     const [allChosenCards, setAllChosenCards] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
-    const [clickedCard, setClickedCard] = useState("your card");
+    const defaultCard = new Card();
+    defaultCard.text = "X"
+    const [clickedCard, setClickedCard] = useState(defaultCard);
+
 
     const {userId} = useParams();
     const {matchId} = useParams();
@@ -103,14 +107,13 @@ const Voting = () => {
 
             }
             try {
-                //const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
+                // retrieve Black card
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
                 // delays continuous execution of an async operation for 1 second.
                 // This is just a fake async call, so that the spinner can be displayed
                 // feel free to remove it :)
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 setBlackCard(blackCard_response.data);
-                // See here to get more data.
                 console.log(blackCard_response);
             } catch (error) {
                 console.error(`Something went wrong while fetching the blackcard: \n${handleError(error)}`);
@@ -118,7 +121,7 @@ const Voting = () => {
                 alert("Something went wrong while fetching the black Card! See the console for details.");
             }
             try {
-                // get chosen cards from all players
+                // get all chosen cards
                 const chosenWhiteCardsResponse = await api.get(`/matches/${matchId}/election/white-cards`) ///matches/0/hands/1
                 setAllChosenCards(chosenWhiteCardsResponse.data)
                 console.log("ALL THE CHOSEN CARDS");
