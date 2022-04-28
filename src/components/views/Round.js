@@ -36,9 +36,6 @@ const Round = () => {
     const [blackCard, setBlackCard] = useState(null);
     const [clickedCard, setClickedCard] = useState(new Card());
 
-    const [btnColor, setBtnColor] = useState("red");
-    const [buttonColor, setButtonColor] = useState("white");
-
     const {userId} = useParams();
     const {matchId} = useParams();
     const [timer, setTimer] = useState(null);
@@ -87,8 +84,8 @@ const Round = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
-            try {
-                const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
+            try {//retrieves all user from specific match
+                const response = await api.get(`/matches/${matchId}/users`);
                 // Get the returned users and update the state.
                 setUsers(response.data);
                 console.log(response);
