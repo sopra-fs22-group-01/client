@@ -65,7 +65,7 @@ const Round = () => {
         history.push('/users/login');
     }
 
-    const selectCard = async(card) => {
+    const selectCard = async (card) => {
         try {
             setClickedCard(card);
 
@@ -80,7 +80,7 @@ const Round = () => {
     };
     //matches/{matchId}/white-card
 
-    const addCard = async() => {
+    const addCard = async () => {
         try {
             const requestBody = JSON.stringify({clickedCard}); //creates .json file (?)
             console.log("CLICKED CARD IS THIS (REQUEST BODY)")
@@ -142,6 +142,7 @@ const Round = () => {
             }
 
         }
+
         fetchData();
     }, []);
 
@@ -175,30 +176,28 @@ const Round = () => {
 
     return (
         <BaseContainer className="round container">
-            <h2>YOUR CHOSEN CARD: </h2>
-            {clickedCard.text}
-            <CardButton className="blackC"
-            >
-                {blackCard}
-            </CardButton>
-            <ScoreBoard>
-                <h4>Score Board</h4>
-                {scoreboardContent}
-            </ScoreBoard>
-            <div className="round card-list">
-                {cardContent}
-                <PrimaryButton
-                    width="100%"
-                    onClick={() => exit()}
-                >
-                    Exit
-                </PrimaryButton>
-                <PrimaryButton
-                    width="100%"
-                    onClick={() => addCard()}
-                >
-                    Select card, go to voting
-                </PrimaryButton>
+            <div className="round grid-container">
+                <div className="round grid-content1">
+                    <ScoreBoard>
+                        <h4>Score Board</h4>
+                        {scoreboardContent}
+                    </ScoreBoard>
+                </div>
+                <div className="round grid-content2">
+                    <CardButton className="blackCard"
+                    >
+                        {blackCard}
+                    </CardButton>
+                </div>
+                <div className="round grid-content3">
+                    timer
+                </div>
+                <div className="round grid-content4">
+                    <div className="round card-list">
+                        {cardContent}
+                    </div>
+                </div>
+
             </div>
         </BaseContainer>
     );
