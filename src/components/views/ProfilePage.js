@@ -148,7 +148,7 @@ const ProfilePage = () => {
                         <h2>Choose a lobby:</h2>
                         <ul className="profilePage lobbyList">
                             {lobbies.map(lobbyModel => (
-                                <button onClick={() => addUserLobby(lobbyModel.id)}>
+                                <button className="profilePage lobbyButton" onClick={() => addUserLobby(lobbyModel.id)}>
                                 <LobbyObject lobbyModel={lobbyModel}/>
                                 </button>
                             ))}
@@ -157,7 +157,7 @@ const ProfilePage = () => {
 
 
                     <div className="profilePage buttonContainer">
-                        <PrimaryButton onClick={() => createNewLobby()}>
+                        <PrimaryButton  onClick={() => createNewLobby()}>
                             Create new lobby
                         </PrimaryButton>
                     </div>

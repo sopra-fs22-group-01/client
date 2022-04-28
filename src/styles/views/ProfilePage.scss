@@ -65,18 +65,38 @@
   }
 
 
-  &.button_container{
+  &.buttonContainer{
     font-size: 1.2em;
-    margin-top: 1em;
+    margin-top: 2em;
   }
 
 
   &.lobbyListContainer {
     margin-top: 20px;
     text-align: center;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  }
+
+  &.lobbyButton{
+    border-radius: 1em;
+    border-width: 0.3em;
+    font-size: 1.2em;
+    color:white;
+    padding: 1em;
+    &:hover {
+      transform: translateY(-2px);
+      background-color: #393b39;
+    }
+    &:disabled {
+      cursor: default;
+      opacity: 0.2;
+
+      &:hover {
+        transform: none;
+        background-color: white;
+      }
+    }
+
+
   }
 }
 
