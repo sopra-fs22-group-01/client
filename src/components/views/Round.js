@@ -9,6 +9,9 @@ import "styles/views/Round.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 
+
+
+
 const Player = ({user}) => (
     <div>
         <div className={ScoreBoard}>{user.username} : {user.score}</div>
@@ -31,7 +34,6 @@ Player.propTypes = {
 const Round = () => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
-
     // define a state variable (using the state hook).
     // if this variable changes, the component will re-render, but the variable will
     // keep its value throughout render cycles.
@@ -42,6 +44,8 @@ const Round = () => {
     const [blackCard, setBlackCard] = useState(null);
     const {matchId} = useParams();
     const {userId} = useParams();
+    const [timer, setTimer] = useState(null);
+
 
     const exit = async () => {
         try {
@@ -57,6 +61,7 @@ const Round = () => {
         localStorage.removeItem('token');
         history.push('/users/login');
     }
+
 
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
@@ -108,6 +113,27 @@ const Round = () => {
         fetchData();
     }, []);
 
+    useEffect( () =>{
+        async function fetchData() {
+            try {
+                const timeResponse = await api.get(`/matches/${matchId}/countdown`);
+
+                setTimer(timeResponse.data);
+
+
+            } catch (error) {
+                console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the timer! See the console for details.");
+            }
+        };
+        const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
+        return () => clearInterval(t); // clear
+
+
+    }, []); //there cold be something in this a
+
+
     let scoreboardContent = <Spinner/>;
     let cardContent = "nothing";
 
@@ -138,10 +164,12 @@ const Round = () => {
             >
                 {blackCard}
             </CardButton>
+
             <ScoreBoard>
                 <h4>Score Board</h4>
                 {scoreboardContent}
             </ScoreBoard>
+            {timer}
             <div className="round card-list">
                 {cardContent}
                 <PrimaryButton
@@ -150,6 +178,7 @@ const Round = () => {
                 >
                     Exit
                 </PrimaryButton>
+
             </div>
         </BaseContainer>
     );
