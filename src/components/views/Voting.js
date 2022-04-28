@@ -60,11 +60,21 @@ const Voting = () => {
         history.push('/users/login');
     }
 
-    const selectCard = async() => {
+    const selectCard = async(card) => {
         try {
-
+            setClickedCard(card)
             //await api.put(`matches/${matchId}/white-cards/${clickedCard.owner.id}`)
             //history.push(`/matches/${matchId}/election/${userId}`);
+
+        } catch (error) {
+            alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
+        }
+    };
+    const vote = async() => {
+        try {
+            const ownerId = clickedCard.owner.id
+            await api.put(`matches/${matchId}/white-cards/${ownerId}`)
+            history.push(`/matches/${matchId}/winner/${userId}`);
 
         } catch (error) {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
@@ -143,7 +153,7 @@ const Voting = () => {
                     <CardButton
                         onClick={() => selectCard(card)}
                     >
-                        {card.text}{card.score}
+                        {card.text}
                     </CardButton>
                 ))}
             </div>
@@ -174,7 +184,7 @@ const Voting = () => {
                 </PrimaryButton>
                 <PrimaryButton
                     width="100%"
-                    onClick={() => selectCard()}
+                    onClick={() => vote()}
                 >
                     chose this card
                 </PrimaryButton>
