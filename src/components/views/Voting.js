@@ -139,6 +139,11 @@ const Voting = () => {
     let scoreboardContent = <Spinner/>;
     let cardContent = "nothing";
 
+    if(blackCard && allChosenCards){
+        speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
+        allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
+    }
+
     if (users) {
         scoreboardContent = (
             <div>
