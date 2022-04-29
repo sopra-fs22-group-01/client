@@ -8,28 +8,20 @@ import PropTypes from "prop-types";
 import "styles/views/Round.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
-import Card from "../../models/Card";
+import {SecondaryButton} from "../ui/SecondaryButton";
 
-const Player = ({user}) => (
+const ScoreBoardPlayer = ({user}) => (
     <div>
         <div className={ScoreBoard}>{user.username} : {user.score}</div>
     </div>
 );
-/*
-const WhiteCard = ({card}) => (
-    <div className="whitecard container">
-        <div className="whitecard cardText">
-            {card.text}
-        </div>
-    </div>
-);
-*/
 
-Player.propTypes = {
+
+ScoreBoardPlayer.propTypes = {
     user: PropTypes.object
 };
 
-const Voting = () => {
+const Winner = () => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
 
@@ -39,21 +31,19 @@ const Voting = () => {
     // a component can have as many state variables as you like.
     // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [users, setUsers] = useState(null);
-    const [allChosenCards, setAllChosenCards] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
-    const defaultCard = new Card();
-    defaultCard.text = "X"
-    const [clickedCard, setClickedCard] = useState(defaultCard);
+    const [scores, setScores] = useState(null);
 
 
     const {userId} = useParams();
     const {matchId} = useParams();
 
+
     const exit = async () => {
         try {
             let currentToken = localStorage.getItem('token');
 
-            //const response = await api.put(`/logout/?token=${currentToken}`)
+            const response = await api.put(`/logout/?token=${currentToken}`)
 
             localStorage.removeItem('token');
             history.push('/login');
@@ -64,26 +54,6 @@ const Voting = () => {
         history.push('/users/login');
     }
 
-    const selectCard = async(card) => {
-        try {
-            console.log("SELECT CARD")
-            console.log(card)
-            setClickedCard(card)
-
-        } catch (error) {
-            alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
-        }
-    };
-    const vote = async() => {
-        try {
-            const ownerId = clickedCard.owner.id
-            await api.put(`matches/${matchId}/white-cards/${ownerId}`)
-            history.push(`/matches/${matchId}/winner/${userId}`);
-
-        } catch (error) {
-            alert(`Something went wrong with voting the card: \n${handleError(error)}`);
-        }
-    };
 
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
@@ -92,11 +62,8 @@ const Voting = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
-            try {
-                //retrieves all user from specific match
+            try {//retrieves all user from specific match
                 const response = await api.get(`/matches/${matchId}/users`);
-
-                await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get the returned users and update the state.
                 setUsers(response.data);
                 console.log(response);
@@ -107,12 +74,8 @@ const Voting = () => {
 
             }
             try {
-                // retrieve Black card
+                //retrieves blackCard
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
-                // delays continuous execution of an async operation for 1 second.
-                // This is just a fake async call, so that the spinner can be displayed
-                // feel free to remove it :)
-                await new Promise(resolve => setTimeout(resolve, 1000));
                 setBlackCard(blackCard_response.data);
                 console.log(blackCard_response);
             } catch (error) {
@@ -121,40 +84,28 @@ const Voting = () => {
                 alert("Something went wrong while fetching the black Card! See the console for details.");
             }
             try {
-                // get all chosen cards
-                const chosenWhiteCardsResponse = await api.get(`/matches/${matchId}/election/white-cards`) ///matches/0/hands/1
-                setAllChosenCards(chosenWhiteCardsResponse.data)
-                console.log("ALL THE CHOSEN CARDS");
-                console.log(chosenWhiteCardsResponse.data);
+                // retrieve winner cards
+                const scoresResponse = await api.get(`/matches/${matchId}/winner`) ///matches/0/hands/1
+                setScores(scoresResponse.data)
+                console.log(scoresResponse);
             } catch (error) {
-                console.error(`Something went wrong while fetching the white cards: \n${handleError(error)}`);
+                console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
                 console.error("Details:", error);
-                alert("Something went wrong while fetching the white cards! See the console for details.");
+                alert("Something went wrong while fetching the scores! See the console for details.");
             }
 
         }
         fetchData();
     }, []);
 
-    let scoreboardContent = <Spinner/>;
-    let cardContent = "nothing";
+    let whiteCardContent = null;
+    let winnersContent = null;
 
-    if (users) {
-        scoreboardContent = (
-            <div>
-                {users.map(user => (
-                    <Player user={user}/>
-                ))}
-            </div>
-        );
-    }
-
-    if (allChosenCards) {
-        cardContent = (
+    if (scores) {
+        whiteCardContent = (
             <div className="round cards">
-                {allChosenCards.map(card => (
-                    <CardButton
-                        onClick={() => selectCard(card)}
+                {scores.map(card => (
+                    <CardButton className="card whiteCard"
                     >
                         {card.text}
                     </CardButton>
@@ -162,39 +113,44 @@ const Voting = () => {
             </div>
         )
     }
-
+    if (scores) {
+        winnersContent = (
+            <div className="round user-list">
+                {scores.map(card => (
+                    <h1 className="round user-item"
+                    >
+                        {card.owner.username}
+                    </h1>
+                ))}
+            </div>
+        )
+    }
 
     return (
         <BaseContainer className="round container">
-            <h2>YOUR CURRENT CHOICE </h2>
-            {clickedCard.text}
-            <CardButton className="blackCard"
-            >
-                {blackCard}
-            </CardButton>
-            <ScoreBoard>
-                <h4>Score Board</h4>
-                {scoreboardContent}
-            </ScoreBoard>
-            <div className="round card-list">
-                <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
-                {cardContent}
-                <PrimaryButton
-                    width="100%"
-                    onClick={() => exit()}
-                >
-                    Exit
-                </PrimaryButton>
-                <PrimaryButton
-                    width="100%"
-                    onClick={() => vote()}
-                >
-                    chose this card
-                </PrimaryButton>
-
+            <h1 className="round user-item">WINNER IS</h1>
+            <h3>{winnersContent}</h3>
+            <div className="round grid-container">
+                <div className="round grid-content2">
+                    <CardButton className="blackCard"
+                    >
+                        {blackCard}
+                    </CardButton>
+                </div>
             </div>
+            <div className="round grid-container">
+                <div className="round grid-content2">
+                    {whiteCardContent}
+                </div>
+            </div>
+            <PrimaryButton
+            onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
+            //onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
+            >
+                next
+            </PrimaryButton>
         </BaseContainer>
     );
 }
 
-export default Voting;
+export default Winner;
