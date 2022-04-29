@@ -48,6 +48,7 @@ const Voting = () => {
 
     const {userId} = useParams();
     const {matchId} = useParams();
+    const [timer, setTimer] = useState(null);
 
     const exit = async () => {
         try {
@@ -95,7 +96,6 @@ const Voting = () => {
             try {
                 //retrieves all user from specific match
                 const response = await api.get(`/matches/${matchId}/users`);
-
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get the returned users and update the state.
                 setUsers(response.data);
@@ -132,9 +132,52 @@ const Voting = () => {
                 alert("Something went wrong while fetching the white cards! See the console for details.");
             }
 
+            try {
+                // get all chosen cards
+                await api.put(`/matches/${matchId}/countdown`) ///matches/0/hands/1
+
+                console.log("restarted countdown");
+
+            } catch (error) {
+                console.error(`Something went wrong while restarting the countdown: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while restarting the countdown! See the console for details.");
+            }
+
         }
         fetchData();
     }, []);
+
+    //useEffect for Countdown
+    useEffect( () =>{
+        async function fetchData() {
+            try {
+                //gets countdown
+                const timeResponse = await api.get(`/matches/${matchId}/countdown`);
+
+                //sets time in frontend
+                setTimer(timeResponse.data);
+
+                //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
+                //and needs some time to restart
+                if(timeResponse.data === 0 && clickedCard.text != "X"){
+                    console.log("clicked card when timer == 0:")
+                    console.log(clickedCard)
+                    //sends put request to backend to set chosenCard in backend and makes history.push to election
+                    await vote();
+                }
+
+            } catch (error) {
+                console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the timer! See the console for details.");
+            }
+        };
+        const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
+        return () => clearInterval(t); // clear
+    }, [clickedCard]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
+    // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
+
 
     let scoreboardContent = <Spinner/>;
     let cardContent = "nothing";
@@ -181,6 +224,11 @@ const Voting = () => {
                 <h4>Score Board</h4>
                 {scoreboardContent}
             </ScoreBoard>
+            <div className="round grid-content3">
+                <div className= "round timer" >
+                    {timer}
+                </div>
+            </div>
             <div className="round card-list">
                 <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
                 {cardContent}
