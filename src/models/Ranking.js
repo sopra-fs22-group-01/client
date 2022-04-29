@@ -1,7 +1,7 @@
-class RankingModel {
+class Ranking {
     constructor(data = {}) {
         this.rank = null;
         this.username = null;
     }
 }
-export default RankingModel;
+export default Ranking;

@@ -3,21 +3,8 @@ import {api, handleError} from 'helpers/api';
 import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
-import PropTypes from "prop-types";
 import "styles/views/Round.scss";
-import {CardButton} from "../ui/CardButton";
-import {ScoreBoard} from "../ui/ScoreBoard";
 
-const ScoreBoardPlayer = ({user}) => (
-    <div>
-        <div className={ScoreBoard}>{user.username} : {user.score}</div>
-    </div>
-);
-
-
-ScoreBoardPlayer.propTypes = {
-    user: PropTypes.object
-};
 
 const MatchRanking = () => {
     const history = useHistory();
@@ -44,6 +31,16 @@ const MatchRanking = () => {
 
     useEffect(() => {
         async function fetchData() {
+            try {//retrieves all user from specific match
+                const response = await api.get(`/matches/${matchId}/scores`);
+                setRanking(response.data);
+                console.log("Success Fetch Scores")
+                console.log(response);
+            } catch (error) {
+                console.log("Error Fetch Scores")
+                console.log(response.data)
+                alert("Something went wrong while fetching the ranking for this specific match! See the console for details.");
+            }
         }
         fetchData();
     }, []);
@@ -54,10 +51,7 @@ const MatchRanking = () => {
         rankingContent = (
             <div className="round cards">
                 {ranking.map(ranking => (
-                    <CardButton className="card whiteCard"
-                    >
-                        {ranking.username}
-                    </CardButton>
+                    <li> {ranking.username} {ranking.rank}  </li>
                 ))}
             </div>
         )
