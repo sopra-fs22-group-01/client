@@ -54,6 +54,24 @@ const Winner = () => {
         history.push('/users/login');
     }
 
+    const nextStep = async () => {
+        try {
+
+            const response = await api.put(`/matches/${matchId}/rounds`)
+            console.log("MATCHSTATUS INCOMING")
+            console.log(response)
+            if (response.data === "MatchOngoing"){
+                history.push(`/matches/${matchId}/next/${userId}`)
+            }
+            else{
+                history.push(`/matches/${matchId}/end/${userId}`)
+            }
+
+        } catch (error) {
+            alert(`Something went wrong during the next step: \n${handleError(error)}`);
+        }
+    }
+
 
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
@@ -85,9 +103,9 @@ const Winner = () => {
             }
             try {
                 // retrieve winner cards
-                const scoresResponse = await api.get(`/matches/${matchId}/winner`) ///matches/0/hands/1
-                setScores(scoresResponse.data)
-                console.log(scoresResponse);
+                const roundWinnerResponse = await api.get(`/matches/${matchId}/winner`) ///matches/0/hands/1
+                setScores(roundWinnerResponse.data)
+                console.log(roundWinnerResponse);
             } catch (error) {
                 console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -144,7 +162,7 @@ const Winner = () => {
                 </div>
             </div>
             <PrimaryButton
-            onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
+            onClick={() => nextStep()}
             //onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
             >
                 next

@@ -26,7 +26,7 @@ const NextPage = props => {
                 if(timeResponse.data === 0){
                     history.push(`/matches/${matchId}/hand/${userId}`)
                 }
-                */
+            */
 
             } catch (error) {
                 console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);

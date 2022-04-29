@@ -4,6 +4,7 @@ import Round from "../../views/Round";
 import Voting from "../../views/Voting";
 import Winner from "../../views/Winner";
 import NextPage from "../../views/NextPage";
+import End from "../../views/End";
 
 const MatchRouter = props => {
     /**
@@ -25,6 +26,10 @@ const MatchRouter = props => {
             </Route>
             <Route exact path={`${props.base}/:matchId/next/:userId`}>
                 <NextPage/>
+            </Route>
+
+            <Route exact path={`${props.base}/:matchId/end/:userId`}>
+                <End/>
             </Route>
             {/**/}
 

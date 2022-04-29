@@ -137,7 +137,7 @@ const Voting = () => {
     }, []);
 
     let scoreboardContent = <Spinner/>;
-    let cardContent = "nothing";
+    let cardContent = "waiting for cards";
 
     if(blackCard && allChosenCards){
         speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
