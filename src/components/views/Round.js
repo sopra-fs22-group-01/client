@@ -143,6 +143,8 @@ const Round = () => {
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
                      await confirmSelectedCard();
+
+                    await api.put(`/matches/${matchId}/countdown`) ///matches/0/hands/1
                 }
 
             } catch (error) {

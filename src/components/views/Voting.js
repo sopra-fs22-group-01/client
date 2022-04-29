@@ -132,18 +132,6 @@ const Voting = () => {
                 alert("Something went wrong while fetching the white cards! See the console for details.");
             }
 
-            try {
-                // get all chosen cards
-                await api.put(`/matches/${matchId}/countdown`) ///matches/0/hands/1
-
-                console.log("restarted countdown");
-
-            } catch (error) {
-                console.error(`Something went wrong while restarting the countdown: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while restarting the countdown! See the console for details.");
-            }
-
         }
         fetchData();
     }, []);
