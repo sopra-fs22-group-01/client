@@ -38,6 +38,19 @@ const NextPage = props => {
         return () => clearInterval(t); // clear
     }, []);
 
+
+    const startNewRound = async () => {
+        try {
+
+
+            await api.put(`/matches/${matchId}/rounds`) // does not work when called from useeffect
+            history.push(`/matches/${matchId}/hand/${userId}`);
+
+        } catch (error) {
+            alert(`Something went wrong during logging the chosen card into the backend: \n${handleError(error)}`);
+        }
+    };
+
     return (
         <BaseContainer>
             <div className="startpage container">
@@ -51,7 +64,7 @@ const NextPage = props => {
                         </div>
                     </div>
                     <PrimaryButton
-                        onClick={() => history.push(`/matches/${matchId}/hand/${userId}`)}
+                        onClick={() => startNewRound()}
                     >
                         next
                     </PrimaryButton>

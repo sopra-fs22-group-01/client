@@ -34,7 +34,9 @@ const Round = () => {
     const [users, setUsers] = useState(null);
     const [cards, setCards] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
-    const [clickedCard, setClickedCard] = useState(new Card());
+    const defaultCard = new Card();
+    defaultCard.text = "X"
+    const [clickedCard, setClickedCard] = useState(defaultCard);
 
     const {userId} = useParams();
     const {matchId} = useParams();
@@ -61,6 +63,7 @@ const Round = () => {
     };
 
     const confirmSelectedCard = async () => {
+
         try {
             const requestBody = JSON.stringify(clickedCard);
 
@@ -73,7 +76,8 @@ const Round = () => {
         } catch (error) {
             alert(`Something went wrong during logging the chosen card into the backend: \n${handleError(error)}`);
         }
-        localStorage.removeItem('token');
+
+
     };
 
 
@@ -110,7 +114,7 @@ const Round = () => {
                 alert("Something went wrong while fetching the black Card! See the console for details.");
             }
             try {
-                //const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
+                //retrieve user hand
                 const whiteCardResponse = await api.get(`/matches/${matchId}/hands/${userId}`) ///matches/0/hands/1
                 setCards(whiteCardResponse.data)
                 console.log(whiteCardResponse);
@@ -207,24 +211,16 @@ const Round = () => {
                         {cardContent}
                     </div>
                 </div>
-                <div className="round grid-content5">
-                    <PrimaryButton
-                      width="100%"
-                      onClick={() => confirmSelectedCard()}
-                    >
-                        Select card, go to voting
-                    </PrimaryButton>
-                </div>
                 <div className="round grid-content6">
                     <div className="round clickedCard">
                         <h2>Your current choice:</h2>
-                        {clickedCard.text}
+                        <h3>{clickedCard.text}</h3>
                     </div>
                     <PrimaryButton
                         width="100%"
                         onClick={() => confirmSelectedCard()}
                     >
-                        Select card, go to voting
+                        Select card
                     </PrimaryButton>
                 </div>
 
