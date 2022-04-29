@@ -31,15 +31,15 @@ const MatchRanking = () => {
 
     useEffect(() => {
         async function fetchData() {
-            try {//retrieves all user from specific match
+            try {
+                //retrieves the ranking
                 const response = await api.get(`/matches/${matchId}/scores`);
                 setRanking(response.data);
                 console.log("Success Fetch Scores")
                 console.log(response);
             } catch (error) {
-                console.log("Error Fetch Scores")
-                console.log(response.data)
                 alert("Something went wrong while fetching the ranking for this specific match! See the console for details.");
+                console.log("Error Fetch Scores", error)
             }
         }
         fetchData();
@@ -51,7 +51,7 @@ const MatchRanking = () => {
         rankingContent = (
             <div className="round cards">
                 {ranking.map(ranking => (
-                    <li> {ranking.username} {ranking.rank}  </li>
+                    <li> {ranking.rank}.rank: {ranking.username} </li>
                 ))}
             </div>
         )
@@ -60,7 +60,7 @@ const MatchRanking = () => {
     return (
         <BaseContainer className="round container">
             <h1 className="round user-item">Victory Ceremony:</h1>
-            <h3>{rankingContent}</h3>
+            <h2 className="round user-item">{rankingContent}</h2>
             <PrimaryButton
                 onClick={() => history.push(`/startpage`)}
             >
