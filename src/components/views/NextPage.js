@@ -24,7 +24,7 @@ const NextPage = props => {
 
                 /* SHOULD REDIRECT TO NEW HAND AFTER 3 SECONDS
                 if(timeResponse.data === 0){
-                    history.push(`/matches/${matchId}/hand/${userId}`)
+                    history.push(`/ matches/${matchId}/hand/${userId}`)
                 }
             */
 

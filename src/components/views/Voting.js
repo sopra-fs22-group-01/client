@@ -139,7 +139,7 @@ const Voting = () => {
     let scoreboardContent = <Spinner/>;
     let cardContent = "waiting for cards";
 
-    if(blackCard && allChosenCards){
+    if (blackCard && allChosenCards && clickedCard.owner == null){
         speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
         allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
     }
