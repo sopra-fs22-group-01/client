@@ -146,27 +146,34 @@ const Winner = () => {
 
     return (
         <BaseContainer className="round container">
-            <h1 className="round user-item">WINNER IS</h1>
-            <h3>{winnersContent}</h3>
             <div className="round grid-container">
+                <div className="round grid-content1">
+                </div>
                 <div className="round grid-content2">
+                    <h1 className="round user-item">WINNER IS</h1>
+                    <h3 className="round user-item">{winnersContent}</h3>
                     <CardButton className="blackCard"
                     >
                         {blackCard}
                     </CardButton>
                 </div>
-            </div>
-            <div className="round grid-container">
-                <div className="round grid-content2">
-                    {whiteCardContent}
+                <div className="round grid-content4">
+                    <div className="round card-list">
+                        {whiteCardContent}
+                    </div>
+                </div>
+                <div className="round grid-content6">
+                    <div className="round clickedCard">
+
+                    </div>
+                    <PrimaryButton
+                        onClick={() => nextStep()}
+                        //onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
+                    >
+                        next
+                    </PrimaryButton>
                 </div>
             </div>
-            <PrimaryButton
-            onClick={() => nextStep()}
-            //onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
-            >
-                next
-            </PrimaryButton>
         </BaseContainer>
     );
 }

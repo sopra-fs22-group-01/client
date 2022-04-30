@@ -51,7 +51,7 @@ const MatchRanking = () => {
         rankingContent = (
             <div className="round cards">
                 {ranking.map(ranking => (
-                    <li> {ranking.rank}. {ranking.username}         {ranking.score}</li>
+                    <li> {ranking.rank}. {ranking.username}      {ranking.score}</li>
                 ))}
             </div>
         )
@@ -78,3 +78,41 @@ const MatchRanking = () => {
 }
 
 export default MatchRanking;
+
+{/*
+
+<BaseContainer className="round container">
+            <div className="round grid-container">
+                <div className="round grid-content1">
+                    <h1 className="round user-item">WINNER IS</h1>
+                </div>
+                <div className="round grid-content2">
+                <h1 className="round user-item">WINNER IS</h1>
+                    <CardButton className="blackCard"
+                    >
+                        {blackCard}
+                    </CardButton>
+                </div>
+                <div className="round grid-content3">
+                    <div className= "round timer" >
+                        {timer}
+                    </div>
+                </div>
+                <div className="round grid-content4">
+                    <div className="round card-list">
+                        {whiteCardContent}
+                    </div>
+                </div>
+                <div className="round grid-content6">
+                    <div className="round clickedCard">
+
+                    </div>
+                    <PrimaryButton
+                        width="100%"
+                        onClick={() => confirmSelectedCard()}
+                    >
+                        Select card
+                    </PrimaryButton>
+                </div>
+
+*/}

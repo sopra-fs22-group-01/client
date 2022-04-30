@@ -171,19 +171,31 @@ const Voting = () => {
 
     return (
         <BaseContainer className="round container">
-            <h2>YOUR CURRENT CHOICE </h2>
-            {clickedCard.text}
-            <CardButton className="blackCard"
-            >
-                {blackCard}
-            </CardButton>
-            <ScoreBoard>
-                <h4>Score Board</h4>
-                {scoreboardContent}
-            </ScoreBoard>
-            <div className="round card-list">
-                <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
-                {cardContent}
+            <div className="round grid-container">
+            <div className="round grid-content1">
+                <ScoreBoard className="round scoreBoard">
+                    <h4>Score Board</h4>
+                    {scoreboardContent}
+                </ScoreBoard>
+            </div>
+
+            <div className="round grid-content2">
+                <CardButton className="blackCard"
+                >
+                    {blackCard}
+                </CardButton>
+            </div>
+            <div className="round grid-content3">
+                <h2>YOUR CURRENT CHOICE:</h2>
+                <h2>{clickedCard.text}</h2>
+            </div>
+            <div className="round grid-content4">
+                <div className="round card-list">
+                    <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
+                    {cardContent}
+                </div>
+            </div>
+            <div className="round grid-content6">
                 <PrimaryButton
                     width="100%"
                     onClick={() => exit()}
@@ -197,6 +209,7 @@ const Voting = () => {
                     chose this card
                 </PrimaryButton>
 
+            </div>
             </div>
         </BaseContainer>
     );
