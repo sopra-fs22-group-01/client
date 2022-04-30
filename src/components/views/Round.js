@@ -43,7 +43,9 @@ const Round = () => {
     const [timer, setTimer] = useState(null);
 
 
-
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     const selectCard = (card) => {
         console.log("CLICKED ON  A CARD!")
@@ -138,15 +140,15 @@ const Round = () => {
 
                 //sets time in frontend
                 setTimer(timeResponse.data);
-
+                await sleep(300)
                 if(timeResponse.data === 0){
-                    console.log("clicked card when timer == 5:")
+                    console.log("clicked card when timer == 0:")
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
                      await confirmSelectedCard();
 
-                    await api.put(`/matches/${matchId}/countdown`) ///matches/0/hands/1
-                }
+                    //await api.put(`/matches/${matchId}/countdown`) ///matches/0/hands/1
+            }
 
             } catch (error) {
                 console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);

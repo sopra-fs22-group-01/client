@@ -12,21 +12,26 @@ const NextPage = props => {
     const {matchId} = useParams();
 
     const [timer, setTimer] = useState(null);
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     //useEffect for Countdown
     useEffect( () =>{
         async function fetchData() {
             try {
+                await sleep(2000);
                 //gets countdown
                 const timeResponse = await api.get(`/matches/${matchId}/countdown`);
 
                 //sets time in frontend
                 setTimer(timeResponse.data);
 
-                /* SHOULD REDIRECT TO NEW HAND AFTER 3 SECONDS
+
                 if(timeResponse.data === 0){
-                    history.push(`/ matches/${matchId}/hand/${userId}`)
+                    await startNewRound();
                 }
-            */
 
             } catch (error) {
                 console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);

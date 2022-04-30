@@ -37,7 +37,7 @@ const Winner = () => {
 
     const {userId} = useParams();
     const {matchId} = useParams();
-
+    const [timer, setTimer] = useState(15);
 
     const exit = async () => {
         try {
@@ -61,7 +61,8 @@ const Winner = () => {
             console.log("MATCHSTATUS INCOMING")
             console.log(response)
             if (response.data === "MatchOngoing"){
-                history.push(`/matches/${matchId}/next/${userId}`)
+                await sleep(500);
+                history.push(`/matches/${matchId}/hand/${userId}`);
             }
             else{
                 history.push(`/matches/${matchId}/ranking/${userId}`)
@@ -72,7 +73,9 @@ const Winner = () => {
         }
     }
 
-
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
     // this can be achieved by leaving the second argument an empty array.
@@ -102,6 +105,7 @@ const Winner = () => {
                 alert("Something went wrong while fetching the black Card! See the console for details.");
             }
             try {
+                await sleep(800); //so the result gets not fetched before the result has been calculated propperly
                 // retrieve winner cards
                 const roundWinnerResponse = await api.get(`/matches/${matchId}/winner`) ///matches/0/hands/1
                 setScores(roundWinnerResponse.data)
@@ -115,6 +119,38 @@ const Winner = () => {
         }
         fetchData();
     }, []);
+
+    //useEffect for Countdown
+    useEffect( () =>{
+        async function fetchData() {
+            try {
+
+                //gets countdown
+                await sleep(500);
+                const timeResponse = await api.get(`/matches/${matchId}/countdown`);
+
+                //sets time in frontend
+                setTimer(timeResponse.data);
+
+                //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
+                //and needs some time to restart
+
+                if(timeResponse.data === 0){
+                    console.log("clicked card when timer == 0:")
+                    //sends put request to backend to set chosenCard in backend and makes history.push to election
+                    await nextStep();
+                }
+
+            } catch (error) {
+                console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the timer! See the console for details.");
+            }
+        };
+        const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
+        return () => clearInterval(t); // clear
+    }, []); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
+    // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
 
     let whiteCardContent = null;
     let winnersContent = null;
@@ -156,6 +192,11 @@ const Winner = () => {
                     >
                         {blackCard}
                     </CardButton>
+                </div>
+                <div className="round grid-content3">
+                    <div className= "round timer" >
+                        {timer}
+                    </div>
                 </div>
                 <div className="round grid-content4">
                     <div className="round card-list">
