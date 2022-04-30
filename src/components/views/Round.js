@@ -140,7 +140,7 @@ const Round = () => {
                 setTimer(timeResponse.data);
 
                 if(timeResponse.data === 0){
-                    console.log("clicked card when timer == 5:")
+                    console.log("clicked card when timer == 0:")
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
                      await confirmSelectedCard();
