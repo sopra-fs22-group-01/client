@@ -113,7 +113,7 @@ const Lobby = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
-
+            // fetch all match players
             try{const response = await api.get(`lobbies/${lobbyId}/users`);
                 setUsers(response.data);
             }catch (error) {
@@ -121,7 +121,7 @@ const Lobby = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the users ! See the console for details.");
             }
-            try{
+            try{ // fetch current player
                 const u = await api.get(`/users/?id=${userId}`);
                 setUser(u.data);
             }catch (error) {
@@ -137,11 +137,11 @@ const Lobby = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the rules ! See the console for details.");
             }
-            try{
+            try{ // get lobby status
                 const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`); //
                 const lobby_stat = lobby_status_response.data;
                 if (lobby_stat === "All_Ready") {
-                    try{
+                    try{ // create new Match using lobbyId (matchId receives same id)
                         await api.post(`/matches/${lobbyId}`);
                     }
                     catch(error){
@@ -149,8 +149,8 @@ const Lobby = () => {
                         console.error("Details:", error);
                         alert("Something went wrong while creating a match ! See the console for details.");
                     }
-
-                    history.push(`/matches/${lobbyId}/hand/${user.id}`) //because the id of the match is the same as the id of the lobby
+                    //because the id of the match is the same as the id of the lobby
+                    history.push(`/matches/${lobbyId}/hand/${user.id}`)
                 }
             }catch (error) {
                 console.error(`Something went wrong while fetching the lobby status: \n${handleError(error)}`);

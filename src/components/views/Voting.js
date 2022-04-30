@@ -75,7 +75,7 @@ const Voting = () => {
         }
     };
     const vote = async() => {
-        try {
+        try {//adds a point to the clicked card (every user does this)
             const ownerId = clickedCard.owner.id
             await api.put(`matches/${matchId}/white-cards/${ownerId}`)
             history.push(`/matches/${matchId}/winner/${userId}`);

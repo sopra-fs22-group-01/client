@@ -70,6 +70,7 @@ const Round = () => {
             console.log("CLICKED CARD IS THIS (REQUEST BODY)")
             console.log(requestBody)
 
+            // PUT selected card into ChosenCards array
             await api.put(`matches/${matchId}/white-card/selection`, requestBody) // does not work when called from useeffect
             history.push(`/matches/${matchId}/election/${userId}`);
 
@@ -100,7 +101,7 @@ const Round = () => {
 
             }
             try {
-                //const response = await api.get(`/matches/${matchId}/users`); //retrieves all user from specific match
+                // retrieve black card of this round
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
                 // delays continuous execution of an async operation for 1 second.
                 // This is just a fake async call, so that the spinner can be displayed

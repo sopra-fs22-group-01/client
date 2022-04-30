@@ -51,23 +51,30 @@ const MatchRanking = () => {
         rankingContent = (
             <div className="round cards">
                 {ranking.map(ranking => (
-                    <li> {ranking.rank}.rank: {ranking.username} </li>
+                    <li> {ranking.rank}. {ranking.username}         {/*ranking.score*/}</li>
                 ))}
             </div>
         )
     }
-
     return (
-        <BaseContainer className="round container">
-            <h1 className="round user-item">Victory Ceremony:</h1>
-            <h2 className="round user-item">{rankingContent}</h2>
-            <PrimaryButton
-                onClick={() => history.push(`/startpage`)}
-            >
-                Exit
-            </PrimaryButton>
+        <BaseContainer>
+            <div className="startpage container">
+                <div className="startpage text-container">
+                    <text>END OF GAME</text>
+                </div>
+                <h2 className="round user-item">{rankingContent}</h2>
+                <div className="startpage button-container">
+                    <PrimaryButton
+                        onClick={() => history.push(`/startpage`)}
+                    >
+                        Startpage
+                    </PrimaryButton>
+                </div>
+            </div>
         </BaseContainer>
     );
+
+
 }
 
 export default MatchRanking;

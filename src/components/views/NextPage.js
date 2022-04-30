@@ -43,7 +43,7 @@ const NextPage = props => {
         try {
 
 
-            await api.put(`/matches/${matchId}/rounds`) // does not work when called from useeffect
+            //await api.put(`/matches/${matchId}/rounds`) // does not work when called from useeffect
             history.push(`/matches/${matchId}/hand/${userId}`);
 
         } catch (error) {

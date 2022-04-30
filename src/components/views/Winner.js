@@ -56,7 +56,7 @@ const Winner = () => {
 
     const nextStep = async () => {
         try {
-
+            // starts next round, or end Match if we're on the last round
             const response = await api.put(`/matches/${matchId}/rounds`)
             console.log("MATCHSTATUS INCOMING")
             console.log(response)
@@ -64,7 +64,7 @@ const Winner = () => {
                 history.push(`/matches/${matchId}/next/${userId}`)
             }
             else{
-                history.push(`/matches/${matchId}/end/${userId}`)
+                history.push(`/matches/${matchId}/ranking/${userId}`)
             }
 
         } catch (error) {
