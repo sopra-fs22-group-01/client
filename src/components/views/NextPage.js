@@ -24,9 +24,9 @@ const NextPage = props => {
 
                 /* SHOULD REDIRECT TO NEW HAND AFTER 3 SECONDS
                 if(timeResponse.data === 0){
-                    history.push(`/matches/${matchId}/hand/${userId}`)
+                    history.push(`/ matches/${matchId}/hand/${userId}`)
                 }
-                */
+            */
 
             } catch (error) {
                 console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);
@@ -43,7 +43,7 @@ const NextPage = props => {
         try {
 
 
-            await api.put(`/matches/${matchId}/rounds`) // does not work when called from useeffect
+            //await api.put(`/matches/${matchId}/rounds`) // does not work when called from useeffect
             history.push(`/matches/${matchId}/hand/${userId}`);
 
         } catch (error) {

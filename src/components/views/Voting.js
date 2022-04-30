@@ -76,7 +76,7 @@ const Voting = () => {
         }
     };
     const vote = async() => {
-        try {
+        try {//adds a point to the clicked card (every user does this)
             const ownerId = clickedCard.owner.id
             await api.put(`matches/${matchId}/white-cards/${ownerId}`)
             history.push(`/matches/${matchId}/winner/${userId}`);
@@ -96,6 +96,7 @@ const Voting = () => {
             try {
                 //retrieves all user from specific match
                 const response = await api.get(`/matches/${matchId}/users`);
+
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get the returned users and update the state.
                 setUsers(response.data);
@@ -168,7 +169,7 @@ const Voting = () => {
 
 
     let scoreboardContent = <Spinner/>;
-    let cardContent = "nothing";
+    let cardContent = "waiting for cards";
 
     if (blackCard && allChosenCards && clickedCard.owner == null){
         speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
@@ -202,24 +203,31 @@ const Voting = () => {
 
     return (
         <BaseContainer className="round container">
-            <h2>YOUR CURRENT CHOICE </h2>
-            {clickedCard.text}
-            <CardButton className="blackCard"
-            >
-                {blackCard}
-            </CardButton>
-            <ScoreBoard>
-                <h4>Score Board</h4>
-                {scoreboardContent}
-            </ScoreBoard>
+            <div className="round grid-container">
+            <div className="round grid-content1">
+                <ScoreBoard className="round scoreBoard">
+                    <h4>Score Board</h4>
+                    {scoreboardContent}
+                </ScoreBoard>
+            </div>
+
+            <div className="round grid-content2">
+                <CardButton className="blackCard"
+                >
+                    {blackCard}
+                </CardButton>
+            </div>
             <div className="round grid-content3">
-                <div className= "round timer" >
-                    {timer}
+                <h2>YOUR CURRENT CHOICE:</h2>
+                <h2>{clickedCard.text}</h2>
+            </div>
+            <div className="round grid-content4">
+                <div className="round card-list">
+                    <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
+                    {cardContent}
                 </div>
             </div>
-            <div className="round card-list">
-                <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
-                {cardContent}
+            <div className="round grid-content6">
                 <PrimaryButton
                     width="100%"
                     onClick={() => exit()}
@@ -233,6 +241,7 @@ const Voting = () => {
                     chose this card
                 </PrimaryButton>
 
+            </div>
             </div>
         </BaseContainer>
     );

@@ -54,6 +54,24 @@ const Winner = () => {
         history.push('/users/login');
     }
 
+    const nextStep = async () => {
+        try {
+            // starts next round, or end Match if we're on the last round
+            const response = await api.put(`/matches/${matchId}/rounds`)
+            console.log("MATCHSTATUS INCOMING")
+            console.log(response)
+            if (response.data === "MatchOngoing"){
+                history.push(`/matches/${matchId}/next/${userId}`)
+            }
+            else{
+                history.push(`/matches/${matchId}/ranking/${userId}`)
+            }
+
+        } catch (error) {
+            alert(`Something went wrong during the next step: \n${handleError(error)}`);
+        }
+    }
+
 
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
@@ -85,9 +103,9 @@ const Winner = () => {
             }
             try {
                 // retrieve winner cards
-                const scoresResponse = await api.get(`/matches/${matchId}/winner`) ///matches/0/hands/1
-                setScores(scoresResponse.data)
-                console.log(scoresResponse);
+                const roundWinnerResponse = await api.get(`/matches/${matchId}/winner`) ///matches/0/hands/1
+                setScores(roundWinnerResponse.data)
+                console.log(roundWinnerResponse);
             } catch (error) {
                 console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -128,27 +146,34 @@ const Winner = () => {
 
     return (
         <BaseContainer className="round container">
-            <h1 className="round user-item">WINNER IS</h1>
-            <h3>{winnersContent}</h3>
             <div className="round grid-container">
+                <div className="round grid-content1">
+                </div>
                 <div className="round grid-content2">
+                    <h1 className="round user-item">WINNER IS</h1>
+                    <h3 className="round user-item">{winnersContent}</h3>
                     <CardButton className="blackCard"
                     >
                         {blackCard}
                     </CardButton>
                 </div>
-            </div>
-            <div className="round grid-container">
-                <div className="round grid-content2">
-                    {whiteCardContent}
+                <div className="round grid-content4">
+                    <div className="round card-list">
+                        {whiteCardContent}
+                    </div>
+                </div>
+                <div className="round grid-content6">
+                    <div className="round clickedCard">
+
+                    </div>
+                    <PrimaryButton
+                        onClick={() => nextStep()}
+                        //onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
+                    >
+                        next
+                    </PrimaryButton>
                 </div>
             </div>
-            <PrimaryButton
-            onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
-            //onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
-            >
-                next
-            </PrimaryButton>
         </BaseContainer>
     );
 }
