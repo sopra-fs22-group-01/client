@@ -51,7 +51,7 @@ const MatchRanking = () => {
         rankingContent = (
             <div className="round cards">
                 {ranking.map(ranking => (
-                    <li> {ranking.rank}. {ranking.username}         {/*ranking.score*/}</li>
+                    <li> {ranking.rank}. {ranking.username}         {ranking.score}</li>
                 ))}
             </div>
         )
