@@ -85,6 +85,15 @@ const Voting = () => {
         }
     };
 
+    function replaceCharwithChar(str,old, new_chr) { // replaces in str at idx with chr
+        //if(index > str.length-1) return str;
+        const cleanedWhite = new_chr
+        const idx = str.indexOf(old);
+
+        return str.substring(0,idx) + "\""+  cleanedWhite + "\""+ str.substring((idx+old.length)+1);
+
+    }
+
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
     // this can be achieved by leaving the second argument an empty array.
@@ -140,8 +149,16 @@ const Voting = () => {
     let cardContent = "waiting for cards";
 
     if (blackCard && allChosenCards && clickedCard.owner == null){
-        speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
-        allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
+        const blank = blackCard.toString().indexOf("____")
+        if (blank === -1){ // if there is no underscore (questions f.e) -> read normally
+            speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
+            allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
+        }
+        else{
+            //speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
+            //allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
+            allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(replaceCharwithChar(blackCard.toString(), "____", card.text))));
+        }
     }
 
     if (users) {

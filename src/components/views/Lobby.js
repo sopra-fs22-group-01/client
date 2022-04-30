@@ -143,6 +143,7 @@ const Lobby = () => {
                 if (lobby_stat === "All_Ready") {
                     try{ // create new Match using lobbyId (matchId receives same id)
                         await api.post(`/matches/${lobbyId}`);
+
                     }
                     catch(error){
                         console.error(`Something went wrong while creating a match: \n${handleError(error)}`);

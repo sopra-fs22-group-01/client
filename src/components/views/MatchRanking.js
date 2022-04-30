@@ -51,7 +51,7 @@ const MatchRanking = () => {
         rankingContent = (
             <div className="round cards">
                 {ranking.map(ranking => (
-                    <li> {ranking.rank}. {ranking.username}      {ranking.score}</li>
+                    <div> {/*{ranking.rank}.*/}{ranking.username} {ranking.score}</div>
                 ))}
             </div>
         )
@@ -65,9 +65,10 @@ const MatchRanking = () => {
                 <h2 className="round user-item">{rankingContent}</h2>
                 <div className="startpage button-container">
                     <PrimaryButton
+                        //onClick={() => history.push(`/users/profile/${userId}`)}
                         onClick={() => history.push(`/startpage`)}
                     >
-                        Startpage
+                        startpage
                     </PrimaryButton>
                 </div>
             </div>
