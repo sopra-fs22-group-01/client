@@ -89,7 +89,7 @@ const Round = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
-            try {//retrieves all user from specific match
+            try {//retrieves all user from specific match (gamecontroller)
                 const response = await api.get(`/matches/${matchId}/users`);
                 // Get the returned users and update the state.
                 setUsers(response.data);
@@ -103,9 +103,7 @@ const Round = () => {
             try {
                 // retrieve black card of this round
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
-                // delays continuous execution of an async operation for 1 second.
-                // This is just a fake async call, so that the spinner can be displayed
-                // feel free to remove it :)
+
                 setBlackCard(blackCard_response.data);
                 // See here to get more data.
                 console.log(blackCard_response);
@@ -203,6 +201,8 @@ const Round = () => {
                     </CardButton>
                 </div>
                 <div className="round grid-content3">
+                    <h2>YOUR CURRENT CHOICE:</h2>
+                    <h2>{clickedCard.text}</h2>
                     <div className= "round timer" >
                         {timer}
                     </div>
@@ -213,10 +213,6 @@ const Round = () => {
                     </div>
                 </div>
                 <div className="round grid-content6">
-                    <div className="round clickedCard">
-                        <h2>Your current choice:</h2>
-                        <h3>{clickedCard.text}</h3>
-                    </div>
                     <PrimaryButton
                         width="100%"
                         onClick={() => confirmSelectedCard()}

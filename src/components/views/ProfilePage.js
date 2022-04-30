@@ -45,6 +45,7 @@ const ProfilePage = () => {
     const {userId} = useParams(); //extracts the id from the URL
     const [lobbies, setLobbies] = useState(null);
     const [clickedLobby, setClickedLobby] = useState(null);
+    const [hasMatchVar, setHasMatchVar] = useState(false);
 
 
     const createNewLobby = async () => {
@@ -67,6 +68,30 @@ const ProfilePage = () => {
         }
     };
 
+
+    const hasMatch = async(lobbyId) => {
+        try {
+            const response =  api.get(`/matches/${lobbyId}/status`);
+            const status = (await response).data;
+            console.log("MATCH STATUS", lobbyId)
+            console.log(status)
+/*
+            if (status === "NotYetCreated"){
+                console.log("FALSEE")
+                setHasMatchVar(false)
+
+            }
+            else{
+                console.log("TRUEE")
+                setHasMatchVar(true)
+
+            }*/
+
+            return status.toString();
+        } catch (error) {
+            alert(`Something went wrong fetching MatchStatus: \n${handleError(error)}`);
+        }
+    };
 
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
@@ -147,8 +172,14 @@ const ProfilePage = () => {
                     <div className="profilePage lobbyListContainer">
                         <h2>Choose a lobby:</h2>
                         <ul className="profilePage lobbyList">
-                            {lobbies.map(lobbyModel => (
-                                <button className="profilePage lobbyButton" onClick={() => addUserLobby(lobbyModel.id)}>
+                            {lobbies.map((lobbyModel, d) => (
+                                <button className="profilePage lobbyButton"
+                                        onClick={() => addUserLobby(lobbyModel.id)}
+                                        disabled={false
+                                            // eslint-disable-next-line no-unused-expressions
+                                            //hasMatch(lobbyModel.id)
+                                        }
+                                >
                                 <LobbyObject lobbyModel={lobbyModel}/>
                                 </button>
                             ))}
