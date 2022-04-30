@@ -186,7 +186,7 @@ const Winner = () => {
                 <div className="round grid-content1">
                 </div>
                 <div className="round grid-content2">
-                    <h1 className="round user-item">WINNER IS</h1>
+                    <h1 className="round user-item">WINNERS OF THIS ROUND</h1>
                     <h3 className="round user-item">{winnersContent}</h3>
                     <CardButton className="blackCard"
                     >

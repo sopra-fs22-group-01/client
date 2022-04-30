@@ -58,7 +58,9 @@ const Lobby = () => {
     const [rules, setRules] = useState(null);
     //const [readyIcon, setReadyIcon] = useState(<BiCircle/>);
     const {userId} = useParams();
-    const {lobbyId} = useParams();
+    const {lobbyId} = useParams(); // will be deleted after lobby creates match
+
+    const [matchId, setMatchId] = useState(null);
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -141,8 +143,12 @@ const Lobby = () => {
                 const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`); //
                 const lobby_stat = lobby_status_response.data;
                 if (lobby_stat === "All_Ready") {
-                    try{ // create new Match using lobbyId (matchId receives same id)
-                        await api.post(`/matches/${lobbyId}`);
+                    try{ // create new Match using lobbyId (matchId receives same id) (gamecontroller)
+                        const matchIdResponse = await api.post(`/matches/${lobbyId}`);
+                        console.log("RECEIVE MATCH ID")
+                        console.log(matchIdResponse.data);
+
+                        setMatchId(matchIdResponse.data);
                     }
                     catch(error){
                         console.error(`Something went wrong while creating a match: \n${handleError(error)}`);
