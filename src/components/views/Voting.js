@@ -45,7 +45,7 @@ const Voting = () => {
     defaultCard.text = "X"
     const [clickedCard, setClickedCard] = useState(defaultCard);
 
-
+    const [read,setRead] = useState(false);
     const {userId} = useParams();
     const {matchId} = useParams();
     const [timer, setTimer] = useState(null);
@@ -185,7 +185,7 @@ const Voting = () => {
     let scoreboardContent = <Spinner/>;
     let cardContent = "waiting for cards";
 
-    if (blackCard && allChosenCards && clickedCard.owner == null){
+    if (blackCard && allChosenCards && clickedCard.owner == null && !read){
         const blank = blackCard.toString().indexOf("____")
         if (blank === -1){ // if there is no underscore (questions f.e) -> read normally
             speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
@@ -196,6 +196,7 @@ const Voting = () => {
             //allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
             allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(replaceCharwithChar(blackCard.toString(), "____", card.text))));
         }
+        setRead(true);
     }
 
     if (users) {
