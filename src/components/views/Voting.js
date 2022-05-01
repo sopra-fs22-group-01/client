@@ -34,7 +34,7 @@ const Voting = () => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
 
-    // define a state variable (using the state hook).
+    // def ine a state variable (using the state hook).
     // if this variable changes, the component will re-render, but the variable will
     // keep its value throughout render cycles.
     // a component can have as many state variables as you like.
