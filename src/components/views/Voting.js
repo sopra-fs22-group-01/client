@@ -20,6 +20,7 @@ const WhiteCard = ({card}) => (
     <div className="whitecard container">
         <div className="whitecard cardText">
             {card.text}
+
         </div>
     </div>
 );
