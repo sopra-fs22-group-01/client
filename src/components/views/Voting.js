@@ -261,12 +261,12 @@ const Voting = () => {
                 >
                     Exit
                 </PrimaryButton>
-                <PrimaryButton
-                    width="100%"
-                    onClick={() => vote()}
-                >
-                    chose this card
-                </PrimaryButton>
+               {/*     <PrimaryButton
+                        width="100%"
+                        onClick={() => vote()}
+                    >
+                        chose this card
+                    </PrimaryButton>*/}
 
             </div>
             </div>

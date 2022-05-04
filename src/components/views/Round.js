@@ -216,14 +216,14 @@ const Round = () => {
                         {cardContent}
                     </div>
                 </div>
-                <div className="round grid-content6">
+              {/*  <div className="round grid-content6">
                     <PrimaryButton
                         width="100%"
                         onClick={() => confirmSelectedCard()}
                     >
                         Select card
                     </PrimaryButton>
-                </div>
+                </div>*/}
 
 
             </div>

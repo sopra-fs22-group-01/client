@@ -203,7 +203,7 @@ const Winner = () => {
                         {whiteCardContent}
                     </div>
                 </div>
-                <div className="round grid-content6">
+                {/*<div className="round grid-content6">
                     <div className="round clickedCard">
 
                     </div>
@@ -213,7 +213,7 @@ const Winner = () => {
                     >
                         next
                     </PrimaryButton>
-                </div>
+                </div>*/}
             </div>
         </BaseContainer>
     );
