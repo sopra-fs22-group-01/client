@@ -9,7 +9,6 @@ import "styles/views/Round.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 import Card from "../../models/Card";
-import {BsVolumeUp} from "react-icons/bs";
 import {FiVolume2} from "react-icons/fi";
 
 const Player = ({user}) => (
