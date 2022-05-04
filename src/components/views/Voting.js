@@ -9,6 +9,7 @@ import "styles/views/Round.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 import Card from "../../models/Card";
+import {FiVolume2} from "react-icons/fi";
 
 const Player = ({user}) => (
     <div>
@@ -251,6 +252,7 @@ const Voting = () => {
             <div className="round grid-content4">
                 <div className="round card-list">
                     <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
+                    <FiVolume2 fontSize="3em"/>
                     {cardContent}
                 </div>
             </div>

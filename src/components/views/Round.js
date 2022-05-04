@@ -34,6 +34,8 @@ const Round = () => {
     const [users, setUsers] = useState(null);
     const [cards, setCards] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
+
+    const [firstCard, setFirstCard] = useState(false);
     const defaultCard = new Card();
     defaultCard.text = "X"
     const [clickedCard, setClickedCard] = useState(defaultCard);
@@ -174,6 +176,10 @@ const Round = () => {
     }
 
     if (cards) {
+        if (! firstCard){
+            setClickedCard(cards[0])
+            setFirstCard(true);
+        }
         cardContent = (
             <div className="round cards">
 
@@ -186,6 +192,9 @@ const Round = () => {
                 ))}
             </div>
         )
+    }
+    else{
+        console.log("NO CLICKED CARD YET")
     }
 
 
