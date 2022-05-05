@@ -91,7 +91,7 @@ const Voting = () => {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
         }
     };
-    const vote = async() => {
+    const voteAndStartCountdown = async() => {
         if (usedLaugh.toString() === "true"){
             try{
                 const ownerId = clickedCard.owner.id
@@ -195,7 +195,7 @@ const Voting = () => {
                     console.log("clicked card when timer == 0:")
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
-                    await vote();
+                    await voteAndStartCountdown();
                 }
 
             } catch (error) {
