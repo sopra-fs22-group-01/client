@@ -38,6 +38,20 @@ const Player = ({user}) => (
     </div>
 );
 
+/* DELETE THIS LATER
+* cardContent = (
+            <div className="round cards">
+                {allChosenCards.map(card => (
+                    <CardButton
+                        onClick={() => selectCard(card)}
+                    >
+                        {card.text}
+                    </CardButton>
+                ))}
+            </div>
+        )
+* */
+
 
 Player.propTypes = {
     user: PropTypes.object
@@ -233,5 +247,7 @@ const Lobby = () => {
         </BaseContainer>
     );
 }
+
+
 
 export default Lobby;
