@@ -155,6 +155,13 @@ const Lobby = () => {
                         console.error("Details:", error);
                         alert("Something went wrong while creating a match ! See the console for details.");
                     }
+
+                    try{
+                        await api.put(`/matches/${lobbyId}/countdown/selection`)
+                    }
+                    catch (error){
+                        alert(`Something went wrong when starting the selection timer in the backend: \n${handleError(error)}`);
+                    }
                     //because the id of the match is the same as the id of the lobby
                     history.push(`/matches/${lobbyId}/hand/${user.id}`)
                 }

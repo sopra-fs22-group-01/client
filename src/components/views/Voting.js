@@ -52,9 +52,6 @@ const Voting = () => {
     const {matchId} = useParams();
     const [timer, setTimer] = useState(null);
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
 
     const exit = async () => {
         try {
@@ -172,7 +169,6 @@ const Voting = () => {
                 //sets time in frontend
                 setTimer(timeResponse.data);
 
-                await sleep(300);
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
                 if(timeResponse.data === 0 && clickedCard.text != "X"){

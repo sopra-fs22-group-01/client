@@ -78,9 +78,6 @@ const Winner = () => {
         }
     }
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
     // this can be achieved by leaving the second argument an empty array.
@@ -110,7 +107,7 @@ const Winner = () => {
                 alert("Something went wrong while fetching the black Card! See the console for details.");
             }
             try {
-                await sleep(800); //so the result gets not fetched before the result has been calculated propperly
+
                 // retrieve winner cards
                 const roundWinnerResponse = await api.get(`/matches/${matchId}/winner`) ///matches/0/hands/1
                 setScores(roundWinnerResponse.data)
@@ -131,7 +128,6 @@ const Winner = () => {
             try {
 
                 //gets countdown
-                await sleep(500);
                 const timeResponse = await api.get(`/matches/${matchId}/countdown/roundwinners`);
 
                 //sets time in frontend

@@ -45,9 +45,6 @@ const Round = () => {
     const [timer, setTimer] = useState(null);
 
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
 
     const selectCard = (card) => {
         console.log("CLICKED ON  A CARD!")
@@ -76,7 +73,6 @@ const Round = () => {
 
             // PUT selected card into ChosenCards array
             await api.put(`matches/${matchId}/white-card/selection`, requestBody)
-            await api.put(`/matches/${matchId}/countdown/selection`)
         } catch (error) {
             alert(`Something went wrong during logging the chosen card into the backend: \n${handleError(error)}`);
         }
@@ -148,7 +144,6 @@ const Round = () => {
 
                 //sets time in frontend
                 setTimer(timeResponse.data);
-                await sleep(300)
                 if(timeResponse.data === 0){
                     console.log("clicked card when timer == 0:")
                     console.log(clickedCard)

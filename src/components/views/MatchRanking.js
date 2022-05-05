@@ -13,9 +13,7 @@ const MatchRanking = () => {
     const {userId} = useParams();
     const {matchId} = useParams();
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+
 
     const exit = async () => {
         try {
@@ -35,7 +33,6 @@ const MatchRanking = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                sleep(300);
                 //retrieves the ranking
                 const response = await api.get(`/matches/${matchId}/scores`);
                 setRanking(response.data);
