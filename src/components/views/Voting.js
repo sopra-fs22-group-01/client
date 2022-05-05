@@ -5,11 +5,14 @@ import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import "styles/views/Round.scss";
+import "styles/views/Voting.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 import Card from "../../models/Card";
 import {FiVolume2} from "react-icons/fi";
+
+import { BsEmojiLaughing } from "react-icons/bs";
+import {SecondaryButton} from "../ui/SecondaryButton";
 
 const Player = ({user}) => (
     <div>
@@ -47,6 +50,8 @@ const Voting = () => {
     defaultCard.text = "X"
     const [clickedCard, setClickedCard] = useState(defaultCard);
 
+    const [usedLaugh, setUsedLaugh] = useState(false);
+
     const [read,setRead] = useState(false);
     const {userId} = useParams();
     const {matchId} = useParams();
@@ -54,6 +59,16 @@ const Voting = () => {
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    const laugh = async () => {
+        if (clickedCard.text !== "X"){
+            setUsedLaugh(true);
+        }
+        else{
+            alert("Vote for a card first!")
+        }
+
     }
 
     const exit = async () => {
@@ -217,6 +232,7 @@ const Voting = () => {
                 {allChosenCards.map(card => (
                     <CardButton
                         onClick={() => selectCard(card)}
+                        disabled={usedLaugh}
                     >
                         {card.text}
                     </CardButton>
@@ -243,7 +259,7 @@ const Voting = () => {
                 </CardButton>
             </div>
             <div className="round grid-content3">
-                <h2>YOUR CURRENT CHOICE:</h2>
+                <h2>YOUR CURRENT CHOICE: (used laugh: {usedLaugh.toString()})</h2>
                 <h2>{clickedCard.text}</h2>
                     <div className= "round timer" >
                         {timer}
@@ -252,8 +268,17 @@ const Voting = () => {
             <div className="round grid-content4">
                 <div className="round card-list">
                     <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
+                    <h5>! once you chose to supervote, you can't undo it anymore !</h5>
                     <FiVolume2 fontSize="3em"/>
                     {cardContent}
+                    <SecondaryButton
+                        onClick={() => laugh()}
+                        disabled={usedLaugh}>
+                        <BsEmojiLaughing
+                            className="voting laughingButton"
+                        >
+                        </BsEmojiLaughing>
+                    </SecondaryButton>
                 </div>
             </div>
             <div className="round grid-content6">

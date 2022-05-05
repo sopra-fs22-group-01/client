@@ -175,10 +175,10 @@ const ProfilePage = () => {
                             {lobbies.map((lobbyModel, d) => (
                                 <button className="profilePage lobbyButton"
                                         onClick={() => addUserLobby(lobbyModel.id)}
-                                        disabled={false
+                                        //disabled={false
                                             // eslint-disable-next-line no-unused-expressions
                                             //hasMatch(lobbyModel.id)
-                                        }
+                                        //}
                                 >
                                 <LobbyObject lobbyModel={lobbyModel}/>
                                 </button>
