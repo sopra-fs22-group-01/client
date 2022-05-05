@@ -22,23 +22,28 @@
 
   }
   &.grid-content1{
-    /*background-color: blue;*/
+    background-color: blue;
   }
   &.scoreBoard{
     cursor: default;
   }
   &.grid-content2{
-    /*background-color: #490b96;*/
+    background-color: #490b96;
   }
   &.grid-content3{
-    /*background-color: #6c0b96;*/
+    background-color: #6c0b96;
   }
   &.grid-content4{
-    /*background-color: purple;*/
+    background-color: purple;
     grid-column-start: 1;
     grid-column-end: 4;
   }
 
+  &.grid-content5{
+    background-color: green;
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
 
   &.user-list {
     list-style: none;

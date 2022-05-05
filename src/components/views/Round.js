@@ -145,7 +145,9 @@ const Round = () => {
                     console.log("clicked card when timer == 0:")
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
-                     await confirmSelectedCard();
+
+
+                    /*await confirmSelectedCard();  uncomment this line to make game run again*/
 
                     //await api.put(`/matches/${matchId}/countdown`) ///matches/0/hands/1
             }
@@ -223,6 +225,15 @@ const Round = () => {
                 <div className="round grid-content4">
                     <div className="round card-list">
                         {cardContent}
+                    </div>
+                </div>
+                <div className="round grid-content5">
+                    <div className="round card-list">
+                        <CardButton className="card whiteCard"
+
+                        >
+
+                        </CardButton>
                     </div>
                 </div>
               {/*  <div className="round grid-content6">
