@@ -10,6 +10,7 @@ import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 import Card from "../../models/Card";
 import {FiVolume2} from "react-icons/fi";
+import Sitcom_Laugh_Track from 'images/Sitcom_Laugh_Track.mp3';
 
 import { BsEmojiLaughing } from "react-icons/bs";
 import {SecondaryButton} from "../ui/SecondaryButton";
@@ -19,16 +20,6 @@ const Player = ({user}) => (
         <div className={ScoreBoard}>{user.username} : {user.score}</div>
     </div>
 );
-/*
-const WhiteCard = ({card}) => (
-    <div className="whitecard container">
-        <div className="whitecard cardText">
-            {card.text}
-
-        </div>
-    </div>
-);
-*/
 
 Player.propTypes = {
     user: PropTypes.object
@@ -57,13 +48,16 @@ const Voting = () => {
     const {matchId} = useParams();
     const [timer, setTimer] = useState(null);
 
+    let audio = new Audio(Sitcom_Laugh_Track);
+
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    const laugh = async () => {
+    const laugh = () => {
         if (clickedCard.text !== "X"){
             setUsedLaugh(true);
+            audio.play();
         }
         else{
             alert("Vote for a card first!")
@@ -268,7 +262,7 @@ const Voting = () => {
             <div className="round grid-content4">
                 <div className="round card-list">
                     <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
-                    <h5>! once you chose to supervote, you can't undo it anymore !</h5>
+                    <h5>!once you chose to supervote, you can't undo it anymore!</h5>
                     <FiVolume2 fontSize="3em"/>
                     {cardContent}
                     <SecondaryButton
