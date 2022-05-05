@@ -8,7 +8,13 @@
  */
 
 .profilePage {
- background-color: black;
+
+  &.base-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
   h1{
     font-size: 1em;
@@ -16,10 +22,6 @@
   h2{
     font-size: 2em;
     color: darkgray;
-  }
-
-  button{
-    margin-left: 1em;
   }
 
   a{
@@ -32,22 +34,29 @@
     text-decoration: none;
   }
 
-  &.container {
+
+  &.profile_info_frame{
     display: flex;
     flex-direction: column;
-    justify-content: center;/* justify-content — controls alignment of all items on the main axis. Here this is the vertical axis (bc our flex direction is vertical) */
+    justify-content: center;
     align-items: center;
+
+    width:40%;
+    outline-style: dashed;
+    outline-color: #999999;
+    padding-bottom: 20px;
+    border-radius: 2em;
   }
 
   &.titleContainer {
-    font-size: 5em;
+    font-size: 3.5em;
     font-weight: bold;
   }
   &.icon{
     height: 7.5em;
     width: 8em;
-    margin-bottom: 2em;
-    margin-top: 2em;
+    margin-bottom: 1em;
+    margin-top: 0em;
   }
 
   &.editIcon{
@@ -57,34 +66,47 @@
 
 
   &.infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-size: 2em;
   }
 
   &.username{
-
-  }
-
-
-  &.buttonContainer{
-    font-size: 1.2em;
-    margin-top: 2em;
   }
 
 
   &.lobbyListContainer {
-    margin-top: 20px;
+    margin-top: 15px;
     text-align: center;
   }
 
+  &.logout_button{
+    margin-top: 10px;
+    padding-top: 12px;
+    font-size: 1em;
+  }
+
+  &.create_new_lobby{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
+  }
+
+  /*this are the buttons to get to the different lobbies*/
   &.lobbyButton{
+    margin-right: 10px;
     border-radius: 1em;
     border-width: 0.3em;
-    font-size: 1.2em;
-    color:white;
+    font-size: 1.3em;
     padding: 1em;
+    background-color: #999999;
     &:hover {
       transform: translateY(-2px);
-      background-color: #393b39;
+      background-color: whitesmoke;
     }
     &:disabled {
       cursor: default;

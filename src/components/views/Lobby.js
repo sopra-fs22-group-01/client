@@ -60,27 +60,12 @@ const Lobby = () => {
     const {userId} = useParams();
     const {lobbyId} = useParams(); // will be deleted after lobby creates match
 
-   // const [matchId, setMatchId] = useState(null);
+    const [matchId, setMatchId] = useState(null);
 
     const [isOpen, setIsOpen] = useState(false);
 
     const togglePopup = () => {
         setIsOpen(!isOpen);
-    }
-
-    const logout = async () => {
-        try {
-            let currentToken = localStorage.getItem('token');
-
-            const response = await api.put(`/logout/?token=${currentToken}`)
-            localStorage.removeItem('token');
-            history.push('/users/login');
-        } catch (error) {
-            alert(`Something went wrong during logout: \n${handleError(error)}`);
-        }
-
-        localStorage.removeItem('token');
-        history.push('/users/login');
     }
 
     const isReady = async () => {
@@ -204,12 +189,6 @@ const Lobby = () => {
                     ))}
                 </ul>
                 <div className="lobby button_container">
-                    <PrimaryButton className="lobby logout_button"
-
-                        onClick={() => logout()}
-                    >
-                        Logout
-                    </PrimaryButton>
                     <PrimaryButton className="lobby ready_button"
                                    onClick={() => isReady()}
                     >

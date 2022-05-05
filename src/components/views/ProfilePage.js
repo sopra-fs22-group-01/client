@@ -47,6 +47,20 @@ const ProfilePage = () => {
     const [clickedLobby, setClickedLobby] = useState(null);
     const [hasMatchVar, setHasMatchVar] = useState(false);
 
+    const logout = async () => {
+        try {
+            let currentToken = localStorage.getItem('token');
+
+            const response = await api.put(`/logout/?token=${currentToken}`)
+            localStorage.removeItem('token');
+            history.push('/users/login');
+        } catch (error) {
+            alert(`Something went wrong during logout: \n${handleError(error)}`);
+        }
+
+        localStorage.removeItem('token');
+        history.push('/users/login');
+    }
 
     const createNewLobby = async () => {
         try {
@@ -57,9 +71,9 @@ const ProfilePage = () => {
         }
     };
 
-    const addUserLobby = async(lobbyId) => {
+    const addUserLobby = async (lobbyId) => {
         try {
-            const response =  api.post(`/lobbies/${lobbyId}/lists/players/${userId}`);
+            const response = api.post(`/lobbies/${lobbyId}/lists/players/${userId}`);
             history.push(`/lobbies/${lobbyId}/players/${userId}`);
 
 
@@ -69,23 +83,23 @@ const ProfilePage = () => {
     };
 
 
-    const hasMatch = async(lobbyId) => {
+    const hasMatch = async (lobbyId) => {
         try {
-            const response =  api.get(`/matches/${lobbyId}/status`);
+            const response = api.get(`/matches/${lobbyId}/status`);
             const status = (await response).data;
             console.log("MATCH STATUS", lobbyId)
             console.log(status)
-/*
-            if (status === "NotYetCreated"){
-                console.log("FALSEE")
-                setHasMatchVar(false)
+            /*
+                        if (status === "NotYetCreated"){
+                            console.log("FALSEE")
+                            setHasMatchVar(false)
 
-            }
-            else{
-                console.log("TRUEE")
-                setHasMatchVar(true)
+                        }
+                        else{
+                            console.log("TRUEE")
+                            setHasMatchVar(true)
 
-            }*/
+                        }*/
 
             return status.toString();
         } catch (error) {
@@ -142,30 +156,34 @@ const ProfilePage = () => {
 
     if (user) {
         content = (
-            <BaseContainer>
-                <div className="profilePage container">
-                    <div className="profilePage titleContainer">
-                        <h1>Profile</h1>
-                    </div>
-                    <img className="profilePage icon" src={profileIcon} alt=""/>
-                    <div className="profilePage infos">
-                        <div className="profilePage username">
-                            <text>Username:</text>
-                            {user.username}
-                            <SecondaryButton
-                                disabled={!(user.token === localStorage.getItem(`token`))}
-                                onClick={() => history.push(`/editor/${user.id}`)}>
-                                <MdOutlineEdit className="profilePage editIcon"/>
-                            </SecondaryButton>
+            <BaseContainer className="profilePage base-container">
 
+                    <div className="profilePage profile_info_frame">
+                        <div className="profilePage titleContainer">
+                            <h1>Profile</h1>
                         </div>
-                        <div className="profilePage password">
-                            <text>Password: ● ● ● ● ●</text>
-                            <SecondaryButton
-                                disabled={!(user.token === localStorage.getItem(`token`))}
-                                onClick={() => history.push(`/editor/${user.id}`)}>
-                                <MdOutlineEdit className="profilePage editIcon"/>
-                            </SecondaryButton>
+                        <img className="profilePage icon" src={profileIcon} alt=""/>
+                        <div className="profilePage infos">
+                            <div className="profilePage username">
+                                <text>Username:</text>
+                                {user.username}
+                                <SecondaryButton
+                                    disabled={!(user.token === localStorage.getItem(`token`))}
+                                    onClick={() => history.push(`/editor/${user.id}`)}>
+                                    <MdOutlineEdit className="profilePage editIcon"/>
+                                </SecondaryButton>
+                            </div>
+                            <div className="profilePage password">
+                                <text>Password: ● ● ● ● ●</text>
+                                <SecondaryButton
+                                    disabled={!(user.token === localStorage.getItem(`token`))}
+                                    onClick={() => history.push(`/editor/${user.id}`)}>
+                                    <MdOutlineEdit className="profilePage editIcon"/>
+                                </SecondaryButton>
+                            </div>
+                            <PrimaryButton className="profilePage logout_button" onClick={() => logout()}>
+                                Logout
+                            </PrimaryButton>
                         </div>
                     </div>
 
@@ -175,24 +193,18 @@ const ProfilePage = () => {
                             {lobbies.map((lobbyModel, d) => (
                                 <button className="profilePage lobbyButton"
                                         onClick={() => addUserLobby(lobbyModel.id)}
-                                        disabled={false
-                                            // eslint-disable-next-line no-unused-expressions
-                                            //hasMatch(lobbyModel.id)
-                                        }
+                                        disabled={false}
                                 >
-                                <LobbyObject lobbyModel={lobbyModel}/>
+                                    <LobbyObject lobbyModel={lobbyModel}/>
                                 </button>
                             ))}
                         </ul>
                     </div>
+                    <PrimaryButton className="profilePage create_new_lobby"
+                                   onClick={() => createNewLobby()}>
+                        Create new lobby
+                    </PrimaryButton>
 
-
-                    <div className="profilePage buttonContainer">
-                        <PrimaryButton  onClick={() => createNewLobby()}>
-                            Create new lobby
-                        </PrimaryButton>
-                    </div>
-                </div>
             </BaseContainer>
         );
     }
