@@ -106,7 +106,18 @@ const Lobby = () => {
 
     }
 
+    /*
+    //Removes a user from the list of all current players in the lobby
+    @DeleteMapping("/lobbies/{lobbyId}/players")
+    public void deleteUserFromLobby(@PathVariable long lobbyId, @RequestBody UserPostDTO userPostDTO){
+    */
     const leaveLobby = async () => {
+        try {
+            const deletionResponse = await api.delete(`/lobbies/${lobbyId}/players/${userId}`);
+            console.log(deletionResponse)
+        } catch (error) {
+            alert(`Something went wrong during the deletion of the player from the lobby list: \n${handleError(error)}`);
+        }
         history.push(`/users/profile/${userId}`);
     }
 
