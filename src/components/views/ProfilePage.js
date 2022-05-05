@@ -156,33 +156,35 @@ const ProfilePage = () => {
 
     if (user) {
         content = (
-            <BaseContainer>
-                <div className="profilePage container">
-                    <div className="profilePage titleContainer">
-                        <h1>Profile</h1>
-                    </div>
-                    <img className="profilePage icon" src={profileIcon} alt=""/>
-                    <div className="profilePage infos">
-                        <div className="profilePage username">
-                            <text>Username:</text>
-                            {user.username}
-                            <SecondaryButton
-                                disabled={!(user.token === localStorage.getItem(`token`))}
-                                onClick={() => history.push(`/editor/${user.id}`)}>
-                                <MdOutlineEdit className="profilePage editIcon"/>
-                            </SecondaryButton>
+            <BaseContainer className="profilePage base-container">
+
+                    <div className="profilePage profile_info_frame">
+                        <div className="profilePage titleContainer">
+                            <h1>Profile</h1>
                         </div>
-                        <div className="profilePage password">
-                            <text>Password: ● ● ● ● ●</text>
-                            <SecondaryButton
-                                disabled={!(user.token === localStorage.getItem(`token`))}
-                                onClick={() => history.push(`/editor/${user.id}`)}>
-                                <MdOutlineEdit className="profilePage editIcon"/>
-                            </SecondaryButton>
+                        <img className="profilePage icon" src={profileIcon} alt=""/>
+                        <div className="profilePage infos">
+                            <div className="profilePage username">
+                                <text>Username:</text>
+                                {user.username}
+                                <SecondaryButton
+                                    disabled={!(user.token === localStorage.getItem(`token`))}
+                                    onClick={() => history.push(`/editor/${user.id}`)}>
+                                    <MdOutlineEdit className="profilePage editIcon"/>
+                                </SecondaryButton>
+                            </div>
+                            <div className="profilePage password">
+                                <text>Password: ● ● ● ● ●</text>
+                                <SecondaryButton
+                                    disabled={!(user.token === localStorage.getItem(`token`))}
+                                    onClick={() => history.push(`/editor/${user.id}`)}>
+                                    <MdOutlineEdit className="profilePage editIcon"/>
+                                </SecondaryButton>
+                            </div>
+                            <PrimaryButton className="profilePage logout_button" onClick={() => logout()}>
+                                Logout
+                            </PrimaryButton>
                         </div>
-                        <PrimaryButton className="profilePage logout_button" onClick={() => logout()}>
-                            Logout
-                        </PrimaryButton>
                     </div>
 
                     <div className="profilePage lobbyListContainer">
@@ -202,7 +204,7 @@ const ProfilePage = () => {
                                    onClick={() => createNewLobby()}>
                         Create new lobby
                     </PrimaryButton>
-                </div>
+
             </BaseContainer>
         );
     }

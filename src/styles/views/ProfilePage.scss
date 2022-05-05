@@ -9,6 +9,13 @@
 
 .profilePage {
 
+  &.base-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   h1{
     font-size: 1em;
   }
@@ -27,11 +34,18 @@
     text-decoration: none;
   }
 
-  &.container {
+
+  &.profile_info_frame{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    width:40%;
+    outline-style: dashed;
+    outline-color: #999999;
+    padding-bottom: 20px;
+    border-radius: 2em;
   }
 
   &.titleContainer {
