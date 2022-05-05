@@ -82,21 +82,6 @@ const Lobby = () => {
         setIsOpen(!isOpen);
     }
 
-    const logout = async () => {
-        try {
-            let currentToken = localStorage.getItem('token');
-
-            const response = await api.put(`/logout/?token=${currentToken}`)
-            localStorage.removeItem('token');
-            history.push('/users/login');
-        } catch (error) {
-            alert(`Something went wrong during logout: \n${handleError(error)}`);
-        }
-
-        localStorage.removeItem('token');
-        history.push('/users/login');
-    }
-
     const isReady = async () => {
 
         if (user.isReady === "READY") {
@@ -120,9 +105,24 @@ const Lobby = () => {
 
     }
 
+    /*
+    //Removes a user from the list of all current players in the lobby
+    @DeleteMapping("/lobbies/{lobbyId}/players")
+    public void deleteUserFromLobby(@PathVariable long lobbyId, @RequestBody UserPostDTO userPostDTO){
+    */
+    const leaveLobby = async () => {
+        try {
+            const deletionResponse = await api.delete(`/lobbies/${lobbyId}/players/${userId}`);
+            console.log(deletionResponse)
+        } catch (error) {
+            alert(`Something went wrong during the deletion of the player from the lobby list: \n${handleError(error)}`);
+        }
+        history.push(`/users/profile/${userId}`);
+    }
+
 
     //comment
-    // the effect hook can be used to react to change in your component.
+    // the effect h ook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
     // this can be achieved by leaving the second argument an empty array.
     // for more information on the effect hook, please see https://reactjs.org/docs/hooks-effect.html
@@ -158,16 +158,23 @@ const Lobby = () => {
                 const lobby_stat = lobby_status_response.data;
                 if (lobby_stat === "All_Ready") {
                     try{ // create new Match using lobbyId (matchId receives same id) (gamecontroller)
-                        const matchIdResponse = await api.post(`/matches/${lobbyId}`);
-                        console.log("RECEIVE MATCH ID")
+                        const matchIdResponse = await api.post(`/matches/${lobbyId}`); //starts a match
+                        /*console.log("RECEIVE MATCH ID")
                         console.log(matchIdResponse.data);
 
-                        setMatchId(matchIdResponse.data);
+                        setMatchId(matchIdResponse.data);*/
                     }
                     catch(error){
                         console.error(`Something went wrong while creating a match: \n${handleError(error)}`);
                         console.error("Details:", error);
                         alert("Something went wrong while creating a match ! See the console for details.");
+                    }
+
+                    try{
+                        await api.put(`/matches/${lobbyId}/countdown/selection`)
+                    }
+                    catch (error){
+                        alert(`Something went wrong when starting the selection timer in the backend: \n${handleError(error)}`);
                     }
                     //because the id of the match is the same as the id of the lobby
                     history.push(`/matches/${lobbyId}/hand/${user.id}`)
@@ -196,16 +203,15 @@ const Lobby = () => {
                     ))}
                 </ul>
                 <div className="lobby button_container">
-                    <PrimaryButton className="lobby logout_button"
-
-                        onClick={() => logout()}
-                    >
-                        Logout
-                    </PrimaryButton>
                     <PrimaryButton className="lobby ready_button"
                                    onClick={() => isReady()}
                     >
                         {readyText}
+                    </PrimaryButton>
+                    <PrimaryButton className="lobby leave_button"
+                                   onClick={() => leaveLobby()}
+                    >
+                        Leave Lobby
                     </PrimaryButton>
                 </div>
                     <PrimaryButton className="lobby rules_button"

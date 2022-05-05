@@ -13,15 +13,11 @@ const NextPage = props => {
 
     const [timer, setTimer] = useState(null);
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
 
     //useEffect for Countdown
     useEffect( () =>{
         async function fetchData() {
             try {
-                await sleep(2000);
                 //gets countdown
                 const timeResponse = await api.get(`/matches/${matchId}/countdown`);
 

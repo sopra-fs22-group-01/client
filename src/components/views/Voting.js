@@ -183,12 +183,11 @@ const Voting = () => {
         async function fetchData() {
             try {
                 //gets countdown
-                const timeResponse = await api.get(`/matches/${matchId}/countdown`);
+                const timeResponse = await api.get(`/matches/${matchId}/countdown/voting`);
 
                 //sets time in frontend
                 setTimer(timeResponse.data);
 
-                await sleep(300);
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
                 if(timeResponse.data === 0 && clickedCard.text != "X"){
@@ -203,10 +202,12 @@ const Voting = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the timer! See the console for details.");
             }
+
+
         };
         const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear
-    }, [clickedCard, usedLaugh]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
+    }, [clickedCard]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
 
 
