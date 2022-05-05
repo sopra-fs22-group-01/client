@@ -106,6 +106,10 @@ const Lobby = () => {
 
     }
 
+    const leaveLobby = async () => {
+        history.push(`/users/profile/${userId}`);
+    }
+
 
     //comment
     // the effect hook can be used to react to change in your component.
@@ -192,6 +196,11 @@ const Lobby = () => {
                                    onClick={() => isReady()}
                     >
                         {readyText}
+                    </PrimaryButton>
+                    <PrimaryButton className="lobby leave_button"
+                                   onClick={() => leaveLobby()}
+                    >
+                        Leave Lobby
                     </PrimaryButton>
                 </div>
                     <PrimaryButton className="lobby rules_button"
