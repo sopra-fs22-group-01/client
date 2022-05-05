@@ -47,6 +47,20 @@ const ProfilePage = () => {
     const [clickedLobby, setClickedLobby] = useState(null);
     const [hasMatchVar, setHasMatchVar] = useState(false);
 
+    const logout = async () => {
+        try {
+            let currentToken = localStorage.getItem('token');
+
+            const response = await api.put(`/logout/?token=${currentToken}`)
+            localStorage.removeItem('token');
+            history.push('/users/login');
+        } catch (error) {
+            alert(`Something went wrong during logout: \n${handleError(error)}`);
+        }
+
+        localStorage.removeItem('token');
+        history.push('/users/login');
+    }
 
     const createNewLobby = async () => {
         try {
@@ -157,7 +171,6 @@ const ProfilePage = () => {
                                 onClick={() => history.push(`/editor/${user.id}`)}>
                                 <MdOutlineEdit className="profilePage editIcon"/>
                             </SecondaryButton>
-
                         </div>
                         <div className="profilePage password">
                             <text>Password: ● ● ● ● ●</text>
@@ -187,8 +200,14 @@ const ProfilePage = () => {
                     </div>
 
 
-                    <div className="profilePage buttonContainer">
-                        <PrimaryButton  onClick={() => createNewLobby()}>
+                    <div className="lobby button_container">
+                        <PrimaryButton className="lobby ready_button"
+                                       onClick={() => logout()}
+                        >
+                            Logout
+                        </PrimaryButton>
+                        <PrimaryButton  className="lobby ready_button"
+                                        onClick={() => createNewLobby()}>
                             Create new lobby
                         </PrimaryButton>
                     </div>
