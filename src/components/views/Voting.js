@@ -91,14 +91,31 @@ const Voting = () => {
         }
     };
     const vote = async() => {
-        try {//adds a point to the clicked card (every user does this)
-            const ownerId = clickedCard.owner.id
-            await api.put(`matches/${matchId}/white-cards/${ownerId}`)
-            history.push(`/matches/${matchId}/winner/${userId}`);
+        if (usedLaugh.toString() === "true"){
+            try{
+                const ownerId = clickedCard.owner.id
+                await api.put(`matches/${matchId}/white-cards/${ownerId}`)
+                console.log("VOTED 1/2 X")
 
-        } catch (error) {
-            alert(`Something went wrong with voting the card: \n${handleError(error)}`);
+                await api.put(`matches/${matchId}/white-cards/${ownerId}`)
+                console.log("VOTED 2X")
+            }catch (error) {
+                alert(`Something went wrong with supervoting the card: \n${handleError(error)}`);
+            }
+
         }
+        else{
+            try {//adds a point to the clicked card (every user does this)
+                const ownerId = clickedCard.owner.id
+                await api.put(`matches/${matchId}/white-cards/${ownerId}`)
+                console.log("VOTED 1X")
+
+            } catch (error) {
+                alert(`Something went wrong with voting the card: \n${handleError(error)}`);
+            }
+        }
+        history.push(`/matches/${matchId}/winner/${userId}`);
+
     };
 
     function replaceCharwithChar(str,old, new_chr) { // replaces in str at idx with chr
@@ -189,7 +206,7 @@ const Voting = () => {
         };
         const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear
-    }, [clickedCard]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
+    }, [clickedCard, usedLaugh]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
 
 
@@ -262,7 +279,7 @@ const Voting = () => {
             <div className="round grid-content4">
                 <div className="round card-list">
                     <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
-                    <h5>!once you chose to supervote, you can't undo it anymore!</h5>
+
                     <FiVolume2 fontSize="3em"/>
                     {cardContent}
                     <SecondaryButton
@@ -273,6 +290,7 @@ const Voting = () => {
                         >
                         </BsEmojiLaughing>
                     </SecondaryButton>
+                    <h5>(once you chose to supervote, you can't change it anymore)</h5>
                 </div>
             </div>
             <div className="round grid-content6">
