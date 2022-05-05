@@ -71,9 +71,9 @@ const ProfilePage = () => {
         }
     };
 
-    const addUserLobby = async(lobbyId) => {
+    const addUserLobby = async (lobbyId) => {
         try {
-            const response =  api.post(`/lobbies/${lobbyId}/lists/players/${userId}`);
+            const response = api.post(`/lobbies/${lobbyId}/lists/players/${userId}`);
             history.push(`/lobbies/${lobbyId}/players/${userId}`);
 
 
@@ -83,23 +83,23 @@ const ProfilePage = () => {
     };
 
 
-    const hasMatch = async(lobbyId) => {
+    const hasMatch = async (lobbyId) => {
         try {
-            const response =  api.get(`/matches/${lobbyId}/status`);
+            const response = api.get(`/matches/${lobbyId}/status`);
             const status = (await response).data;
             console.log("MATCH STATUS", lobbyId)
             console.log(status)
-/*
-            if (status === "NotYetCreated"){
-                console.log("FALSEE")
-                setHasMatchVar(false)
+            /*
+                        if (status === "NotYetCreated"){
+                            console.log("FALSEE")
+                            setHasMatchVar(false)
 
-            }
-            else{
-                console.log("TRUEE")
-                setHasMatchVar(true)
+                        }
+                        else{
+                            console.log("TRUEE")
+                            setHasMatchVar(true)
 
-            }*/
+                        }*/
 
             return status.toString();
         } catch (error) {
@@ -180,6 +180,9 @@ const ProfilePage = () => {
                                 <MdOutlineEdit className="profilePage editIcon"/>
                             </SecondaryButton>
                         </div>
+                        <PrimaryButton className="profilePage logout_button" onClick={() => logout()}>
+                            Logout
+                        </PrimaryButton>
                     </div>
 
                     <div className="profilePage lobbyListContainer">
@@ -188,29 +191,17 @@ const ProfilePage = () => {
                             {lobbies.map((lobbyModel, d) => (
                                 <button className="profilePage lobbyButton"
                                         onClick={() => addUserLobby(lobbyModel.id)}
-                                        disabled={false
-                                            // eslint-disable-next-line no-unused-expressions
-                                            //hasMatch(lobbyModel.id)
-                                        }
+                                        disabled={false}
                                 >
-                                <LobbyObject lobbyModel={lobbyModel}/>
+                                    <LobbyObject lobbyModel={lobbyModel}/>
                                 </button>
                             ))}
                         </ul>
                     </div>
-
-
-                    <div className="lobby button_container">
-                        <PrimaryButton className="lobby ready_button"
-                                       onClick={() => logout()}
-                        >
-                            Logout
-                        </PrimaryButton>
-                        <PrimaryButton  className="lobby ready_button"
-                                        onClick={() => createNewLobby()}>
-                            Create new lobby
-                        </PrimaryButton>
-                    </div>
+                    <PrimaryButton className="profilePage create_new_lobby"
+                                   onClick={() => createNewLobby()}>
+                        Create new lobby
+                    </PrimaryButton>
                 </div>
             </BaseContainer>
         );

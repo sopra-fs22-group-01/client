@@ -147,7 +147,6 @@ const Lobby = () => {
                         const matchIdResponse = await api.post(`/matches/${lobbyId}`);
                         console.log("RECEIVE MATCH ID")
                         console.log(matchIdResponse.data);
-
                         setMatchId(matchIdResponse.data);
                     }
                     catch(error){
