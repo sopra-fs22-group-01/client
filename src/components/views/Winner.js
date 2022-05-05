@@ -61,7 +61,12 @@ const Winner = () => {
             console.log("MATCHSTATUS INCOMING")
             console.log(response)
             if (response.data === "MatchOngoing"){
-                await sleep(500);
+                try{
+                    await api.put(`/matches/${matchId}/countdown/selection`)
+                }
+                catch (error){
+                    alert(`Something went wrong when starting the selection timer in the backend: \n${handleError(error)}`);
+                }
                 history.push(`/matches/${matchId}/hand/${userId}`);
             }
             else{
@@ -127,7 +132,7 @@ const Winner = () => {
 
                 //gets countdown
                 await sleep(500);
-                const timeResponse = await api.get(`/matches/${matchId}/countdown`);
+                const timeResponse = await api.get(`/matches/${matchId}/countdown/roundwinners`);
 
                 //sets time in frontend
                 setTimer(timeResponse.data);

@@ -81,15 +81,25 @@ const Voting = () => {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
         }
     };
-    const vote = async() => {
+    const handInVoteAndStartCountdown = async() => {
         try {//adds a point to the clicked card (every user does this)
             const ownerId = clickedCard.owner.id
             await api.put(`matches/${matchId}/white-cards/${ownerId}`)
-            history.push(`/matches/${matchId}/winner/${userId}`);
+
 
         } catch (error) {
             alert(`Something went wrong with voting the card: \n${handleError(error)}`);
         }
+        try{
+            await api.put(`/matches/${matchId}/countdown/roundwinners`)
+        }
+        catch (error){
+            alert(`Something went wrong when starting the voting timer in the backend: \n${handleError(error)}`);
+        }
+
+        //go to round winner page
+        history.push(`/matches/${matchId}/winner/${userId}`);
+
     };
 
     function replaceCharwithChar(str,old, new_chr) { // replaces in str at idx with chr
@@ -157,7 +167,7 @@ const Voting = () => {
         async function fetchData() {
             try {
                 //gets countdown
-                const timeResponse = await api.get(`/matches/${matchId}/countdown`);
+                const timeResponse = await api.get(`/matches/${matchId}/countdown/voting`);
 
                 //sets time in frontend
                 setTimer(timeResponse.data);
@@ -169,7 +179,7 @@ const Voting = () => {
                     console.log("clicked card when timer == 0:")
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
-                    await vote();
+                    await handInVoteAndStartCountdown();
                 }
 
             } catch (error) {
@@ -177,6 +187,8 @@ const Voting = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the timer! See the console for details.");
             }
+
+
         };
         const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear

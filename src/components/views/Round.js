@@ -75,12 +75,20 @@ const Round = () => {
             console.log(requestBody)
 
             // PUT selected card into ChosenCards array
-            await api.put(`matches/${matchId}/white-card/selection`, requestBody) // does not work when called from useeffect
-            history.push(`/matches/${matchId}/election/${userId}`);
-
+            await api.put(`matches/${matchId}/white-card/selection`, requestBody)
+            await api.put(`/matches/${matchId}/countdown/selection`)
         } catch (error) {
             alert(`Something went wrong during logging the chosen card into the backend: \n${handleError(error)}`);
         }
+        try{
+            await api.put(`/matches/${matchId}/countdown/voting`)
+        }
+        catch (error){
+            alert(`Something went wrong when starting the voting timer in the backend: \n${handleError(error)}`);
+        }
+
+        history.push(`/matches/${matchId}/election/${userId}`);
+
 
 
     };
@@ -136,7 +144,7 @@ const Round = () => {
         async function fetchData() {
             try {
                 //gets countdown
-                const timeResponse = await api.get(`/matches/${matchId}/countdown`);
+                const timeResponse = await api.get(`/matches/${matchId}/countdown/selection`);
 
                 //sets time in frontend
                 setTimer(timeResponse.data);
