@@ -115,6 +115,16 @@ const Voting = () => {
                 alert(`Something went wrong with voting the card: \n${handleError(error)}`);
             }
         }
+
+
+        //starts countdown of next view (winner view)
+        try{
+            await api.put(`/matches/${matchId}/countdown/roundwinners`)
+        }
+        catch (error){
+            alert(`Something went wrong when starting the selection timer in the backend: \n${handleError(error)}`);
+        }
+
         history.push(`/matches/${matchId}/winner/${userId}`);
 
     };
