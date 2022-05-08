@@ -5,27 +5,21 @@ import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import "styles/views/Round.scss";
+import "styles/views/Voting.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 import Card from "../../models/Card";
 import {FiVolume2} from "react-icons/fi";
+import Sitcom_Laugh_Track from 'images/Sitcom_Laugh_Track.mp3';
+
+import { BsEmojiLaughing } from "react-icons/bs";
+import {SecondaryButton} from "../ui/SecondaryButton";
 
 const Player = ({user}) => (
     <div>
         <div className={ScoreBoard}>{user.username} : {user.score}</div>
     </div>
 );
-/*
-const WhiteCard = ({card}) => (
-    <div className="whitecard container">
-        <div className="whitecard cardText">
-            {card.text}
-
-        </div>
-    </div>
-);
-*/
 
 Player.propTypes = {
     user: PropTypes.object
@@ -47,11 +41,30 @@ const Voting = () => {
     defaultCard.text = "X"
     const [clickedCard, setClickedCard] = useState(defaultCard);
 
+    const [usedLaugh, setUsedLaugh] = useState(false);
+
     const [read,setRead] = useState(false);
     const {userId} = useParams();
     const {matchId} = useParams();
     const [timer, setTimer] = useState(null);
 
+    let audio = new Audio(Sitcom_Laugh_Track);
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    const laugh = () => {
+        if (clickedCard.text !== "X"){
+            setUsedLaugh(true);
+            audio.volume = 0.25;
+            audio.play();
+        }
+        else{
+            alert("Vote for a card first!")
+        }
+
+    }
 
     const exit = async () => {
         try {
@@ -78,23 +91,40 @@ const Voting = () => {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
         }
     };
-    const handInVoteAndStartCountdown = async() => {
-        try {//adds a point to the clicked card (every user does this)
-            const ownerId = clickedCard.owner.id
-            await api.put(`matches/${matchId}/white-cards/${ownerId}`)
+    const voteAndStartCountdown = async() => {
+        if (usedLaugh.toString() === "true"){
+            try{
+                const ownerId = clickedCard.owner.id
+                await api.put(`matches/${matchId}/white-cards/${ownerId}`)
+                console.log("VOTED 1/2 X")
 
+                await api.put(`matches/${matchId}/white-cards/${ownerId}`)
+                console.log("VOTED 2X")
+            }catch (error) {
+                alert(`Something went wrong with supervoting the card: \n${handleError(error)}`);
+            }
 
-        } catch (error) {
-            alert(`Something went wrong with voting the card: \n${handleError(error)}`);
         }
+        else{
+            try {//adds a point to the clicked card (every user does this)
+                const ownerId = clickedCard.owner.id
+                await api.put(`matches/${matchId}/white-cards/${ownerId}`)
+                console.log("VOTED 1X")
+
+            } catch (error) {
+                alert(`Something went wrong with voting the card: \n${handleError(error)}`);
+            }
+        }
+
+
+        //starts countdown of next view (winner view)
         try{
             await api.put(`/matches/${matchId}/countdown/roundwinners`)
         }
         catch (error){
-            alert(`Something went wrong when starting the voting timer in the backend: \n${handleError(error)}`);
+            alert(`Something went wrong when starting the selection timer in the backend: \n${handleError(error)}`);
         }
 
-        //go to round winner page
         history.push(`/matches/${matchId}/winner/${userId}`);
 
     };
@@ -175,7 +205,7 @@ const Voting = () => {
                     console.log("clicked card when timer == 0:")
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
-                    await handInVoteAndStartCountdown();
+                    await voteAndStartCountdown();
                 }
 
             } catch (error) {
@@ -188,7 +218,7 @@ const Voting = () => {
         };
         const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear
-    }, [clickedCard]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
+    }, [clickedCard, usedLaugh]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
 
 
@@ -225,6 +255,7 @@ const Voting = () => {
                 {allChosenCards.map(card => (
                     <CardButton
                         onClick={() => selectCard(card)}
+                        disabled={usedLaugh}
                     >
                         {card.text}
                     </CardButton>
@@ -251,7 +282,7 @@ const Voting = () => {
                 </CardButton>
             </div>
             <div className="round grid-content3">
-                <h2>YOUR CURRENT CHOICE:</h2>
+                <h2>YOUR CURRENT CHOICE: (used laugh: {usedLaugh.toString()})</h2>
                 <h2>{clickedCard.text}</h2>
                     <div className= "round timer" >
                         {timer}
@@ -260,8 +291,18 @@ const Voting = () => {
             <div className="round grid-content4">
                 <div className="round card-list">
                     <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
+
                     <FiVolume2 fontSize="3em"/>
                     {cardContent}
+                    <SecondaryButton
+                        onClick={() => laugh()}
+                        disabled={usedLaugh}>
+                        <BsEmojiLaughing
+                            className="voting laughingButton"
+                        >
+                        </BsEmojiLaughing>
+                    </SecondaryButton>
+                    <h5>(once you chose to supervote, you can't change it anymore)</h5>
                 </div>
             </div>
             <div className="round grid-content6">
