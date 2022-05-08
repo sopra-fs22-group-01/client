@@ -61,24 +61,16 @@ const Lobby = () => {
     // use react-router-dom's hook to access the history.
     const history = useHistory();
 
-    // define a state variable (using the state hook).
-    // if this variable changes, the component will re-render, but the variable will
-    // keep its value throughout render cycles.
-    // a component can have as many state variables as you like.
-    // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [users, setUsers] = useState(null);
     const [readyText, setReadyText] = useState("I am Ready");
     const [user, setUser] = useState(null);
     const [rules, setRules] = useState(null);
-    const [lobbyDeleted, setLobbyDeleted] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     //const [readyIcon, setReadyIcon] = useState(<BiCircle/>);
     const {userId} = useParams();
     const {lobbyId} = useParams(); // will be deleted after lobby creates match
 
-    const [matchId, setMatchId] = useState(null);
-
-    const [isOpen, setIsOpen] = useState(false);
 
     const togglePopup = () => {
         setIsOpen(!isOpen);
@@ -93,6 +85,7 @@ const Lobby = () => {
         }
 
         try {
+            //why do we have here a requestBody?
             const requestBody = JSON.stringify(
                 {
                     "id": userId,
@@ -123,74 +116,44 @@ const Lobby = () => {
     }
 
 
-    //comment
-    // the effect h ook can be used to react to change in your component.
-    // in this case, the effect hook is only run once, the first time the component is mounted
-    // this can be achieved by leaving the second argument an empty array.
-    // for more information on the effect hook, please see https://reactjs.org/docs/hooks-effect.html
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
-            if (lobbyDeleted){
-                history.push(`/matches/${lobbyId}/hand/${user.id}`)
+            // fetch all match players
+            try{
+                const response = await api.get(`lobbies/${lobbyId}/users`);
+                setUsers(response.data);
+            }catch (error) {
+                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the users ! See the console for details.");
             }
-            else{
-                // fetch all match players
-                try{const response = await api.get(`lobbies/${lobbyId}/users`);
-                    setUsers(response.data);
-                }catch (error) {
-                    console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
-                    console.error("Details:", error);
-                    alert("Something went wrong while fetching the users ! See the console for details.");
+            try{ // fetch current player
+                const u = await api.get(`/users/?id=${userId}`);
+                setUser(u.data);
+            }catch (error) {
+                console.error(`Something went wrong while fetching the current user: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the current user ! See the console for details.");
+            }
+            try{
+                const rules = await api.get(`/rules`);
+                setRules(rules.data);
+            }catch (error) {
+                console.error(`Something went wrong while fetching the rules: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the rules ! See the console for details.");
+            }
+            try{ // get lobby status
+                const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`); //
+                const lobby_stat = lobby_status_response.data;
+                if (lobby_stat === "All_Ready") {
+                    history.push(`/lobbies/${lobbyId}/players/${userId}/loading`)
                 }
-                try{ // fetch current player
-                    const u = await api.get(`/users/?id=${userId}`);
-                    setUser(u.data);
-                }catch (error) {
-                    console.error(`Something went wrong while fetching the current user: \n${handleError(error)}`);
-                    console.error("Details:", error);
-                    alert("Something went wrong while fetching the current user ! See the console for details.");
-                }
-                try{
-                    const rules = await api.get(`/rules`);
-                    setRules(rules.data);
-                }catch (error) {
-                    console.error(`Something went wrong while fetching the rules: \n${handleError(error)}`);
-                    console.error("Details:", error);
-                    alert("Something went wrong while fetching the rules ! See the console for details.");
-                }
-                try{ // get lobby status
-                    const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`); //
-                    const lobby_stat = lobby_status_response.data;
-                    if (lobby_stat === "All_Ready") {
-                        try{ // create new Match using lobbyId (matchId receives same id) (gamecontroller)
-                            const matchIdResponse = await api.post(`/matches/${lobbyId}`); //starts a match
-                            setLobbyDeleted(true);
-                            /*console.log("RECEIVE MATCH ID")
-                            console.log(matchIdResponse.data);
-
-                            setMatchId(matchIdResponse.data);*/
-                        }
-                        catch(error){
-                            console.error(`Something went wrong while creating a match: \n${handleError(error)}`);
-                            console.error("Details:", error);
-                            alert("Something went wrong while creating a match ! See the console for details.");
-                        }
-
-                        try{
-                            await api.put(`/matches/${lobbyId}/countdown/selection`)
-                        }
-                        catch (error){
-                            alert(`Something went wrong when starting the selection timer in the backend: \n${handleError(error)}`);
-                        }
-                        //because the id of the match is the same as the id of the lobby
-                        history.push(`/matches/${lobbyId}/hand/${user.id}`)
-                    }
-                }catch (error) {
-                    console.error(`Something went wrong while fetching the lobby status: \n${handleError(error)}`);
-                    console.error("Details:", error);
-                    alert("Something went wrong while fetching the lobby status ! See the console for details.");
-                }
+            }catch (error) {
+                console.error(`Something went wrong while fetching the lobby status: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the lobby status ! See the console for details.");
             }
         }
         const t = setInterval(fetchData, 600);//this part is responsible for periodically fetching data.
