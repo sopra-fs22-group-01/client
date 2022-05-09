@@ -1,0 +1,94 @@
+@import 'styles/theme';
+
+.customCards {
+  /* component to for the text with the link to the registration page */
+  &.registrationText{
+    margin-top: 15px;
+    text-align: center;
+    background-color: #383836;
+  }
+
+
+  /* Since Link get's transpiled to an <a>, you can use css to style all <a> and change all links color  and text alligns*/
+  a{
+    color: $textColor;
+  }
+  a:hover {
+    color: grey;
+  }
+
+  &.container {
+    margin-top: 10em;
+    min-height: 300px;
+    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
+    @include center;
+    flex-direction: column;
+    background-color: $background;
+  }
+
+  /*this values define the black box around the username and password field*/
+  &.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    max-width: 30em;
+    height: 40em;//25em;
+    font-size: 1em;
+    font-weight: 300;
+    padding-left: 37px;
+    padding-right: 37px;
+    border-radius: 0.75em;
+    background-color: bisque;//transparent;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    box-shadow: $dropShadow;
+    text-align: left;
+  }
+
+  /*this is the field from  login field defined in login.js as template on top of the file*/
+  &.field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: firebrick;
+  }
+
+  /*this values define the two input fields for username and password*/
+  &.input {
+
+    height: 10em;
+    width: 10em;
+    padding: 1em;
+    border: none;
+    border-radius: 0.7em;
+    margin-bottom: 20px;
+    background: palevioletred; //white;
+    color: black;
+    font-weight: bold;
+    font-size: 1.3em;
+
+    //display: inline-block;
+    //word-break: break-word;
+    //flex-wrap: wrap;
+    overflow-wrap: break-word;
+  }
+
+  /*this values define the labels (the texts "Username" and "Password")*/
+  &.label {
+    color: $textColor;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: #97ABFF;
+  }
+
+  /*this values define the position of the login button bc it is inside the button-container*/
+  &.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+    background-color: palevioletred;
+  }
+}
