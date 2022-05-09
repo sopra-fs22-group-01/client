@@ -91,6 +91,7 @@ const Voting = () => {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
         }
     };
+
     const voteAndStartCountdown = async() => {
         if (usedLaugh.toString() === "true"){
             try{
@@ -249,7 +250,18 @@ const Voting = () => {
         );
     }
 
+    let laughingButton = null;
     if (allChosenCards) {
+        laughingButton =
+            <SecondaryButton
+            onClick={() => laugh()}
+            disabled={usedLaugh}>
+            <BsEmojiLaughing
+                className="voting laughingButton"
+            >
+            </BsEmojiLaughing>
+        </SecondaryButton>
+
         cardContent = (
             <div className="round cards">
                 {allChosenCards.map(card => (
@@ -291,9 +303,11 @@ const Voting = () => {
             <div className="round grid-content4">
                 <div className="round card-list">
                     <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
-
                     <FiVolume2 fontSize="3em"/>
+
                     {cardContent}
+                    {laughingButton}
+                    {/*
                     <SecondaryButton
                         onClick={() => laugh()}
                         disabled={usedLaugh}>
@@ -302,6 +316,7 @@ const Voting = () => {
                         >
                         </BsEmojiLaughing>
                     </SecondaryButton>
+                    */}
                     <h5>(once you chose to supervote, you can't change it anymore)</h5>
                 </div>
             </div>

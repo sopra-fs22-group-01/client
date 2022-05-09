@@ -52,7 +52,7 @@ const MatchRanking = () => {
         rankingContent = (
             <div className="round cards">
                 {ranking.map(ranking => (
-                    <h2> {/*{ranking.rank}.*/}{ranking.username}......{ranking.score}</h2>
+                    <h2>Rank {ranking.rank}: {ranking.username}{ ".".repeat(10-ranking.username.length)}{ranking.score}</h2>
                 ))}
             </div>
         )
