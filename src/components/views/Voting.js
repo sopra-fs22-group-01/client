@@ -91,10 +91,21 @@ const Voting = () => {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
         }
     };
+
     const voteAndStartCountdown = async() => {
+        let ownerId = null;
+        if (clickedCard.text === "X"){
+            ownerId = -1;
+            console.log("SET OWNER TO -1")
+        }
+        else{
+            ownerId = clickedCard.owner.id;
+        }
+        console.log("OWNER ID:", ownerId);
+
         if (usedLaugh.toString() === "true"){
             try{
-                const ownerId = clickedCard.owner.id
+                //const ownerId = clickedCard.owner.id
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
                 console.log("VOTED 1/2 X")
 
@@ -107,7 +118,7 @@ const Voting = () => {
         }
         else{
             try {//adds a point to the clicked card (every user does this)
-                const ownerId = clickedCard.owner.id
+                //const ownerId = clickedCard.owner.id
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
                 console.log("VOTED 1X")
 
@@ -201,7 +212,7 @@ const Voting = () => {
 
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
-                if(timeResponse.data === 0 && clickedCard.text != "X"){
+                if(timeResponse.data === 0 /*&& clickedCard.text != "X"*/){
                     console.log("clicked card when timer == 0:")
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
@@ -225,7 +236,7 @@ const Voting = () => {
     let scoreboardContent = <Spinner/>;
     let cardContent = "waiting for cards";
 
-    if (blackCard && allChosenCards && clickedCard.owner == null && !read){
+    if (blackCard && allChosenCards /**/&& clickedCard.owner == null && !read){
         const blank = blackCard.toString().indexOf("____")
         if (blank === -1){ // if there is no underscore (questions f.e) -> read normally
             speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
@@ -249,7 +260,18 @@ const Voting = () => {
         );
     }
 
+    let laughingButton = null;
     if (allChosenCards) {
+        laughingButton =
+            <SecondaryButton
+            onClick={() => laugh()}
+            disabled={usedLaugh}>
+            <BsEmojiLaughing
+                className="voting laughingButton"
+            >
+            </BsEmojiLaughing>
+        </SecondaryButton>
+
         cardContent = (
             <div className="round cards">
                 {allChosenCards.map(card => (
@@ -291,9 +313,11 @@ const Voting = () => {
             <div className="round grid-content4">
                 <div className="round card-list">
                     <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
-
                     <FiVolume2 fontSize="3em"/>
+
                     {cardContent}
+                    {laughingButton}
+                    {/*
                     <SecondaryButton
                         onClick={() => laugh()}
                         disabled={usedLaugh}>
@@ -302,6 +326,7 @@ const Voting = () => {
                         >
                         </BsEmojiLaughing>
                     </SecondaryButton>
+                    */}
                     <h5>(once you chose to supervote, you can't change it anymore)</h5>
                 </div>
             </div>
