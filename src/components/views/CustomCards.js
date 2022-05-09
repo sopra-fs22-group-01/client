@@ -23,12 +23,11 @@ const FormField = props => {
             <label className="customCards label">
                 {props.label}
             </label>
-            <input
+            <textarea
                 className="customCards input"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
             />
-
         </div>
     );
 };
@@ -44,13 +43,13 @@ const CustomCards = props => {
    // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
     const history = useHistory();
     const [password, setPassword] = useState(null);
-    const [username, setUsername] = useState(null);
+    const [customText, setcustomText] = useState(null);
 
     //in what order does the "Registration" run?
 
     const doRegistration = async () => {
         try {
-            const requestBody = JSON.stringify({username, password});
+            const requestBody = JSON.stringify({customText});
             const response = await api.post('/users', requestBody); //request get to restcontoller (POST sends to server)
             /*await makes sure doRegistration waits until it gets a response before it goes on.
               however, other functions in the program can already run. so the return, where the username and birthdate get asked
@@ -75,26 +74,26 @@ const CustomCards = props => {
                 <h1>Create your own custom card</h1>
                 <div className="customCards form">
                     <FormField
-                        label="custom text:"
-                        value={username}
-                        onChange={un => setUsername(un)}
+                        label="your text:"
+                        value={customText}
+                        onChange={un => setcustomText(un)}
                     />
 
                     <div className="customCards button-container">
                         <PrimaryButton
-                            disabled={!username} //if no birthday or username is entered, button cant be clicked
+                            disabled={!customText} //if no birthday or username is entered, button cant be clicked
                             width="50%" //define size of button here so it can be 100% in the button template
                             onClick={() => doRegistration()}
                         >
-                            Register
+                            create
                         </PrimaryButton>
                     </div>
                     <div className="customCards registrationText">
-                        <text>Already have an account? Click </text>
+                        <text>Changed your mind? </text>
                         <Link to={`/users/login`}>
-                            <text>here</text>
+                            <text>Return</text>
                         </Link>
-                        <text> to log in.</text>
+                        <text> to lobby</text>
                     </div>
                 </div>
 
