@@ -32,7 +32,7 @@ const LoadingPage = props => {
             history.push(`/matches/${lobbyId}/hand/${userId}`)
 
         }
-        const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
+        const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching  data
         return () => clearInterval(t); // clear
     }, []);
 
