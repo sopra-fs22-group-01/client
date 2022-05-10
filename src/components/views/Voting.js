@@ -237,15 +237,23 @@ const Voting = () => {
     let cardContent = "waiting for cards";
 
     if (blackCard && allChosenCards /**/&& clickedCard.owner == null && !read){
+        var synth = window.speechSynthesis;
+        var voices = synth.getVoices();
+        console.log(voices)
+
+        let utter = new SpeechSynthesisUtterance();
+        utter.voice = voices[0]
+
         const blank = blackCard.toString().indexOf("____")
         if (blank === -1){ // if there is no underscore (questions f.e) -> read normally
-            speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
-            allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
+            utter.text = blackCard.toString()
+            synth.speak(utter)
+            allChosenCards.map((card) => utter.text = card.text && synth.speak(utter));
         }
         else{
             //speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
             //allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
-            allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(replaceCharwithChar(blackCard.toString(), "____", card.text))));
+            allChosenCards.map((card) => utter.text = replaceCharwithChar(blackCard.toString(), "____", card.text) && synth.speak(utter));
         }
         setRead(true);
     }
