@@ -26,7 +26,7 @@ Player.propTypes = {
 };
 
 const Voting = () => {
-    // use react-router-dom's hook to access the history
+    // use react-router-dom's hook to access the history.
     const history = useHistory();
 
     // def ine a state variable (using the state hook).
