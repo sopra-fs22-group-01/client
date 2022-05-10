@@ -249,7 +249,16 @@ const Voting = () => {
         );
     }
 
+    let laughingButton = null;
     if (allChosenCards) {
+        laughingButton = <SecondaryButton
+            onClick={() => laugh()}
+            disabled={usedLaugh}>
+            <BsEmojiLaughing
+                className="voting laughingButton"
+            >
+            </BsEmojiLaughing>
+        </SecondaryButton>
         cardContent = (
             <div className="round cards">
                 {allChosenCards.map(card => (
@@ -294,6 +303,8 @@ const Voting = () => {
 
                     <FiVolume2 fontSize="3em"/>
                     {cardContent}
+                    {laughingButton}
+                    {/*
                     <SecondaryButton
                         onClick={() => laugh()}
                         disabled={usedLaugh}>
@@ -302,7 +313,8 @@ const Voting = () => {
                         >
                         </BsEmojiLaughing>
                     </SecondaryButton>
-                    <h5>(once you chose to supervote, you can't change it anymore)</h5>
+                    */}
+                    <h4>(once you chose to supervote, you can't change it anymore)</h4>
                 </div>
             </div>
             <div className="round grid-content6">
