@@ -91,10 +91,21 @@ const Voting = () => {
             alert(`Something went wrong setting clicked card: \n${handleError(error)}`);
         }
     };
+
     const voteAndStartCountdown = async() => {
+        let ownerId = null;
+        if (clickedCard.text === "X"){
+            ownerId = -1;
+            console.log("SET OWNER TO -1")
+        }
+        else{
+            ownerId = clickedCard.owner.id;
+        }
+        console.log("OWNER ID:", ownerId);
+
         if (usedLaugh.toString() === "true"){
             try{
-                const ownerId = clickedCard.owner.id
+                //const ownerId = clickedCard.owner.id
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
                 console.log("VOTED 1/2 X")
 
@@ -107,7 +118,7 @@ const Voting = () => {
         }
         else{
             try {//adds a point to the clicked card (every user does this)
-                const ownerId = clickedCard.owner.id
+                //const ownerId = clickedCard.owner.id
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
                 console.log("VOTED 1X")
 
@@ -249,16 +260,7 @@ const Voting = () => {
         );
     }
 
-    let laughingButton = null;
     if (allChosenCards) {
-        laughingButton = <SecondaryButton
-            onClick={() => laugh()}
-            disabled={usedLaugh}>
-            <BsEmojiLaughing
-                className="voting laughingButton"
-            >
-            </BsEmojiLaughing>
-        </SecondaryButton>
         cardContent = (
             <div className="round cards">
                 {allChosenCards.map(card => (
@@ -303,8 +305,6 @@ const Voting = () => {
 
                     <FiVolume2 fontSize="3em"/>
                     {cardContent}
-                    {laughingButton}
-                    {/*
                     <SecondaryButton
                         onClick={() => laugh()}
                         disabled={usedLaugh}>
@@ -313,8 +313,7 @@ const Voting = () => {
                         >
                         </BsEmojiLaughing>
                     </SecondaryButton>
-                    */}
-                    <h4>(once you chose to supervote, you can't change it anymore)</h4>
+                    <h5>(once you chose to supervote, you can't change it anymore)</h5>
                 </div>
             </div>
             <div className="round grid-content6">
