@@ -47,7 +47,7 @@ const Round = () => {
 
 
     const selectCard = (card) => {
-        console.log("CLICKED ON  A CARD!")
+        //console.log("CLICKED ON  A CARD!")
         try {
             //let clickedCardObject=new Card();
             //clickedCardObject.text=cardText;
@@ -68,8 +68,8 @@ const Round = () => {
         try {
             const requestBody = JSON.stringify(clickedCard);
 
-            console.log("CLICKED CARD IS THIS (REQUEST BODY)")
-            console.log(requestBody)
+            //console.log("CLICKED CARD IS THIS (REQUEST BODY)")
+            //console.log(requestBody)
 
             // PUT selected card into ChosenCards array
             await api.put(`matches/${matchId}/white-card/selection`, requestBody)
@@ -195,7 +195,7 @@ const Round = () => {
         )
     }
     else{
-        console.log("NO CLICKED CARD YET")
+        //console.log("NO CLICKED CARD YET")
     }
 
 
