@@ -13,6 +13,8 @@ import {AiOutlineCheckCircle} from "react-icons/ai";
 import {BsCircle} from "react-icons/bs";
 import {BiCircle, BiCheckCircle} from "react-icons/bi";
 import user from "../../models/User";
+import {CardButton} from "../ui/CardButton";
+import {SecondaryButton} from "../ui/SecondaryButton";
 // test
 
 
@@ -38,21 +40,6 @@ const Player = ({user}) => (
     </div>
 );
 
-/* DELETE THIS LATER
-* cardContent = (
-            <div className="round cards">
-                {allChosenCards.map(card => (
-                    <CardButton
-                        onClick={() => selectCard(card)}
-                    >
-                        {card.text}
-                    </CardButton>
-                ))}
-            </div>
-        )
-* */
-
-
 Player.propTypes = {
     user: PropTypes.object
 };
@@ -66,6 +53,8 @@ const Lobby = () => {
     const [user, setUser] = useState(null);
     const [rules, setRules] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
+    const [isOpen2, setIsOpen2] = useState(false);
+    const [hasCustom, setHasCustom] = useState(false);
 
     //const [readyIcon, setReadyIcon] = useState(<BiCircle/>);
     const {userId} = useParams();
@@ -74,6 +63,10 @@ const Lobby = () => {
 
     const togglePopup = () => {
         setIsOpen(!isOpen);
+    }
+
+    const togglePopup2 = () => {
+        setIsOpen2(!isOpen2);
     }
 
     const isReady = async () => {
@@ -119,6 +112,8 @@ const Lobby = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
+            console.log("LOBBY ID FROM LOBBY.JS", lobbyId)
+
             // fetch all match players
             try{
                 const response = await api.get(`lobbies/${lobbyId}/users`);
@@ -129,8 +124,9 @@ const Lobby = () => {
                 alert("Something went wrong while fetching the users ! See the console for details.");
             }
             try{ // fetch current player
-                const u = await api.get(`/users/?id=${userId}`);
-                setUser(u.data);
+                const userResponse = await api.get(`/users/?id=${userId}`);
+                setUser(userResponse.data);
+                setHasCustom(userResponse.data.customWhiteText);
             }catch (error) {
                 console.error(`Something went wrong while fetching the current user: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -185,11 +181,39 @@ const Lobby = () => {
                         Leave Lobby
                     </PrimaryButton>
                 </div>
-                    <PrimaryButton className="lobby rules_button"
-                                   onClick={togglePopup}
-                    >
-                        Rules
-                    </PrimaryButton>
+                {/*-------------------CUSTOM CARDS----------------------------------------------------------------*/}
+
+                <PrimaryButton className="primary-button small_version"
+                               onClick={togglePopup2}
+                               disabled={!hasCustom}
+                >
+                    see your custom card
+                </PrimaryButton>
+
+                <div className="lobby game_rules">
+                    {isOpen2 && <Popup
+                        content={<>
+                            <b>Your current custom card</b>
+                            <div>______________________</div>
+                            <CardButton>
+                                {user.customWhiteText}
+                            </CardButton>
+                        </>}
+                        handleClose={togglePopup2}
+                    />}
+                </div>
+                <PrimaryButton className="primary-button small_version"
+                        onClick={() => history.push(`/lobbies/${lobbyId}/players/${userId}/cards/custom`)}
+                        >
+                        create new custom card
+                </PrimaryButton>
+
+                {/*-------------------RULES----------------------------------------------------------------*/}
+                <PrimaryButton className="lobby rules_button"
+                               onClick={togglePopup}
+                >
+                    Rules
+                </PrimaryButton>
 
                 <div className="lobby game_rules">
                     {isOpen && <Popup

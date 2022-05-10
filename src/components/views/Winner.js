@@ -58,7 +58,6 @@ const Winner = () => {
         try {
             // starts next round, or end Match if we're on the last round
             const response = await api.put(`/matches/${matchId}/rounds`)
-            console.log("MATCHSTATUS INCOMING")
             console.log(response)
             if (response.data === "MatchOngoing"){
                 try{

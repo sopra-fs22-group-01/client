@@ -13,6 +13,8 @@ class User {
     this.userStatus = null;
     this.isReady = null;
 
+    this.customWhiteText = null;
+
 
     this.birthday = null;
     Object.assign(this, data);
