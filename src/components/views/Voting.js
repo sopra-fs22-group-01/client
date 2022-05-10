@@ -201,7 +201,7 @@ const Voting = () => {
 
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
-                if(timeResponse.data === 0 && clickedCard.text != "X"){
+                if(timeResponse.data === 0 /*&& clickedCard.text != "X"*/){
                     console.log("clicked card when timer == 0:")
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election

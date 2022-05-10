@@ -61,7 +61,7 @@ const CustomCards = props => {
                     });
             const response = await api.put(`/matches/${lobbyId}/white-cards/${userId}/custom`, requestBody); //request get to restcontoller (POST sends to server)
 
-            console.log("SUCCESSFULLY CREATED CARD: ", customText)
+            //console.log("SUCCESSFULLY CREATED CARD: ", customText)
             // Login successfully worked --> navigate to the route /game in the GameRouter
             history.push(`/lobbies/${lobbyId}/players/${userId}`);
         } catch (error) {
@@ -76,7 +76,7 @@ const CustomCards = props => {
             try {
                 const response1 = await api.get(`/users/?id=${userId}`);
                 setUser(response1.data);
-                console.log(response1);
+                //console.log(response1);
 
 
             } catch (error) {
@@ -95,6 +95,7 @@ const CustomCards = props => {
             <div className="customCards container">
                 <h1>Create your own white card !</h1>
                 <div className="customCards form">
+
                     <FormField
                         //label="your text:"
                         value={customText}
