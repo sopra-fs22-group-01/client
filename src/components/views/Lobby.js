@@ -38,21 +38,6 @@ const Player = ({user}) => (
     </div>
 );
 
-/* DELETE THIS LATER
-* cardContent = (
-            <div className="round cards">
-                {allChosenCards.map(card => (
-                    <CardButton
-                        onClick={() => selectCard(card)}
-                    >
-                        {card.text}
-                    </CardButton>
-                ))}
-            </div>
-        )
-* */
-
-
 Player.propTypes = {
     user: PropTypes.object
 };
@@ -119,6 +104,8 @@ const Lobby = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
+            console.log("LOBBY ID FROM LOBBY.JS", lobbyId)
+
             // fetch all match players
             try{
                 const response = await api.get(`lobbies/${lobbyId}/users`);
@@ -183,6 +170,11 @@ const Lobby = () => {
                                    onClick={() => leaveLobby()}
                     >
                         Leave Lobby
+                    </PrimaryButton>
+                    <PrimaryButton className="lobby leave_button"
+                                   onClick={() => history.push(`/lobbies/${lobbyId}/players/${userId}/cards/custom`)}
+                    >
+                        create own card
                     </PrimaryButton>
                 </div>
                     <PrimaryButton className="lobby rules_button"

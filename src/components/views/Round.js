@@ -85,8 +85,6 @@ const Round = () => {
 
         history.push(`/matches/${matchId}/election/${userId}`);
 
-
-
     };
 
 

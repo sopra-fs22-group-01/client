@@ -1,7 +1,7 @@
-import React, {useState, Component} from 'react';
+import React, {useState, Component, useEffect} from 'react';
 import {api, handleError} from 'helpers/api';
 import User from 'models/User';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import {PrimaryButton} from 'components/ui/PrimaryButton';
 import 'styles/views/CustomCards.scss';
 import BaseContainer from "components/ui/BaseContainer";
@@ -25,6 +25,7 @@ const FormField = props => {
             </label>
             <textarea
                 className="customCards input"
+                placeholder="enter here.."
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
             />
@@ -43,54 +44,75 @@ const CustomCards = props => {
    // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
     const history = useHistory();
     const [password, setPassword] = useState(null);
-    const [customText, setcustomText] = useState(null);
+    const [customText, setCustomText] = useState(null);
+    const [user, setUser] = useState(null);
 
-    //in what order does the "Registration" run?
+    const {userId} = useParams();
+    const {lobbyId} = useParams(); // will be deleted after lobby creates match
 
-    const doRegistration = async () => {
+
+    const createCard = async () => {
         try {
-            const requestBody = JSON.stringify({customText});
-            const response = await api.post('/users', requestBody); //request get to restcontoller (POST sends to server)
-            /*await makes sure doRegistration waits until it gets a response before it goes on.
-              however, other functions in the program can already run. so the return, where the username and birthdate get asked
-              can already be executed(?)
-                * */
-            // Get the returned user and update a new object.
-            const user = new User(response.data);
+            const requestBody = JSON.stringify(
+                {
+                    "id":user.id,
+                    "username":user.username,
+                    "customWhiteText": customText
+                    });
+            const response = await api.put(`/matches/${lobbyId}/white-cards/${userId}/custom`, requestBody); //request get to restcontoller (POST sends to server)
 
-            // Store the token into the local storage.
-            localStorage.setItem('token', user.token);
-
+            console.log("SUCCESSFULLY CREATED CARD: ", customText)
             // Login successfully worked --> navigate to the route /game in the GameRouter
-            history.push(`/users/profile/${user.id}`);
+            history.push(`/lobbies/${lobbyId}/players/${userId}`);
         } catch (error) {
-            alert(`Something went wrong during the registration: \n${handleError(error)}`);
+            alert(`Something went wrong during creating your card: \n${handleError(error)}`);
         }
     };
+
+    useEffect(() => {
+
+        // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
+        async function fetchData() {
+            try {
+                const response1 = await api.get(`/users/?id=${userId}`);
+                setUser(response1.data);
+                console.log(response1);
+
+
+            } catch (error) {
+                console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the user! See the console for details.");
+            }
+        };
+
+        const t = setInterval(fetchData, 600);//this part is responsible for periodically fetching data
+        return () => clearInterval(t); // clear
+    }, []);
 
     return (
         <BaseContainer>
             <div className="customCards container">
-                <h1>Create your own custom card</h1>
+                <h1>Create your own white card !</h1>
                 <div className="customCards form">
                     <FormField
-                        label="your text:"
+                        //label="your text:"
                         value={customText}
-                        onChange={un => setcustomText(un)}
+                        onChange={un => setCustomText(un)}
                     />
 
                     <div className="customCards button-container">
                         <PrimaryButton
                             disabled={!customText} //if no birthday or username is entered, button cant be clicked
                             width="50%" //define size of button here so it can be 100% in the button template
-                            onClick={() => doRegistration()}
+                            onClick={() => createCard()}
                         >
                             create
                         </PrimaryButton>
                     </div>
                     <div className="customCards registrationText">
                         <text>Changed your mind? </text>
-                        <Link to={`/users/login`}>
+                        <Link to={`/lobbies/${lobbyId}/players/${userId}`}>
                             <text>Return</text>
                         </Link>
                         <text> to lobby</text>
