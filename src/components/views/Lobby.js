@@ -163,11 +163,33 @@ const Lobby = () => {
             <div className="lobby">
                     <h1>Lobby {lobbyId}</h1>
                 <ul className="lobby user-list">
+                    {/*
                     {users.map(user => (
-                        <Link to={`/users/profile/${user.id}`}>
+                        {user.token === localStorage.getItem(`token`) ? (
+                                <div>
+                                    {user.username}
+                                </div>
+                            ) : (
+                                <Link
+                                    to={`/users/profile/${user.id}`}
+                                >
+                                    <Player user={user}/>
+                                </Link>
+                            )}
+                    ))}*/}
+
+                    {users.map(user => (
+                        <Link
+                            style={
+                                user.token === localStorage.getItem(`token`) ?
+                                    ({ pointerEvents: 'none' }):({ pointerEvents: '' })
+                        }
+                            to={`/users/profile/${user.id}`}
+                        >
                             <Player user={user}/>
                         </Link>
                     ))}
+
                 </ul>
                 <div className="lobby button_container">
                     <PrimaryButton className="lobby ready_button"
@@ -181,8 +203,8 @@ const Lobby = () => {
                         Leave Lobby
                     </PrimaryButton>
                 </div>
-                {/*-------------------CUSTOM CARDS----------------------------------------------------------------*/}
 
+                {/*-------------------CUSTOM CARDS----------------------------------------------------------------*/}
                 <PrimaryButton className="primary-button small_version"
                                onClick={togglePopup2}
                                disabled={!hasCustom}

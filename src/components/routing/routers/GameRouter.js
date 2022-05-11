@@ -3,6 +3,7 @@ import Lobby from "components/views/Lobby.js";
 import PropTypes from 'prop-types';
 import LoadingPage from "../../views/LoadingPage";
 import CustomCards from "../../views/CustomCards";
+import JoinLobby from "../../views/JoinLobby";
 
 const GameRouter = props => {
     /**
@@ -15,6 +16,10 @@ const GameRouter = props => {
                 <Redirect to={`${props.base}/:lobbyId/players`}/>
             </Route>
             */}
+
+            <Route exact path={`${props.base}/players/:userId`}>
+                <JoinLobby/>
+            </Route>
 
             <Route exact path={`${props.base}/:lobbyId/players/:userId`}>
                 <Lobby/>
