@@ -248,12 +248,12 @@ const Voting = () => {
         if (blank === -1){ // if there is no underscore (questions f.e) -> read normally
             utter.text = blackCard.toString()
             synth.speak(utter)
-            allChosenCards.map((card) => utter.text = card.text && synth.speak(utter));
+            allChosenCards.map((card) => utter.text = card.text, synth.speak(utter));
         }
         else{
             //speechSynthesis.speak(new SpeechSynthesisUtterance(blackCard.toString()))
             //allChosenCards.map((card) => speechSynthesis.speak(new SpeechSynthesisUtterance(card.text)));
-            allChosenCards.map((card) => utter.text = replaceCharwithChar(blackCard.toString(), "____", card.text) && synth.speak(utter));
+            allChosenCards.map((card) => utter.text = replaceCharwithChar(blackCard.toString(), "____", card.text), synth.speak(utter));
         }
         setRead(true);
     }
