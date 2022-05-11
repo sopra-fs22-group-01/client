@@ -67,9 +67,9 @@ const MatchRanking = () => {
                 <div className="startpage button-container">
                     <PrimaryButton
                         //onClick={() => history.push(`/users/profile/${userId}`)}
-                        onClick={() => history.push(`/startpage`)}
+                        onClick={() => history.push(`/users/profile/${userId}`)}
                     >
-                        startpage
+                        Profilepage
                     </PrimaryButton>
                 </div>
             </div>
