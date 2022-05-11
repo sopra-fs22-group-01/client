@@ -50,9 +50,6 @@ const Voting = () => {
 
     let audio = new Audio(Sitcom_Laugh_Track);
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
 
     const laugh = () => {
         if (clickedCard.text !== "X"){

@@ -54,28 +54,6 @@ const Winner = () => {
         history.push('/users/login');
     }
 
-    const nextStep = async () => {
-        try {
-            // starts next round, or end Match if we're on the last round
-            const response = await api.put(`/matches/${matchId}/rounds`)
-            console.log(response)
-            if (response.data === "MatchOngoing"){
-                try{
-                    await api.put(`/matches/${matchId}/countdown/selection`)
-                }
-                catch (error){
-                    alert(`Something went wrong when starting the selection timer in the backend: \n${handleError(error)}`);
-                }
-                history.push(`/matches/${matchId}/hand/${userId}`);
-            }
-            else{
-                history.push(`/matches/${matchId}/ranking/${userId}`)
-            }
-
-        } catch (error) {
-            alert(`Something went wrong during the next step: \n${handleError(error)}`);
-        }
-    }
 
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
@@ -84,7 +62,7 @@ const Winner = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
-            try {//retrieves all user from specific match
+            try {
                 const response = await api.get(`/matches/${matchId}/users`);
                 // Get the returned users and update the state.
                 setUsers(response.data);
@@ -138,7 +116,7 @@ const Winner = () => {
                 if(timeResponse.data === 0){
                     console.log("clicked card when timer == 0:")
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
-                    await nextStep();
+                    history.push(`/matches/${matchId}/round/end/${userId}`);
                 }
 
             } catch (error) {
