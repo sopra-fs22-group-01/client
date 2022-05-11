@@ -51,6 +51,8 @@ const ProfilePage = () => {
         try {
             let currentToken = localStorage.getItem('token');
 
+            //const deletionResponse = await api.delete(`/lobbies/${lobbyId}/players/${userId}`);
+
             const response = await api.put(`/logout/?token=${currentToken}`)
             localStorage.removeItem('token');
             history.push('/users/login');
@@ -181,8 +183,19 @@ const ProfilePage = () => {
                                     <MdOutlineEdit className="profilePage editIcon"/>
                                 </SecondaryButton>
                             </div>
-                            <PrimaryButton className="profilePage logout_button" onClick={() => logout()}>
+                            {/*-------------------LOGOUT----------------------------------------------------------------*/}
+
+                            <PrimaryButton className="profilePage logout_button"
+                                           disabled={!(user.token === localStorage.getItem(`token`))}
+                                           onClick={() => logout()}
+                            >
                                 Logout
+                            </PrimaryButton>
+                            <PrimaryButton className="profilePage logout_button"
+                                           //disabled={!(user.token === localStorage.getItem(`token`))}
+                                           onClick={() => history.goBack()}
+                            >
+                                back
                             </PrimaryButton>
                         </div>
                     </div>
@@ -193,7 +206,7 @@ const ProfilePage = () => {
                             {lobbies.map((lobbyModel, d) => (
                                 <button className="profilePage lobbyButton"
                                         onClick={() => addUserLobby(lobbyModel.id)}
-                                        disabled={false}
+                                        disabled={!(user.token === localStorage.getItem(`token`))}
                                 >
                                     <LobbyObject lobbyModel={lobbyModel}/>
                                 </button>
@@ -201,7 +214,9 @@ const ProfilePage = () => {
                         </ul>
                     </div>
                     <PrimaryButton className="profilePage create_new_lobby"
-                                   onClick={() => createNewLobby()}>
+                                   onClick={() => createNewLobby()}
+                                   disabled={!(user.token === localStorage.getItem(`token`))}
+                    >
                         Create new lobby
                     </PrimaryButton>
 

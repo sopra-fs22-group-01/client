@@ -26,6 +26,16 @@
 
     font-size: 1.5em;
   }
+  &.disappear_version {
+    &:hover {
+      opacity: 1;
+    }
+    &:disabled {
+      opacity: 0;
+    }
+  }
+
+
 
 
   margin-right: 1em;
