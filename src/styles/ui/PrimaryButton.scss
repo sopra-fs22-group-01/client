@@ -14,8 +14,26 @@
     }
   }
 
+  &.small_version {
+    cursor: default;
+    //opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+    &:disabled {
+      opacity: 0;
+    }
+
+    font-size: 1.5em;
+  }
+
+
   margin-right: 1em;
   margin-left: 1em;
+  margin-bottom: 0.2em;
+  margin-top: 0.2em;
+
+
   padding: 0.5em;
   font-weight: bold;
   text-transform: capitalize;

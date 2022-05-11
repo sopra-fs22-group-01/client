@@ -2,6 +2,7 @@ import {Redirect, Route} from "react-router-dom";
 import Lobby from "components/views/Lobby.js";
 import PropTypes from 'prop-types';
 import LoadingPage from "../../views/LoadingPage";
+import CustomCards from "../../views/CustomCards";
 
 const GameRouter = props => {
     /**
@@ -21,6 +22,10 @@ const GameRouter = props => {
 
             <Route exact path={`${props.base}/:lobbyId/players/:userId/loading`}>
                 <LoadingPage/>
+            </Route>
+
+            <Route exact path={`${props.base}/:lobbyId/players/:userId/cards/custom`}>
+                <CustomCards/>
             </Route>
 
 

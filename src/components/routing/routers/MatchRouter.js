@@ -25,9 +25,11 @@ const MatchRouter = props => {
             <Route exact path={`${props.base}/:matchId/winner/:userId`}>
                 <Winner/>
             </Route>
+
             <Route exact path={`${props.base}/:matchId/next/:userId`}>
                 <NextPage/>
             </Route>
+
             <Route exact path={`${props.base}/:matchId/ranking/:userId`}>
                 <MatchRanking/>
             </Route>

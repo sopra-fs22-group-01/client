@@ -26,7 +26,7 @@ Player.propTypes = {
 };
 
 const Voting = () => {
-    // use react-router-dom's hook to access the history.
+    // use react-router-dom's hook to access the history
     const history = useHistory();
 
     // def ine a state variable (using the state hook).
@@ -101,7 +101,7 @@ const Voting = () => {
         else{
             ownerId = clickedCard.owner.id;
         }
-        console.log("OWNER ID:", ownerId);
+        //console.log("OWNER ID:", ownerId);
 
         if (usedLaugh.toString() === "true"){
             try{
@@ -145,7 +145,9 @@ const Voting = () => {
         const cleanedWhite = new_chr
         const idx = str.indexOf(old);
 
-        return str.substring(0,idx) + "\""+  cleanedWhite + "\""+ str.substring((idx+old.length)+1);
+        const text = str.substring(0,idx) + "\""+  cleanedWhite + "\" "+ str.substring((idx+old.length)+1);
+        //console.log("WEBSPEECH TEXT", text);
+        return text;
 
     }
 
@@ -188,8 +190,8 @@ const Voting = () => {
                 // get all chosen cards
                 const chosenWhiteCardsResponse = await api.get(`/matches/${matchId}/election/white-cards`) ///matches/0/hands/1
                 setAllChosenCards(chosenWhiteCardsResponse.data)
-                console.log("ALL THE CHOSEN CARDS");
-                console.log(chosenWhiteCardsResponse.data);
+                //console.log("ALL THE CHOSEN CARDS");
+                //console.log(chosenWhiteCardsResponse.data);
             } catch (error) {
                 console.error(`Something went wrong while fetching the white cards: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -234,9 +236,9 @@ const Voting = () => {
 
 
     let scoreboardContent = <Spinner/>;
-    let cardContent = "waiting for cards";
+    let cardContent = <div>waiting for cards</div>;
 
-    if (blackCard && allChosenCards /**/&& clickedCard.owner == null && !read){
+    if (blackCard && allChosenCards && clickedCard.owner == null && !read){
         var synth = window.speechSynthesis;
         let utter = new SpeechSynthesisUtterance();
         utter.lang = 'en-US'
@@ -269,14 +271,13 @@ const Voting = () => {
     if (allChosenCards) {
         laughingButton =
             <SecondaryButton
-            onClick={() => laugh()}
-            disabled={usedLaugh}>
-            <BsEmojiLaughing
-                className="voting laughingButton"
-            >
-            </BsEmojiLaughing>
-        </SecondaryButton>
-
+                onClick={() => laugh()}
+                disabled={usedLaugh}>
+                <BsEmojiLaughing
+                    className="voting laughingButton"
+                >
+                </BsEmojiLaughing>
+            </SecondaryButton>
         cardContent = (
             <div className="round cards">
                 {allChosenCards.map(card => (
@@ -309,7 +310,7 @@ const Voting = () => {
                 </CardButton>
             </div>
             <div className="round grid-content3">
-                <h2>YOUR CURRENT CHOICE: (used laugh: {usedLaugh.toString()})</h2>
+                <h2>YOUR CURRENT CHOICE: {/*(used laugh: {usedLaugh.toString()})*/}</h2>
                 <h2>{clickedCard.text}</h2>
                     <div className= "round timer" >
                         {timer}
@@ -318,8 +319,8 @@ const Voting = () => {
             <div className="round grid-content4">
                 <div className="round card-list">
                     <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
-                    <FiVolume2 fontSize="3em"/>
 
+                    <FiVolume2 fontSize="3em"/>
                     {cardContent}
                     {laughingButton}
                     {/*
@@ -332,17 +333,17 @@ const Voting = () => {
                         </BsEmojiLaughing>
                     </SecondaryButton>
                     */}
-                    <h5>(once you chose to supervote, you can't change it anymore)</h5>
+                    <h4>(once you chose to supervote, you can't change it anymore)</h4>
                 </div>
             </div>
             <div className="round grid-content6">
-                <PrimaryButton
+                {/*<PrimaryButton
                     width="100%"
                     onClick={() => exit()}
                 >
                     Exit
                 </PrimaryButton>
-               {/*     <PrimaryButton
+                    <PrimaryButton
                         width="100%"
                         onClick={() => vote()}
                     >
