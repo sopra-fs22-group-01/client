@@ -31,7 +31,7 @@ LobbyObject.propTypes = {
 };
 
 
-const ProfilePage = () => {
+const JoinLobby = () => {
     // use react-router-dom's hook to access the history
 
     const history = useHistory();
@@ -160,59 +160,54 @@ const ProfilePage = () => {
         content = (
             <BaseContainer className="profilePage base-container">
 
-                    <div className="profilePage profile_info_frame">
+                    <div className="joinLobby profile_info_frame">
+
                         <div className="profilePage titleContainer">
-                            <h1>Profile</h1>
+                            <h1>Create or join a lobby, {user.username} !</h1>
                         </div>
-                        <img className="profilePage icon" src={profileIcon} alt=""/>
-                        <div className="profilePage infos">
-                            <div className="profilePage username">
-                                <text>Username:</text>
-                                {user.username}
-                                <SecondaryButton
-                                    disabled={!(user.token === localStorage.getItem(`token`))}
-                                    onClick={() => history.push(`/editor/${user.id}`)}>
-                                    <MdOutlineEdit className="profilePage editIcon"/>
-                                </SecondaryButton>
-                            </div>
-                            <div className="profilePage password">
-                                <text>Password: ● ● ● ● ●</text>
-                                <SecondaryButton
-                                    disabled={!(user.token === localStorage.getItem(`token`))}
-                                    onClick={() => history.push(`/editor/${user.id}`)}>
-                                    <MdOutlineEdit className="profilePage editIcon"/>
-                                </SecondaryButton>
-                            </div>
+                        {/*<img className="profilePage icon" src={profileIcon} alt=""/>*/}
 
-                {/*-------------------LOGOUT----------------------------------------------------------------*/}
-                            <PrimaryButton className="profilePage logout_button"
-                                disabled={!(user.token === localStorage.getItem(`token`))}
-                                onClick={() => history.push(`/lobbies/players/${userId}`)}
-                            >
-                                to the lobbies
-                            </PrimaryButton>
-
-                            <div className="joinLobby button-container">
-                            <PrimaryButton className="profilePage logout_button"
-                                           disabled={!(user.token === localStorage.getItem(`token`))}
-                                           onClick={() => logout()}
-                            >
-                                Logout
-                            </PrimaryButton>
-                            <PrimaryButton className="profilePage logout_button"
-                                           disabled={(user.token === localStorage.getItem(`token`))}
-                                           onClick={() => history.goBack()}
-                            >
-                                back
-                            </PrimaryButton>
-                            </div>
-                        </div>
                     </div>
 
+                    <div className="profilePage lobbyListContainer">
+                        <h2>Choose a lobby:</h2>
+                        <ul className="profilePage lobbyList">
+                            {lobbies.map((lobbyModel, d) => (
+                                <button className="profilePage lobbyButton"
+                                        onClick={() => addUserLobby(lobbyModel.id)}
+                                        disabled={!(user.token === localStorage.getItem(`token`))}
+                                >
+                                    <LobbyObject lobbyModel={lobbyModel}/>
+                                </button>
+                            ))}
+                        </ul>
+                    </div>
+                    <PrimaryButton className="profilePage create_new_lobby"
+                                   onClick={() => createNewLobby()}
+                                   disabled={!(user.token === localStorage.getItem(`token`))}
+                    >
+                        Create new lobby
+                    </PrimaryButton>
+
+                    <div className="joinLobby button-container">
+
+                        <PrimaryButton className="joinLobby logout_button"
+                                       disabled={!(user.token === localStorage.getItem(`token`))}
+                                       onClick={() => logout()}
+                        >
+                            Logout
+                        </PrimaryButton>
+                        <PrimaryButton className="joinLobby logout_button"
+                            //disabled={!(user.token === localStorage.getItem(`token`))}
+                                       onClick={() => history.goBack()}
+                        >
+                            back
+                        </PrimaryButton>
+                    </div>
 
             </BaseContainer>
         );
     }
     return content;
 }
-export default ProfilePage;
+export default JoinLobby;
