@@ -1,14 +1,22 @@
 @import 'styles/scoreBoardBase';
+@import 'styles/theme';
 
 .scoreBoard{
 
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items:start;
+
+  margin:10px;
   padding: 15px; //distance
   font-weight: 200;
   font-size: 20px;
   text-align: left;
+  min-width: 10em;
 
-  border: 3px solid white;
-  border-radius: 0.5em; // rounded corner
-  background-color: black;
+  border: none;
+  border-radius: $borderRadiusItems;
+  background-color: $itemsColor;
   color:white;
 }
