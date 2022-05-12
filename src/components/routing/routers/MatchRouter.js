@@ -7,6 +7,7 @@ import NextPage from "../../views/NextPage";
 import End from "../../views/End";
 import MatchRanking from "../../views/MatchRanking";
 import EndOfRound from "../../views/EndOfRound";
+import WaitForVotes from "../../views/WaitForVotes";
 
 const MatchRouter = props => {
     /**
@@ -38,6 +39,10 @@ const MatchRouter = props => {
             <Route exact path={`${props.base}/:matchId/ranking/:userId`}>
                 <MatchRanking/>
             </Route>
+
+          <Route exact path={`${props.base}/:matchId/election/wait/:userId`}>
+            <WaitForVotes/>
+          </Route>
 
             <Route exact path={`${props.base}/:matchId/end/:userId`}>
                 <End/>
