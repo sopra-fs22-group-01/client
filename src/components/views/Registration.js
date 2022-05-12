@@ -73,9 +73,7 @@ const Registration = props => {
             <div className="registration container">
                 <div className="registration form">
                     <div className="registration usernameExists">
-                        <h2>
                             {usernameAlreadyExists}
-                        </h2>
                     </div>
                     <FormField
                         label="Username:"

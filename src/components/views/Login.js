@@ -38,6 +38,7 @@ const Login = props => {
     const history = useHistory();
     const [password, setPassword] = useState(null);
     const [username, setUsername] = useState(null);
+    const [loginFailed,setLoginFailed]=useState(null);
 
 
     const doLogin = async () => {
@@ -58,7 +59,8 @@ const Login = props => {
             // Login successfully worked --> navigate to the route /game in the GameRouter
             //history.push(`/game`);
         } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
+            setLoginFailed("Username or password not correct!")
+            /*alert(`Something went wrong during the login: \n${handleError(error)}`);*/
         }
     };
 
@@ -66,6 +68,9 @@ const Login = props => {
         <BaseContainer>
             <div className="login container">
                 <div className="login form">
+                    <div className="registration usernameExists">
+                        {loginFailed}
+                    </div>
                     <FormField
                         label="Username:"
                         value={username}
