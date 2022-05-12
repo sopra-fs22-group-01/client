@@ -36,6 +36,7 @@ const Voting = () => {
     // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [users, setUsers] = useState(null);
     const [allChosenCards, setAllChosenCards] = useState(null);
+    const [roundNumber,setRoundNumber]=useState(null);
     const [blackCard, setBlackCard] = useState(null);
     const defaultCard = new Card();
     defaultCard.text = "X"
@@ -194,6 +195,16 @@ const Voting = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the white cards! See the console for details.");
             }
+            try {
+                // retrieve round number
+                const roundNumberResponse = await api.get(`/matches/${matchId}/roundnumbers`)
+                setRoundNumber(roundNumberResponse.data)
+                console.log(roundNumberResponse);
+            } catch (error) {
+                console.error(`Something went wrong while fetching the round number: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the round number! See the console for details.");
+            }
 
         }
         fetchData();
@@ -298,6 +309,10 @@ const Voting = () => {
                     <h4>Score Board</h4>
                     {scoreboardContent}
                 </ScoreBoard>
+                <div className="round roundNumber">
+                    <h3>ROUND NUMBER</h3>
+                    <h2>{roundNumber}</h2>
+                </div>
             </div>
 
             <div className="round grid-content2">

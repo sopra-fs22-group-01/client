@@ -33,6 +33,7 @@ const Winner = () => {
     const [users, setUsers] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
     const [scores, setScores] = useState(null);
+    const [roundNumber,setRoundNumber]=useState(null);
 
 
     const {userId} = useParams();
@@ -88,6 +89,16 @@ const Winner = () => {
                 console.error(`Something went wrong while updating  the player scores: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while updating the player scores! See the console for details.");
+            }
+            try {
+                // retrieve round number
+                const roundNumberResponse = await api.get(`/matches/${matchId}/roundnumbers`)
+                setRoundNumber(roundNumberResponse.data)
+                console.log(roundNumberResponse);
+            } catch (error) {
+                console.error(`Something went wrong while fetching the round number: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the round number! See the console for details.");
             }
 
 
@@ -160,7 +171,7 @@ const Winner = () => {
                 <div className="round grid-content1">
                 </div>
                 <div className="round grid-content2">
-                    <h1 className="round user-item">WINNERS OF THIS ROUND</h1>
+                    <h1 className="round user-item">WINNERS OF ROUND {roundNumber}</h1>
                     <h3 className="round user-item">{winnersContent}</h3>
                     <CardButton className="blackCard"
                     >
