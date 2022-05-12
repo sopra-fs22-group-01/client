@@ -82,9 +82,8 @@ const Winner = () => {
 
             try {
                 //updates player scores
-                const blackCard_response = await api.put(`/matches/${matchId}/scores`)
-                setBlackCard(blackCard_response.data);
-                console.log(blackCard_response);
+               await api.put(`/matches/${matchId}/scores`)
+
             } catch (error) {
                 console.error(`Something went wrong while updating  the player scores: \n${handleError(error)}`);
                 console.error("Details:", error);
