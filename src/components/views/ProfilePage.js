@@ -175,6 +175,7 @@ const ProfilePage = () => {
                                     <MdOutlineEdit className="profilePage editIcon"/>
                                 </SecondaryButton>
                             </div>
+
                             <div className="profilePage password">
                                 <text>Password: ● ● ● ● ●</text>
                                 <SecondaryButton
