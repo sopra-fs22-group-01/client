@@ -160,7 +160,7 @@ const Lobby = () => {
 
     if (users) {
         content = (
-            <div className="lobby ">
+            <div className="lobby">
 
                 {/*title*/}
                     <h1>Lobby {lobbyId}</h1>

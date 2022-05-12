@@ -7,8 +7,12 @@
  */
 
 .lobby {
-  width: 60%;
 
+  ul {
+    display: table;
+    margin: 0 auto;
+    text-align: left;
+  }
 
   h1{
     font-size: 3.5em;
@@ -28,33 +32,31 @@
 
 
   &.container {
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-
     width: 100%;
-    margin-top: 5em;
+
 /*    background-color: green;*/
   }
 
   &.user-list{
-    width: 100%;
+/*    background-color: red;*/
+    width: 800px;
+    margin-bottom: 20px;
   }
 
   &.grid-container{
-    width: 100%;
-
 
 /*    background-color: red;*/
     display: grid;
-    grid-template-columns: 400px 400px 400px;
+    grid-template-columns: 250px 250px 250px;
     grid-auto-rows: minmax(10px,auto);
     grid-row-gap: 50px;
     grid-column-gap: 0px;
-    justify-content: left; //puts grid into the center of the page
+    justify-content: center; //puts grid into the center of the page
     text-align: center;
   }
   &.grid-content1{
