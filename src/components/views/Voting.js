@@ -125,16 +125,15 @@ const Voting = () => {
         }
 
 
-        //starts countdown of next view (winner view)
+        //increments the vote count in backend (independent if super vote or normal vote, always +1)
         try{
-            await api.put(`/matches/${matchId}/countdown/roundwinners`)
+            await api.put(`/matches/${matchId}/synchronization`)
         }
         catch (error){
-            alert(`Something went wrong when starting the selection timer in the backend: \n${handleError(error)}`);
+            alert(`Something went wrong when incrementing the vote count in the backend: \n${handleError(error)}`);
         }
 
-        history.push(`/matches/${matchId}/winner/${userId}`);
-
+        history.push(`/matches/${matchId}/election/wait/${userId}`);
     };
 
     function replaceCharwithChar(str,old, new_chr) { // replaces in str at idx with chr
