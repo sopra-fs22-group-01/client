@@ -7,6 +7,8 @@ import 'styles/views/Registration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import {AiOutlineCheckCircle} from "react-icons/ai";
+import AiFillEye from 'react-icons/fa';
+import AiFillEyeInvisible from 'react-icons/fa';
 
 
 /*
@@ -24,6 +26,7 @@ const FormField = props => {
             <input
                 className="registration input"
                 value={props.value}
+                type={props.type}
                 onChange={e => props.onChange(e.target.value)}
             />
         </div>
@@ -41,10 +44,19 @@ const Registration = props => {
    // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
     const history = useHistory();
     const [password, setPassword] = useState(null);
+    const [passwordType, setPasswordType] = useState("password");
     const [username, setUsername] = useState(null);
     const [usernameAlreadyExists, setUsernameAlreadyExists]=useState(null);
 
     //in what order does the "Registration" run?
+
+    const togglePassword = () => {
+        if(passwordType === "password"){
+            setPasswordType("text")
+            return;
+        }
+        setPasswordType("password")
+    }
 
     const doRegistration = async () => {
         try {
@@ -84,9 +96,15 @@ const Registration = props => {
                     <FormField
                         label="Password:"
                         value={password}
+                        type={passwordType}
                         onChange={(n) => setPassword(n) }
                     />
-
+                    <button
+                        type="button"
+                        onClick={() => togglePassword()}
+                    >
+                        {passwordType === "password" ? "Show password" : "Hide Password"}
+                    </button>
                     <div className="registration button-container">
                         <PrimaryButton
                             disabled={!username || !password} //if no birthday or username is entered, button cant be clicked
