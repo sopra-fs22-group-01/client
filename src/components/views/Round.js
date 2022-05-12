@@ -43,6 +43,7 @@ const Round = () => {
     const {userId} = useParams();
     const {matchId} = useParams();
     const [timer, setTimer] = useState(null);
+    const [roundNumber,setRoundNumber]=useState(null);
 
 
 
@@ -95,7 +96,8 @@ const Round = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
-            try {//retrieves all user from specific match (gamecontroller)
+            try {
+                //retrieves all user from specific match (gamecontroller)
                 const response = await api.get(`/matches/${matchId}/users`);
                 // Get the returned users and update the state.
                 setUsers(response.data);
@@ -127,6 +129,17 @@ const Round = () => {
                 console.error(`Something went wrong while fetching your hand: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching your hand! See the console for details.");
+            }
+
+            try {
+                // retrieve round number
+                const roundNumberResponse = await api.get(`/matches/${matchId}/roundnumbers`)
+                setRoundNumber(roundNumberResponse.data)
+                console.log(roundNumberResponse);
+            } catch (error) {
+                console.error(`Something went wrong while fetching the round number: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the round number! See the console for details.");
             }
 
         }
@@ -161,8 +174,6 @@ const Round = () => {
         return () => clearInterval(t); // clear
     }, [clickedCard]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
                             // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
-
-
     let scoreboardContent = <Spinner/>;
     let cardContent = "nothing";
 
@@ -204,9 +215,13 @@ const Round = () => {
             <div className="round grid-container">
                 <div className="round grid-content1">
                     <ScoreBoard className="round scoreBoard">
-                        <h4>Score Board</h4>
+                        <h4>SCORE BOARD</h4>
                         {scoreboardContent}
                     </ScoreBoard>
+                    <div className="round roundNumber">
+                        <h3>ROUND NUMBER</h3>
+                        <h2>{roundNumber}</h2>
+                    </div>
                 </div>
                 <div className="round grid-content2">
                     <CardButton className="blackCard"

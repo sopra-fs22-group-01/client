@@ -23,14 +23,34 @@
   }
   &.grid-content1{
     /*background-color: blue;*/
+    display: flex;
+
   }
   &.scoreBoard{
-    cursor: default;
+
   }
+
+  &.roundNumber{
+    margin:10px;
+
+    font-size: 20px;
+    text-align: center;
+
+    width: 10em;
+    height: 6em;
+    border-radius: $borderRadiusItems; // rounded corner
+    background-color: $itemsColor;
+    color:white;
+  }
+
   &.grid-content2{
     /*background-color: #490b96;*/
   }
   &.grid-content3{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
     /*background-color: #6c0b96;*/
   }
   &.grid-content4{
@@ -40,25 +60,14 @@
   }
 
 
-  &.user-list {
-    list-style: none;
-    padding-left: 0;
-  }
-  &.card-list {
-    list-style: none;
-    padding-left: 0;
-  }
-  &.user-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
   & p,h2 {
     margin: 0.5em 0;
   }
   &.cards{
 /*    background-color: red;*/
+  }
+  & h3{
+    font-size: 0.9em;
   }
 
   &.scoreBoardPlayers{
@@ -66,9 +75,12 @@
   }
 
   &.timer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
 
-    background-color: black; // color of button aka card
-    border: 3px solid white; // width: 3px, style: solid, color: white
+    background-color: $itemsColor;
     padding: 15px;
     font-weight: bold;
     font-size: 3em;
@@ -76,8 +88,7 @@
 
     width: 100px;
     height: 100px;
-    border-radius: 0.5em; // rounded corner
-    margin-left: 3em;
+    border-radius: $borderRadiusItems; // rounded corner
     margin-top: 1em;
   }
 

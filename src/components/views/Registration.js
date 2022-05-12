@@ -42,6 +42,7 @@ const Registration = props => {
     const history = useHistory();
     const [password, setPassword] = useState(null);
     const [username, setUsername] = useState(null);
+    const [usernameAlreadyExists, setUsernameAlreadyExists]=useState(null);
 
     //in what order does the "Registration" run?
 
@@ -62,7 +63,8 @@ const Registration = props => {
             // Login successfully worked --> navigate to the route /game in the GameRouter
             history.push(`/users/profile/${user.id}`);
         } catch (error) {
-            alert(`Something went wrong during the registration: \n${handleError(error)}`);
+            setUsernameAlreadyExists("Username already exists!")
+            /*alert(`Something went wrong during the registration: \n${handleError(error)}`);*/
         }
     };
 
@@ -70,11 +72,15 @@ const Registration = props => {
         <BaseContainer>
             <div className="registration container">
                 <div className="registration form">
+                    <div className="registration usernameExists">
+                            {usernameAlreadyExists}
+                    </div>
                     <FormField
                         label="Username:"
                         value={username}
                         onChange={un => setUsername(un)}
                     />
+
                     <FormField
                         label="Password:"
                         value={password}

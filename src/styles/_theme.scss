@@ -11,6 +11,7 @@ $accent: #97ABFF;
 $accentDark: #123597;
 $textColor: white;
 $background: black;
+$itemsColor:#242624;
 
 /* some constants */
 
@@ -28,6 +29,7 @@ $fontMono: "Roboto Mono", monospace;
 $dropShadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
 
 $borderRadius: 2em;
+$borderRadiusItems:7px;
 
 /* mixins
   these allow you to create small snippets that you can insert with a one-liner in other stylesheets

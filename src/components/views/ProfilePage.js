@@ -167,7 +167,7 @@ const ProfilePage = () => {
                         <img className="profilePage icon" src={profileIcon} alt=""/>
                         <div className="profilePage infos">
                             <div className="profilePage username">
-                                <text>Username:</text>
+                                <text>Username: </text>
                                 {user.username}
                                 <SecondaryButton
                                     disabled={!(user.token === localStorage.getItem(`token`))}
@@ -175,6 +175,7 @@ const ProfilePage = () => {
                                     <MdOutlineEdit className="profilePage editIcon"/>
                                 </SecondaryButton>
                             </div>
+
                             <div className="profilePage password">
                                 <text>Password: ● ● ● ● ●</text>
                                 <SecondaryButton

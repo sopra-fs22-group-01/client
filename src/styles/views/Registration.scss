@@ -6,6 +6,9 @@
     margin-top: 15px;
     text-align: center;
   }
+  h2{
+
+  }
 
 
   /* Since Link get's transpiled to an <a>, you can use css to style all <a> and change all links color  and text alligns*/
@@ -42,6 +45,14 @@
     transition: opacity 0.5s ease, transform 0.5s ease;
     box-shadow: $dropShadow;
     text-align: left;
+  }
+
+  &.usernameExists{
+    text-align: center;
+    color:#7a0c0c;
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 15px;
   }
 
   /*this is the field from  login field defined in login.js as template on top of the file*/

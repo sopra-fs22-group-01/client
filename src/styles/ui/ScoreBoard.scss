@@ -1,27 +1,22 @@
 @import 'styles/scoreBoardBase';
+@import 'styles/theme';
 
 .scoreBoard{
 
-  margin-left: 10px; // was auto before
-  margin-right: 650px; // maybe possible without hardcoding? (makes scoreboard go to left)
-  margin-bottom: 10px;
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items:start;
 
-  padding: 15px; //distance left of text
+  margin:10px;
+  padding: 15px; //distance
   font-weight: 200;
-  //text-transform: capitalize;
   font-size: 20px;
-  vertical-align: center; // aligns the card, not text
   text-align: left;
+  min-width: 10em;
 
-  display: inline-block;
-  width: 10em;
-  border: 3px solid white;
-  border-radius: $borderRadius; // rounded corner
-  cursor: pointer;
-  opacity: 1;
-  color: $background;
-  background-color: $accent;
-  transition: all 0.3s ease;
-
+  border: none;
+  border-radius: $borderRadiusItems;
+  background-color: $itemsColor;
+  color:white;
 }
