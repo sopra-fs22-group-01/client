@@ -4,7 +4,7 @@ import {Spinner} from 'components/ui/Spinner';
 import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
-import "styles/views/ProfilePage.scss";
+import "styles/views/LobbiesPage.scss";
 import profileIcon from 'images/profileIcon1.png';
 import {MdOutlineEdit} from "react-icons/md";
 import {SecondaryButton} from "../ui/SecondaryButton";

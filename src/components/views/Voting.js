@@ -91,6 +91,7 @@ const Voting = () => {
     };
 
     const voteAndStartCountdown = async() => {
+        //if no card chosen, vote goes to no-one
         let ownerId = null;
         if (clickedCard.text === "X"){
             ownerId = -1;
@@ -101,6 +102,7 @@ const Voting = () => {
         }
         //console.log("OWNER ID:", ownerId);
 
+        //supervote
         if (usedLaugh.toString() === "true"){
             try{
                 //const ownerId = clickedCard.owner.id
@@ -114,6 +116,7 @@ const Voting = () => {
             }
 
         }
+        //normalvote
         else{
             try {//adds a point to the clicked card (every user does this)
                 //const ownerId = clickedCard.owner.id

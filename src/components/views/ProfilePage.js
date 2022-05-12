@@ -186,27 +186,28 @@ const ProfilePage = () => {
                             </div>
 
                 {/*-------------------LOGOUT----------------------------------------------------------------*/}
-                            <PrimaryButton className="profilePage logout_button"
-                                disabled={!(user.token === localStorage.getItem(`token`))}
-                                onClick={() => history.push(`/lobbies/players/${userId}`)}
-                            >
-                                to the lobbies
-                            </PrimaryButton>
+                            <div className="profilePage button-container">
+                                <PrimaryButton className="profilePage lobbies_button"
+                                               disabled={!(user.token === localStorage.getItem(`token`))}
+                                               onClick={() => history.push(`/lobbies/players/${userId}`)}
+                                >
+                                    Lobbies
+                                </PrimaryButton>
 
-                            <div className="joinLobby button-container">
-                            <PrimaryButton className="profilePage logout_button"
-                                           disabled={!(user.token === localStorage.getItem(`token`))}
-                                           onClick={() => logout()}
-                            >
-                                Logout
-                            </PrimaryButton>
-                            <PrimaryButton className="profilePage logout_button"
-                                           disabled={(user.token === localStorage.getItem(`token`))}
-                                           onClick={() => history.goBack()}
-                            >
-                                back
-                            </PrimaryButton>
+                                <PrimaryButton className="profilePage logout_button"
+                                               disabled={!(user.token === localStorage.getItem(`token`))}
+                                               onClick={() => logout()}
+                                >
+                                    Logout
+                                </PrimaryButton>
+                                <PrimaryButton className="profilePage back_button"
+                                               disabled={(user.token === localStorage.getItem(`token`))}
+                                               onClick={() => history.goBack()}
+                                >
+                                    back
+                                </PrimaryButton>
                             </div>
+
                         </div>
                     </div>
 

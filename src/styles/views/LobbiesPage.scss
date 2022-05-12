@@ -76,19 +76,10 @@
   &.username{
   }
 
-//
+
   &.lobbyListContainer {
     margin-top: 15px;
     text-align: center;
-  }
-  //
-
-  &.button-container{
-    flex-direction: row;
-
-    margin-top: 35px;
-    /*background-color: red;*/
-    padding:5px
   }
 
   &.logout_button{
@@ -96,36 +87,21 @@
       display: none;
     }
 
-    min-width: 200px;
     margin-top: 10px;
     padding-top: 12px;
     font-size: 1em;
   }
-
   &.lobbies_button{
     &:disabled {
       display: none;
     }
 
-    min-width: 200px;
-    margin-top: 10px;
-    padding-top: 12px;
-    font-size: 1em;
-  }
-
-  &.back_button{
-    &:disabled {
-      display: none;
-    }
-
-    min-width: 200px;
     margin-top: 10px;
     padding-top: 12px;
     font-size: 1em;
   }
 
 
-  //
   /*this are the buttons to get to the different lobbies*/
   &.lobbyButton{
     margin-right: 10px;

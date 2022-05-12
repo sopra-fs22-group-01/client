@@ -83,9 +83,7 @@ const Round = () => {
         catch (error){
             alert(`Something went wrong when starting the voting timer in the backend: \n${handleError(error)}`);
         }
-
         history.push(`/matches/${matchId}/election/${userId}`);
-
     };
 
 
