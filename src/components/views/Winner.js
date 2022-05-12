@@ -39,21 +39,6 @@ const Winner = () => {
     const {matchId} = useParams();
     const [timer, setTimer] = useState(15);
 
-    const exit = async () => {
-        try {
-            let currentToken = localStorage.getItem('token');
-
-            const response = await api.put(`/logout/?token=${currentToken}`)
-
-            localStorage.removeItem('token');
-            history.push('/login');
-        } catch (error) {
-            alert(`Something went wrong during the logout: \n${handleError(error)}`);
-        }
-        localStorage.removeItem('token');
-        history.push('/users/login');
-    }
-
 
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
@@ -94,6 +79,18 @@ const Winner = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the scores! See the console for details.");
             }
+
+            try {
+                //updates player scores
+                const blackCard_response = await api.put(`/matches/${matchId}/scores`)
+                setBlackCard(blackCard_response.data);
+                console.log(blackCard_response);
+            } catch (error) {
+                console.error(`Something went wrong while updating  the player scores: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while updating the player scores! See the console for details.");
+            }
+
 
         }
         fetchData();

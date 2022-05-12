@@ -11,7 +11,7 @@ const EndOfRound = props => {
     const nextStep = async () => {
         try {
             // starts next round, or end Match if we're on the last round
-            const response = await api.put(`/matches/${matchId}/rounds`)
+            const response = await api.get(`/matches/${matchId}/rounds`)
             console.log(response)
             if (response.data === "MatchOngoing"){
                 try{
@@ -34,26 +34,11 @@ const EndOfRound = props => {
 
     useEffect( () =>{
         async function fetchData() {
-            try{ // create new Match using lobbyId (matchId receives same id) (gamecontroller)
-
-                const apiStatusResponse = await api.get(`/matches/${matchId}/synchronization`); //gets synchronization status
-                console.log("Current apiStatus:")
-                console.log(apiStatusResponse.data);
-
-                if(apiStatusResponse.data === "COMPLETE" ){
-
-                    //sends put request to backend to set chosenCard in backend and makes history.push to election
-                    await nextStep();
-                }
-            }
-            catch(error){
-                console.error(`Something went wrong while fetching the apiStatus: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the apiStatus! See the console for details.");
-            }
+            await nextStep();
         }
-        const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching  data
-        return () => clearInterval(t); // clear
+        /*const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching  data
+        return () => clearInterval(t); // clear*/
+        fetchData();
     }, []);
 
     return (
