@@ -60,7 +60,7 @@ const Login = props => {
 
             // Get the returned user and update a new object.
             const user = new User(response.data);
-            console.log(response.data);
+            // console.log(response.data);
 
             // Store the token into the local storage.
             localStorage.setItem('token', user.token);

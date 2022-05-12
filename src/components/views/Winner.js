@@ -52,7 +52,7 @@ const Winner = () => {
                 const response = await api.get(`/matches/${matchId}/users`);
                 // Get the returned users and update the state.
                 setUsers(response.data);
-                console.log(response);
+                // console.log(response);
             } catch (error) {
                 console.error(`Something went wrong while fetching the users of this specific match: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -63,7 +63,7 @@ const Winner = () => {
                 //retrieves blackCard
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
                 setBlackCard(blackCard_response.data);
-                console.log(blackCard_response);
+                // console.log(blackCard_response);
             } catch (error) {
                 console.error(`Something went wrong while fetching the blackcard: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -74,7 +74,7 @@ const Winner = () => {
                 // retrieve winner cards
                 const roundWinnerResponse = await api.get(`/matches/${matchId}/winner`) ///matches/0/hands/1
                 setScores(roundWinnerResponse.data)
-                console.log(roundWinnerResponse);
+                // console.log(roundWinnerResponse);
             } catch (error) {
                 console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -94,7 +94,7 @@ const Winner = () => {
                 // retrieve round number
                 const roundNumberResponse = await api.get(`/matches/${matchId}/roundnumbers`)
                 setRoundNumber(roundNumberResponse.data)
-                console.log(roundNumberResponse);
+                // console.log(roundNumberResponse);
             } catch (error) {
                 console.error(`Something went wrong while fetching the round number: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -121,7 +121,7 @@ const Winner = () => {
                 //and needs some time to restart
 
                 if(timeResponse.data === 0){
-                    console.log("clicked card when timer == 0:")
+                    // console.log("clicked card when timer == 0:")
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
                     history.push(`/matches/${matchId}/round/end/${userId}`);
                 }

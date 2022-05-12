@@ -35,8 +35,8 @@ const MatchRanking = () => {
                 //retrieves the ranking
                 const response = await api.get(`/matches/${matchId}/scores`);
                 setRanking(response.data);
-                console.log("Success Fetch Scores")
-                console.log(response);
+                // console.log("Success Fetch Scores")
+                // console.log(response);
             } catch (error) {
                 alert("Something went wrong while fetching the ranking for this specific match! See the console for details.");
                 console.log("Error Fetch Scores", error)

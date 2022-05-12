@@ -81,8 +81,9 @@ const Voting = () => {
 
     const selectCard = async(card) => {
         try {
+            /*
             console.log("SELECT CARD")
-            console.log(card)
+            console.log(card)*/
             setClickedCard(card)
 
         } catch (error) {
@@ -95,7 +96,7 @@ const Voting = () => {
         let ownerId = null;
         if (clickedCard.text === "X"){
             ownerId = -1;
-            console.log("SET OWNER TO -1")
+            // console.log("SET OWNER TO -1")
         }
         else{
             ownerId = clickedCard.owner.id;
@@ -107,10 +108,10 @@ const Voting = () => {
             try{
                 //const ownerId = clickedCard.owner.id
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
-                console.log("VOTED 1/2 X")
+                // console.log("VOTED 1/2 X")
 
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
-                console.log("VOTED 2X")
+                // console.log("VOTED 2X")
             }catch (error) {
                 alert(`Something went wrong with supervoting the card: \n${handleError(error)}`);
             }
@@ -121,7 +122,7 @@ const Voting = () => {
             try {//adds a point to the clicked card (every user does this)
                 //const ownerId = clickedCard.owner.id
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
-                console.log("VOTED 1X")
+                // console.log("VOTED 1X")
 
             } catch (error) {
                 alert(`Something went wrong with voting the card: \n${handleError(error)}`);
@@ -146,7 +147,7 @@ const Voting = () => {
         const idx = str.indexOf(old);
 
         const text = str.substring(0,idx) + "\""+  cleanedWhite + "\" "+ str.substring((idx+old.length)+1);
-        //console.log("WEBSPEECH TEXT", text);
+        // console.log("WEBSPEECH TEXT", text);
         return text;
 
     }
@@ -165,7 +166,7 @@ const Voting = () => {
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get the returned users and update the state.
                 setUsers(response.data);
-                console.log(response);
+                // console.log(response);
             } catch (error) {
                 console.error(`Something went wrong while fetching the users of this specific match: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -180,7 +181,7 @@ const Voting = () => {
                 // feel free to remove it :)
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 setBlackCard(blackCard_response.data);
-                console.log(blackCard_response);
+                // console.log(blackCard_response);
             } catch (error) {
                 console.error(`Something went wrong while fetching the blackcard: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -201,7 +202,7 @@ const Voting = () => {
                 // retrieve round number
                 const roundNumberResponse = await api.get(`/matches/${matchId}/roundnumbers`)
                 setRoundNumber(roundNumberResponse.data)
-                console.log(roundNumberResponse);
+                // console.log(roundNumberResponse);
             } catch (error) {
                 console.error(`Something went wrong while fetching the round number: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -225,8 +226,8 @@ const Voting = () => {
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
                 if(timeResponse.data === 0 /*&& clickedCard.text != "X"*/){
-                    console.log("clicked card when timer == 0:")
-                    console.log(clickedCard)
+                    /*console.log("clicked card when timer == 0:")
+                    console.log(clickedCard)*/
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
                     await voteAndStartCountdown();
                 }
