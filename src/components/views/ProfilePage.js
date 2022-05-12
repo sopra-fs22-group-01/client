@@ -64,50 +64,7 @@ const ProfilePage = () => {
         history.push('/users/login');
     }
 
-    const createNewLobby = async () => {
-        try {
-            const response = await api.post(`/lobbies/`);
 
-        } catch (error) {
-            alert(`Something went wrong when creating a new lobby: \n${handleError(error)}`);
-        }
-    };
-
-    const addUserLobby = async (lobbyId) => {
-        try {
-            const response = api.post(`/lobbies/${lobbyId}/lists/players/${userId}`);
-            history.push(`/lobbies/${lobbyId}/players/${userId}`);
-
-
-        } catch (error) {
-            alert(`Something went wrong when creating a new lobby: \n${handleError(error)}`);
-        }
-    };
-
-
-    const hasMatch = async (lobbyId) => {
-        try {
-            const response = api.get(`/matches/${lobbyId}/status`);
-            const status = (await response).data;
-            console.log("MATCH STATUS", lobbyId)
-            console.log(status)
-            /*
-                        if (status === "NotYetCreated"){
-                            console.log("FALSEE")
-                            setHasMatchVar(false)
-
-                        }
-                        else{
-                            console.log("TRUEE")
-                            setHasMatchVar(true)
-
-                        }*/
-
-            return status.toString();
-        } catch (error) {
-            alert(`Something went wrong fetching MatchStatus: \n${handleError(error)}`);
-        }
-    };
 
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted

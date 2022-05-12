@@ -37,6 +37,8 @@ const LoadingPage = props => {
             catch (error){
                 alert(`Something went wrong when resetting the ReadyStatus in the backend: \n${handleError(error)}`);
             }
+
+
             //because the id of the match is the same as the id of the lobby
             history.push(`/matches/${lobbyId}/hand/${userId}`)
 

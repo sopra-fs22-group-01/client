@@ -15,19 +15,18 @@ const MatchRanking = () => {
 
 
 
-    const exit = async () => {
-        try {
-            let currentToken = localStorage.getItem('token');
 
-            const response = await api.put(`/logout/?token=${currentToken}`)
 
-            localStorage.removeItem('token');
-            history.push('/login');
-        } catch (error) {
-            alert(`Something went wrong during the logout: \n${handleError(error)}`);
+    const resetPlayerScoreAndGetToLobbies = async () => {
+        try{
+            //resets the Score of the user, so after the game, when joining a new game, the score will be back to 0
+            await api.delete(`/users/${userId}/scores`)
         }
-        localStorage.removeItem('token');
-        history.push('/users/login');
+        catch (error){
+            alert(`Something went wrong when resetting the users score in the backend: \n${handleError(error)}`);
+        }
+        history.push(`/lobbies/players/${userId}`)
+
     }
 
     useEffect(() => {
@@ -67,9 +66,9 @@ const MatchRanking = () => {
                 <div className="startpage button-container">
                     <PrimaryButton
                         //onClick={() => history.push(`/users/profile/${userId}`)}
-                        onClick={() => history.push(`/users/profile/${userId}`)}
+                        onClick={() => resetPlayerScoreAndGetToLobbies()}
                     >
-                        Profilepage
+                        back to lobbies
                     </PrimaryButton>
                 </div>
             </div>
