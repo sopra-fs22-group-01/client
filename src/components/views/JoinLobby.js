@@ -4,7 +4,7 @@ import {Spinner} from 'components/ui/Spinner';
 import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
-import "styles/views/LobbiesPage.scss";
+import "styles/views/JoinLobby.scss";
 import profileIcon from 'images/profileIcon1.png';
 import {MdOutlineEdit} from "react-icons/md";
 import {SecondaryButton} from "../ui/SecondaryButton";
@@ -158,52 +158,41 @@ const JoinLobby = () => {
 
     if (user) {
         content = (
-            <BaseContainer className="profilePage base-container">
+            <BaseContainer className="joinLobby base-container">
 
-                    <div className="joinLobby profile_info_frame">
+                <div className="joinLobby titleContainer">
+                    <h1>Create or join a lobby, {user.username} !</h1>
+                </div>
 
-                        <div className="profilePage titleContainer">
-                            <h1>Create or join a lobby, {user.username} !</h1>
-                        </div>
-                        {/*<img className="profilePage icon" src={profileIcon} alt=""/>*/}
-
-                    </div>
-
-                    <div className="profilePage lobbyListContainer">
-                        <h2>Choose a lobby:</h2>
-                        <ul className="profilePage lobbyList">
-                            {lobbies.map((lobbyModel, d) => (
-                                <button className="profilePage lobbyButton"
-                                        onClick={() => addUserLobby(lobbyModel.id)}
-                                        disabled={!(user.token === localStorage.getItem(`token`))}
-                                >
-                                    <LobbyObject lobbyModel={lobbyModel}/>
-                                </button>
-                            ))}
-                        </ul>
-                    </div>
-                    <PrimaryButton className="profilePage create_new_lobby"
+                <div className="joinLobby lobbyListContainer">
+                    <h2>Choose a lobby:</h2>
+                    <ul className="joinLobby lobbyList">
+                        {lobbies.map((lobbyModel, d) => (
+                            <button className="joinLobby lobbyButton"
+                                    onClick={() => addUserLobby(lobbyModel.id)}
+                                    disabled={!(user.token === localStorage.getItem(`token`))}
+                            >
+                                <LobbyObject lobbyModel={lobbyModel}/>
+                            </button>
+                        ))}
+                    </ul>
+                </div>
+                <div className="joinLobby button-container">
+                    <PrimaryButton className="joinLobby new_lobby_button"
                                    onClick={() => createNewLobby()}
                                    disabled={!(user.token === localStorage.getItem(`token`))}
                     >
-                        Create new lobby
+                        New lobby
                     </PrimaryButton>
 
-                    <div className="joinLobby button-container">
+                    <PrimaryButton className="joinLobby logout_button"
+                                   disabled={!(user.token === localStorage.getItem(`token`))}
+                                   onClick={() => logout()}
+                    >
+                        Logout
+                    </PrimaryButton>
 
-                        <PrimaryButton className="joinLobby logout_button"
-                                       disabled={!(user.token === localStorage.getItem(`token`))}
-                                       onClick={() => logout()}
-                        >
-                            Logout
-                        </PrimaryButton>
-                        <PrimaryButton className="joinLobby logout_button"
-                            //disabled={!(user.token === localStorage.getItem(`token`))}
-                                       onClick={() => history.goBack()}
-                        >
-                            back
-                        </PrimaryButton>
-                    </div>
+                </div>
 
             </BaseContainer>
         );
