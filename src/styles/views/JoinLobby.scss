@@ -21,7 +21,7 @@
   }
   h2{
     font-size: 2em;
-    color: darkgray;
+    color: white;
   }
 
   a{
@@ -35,22 +35,10 @@
   }
 
 
-  &.profile_info_frame{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    width:40%;
-    //outline-style: dashed;
-    outline-color: #999999;
-    padding-bottom: 20px;
-    border-radius: 2em;
-  }
-
   &.titleContainer {
     font-size: 3.5em;
     font-weight: bold;
+    text-align: center;
   }
   &.icon{
     height: 7.5em;
@@ -62,14 +50,6 @@
   &.editIcon{
     height: 1em;
     width: 1em;
-  }
-
-  &.button_container{
-    margin:1em;
-    flex-direction: row;
-    width: 100%;
-    background-color: $background;
-
   }
 
 
@@ -86,51 +66,53 @@
 
 
   &.lobbyListContainer {
-    margin-top: 15px;
     text-align: center;
+    /*background-color: red;*/
+  }
+
+  &.lobbyList{
+    /*background-color: blue;*/
+    padding-left: 0;
+  }
+
+  &.button-container{
+    /*background-color: red;*/
   }
 
   &.logout_button{
     &:disabled {
-      opacity: 0;
+      display: none;
     }
 
+    min-width: 220px;
     margin-top: 10px;
-    padding-top: 12px;
-    font-size: 1em;
+    padding: 10px;
+    font-size: 2em;
+  }
+  &.new_lobby_button{
+    &:disabled {
+      display: none;
+    }
+
+    min-width: 220px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 2em;
   }
 
-  &.create_new_lobby{
-    &:disabled {
-      opacity: 0;
-    }
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-right: 0;
-  }
 
   /*this are the buttons to get to the different lobbies*/
   &.lobbyButton{
-    margin-right: 10px;
-    border-radius: 1em;
-    border-width: 0.3em;
-    font-size: 1.3em;
+    border-radius: $borderRadiusItems;
+    border:none;
+    font-size: 1.5em;
     padding: 1em;
-    background-color: #999999;
+    background-color: $itemsColor;
+    color:white;
+    margin:5px;
     &:hover {
       transform: translateY(-2px);
-      background-color: whitesmoke;
-    }
-    &:disabled {
-      cursor: default;
-      opacity: 0.0;
-
-      &:hover {
-        transform: none;
-        background-color: white;
-      }
+      background-color: $itemsColorBrighter;
     }
   }
 
