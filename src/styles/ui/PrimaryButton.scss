@@ -14,18 +14,7 @@
     }
   }
 
-  &.small_version {
-    cursor: default;
-    //opacity: 0.4;
-    &:hover {
-      opacity: 1;
-    }
-    &:disabled {
-      opacity: 0;
-    }
 
-    font-size: 1.5em;
-  }
   &.disappear_version {
     &:hover {
       opacity: 1;
