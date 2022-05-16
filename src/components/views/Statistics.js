@@ -4,13 +4,8 @@ import {Spinner} from 'components/ui/Spinner';
 import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
-import "styles/views/ProfilePage.scss";
-import profileIcon from 'images/profileIcon1.png';
-import {MdOutlineEdit} from "react-icons/md";
-import {SecondaryButton} from "../ui/SecondaryButton";
-import LobbyModel from "../../models/LobbyModel";
+import "styles/views/Statistics.scss";
 import PropTypes from "prop-types";
-import User from "../../models/User";
 
 
 const LobbyObject = ({lobbyModel}) => (
@@ -96,25 +91,25 @@ const Statistics = () => {
 
     if (user) {
         content = (
-            <BaseContainer className="profilePage base-container">
+            <BaseContainer className="statistics base-container">
 
 
-                <div className="profilePage titleContainer">
+                <div className="statistics titleContainer">
                     <h1>Statistics</h1>
                 </div>
-                <div className="profilePage infos">
+                <div className="statistics infos">
                     <ul> Overall wins: </ul>
                     <ul> Played games: </ul>
                     <ul> Win/Loose ratio: </ul>
 
-                    <div className="profilePage button-container">
-                        <PrimaryButton className="profilePage logout_button"
+                    <div className="statistics button-container">
+                        <PrimaryButton className="statistics logout_button"
                                        disabled={!(user.token === localStorage.getItem(`token`))}
                                        onClick={() => logout()}
                         >
                             Logout
                         </PrimaryButton>
-                        <PrimaryButton className="profilePage back_button"
+                        <PrimaryButton className="statistics back_button"
                                        onClick={() => history.goBack()}
                         >
                             Back
