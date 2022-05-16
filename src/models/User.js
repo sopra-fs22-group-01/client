@@ -14,6 +14,7 @@ class User {
     this.isReady = null;
 
     this.customWhiteText = null;
+    this.superVote = null;
 
 
     this.birthday = null;
