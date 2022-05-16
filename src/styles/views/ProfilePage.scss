@@ -95,6 +95,17 @@
     font-size: 1em;
   }
 
+  &.statistics_button{
+    &:disabled {
+      display: none;
+    }
+
+    min-width: 200px;
+    margin-top: 10px;
+    padding-top: 12px;
+    font-size: 1em;
+  }
+
   &.back_button{
     &:disabled {
       display: none;
