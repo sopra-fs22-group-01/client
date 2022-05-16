@@ -151,7 +151,7 @@ const ProfilePage = () => {
                             Lobbies
                         </PrimaryButton>
                         <PrimaryButton className="profilePage statistics_button"
-                                       onClick={() => history.push(`/lobbies/players/${userId}`)}
+                                       onClick={() => history.push(`/users/profile/statistics/${userId}`)}
                         >
                             Statistics
                         </PrimaryButton>
