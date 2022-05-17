@@ -80,8 +80,8 @@ const Statistics = () => {
                     <h1>Statistics</h1>
                 </div>
                 <div className="statistics infos">
-                    <ul> Overall wins: </ul>
-                    <ul> Played games: </ul>
+                    <ul> Overall wins: {user.overallWins}</ul>
+                    <ul> Played games: {user.playedGames}</ul>
                     <ul> Win/Loss ratio: </ul>
 
                     <div className="statistics button-container">

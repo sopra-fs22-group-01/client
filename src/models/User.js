@@ -15,6 +15,9 @@ class User {
 
     this.customWhiteText = null;
 
+    this.overallWins = null;
+    this.playedGames = null;
+
 
     this.birthday = null;
     Object.assign(this, data);
