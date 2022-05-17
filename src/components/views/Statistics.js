@@ -82,7 +82,7 @@ const Statistics = () => {
                 <div className="statistics infos">
                     <ul> Overall wins: {user.overallWins}</ul>
                     <ul> Played games: {user.playedGames}</ul>
-                    <ul> Win/Loss ratio: </ul>
+                    <ul> Win/Loss ratio: {user.overallWins/ (user.playedGames - user.overallWins)}</ul>
 
                     <div className="statistics button-container">
                         <PrimaryButton className="statistics logout_button"
