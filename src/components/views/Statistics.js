@@ -8,24 +8,6 @@ import "styles/views/Statistics.scss";
 import PropTypes from "prop-types";
 
 
-const LobbyObject = ({lobbyModel}) => (
-    <div className="lobbyObject container">
-        <div className="lobbyObject id">
-            LobbyID:
-            {lobbyModel.id}
-        </div>
-        <div className="lobbyObject playerCount">
-            Players:
-            {lobbyModel.currentPlayerCount}
-        </div>
-    </div>
-);
-
-LobbyObject.propTypes = {
-    lobby: PropTypes.object
-};
-
-
 const Statistics = () => {
     // use react-router-dom's hook to access the history
 
@@ -100,7 +82,7 @@ const Statistics = () => {
                 <div className="statistics infos">
                     <ul> Overall wins: </ul>
                     <ul> Played games: </ul>
-                    <ul> Win/Loose ratio: </ul>
+                    <ul> Win/Loss ratio: </ul>
 
                     <div className="statistics button-container">
                         <PrimaryButton className="statistics logout_button"
