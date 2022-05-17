@@ -60,10 +60,12 @@ const Voting = () => {
                 // update user with userPutDTO -> decrease superVote
                 const requestBody = JSON.stringify(
                     {
-                        "id":user.id,
+                        "id":userId,
                         "superVote": user.superVote-1
                     });
                 await api.put(`/users/${userId}`, requestBody);
+                console.log("USERPUTDTO FOR SUPERVOTE FOR ", user.username)
+                console.log(user.username, "'s UsedLaugh: ", usedLaugh)
 
             } catch (error) {
                 console.error(`Something went wrong while using up super vote: \n${handleError(error)}`);
@@ -73,6 +75,7 @@ const Voting = () => {
             try {
                 // change laughStatus
                 await api.put(`/matches/${matchId}/supervote/${userId}`);
+                console.log(user.username, " ACTIVATED LAUGH STATUS IN SERVER")
 
             } catch (error) {
                 console.error(`Something went wrong while casting your super vote: \n${handleError(error)}`);
@@ -112,6 +115,7 @@ const Voting = () => {
     };
 
     const voteAndStartCountdown = async() => {
+        console.log(user.username,"'s UsedLaugh: ", usedLaugh)
         //if no card chosen, vote goes to no-one
         let ownerId = null;
         if (clickedCard.text === "X"){
@@ -273,7 +277,6 @@ const Voting = () => {
                 //and needs some time to restart
                 if(laughResponse.data === "Laughing" /*&& clickedCard.text != "X"*/){
                     if (clickedCard.text !== "X") {
-                        setUsedLaugh(true);
                         audio.volume = 0.25;
                         audio.play();
                         // tell server this specific user heard a laugh
