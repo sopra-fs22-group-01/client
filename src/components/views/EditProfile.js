@@ -7,6 +7,8 @@ import 'styles/views/Login.scss';
 import 'styles/views/EditProfile.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import AiFillEye from 'react-icons/fa';
+import AiFillEyeInvisible from 'react-icons/fa';
 
 /*
 It is possible to add multiple components inside a single file,
@@ -23,6 +25,7 @@ const FormField = props => {
         <input
             className="editProfile input"
             value={props.value}
+            type={props.type}
             onChange={e => props.onChange(e.target.value)}
         />
       </div>
@@ -41,9 +44,18 @@ const EditProfile = () =>{
 
   const history = useHistory();
   const [password, setPassword] = useState(null);
+  const [passwordType, setPasswordType] = useState("password");
   const [username, setUsername] = useState(null);
   const [user, setUser] = useState(null);
   const {id} = useParams();
+
+  const togglePassword = () => {
+    if(passwordType === "password"){
+      setPasswordType("text")
+      return;
+    }
+    setPasswordType("password")
+  }
 
   const saveChanges = async () => {
 
@@ -112,12 +124,18 @@ const EditProfile = () =>{
                 value={username}
                 onChange={un => setUsername(un)}
             />
-
             <FormField
                 label="Change password:"
                 value={password}
+                type={passwordType}
                 onChange={pw => setPassword(pw)}
             />
+            <button
+                type="button"
+                onClick={() => togglePassword()}
+            >
+              {passwordType === "password" ? "Show password" : "Hide Password"}
+            </button>
             <div className="editProfile button-container">
               <PrimaryButton
                   width="100%"

@@ -7,7 +7,7 @@
   for more information visit https://sass-lang.com/guide
  */
 
-.profilePage {
+.statistics {
 
   &.base-container{
     display: flex;
@@ -39,18 +39,6 @@
     font-size: 3.5em;
     font-weight: bold;
   }
-  &.icon{
-    height: 7.5em;
-    width: 8em;
-    margin-bottom: 1em;
-    margin-top: 0em;
-  }
-
-  &.editIcon{
-    height: 1em;
-    width: 1em;
-  }
-
 
   &.infos {
     display: flex;
@@ -74,28 +62,6 @@
   }
 
   &.logout_button{
-    &:disabled {
-      display: none;
-    }
-
-    min-width: 200px;
-    margin-top: 10px;
-    padding-top: 12px;
-    font-size: 1em;
-  }
-
-  &.lobbies_button{
-    &:disabled {
-      display: none;
-    }
-
-    min-width: 200px;
-    margin-top: 10px;
-    padding-top: 12px;
-    font-size: 1em;
-  }
-
-  &.statistics_button{
     &:disabled {
       display: none;
     }

@@ -6,6 +6,9 @@ import {PrimaryButton} from 'components/ui/PrimaryButton';
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import AiFillEye from 'react-icons/fa';
+import AiFillEyeInvisible from 'react-icons/fa';
+import {SecondaryButton} from "../ui/SecondaryButton";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -22,6 +25,7 @@ const FormField = props => {
             <input
                 className="login input"
                 value={props.value}
+                type={props.type}
                 onChange={e => props.onChange(e.target.value)}
             />
         </div>
@@ -37,8 +41,17 @@ FormField.propTypes = {
 const Login = props => {
     const history = useHistory();
     const [password, setPassword] = useState(null);
+    const [passwordType, setPasswordType] = useState("password");
     const [username, setUsername] = useState(null);
     const [loginFailed,setLoginFailed]=useState(null);
+
+    const togglePassword = () => {
+        if(passwordType === "password"){
+            setPasswordType("text")
+            return;
+        }
+        setPasswordType("password")
+    }
 
 
     const doLogin = async () => {
@@ -79,8 +92,17 @@ const Login = props => {
                     <FormField
                         label="Password:"
                         value={password}
+                        type={passwordType}
                         onChange={n => setPassword(n)}
                     />
+                    <div className="login button-container_show_password">
+                    <SecondaryButton className="login show_password_button"
+                        type="button"
+                        onClick={() => togglePassword()}
+                    >
+                        {passwordType === "password" ? "Show password" : "Hide Password"}
+                    </SecondaryButton>
+                    </div>
                     <div className="login button-container">
                         <PrimaryButton
                             disabled={!username || !password} //if no password or username is entered, button cant be clicked

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Registration from "../../views/Registration";
 import ProfilePage from "../../views/ProfilePage";
 import Login from "../../views/Login";
+import Statistics from "../../views/Statistics";
 
 const UserRouter = props => {
     /**
@@ -21,6 +22,10 @@ const UserRouter = props => {
 
             <Route exact path={`${props.base}/profile/:userId`}>
                 <ProfilePage/>
+            </Route>
+
+            <Route exact path={`${props.base}/profile/statistics/:userId`}>
+                <Statistics/>
             </Route>
 
         </div>
