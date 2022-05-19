@@ -219,7 +219,8 @@ const Lobby = () => {
                                     <b>Your current custom card</b>
                                     <div>______________________</div>
 
-                                    <CardButton disabled={true}>
+                                    <CardButton  className="lobby custom_white_card"
+                                        disabled={true}>
                                         {user.customWhiteText}
                                     </CardButton>
                                 </>}
