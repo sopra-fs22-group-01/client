@@ -85,12 +85,7 @@ const Statistics = () => {
                     <ul> Win/Loss ratio: {user.overallWins/ (user.playedGames - user.overallWins)}</ul>
 
                     <div className="statistics button-container">
-                        <PrimaryButton className="statistics logout_button"
-                                       disabled={!(user.token === localStorage.getItem(`token`))}
-                                       onClick={() => logout()}
-                        >
-                            Logout
-                        </PrimaryButton>
+
                         <PrimaryButton className="statistics back_button"
                                        onClick={() => history.goBack()}
                         >

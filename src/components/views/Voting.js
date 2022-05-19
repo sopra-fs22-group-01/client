@@ -115,7 +115,7 @@ const Voting = () => {
     };
 
     const voteAndStartCountdown = async() => {
-        console.log(user.username,"'s UsedLaugh: ", usedLaugh)
+
         //if no card chosen, vote goes to no-one
         let ownerId = null;
         if (clickedCard.text === "X"){

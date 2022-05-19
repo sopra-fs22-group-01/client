@@ -105,7 +105,7 @@ const Lobby = () => {
         } catch (error) {
             alert(`Something went wrong during the deletion of the player from the lobby list: \n${handleError(error)}`);
         }
-        history.push(`/users/profile/${userId}`);
+        history.push(`/lobbies/players/${userId}`);
     }
 
 
