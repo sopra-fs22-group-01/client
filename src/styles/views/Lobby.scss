@@ -38,19 +38,21 @@
     align-items: center;
     text-align: center;
     width: 100%;
-
-/*    background-color: green;*/
+/*
+    background-color: green;*/
   }
 
   &.user-list{
-/*    background-color: red;*/
-    width: 800px;
+  /*  background-color: red;*/
+    width:100%;
+    margin-right: 0;
     margin-bottom: 20px;
+
   }
 
   &.grid-container{
 
-/*    background-color: red;*/
+/*    background-color: blue;*/
     display: grid;
     grid-template-columns: 250px 250px 250px;
     grid-auto-rows: minmax(10px,auto);
