@@ -45,6 +45,7 @@
     //opacity: 0.4;
     &:hover {
       opacity: 1;
+      transform: none;
     }
     color: white; // color of text
     background-color: black; // color of button aka card
@@ -56,10 +57,6 @@
   &.whiteCard {
     cursor: pointer;
     border: 3px solid black;
-
-    &:hover {
-      transform: none;
-    }
 
     color: black; // color of text
     background-color: white; // color of button aka card

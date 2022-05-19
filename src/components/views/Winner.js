@@ -136,7 +136,6 @@ const Winner = () => {
         return () => clearInterval(t); // clear
     }, []); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
-
     let whiteCardContent = null;
     let winnersContent = null;
 
@@ -145,6 +144,7 @@ const Winner = () => {
             <div className="round cards">
                 {scores.map(card => (
                     <CardButton className="cardButton whiteCard"
+                                disabled={true}
                     >
                         {card.text}
                     </CardButton>
