@@ -1,6 +1,7 @@
 @import 'styles/whiteCard';
 
-.card {
+.cardButton {
+
 
   // padding around the cards
   margin-left: auto;
@@ -28,9 +29,11 @@
     cursor: pointer;
   }
   &:disabled {
-    cursor: default;
-    opacity: 0.95;
+    opacity: 1;
+    background-color: white;
+    color:black;
     &:hover {
+      cursor:default;
       transform: none;
     }
   }

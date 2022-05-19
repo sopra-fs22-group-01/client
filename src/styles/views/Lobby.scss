@@ -92,7 +92,6 @@
     font-size: 1.5em;
   }
 
-
   &.game_rules{
     color:white;
   }
@@ -117,5 +116,11 @@
     margin-left: auto;
     margin-right: 2em;
 
+  }
+  &.whiteCard{
+    &:hover {
+      opacity: 1;
+      cursor: none;
+    }
   }
 }
