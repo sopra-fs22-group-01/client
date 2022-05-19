@@ -31,20 +31,17 @@
   }
 
 
-
   &.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 100%;
-/*
-    background-color: green;*/
+/*    background-color: green;*/
   }
 
   &.user-list{
-  /*  background-color: red;*/
+ /*   background-color: red;*/
     width:100%;
     margin-right: 0;
     margin-bottom: 20px;
@@ -52,10 +49,9 @@
   }
 
   &.grid-container{
-
 /*    background-color: blue;*/
     display: grid;
-    grid-template-columns: 250px 250px 250px;
+    grid-template-columns: 400px 400px 400px;
     grid-auto-rows: minmax(10px,auto);
     grid-row-gap: 50px;
     grid-column-gap: 0px;
@@ -63,8 +59,7 @@
     text-align: center;
   }
   &.grid-content1{
-
-/*    background-color: blue;*/
+/*    background-color: red;*/
   }
   &.grid-content2{
 /*    background-color: #490b96;*/

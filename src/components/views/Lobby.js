@@ -262,6 +262,7 @@ const Lobby = () => {
 
     return (
         <BaseContainer className="lobby container">
+
             {content}
         </BaseContainer>
     );
