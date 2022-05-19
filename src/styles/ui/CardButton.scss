@@ -23,26 +23,9 @@
   opacity: 1;
   transition: all 0.3s ease;
 
-  &:hover {
-    transform: translateY(-2px);
-    opacity: 0.8;
-    cursor: pointer;
-  }
-
-  &:disabled {
-    background-color: #383836;
-    color: black;
-    &:hover {
-      cursor:default;
-      transform: none;
-      opacity: 1;
-    }
-  }
-
 
   &.blackCard {
     cursor: default;
-    //opacity: 0.4;
     &:hover {
       opacity: 1;
       transform: none;
@@ -54,13 +37,40 @@
     vertical-align: text-top;
   }
 
-  &.whiteCard {
+  &.activeWhiteCard {
     cursor: pointer;
-    border: 3px solid black;
-
     color: black; // color of text
     background-color: white; // color of button aka card
     transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      opacity: 0.8;
+      cursor: pointer;
+    }
+
+    &:focus {
+      border: 8px;
+      border-style: dashed;
+      border-color: black;
+    }
+
+    &:disabled {
+      background-color: #383836;
+      color: black;
+
+      &:hover {
+        cursor: default;
+        transform: none;
+        opacity: 1;
+      }
+    }
   }
 
+  &.inActiveWhiteCard {
+
+    cursor: default;
+    color: black; // color of text
+    background-color: white; // color of button aka card
+  }
 }

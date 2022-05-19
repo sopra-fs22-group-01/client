@@ -342,7 +342,7 @@ const Voting = () => {
         cardContent = (
             <div className="voting cards">
                 {allChosenCards.map(card => (
-                    <CardButton
+                    <CardButton className="cardButton activeWhiteCard"
                         onClick={() => selectCard(card)}
                         disabled={(card.owner.id==user.id) || usedLaugh}
                     >

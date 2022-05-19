@@ -141,11 +141,9 @@ const Winner = () => {
 
     if (scores) {
         whiteCardContent = (
-            <div className="round cards">
+            <div>
                 {scores.map(card => (
-                    <CardButton className="cardButton whiteCard"
-                                disabled={true}
-                    >
+                    <CardButton className="cardButton inActiveWhiteCard">
                         {card.text}
                     </CardButton>
                 ))}
@@ -188,17 +186,6 @@ const Winner = () => {
                         {whiteCardContent}
                     </div>
                 </div>
-                {/*<div className="round grid-content6">
-                    <div className="round clickedCard">
-
-                    </div>
-                    <PrimaryButton
-                        onClick={() => nextStep()}
-                        //onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
-                    >
-                        next
-                    </PrimaryButton>
-                </div>*/}
             </div>
         </BaseContainer>
     );

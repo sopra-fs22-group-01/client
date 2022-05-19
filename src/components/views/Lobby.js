@@ -8,11 +8,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
 import "styles/ui/PopUp.scss";
-import {MdOutlineModeEditOutline} from "react-icons/ai";
-import {AiOutlineCheckCircle} from "react-icons/ai";
-import {BsCircle} from "react-icons/bs";
-import {BiCircle, BiCheckCircle} from "react-icons/bi";
-import user from "../../models/User";
+import "styles/ui/CardButton.scss"
 import {CardButton} from "../ui/CardButton";
 import {SecondaryButton} from "../ui/SecondaryButton";
 // test
@@ -217,8 +213,7 @@ const Lobby = () => {
                                     <b>Your current custom card</b>
                                     <div>______________________</div>
 
-                                    <CardButton  className="lobby custom_white_card"
-                                        disabled={true}>
+                                    <CardButton  className="cardButton inActiveWhiteCard">
                                         {user.customWhiteText}
                                     </CardButton>
                                 </>}
