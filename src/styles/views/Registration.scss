@@ -90,4 +90,14 @@
     justify-content: center;
     margin-top: 2em;
   }
+  &.button-container_show_password {
+    display: flex;
+    justify-content: center;
+  }
+  &.show_password_button {
+    background-color: #403d3d;
+    border-radius: 8px;
+    width: 40%;
+    color:gainsboro;
+  }
 }

@@ -1,6 +1,6 @@
 @import 'styles/whiteCard';
 
-.card {
+.cardButton {
 
   // padding around the cards
   margin-left: auto;
@@ -23,24 +23,12 @@
   opacity: 1;
   transition: all 0.3s ease;
 
-  &:hover {
-    opacity: 0.8;
-    cursor: pointer;
-  }
-  &:disabled {
-    cursor: default;
-    opacity: 0.95;
-    &:hover {
-      transform: none;
-    }
-  }
-
 
   &.blackCard {
     cursor: default;
-    //opacity: 0.4;
     &:hover {
       opacity: 1;
+      transform: none;
     }
     color: white; // color of text
     background-color: black; // color of button aka card
@@ -49,17 +37,40 @@
     vertical-align: text-top;
   }
 
-  &.whiteCard {
+  &.activeWhiteCard {
     cursor: pointer;
-    border: 3px solid black;
-
-    &:hover {
-      transform: none;
-    }
-
     color: black; // color of text
     background-color: white; // color of button aka card
     transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      opacity: 0.8;
+      cursor: pointer;
+    }
+
+    &:focus {
+      border: 8px;
+      border-style: dashed;
+      border-color: black;
+    }
+
+    &:disabled {
+      background-color: #383836;
+      color: black;
+
+      &:hover {
+        cursor: default;
+        transform: none;
+        opacity: 1;
+      }
+    }
   }
 
+  &.inActiveWhiteCard {
+
+    cursor: default;
+    color: black; // color of text
+    background-color: white; // color of button aka card
+  }
 }

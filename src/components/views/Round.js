@@ -172,6 +172,7 @@ const Round = () => {
         return () => clearInterval(t); // clear
     }, [clickedCard]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
                             // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
+
     let scoreboardContent = <Spinner/>;
     let cardContent = "nothing";
 
@@ -194,7 +195,7 @@ const Round = () => {
             <div className="round cards">
 
                 {cards.map(card => (
-                    <CardButton className="card whiteCard"
+                    <CardButton className="cardButton activeWhiteCard"
                         onClick={() => selectCard(card)}
                     >
                         {card.text}
@@ -203,9 +204,7 @@ const Round = () => {
             </div>
         )
     }
-    else{
-        //console.log("NO CLICKED CARD YET")
-    }
+
 
 
     return (
@@ -239,16 +238,6 @@ const Round = () => {
                         {cardContent}
                     </div>
                 </div>
-              {/*  <div className="round grid-content6">
-                    <PrimaryButton
-                        width="100%"
-                        onClick={() => confirmSelectedCard()}
-                    >
-                        Select card
-                    </PrimaryButton>
-                </div>*/}
-
-
             </div>
         </BaseContainer>
     );

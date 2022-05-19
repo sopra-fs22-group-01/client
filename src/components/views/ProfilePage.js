@@ -151,6 +151,11 @@ const ProfilePage = () => {
                         >
                             Lobbies
                         </PrimaryButton>
+                        <PrimaryButton className="profilePage statistics_button"
+                                       onClick={() => history.push(`/users/profile/statistics/${userId}`)}
+                        >
+                            Statistics
+                        </PrimaryButton>
 
                         <PrimaryButton className="profilePage logout_button"
                                        disabled={!(user.token === localStorage.getItem(`token`))}

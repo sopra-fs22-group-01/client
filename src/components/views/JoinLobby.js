@@ -193,6 +193,13 @@ const JoinLobby = () => {
                         Logout
                     </PrimaryButton>
 
+                    <PrimaryButton className="joinLobby profile_button"
+                                   disabled={!(user.token === localStorage.getItem(`token`))}
+                                   onClick={() => history.push(`/users/profile/${user.id}`)}
+                    >
+                        Profile
+                    </PrimaryButton>
+
                 </div>
 
             </BaseContainer>

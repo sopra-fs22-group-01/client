@@ -35,6 +35,7 @@ const Voting = () => {
     // a component can have as many state variables as you like.
     // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [users, setUsers] = useState(null);
+    const [user, setUser] = useState(null);
     const [allChosenCards, setAllChosenCards] = useState(null);
     const [roundNumber,setRoundNumber]=useState(null);
     const [blackCard, setBlackCard] = useState(null);
@@ -52,13 +53,36 @@ const Voting = () => {
     let audio = new Audio(Sitcom_Laugh_Track);
 
 
-    const laugh = () => {
-        if (clickedCard.text !== "X"){
+    const laugh = async () => {
+        if (clickedCard.text !== "X") {
             setUsedLaugh(true);
-            audio.volume = 0.25;
-            audio.play();
-        }
-        else{
+            try {
+                // update user with userPutDTO -> decrease superVote
+                const requestBody = JSON.stringify(
+                    {
+                        "id":userId,
+                        "superVote": user.superVote-1
+                    });
+                await api.put(`/users/${userId}`, requestBody);
+                console.log("USERPUTDTO FOR SUPERVOTE FOR ", user.username)
+                console.log(user.username, "'s UsedLaugh: ", usedLaugh)
+
+            } catch (error) {
+                console.error(`Something went wrong while using up super vote: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while using up you super vote ! See the console for details.");
+            }
+            try {
+                // change laughStatus
+                await api.put(`/matches/${matchId}/supervote/${userId}`);
+                console.log(user.username, " ACTIVATED LAUGH STATUS IN SERVER")
+
+            } catch (error) {
+                console.error(`Something went wrong while casting your super vote: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while casting your super vote ! See the console for details.");
+            }
+        } else {
             alert("Vote for a card first!")
         }
 
@@ -92,6 +116,7 @@ const Voting = () => {
     };
 
     const voteAndStartCountdown = async() => {
+
         //if no card chosen, vote goes to no-one
         let ownerId = null;
         if (clickedCard.text === "X"){
@@ -104,7 +129,7 @@ const Voting = () => {
         //console.log("OWNER ID:", ownerId);
 
         //supervote
-        if (usedLaugh.toString() === "true"){
+        if (usedLaugh){
             try{
                 //const ownerId = clickedCard.owner.id
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
@@ -173,6 +198,14 @@ const Voting = () => {
                 alert("Something went wrong while fetching the users for this specific match! See the console for details.");
 
             }
+            try{ // fetch current player
+                const userResponse = await api.get(`/users/?id=${userId}`);
+                setUser(userResponse.data);
+            }catch (error) {
+                console.error(`Something went wrong while fetching the current user: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the current user ! See the console for details.");
+            }
             try {
                 // retrieve Black card
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
@@ -237,15 +270,31 @@ const Voting = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the timer! See the console for details.");
             }
+            try {
+                //gets laughStatus
+                const laughResponse = await api.get(`/matches/${matchId}/laughStatus`);
 
+                //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
+                //and needs some time to restart
+                if(laughResponse.data === "Laughing" /*&& clickedCard.text != "X"*/){
+                    if (clickedCard.text !== "X") {
+                        audio.volume = 0.25;
+                        audio.play();
+                        // tell server this specific user heard a laugh
+                        await api.put(`/matches/${matchId}/laugh`);
+                    }
+                }
 
+            } catch (error) {
+                console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the timer! See the console for details.");
+            }
         };
         const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear
     }, [clickedCard, usedLaugh]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
-
-
     let scoreboardContent = <Spinner/>;
     let cardContent = <div>waiting for cards</div>;
 
@@ -278,23 +327,25 @@ const Voting = () => {
         );
     }
 
-    let laughingButton = null;
+    let laughingButtonContent = null;
     if (allChosenCards) {
-        laughingButton =
-            <SecondaryButton
-                onClick={() => laugh()}
-                disabled={usedLaugh}>
-                <BsEmojiLaughing
-                    className="voting laughingButton"
-                >
-                </BsEmojiLaughing>
-            </SecondaryButton>
+        laughingButtonContent =
+                <SecondaryButton
+                    onClick={() => laugh()}
+                    disabled={usedLaugh || user.superVote === 0}>
+                    <BsEmojiLaughing
+                        className="voting laughingButton"
+                    >
+                    </BsEmojiLaughing>
+                    <h4>(once you chose to supervote, you can't change it anymore)</h4>
+                </SecondaryButton>
+
         cardContent = (
-            <div className="round cards">
+            <div className="voting cards">
                 {allChosenCards.map(card => (
-                    <CardButton
+                    <CardButton className="cardButton activeWhiteCard"
                         onClick={() => selectCard(card)}
-                        disabled={usedLaugh}
+                        disabled={(card.owner.id==user.id) || usedLaugh}
                     >
                         {card.text}
                     </CardButton>
@@ -325,7 +376,7 @@ const Voting = () => {
                 </CardButton>
             </div>
             <div className="round grid-content3">
-                <h2>YOUR CURRENT CHOICE: {/*(used laugh: {usedLaugh.toString()})*/}</h2>
+                <h2>YOUR CURRENT CHOICE: {}</h2>
                 <h2>{clickedCard.text}</h2>
                     <div className= "round timer" >
                         {timer}
@@ -337,33 +388,10 @@ const Voting = () => {
 
                     <FiVolume2 fontSize="3em"/>
                     {cardContent}
-                    {laughingButton}
-                    {/*
-                    <SecondaryButton
-                        onClick={() => laugh()}
-                        disabled={usedLaugh}>
-                        <BsEmojiLaughing
-                            className="voting laughingButton"
-                        >
-                        </BsEmojiLaughing>
-                    </SecondaryButton>
-                    */}
-                    <h4>(once you chose to supervote, you can't change it anymore)</h4>
+                    {laughingButtonContent}
                 </div>
             </div>
             <div className="round grid-content6">
-                {/*<PrimaryButton
-                    width="100%"
-                    onClick={() => exit()}
-                >
-                    Exit
-                </PrimaryButton>
-                    <PrimaryButton
-                        width="100%"
-                        onClick={() => vote()}
-                    >
-                        chose this card
-                    </PrimaryButton>*/}
 
             </div>
             </div>

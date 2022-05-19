@@ -83,7 +83,7 @@ const Winner = () => {
 
             try {
                 //updates player scores
-               await api.put(`/matches/${matchId}/scores`)
+               await api.put(`/matches/${matchId}/scores/${userId}`)
 
             } catch (error) {
                 console.error(`Something went wrong while updating  the player scores: \n${handleError(error)}`);
@@ -136,16 +136,14 @@ const Winner = () => {
         return () => clearInterval(t); // clear
     }, []); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
-
     let whiteCardContent = null;
     let winnersContent = null;
 
     if (scores) {
         whiteCardContent = (
-            <div className="round cards">
+            <div>
                 {scores.map(card => (
-                    <CardButton className="card whiteCard"
-                    >
+                    <CardButton className="cardButton inActiveWhiteCard">
                         {card.text}
                     </CardButton>
                 ))}
@@ -188,17 +186,6 @@ const Winner = () => {
                         {whiteCardContent}
                     </div>
                 </div>
-                {/*<div className="round grid-content6">
-                    <div className="round clickedCard">
-
-                    </div>
-                    <PrimaryButton
-                        onClick={() => nextStep()}
-                        //onClick={() => history.push(`/matches/${matchId}/next/${userId}`)}
-                    >
-                        next
-                    </PrimaryButton>
-                </div>*/}
             </div>
         </BaseContainer>
     );

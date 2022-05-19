@@ -19,15 +19,13 @@
     grid-column-gap: 2%;
     justify-content: center; //puts grid into the center of the page
     text-align: center;
-
   }
   &.grid-content1{
     /*background-color: blue;*/
     display: flex;
-
   }
-  &.scoreBoard{
 
+  &.scoreBoard{
   }
 
   &.roundNumber{
@@ -63,9 +61,7 @@
   & p,h2 {
     margin: 0.5em 0;
   }
-  &.cards{
-/*    background-color: red;*/
-  }
+
   & h3{
     font-size: 0.9em;
   }

@@ -4,7 +4,7 @@ export const CardButton = props => (
   <button
     {...props}
     style={{width: props.width, ...props.style}}
-    className={`card ${props.className}`}>
+    className={`cardButton ${props.className}`}>
     {props.children}
   </button>
 );

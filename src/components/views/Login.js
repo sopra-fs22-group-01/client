@@ -8,6 +8,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import AiFillEye from 'react-icons/fa';
 import AiFillEyeInvisible from 'react-icons/fa';
+import {SecondaryButton} from "../ui/SecondaryButton";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -94,12 +95,14 @@ const Login = props => {
                         type={passwordType}
                         onChange={n => setPassword(n)}
                     />
-                    <button
+                    <div className="login button-container_show_password">
+                    <SecondaryButton className="login show_password_button"
                         type="button"
                         onClick={() => togglePassword()}
                     >
                         {passwordType === "password" ? "Show password" : "Hide Password"}
-                    </button>
+                    </SecondaryButton>
+                    </div>
                     <div className="login button-container">
                         <PrimaryButton
                             disabled={!username || !password} //if no password or username is entered, button cant be clicked

@@ -86,6 +86,7 @@
     width: 3em;
 
     &:disabled {
+      display: none;
       cursor: default;
       opacity: 0.3;
     }

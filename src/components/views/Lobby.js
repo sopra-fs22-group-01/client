@@ -8,11 +8,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
 import "styles/ui/PopUp.scss";
-import {MdOutlineModeEditOutline} from "react-icons/ai";
-import {AiOutlineCheckCircle} from "react-icons/ai";
-import {BsCircle} from "react-icons/bs";
-import {BiCircle, BiCheckCircle} from "react-icons/bi";
-import user from "../../models/User";
+import "styles/ui/CardButton.scss"
 import {CardButton} from "../ui/CardButton";
 import {SecondaryButton} from "../ui/SecondaryButton";
 // test
@@ -105,7 +101,7 @@ const Lobby = () => {
         } catch (error) {
             alert(`Something went wrong during the deletion of the player from the lobby list: \n${handleError(error)}`);
         }
-        history.push(`/users/profile/${userId}`);
+        history.push(`/lobbies/players/${userId}`);
     }
 
 
@@ -157,27 +153,14 @@ const Lobby = () => {
     }, [user]);
 
     let content = <Spinner/>;
-    let popupContent = <Spinner/>
+
     if (users) {
         content = (
             <div className="lobby">
-                    <h1>Lobby {lobbyId}</h1>
-                <ul className="lobby user-list">
-                    {/*
-                    {users.map(user => (
-                        {user.token === localStorage.getItem(`token`) ? (
-                                <div>
-                                    {user.username}
-                                </div>
-                            ) : (
-                                <Link
-                                    to={`/users/profile/${user.id}`}
-                                >
-                                    <Player user={user}/>
-                                </Link>
-                            )}
-                    ))}*/}
 
+                    <h1>Lobby {lobbyId}</h1>
+
+                <ul className="lobby user-list">
                     {users.map(user => (
                         <Link
                             style={
@@ -189,53 +172,67 @@ const Lobby = () => {
                             <Player user={user}/>
                         </Link>
                     ))}
-
                 </ul>
-                <div className="lobby button_container">
-                    <PrimaryButton className="lobby ready_button"
-                                   onClick={() => isReady()}
-                    >
-                        {readyText}
-                    </PrimaryButton>
-                    <PrimaryButton className="lobby leave_button"
-                                   onClick={() => leaveLobby()}
-                    >
-                        Leave Lobby
-                    </PrimaryButton>
-                </div>
 
-                {/*-------------------CUSTOM CARDS----------------------------------------------------------------*/}
-                <PrimaryButton className="primary-button small_version"
-                               onClick={togglePopup2}
-                               disabled={!hasCustom}
-                >
-                    see your custom card
-                </PrimaryButton>
 
-                <div className="lobby game_rules">
-                    {isOpen2 && <Popup
-                        content={<>
-                            <b>Your current custom card</b>
-                            <div>______________________</div>
-                            <CardButton>
-                                {user.customWhiteText}
-                            </CardButton>
-                        </>}
-                        handleClose={togglePopup2}
-                    />}
-                </div>
-                <PrimaryButton className="primary-button small_version"
-                        onClick={() => history.push(`/lobbies/${lobbyId}/players/${userId}/cards/custom`)}
+                {/*buttons in flex-grid*/}
+                <div className="lobby grid-container">
+
+                    <div className="lobby grid-content1">
+                        <PrimaryButton className="lobby ready_button"
+                                       onClick={() => isReady()}
                         >
-                        create new custom card
-                </PrimaryButton>
+                            {readyText}
+                        </PrimaryButton>
+                    </div>
+                    <div className="lobby grid-content2">
+                    </div>
 
-                {/*-------------------RULES----------------------------------------------------------------*/}
-                <PrimaryButton className="lobby rules_button"
-                               onClick={togglePopup}
-                >
-                    Rules
-                </PrimaryButton>
+                    <div className="lobby grid-content3">
+                        <PrimaryButton className="lobby leave_button"
+                                       onClick={() => leaveLobby()}
+                        >
+                            Leave Lobby
+                        </PrimaryButton>
+                    </div>
+
+                    <div className="lobby grid-content3">
+
+                    </div>
+                    <div className="lobby grid-content4">
+                        <PrimaryButton className="lobby small_button"
+                                       onClick={togglePopup2}
+                                       disabled={!hasCustom}
+                        >
+                            your custom card
+                        </PrimaryButton>
+
+                        <div className="lobby game_rules">
+                            {isOpen2 && <Popup
+                                content={<>
+                                    <b>Your current custom card</b>
+                                    <div>______________________</div>
+
+                                    <CardButton  className="cardButton inActiveWhiteCard">
+                                        {user.customWhiteText}
+                                    </CardButton>
+                                </>}
+                                handleClose={togglePopup2}
+                            />}
+                        </div>
+                        <PrimaryButton className="lobby small_button"
+                                       onClick={() => history.push(`/lobbies/${lobbyId}/players/${userId}/cards/custom`)}
+                        >
+                            create custom card
+                        </PrimaryButton>
+                        <PrimaryButton className="lobby small_button"
+                                       onClick={togglePopup}
+                        >
+                            Rules
+                        </PrimaryButton>
+                    </div>
+
+                </div>
 
                 <div className="lobby game_rules">
                     {isOpen && <Popup
@@ -253,12 +250,12 @@ const Lobby = () => {
                     />}
                 </div>
             </div>
-
         );
     }
 
     return (
         <BaseContainer className="lobby container">
+
             {content}
         </BaseContainer>
     );
