@@ -1,0 +1,63 @@
+@import 'styles/theme';
+
+.matchRanking {
+
+  ul {
+    padding-left: 0;
+    display: table;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  &.base-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.text-container{
+
+    font-size: 500%;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+  }
+
+  &.button-container{
+    margin-top: 50px;
+  }
+  &.back-to-lobby-button{
+    width:400px;
+  }
+
+
+  .ranking {
+
+    &.grid-container{
+      display: grid;
+      grid-template-columns: 200px 200px 200px;
+      grid-row-gap: 300px;
+      justify-content: center; //puts grid into the center of the page
+      background-color: #383836;
+      border-radius: 0.5em;
+      margin-bottom: 10px;
+      padding: 15px;
+      font-size: 1.5em;
+    }
+
+    &.rank {
+      text-align: left;
+      font-weight: bold;
+    }
+
+    &.username {
+      text-align: center;
+      font-weight: bold;
+    }
+    &.score {
+      text-align: right;
+    }
+  }
+}

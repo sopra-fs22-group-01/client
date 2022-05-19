@@ -162,10 +162,8 @@ const Lobby = () => {
         content = (
             <div className="lobby">
 
-                {/*title*/}
                     <h1>Lobby {lobbyId}</h1>
 
-                {/*user list*/}
                 <ul className="lobby user-list">
                     {users.map(user => (
                         <Link
