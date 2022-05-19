@@ -1,5 +1,7 @@
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch, useParams} from "react-router-dom";
 import {GameGuard} from "components/routing/routeProtectors/GameGuard";
+import {EditProfileGuard} from "components/routing/routeProtectors/EditProfileGuard";
+import {ProtectedRoute} from "components/routing/routeProtectors/ProtectedRoute";
 import GameRouter from "components/routing/routers/GameRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
@@ -12,6 +14,7 @@ import StartPage from "../../views/StartPage";
 import Round from "../../views/Round";
 import MatchRouter from "./MatchRouter";
 import UserRouter from "./UserRouter";
+import {id} from "date-fns/locale";
 
 /**
  * Main router of your application.
@@ -39,13 +42,16 @@ const AppRouter = () => {
                 <Route path="/matches">
                     <MatchRouter base="/matches"/>
                 </Route>
-                {/*-------------------------------*/}
 
                 <Route path="/editor/:id">
-                    <GameGuard>
-                        <EditProfile/>
-                    </GameGuard>
+                    <EditProfile/>
                 </Route>
+                {/*-------------------------------
+
+                <ProtectedRoute path="/editor/:id" component={EditProfile} isAuth={1}>
+                    <EditProfile/>
+
+                </ProtectedRoute>*/}
 
                 {/* <Route path="/matches/:matchId/hand/:userId">
                     <GameGuard>
