@@ -13,10 +13,10 @@ const WaitForVotes = props => {
         async function fetchData() {
             try{
                 const votingStatusResponse = await api.get(`/matches/${matchId}/synchronization`);
-                console.log("Voting Status Response")
-                console.log(votingStatusResponse.data);
+                // console.log("Voting Status Response")
+                // console.log(votingStatusResponse.data);
                 setVotingStatus(votingStatusResponse.data);
-                console.log(votingStatus)
+                // console.log(votingStatus)
             }
             catch(error){
                 console.error(`Something went wrong while fetching the voting status: \n${handleError(error)}`);
@@ -26,7 +26,7 @@ const WaitForVotes = props => {
 
             if(votingStatus === "COMPLETE"){
                 //starts countdown of next view (winner view)
-                console.log("Inside if: ", votingStatus)
+                // console.log("Inside if: ", votingStatus)
                 try{
                     await api.put(`/matches/${matchId}/countdown/roundwinners`)
                 }

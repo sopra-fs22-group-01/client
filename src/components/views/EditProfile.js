@@ -9,6 +9,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import AiFillEye from 'react-icons/fa';
 import AiFillEyeInvisible from 'react-icons/fa';
+import {SecondaryButton} from "../ui/SecondaryButton";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -62,8 +63,7 @@ const EditProfile = () =>{
     try {
 
       //maybe fails due to date -> creation_date renaming?
-      console.log({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, "password":password});
-
+      // console.log({"id":user.id,"username":username, "date":user.date, "userStatus":user.userStatus, "password":password});
       const requestBody = JSON.stringify(
           {
             "id":user.id,
@@ -98,13 +98,14 @@ const EditProfile = () =>{
 
         // This is just some data for you to see what is available.
         // Feel free to remove it.
+        /*
         console.log('request to:', response.request.responseURL);
         console.log('status code:', response.status);
         console.log('status text:', response.statusText);
-        console.log('requested data:', response.data);
+        console.log('requested data:', response.data);*/
 
         // See here to get more data.
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
         console.error("Details:", error);
@@ -132,12 +133,14 @@ const EditProfile = () =>{
                 type={passwordType}
                 onChange={pw => setPassword(pw)}
             />
-            <button
-                type="button"
-                onClick={() => togglePassword()}
-            >
-              {passwordType === "password" ? "Show password" : "Hide Password"}
-            </button>
+            <div className="login button-container_show_password">
+              <SecondaryButton className="login show_password_button"
+                               type="button"
+                               onClick={() => togglePassword()}
+              >
+                {passwordType === "password" ? "Show password" : "Hide Password"}
+              </SecondaryButton>
+            </div>
             <div className="editProfile button-container">
               <PrimaryButton
                   width="100%"

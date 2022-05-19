@@ -105,8 +105,9 @@ const Voting = () => {
 
     const selectCard = async(card) => {
         try {
+            /*
             console.log("SELECT CARD")
-            console.log(card)
+            console.log(card)*/
             setClickedCard(card)
 
         } catch (error) {
@@ -121,7 +122,7 @@ const Voting = () => {
         let ownerId = null;
         if (clickedCard.text === "X"){
             ownerId = -1;
-            console.log("SET OWNER TO -1")
+            // console.log("SET OWNER TO -1")
         }
         else{
             ownerId = clickedCard.owner.id;
@@ -129,14 +130,14 @@ const Voting = () => {
         //console.log("OWNER ID:", ownerId);
 
         //supervote
-        if (usedLaugh.toString() === "true"){
+        if (usedLaugh){
             try{
                 //const ownerId = clickedCard.owner.id
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
-                console.log("VOTED 1/2 X")
+                // console.log("VOTED 1/2 X")
 
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
-                console.log("VOTED 2X")
+                // console.log("VOTED 2X")
             }catch (error) {
                 alert(`Something went wrong with supervoting the card: \n${handleError(error)}`);
             }
@@ -147,7 +148,7 @@ const Voting = () => {
             try {//adds a point to the clicked card (every user does this)
                 //const ownerId = clickedCard.owner.id
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
-                console.log("VOTED 1X")
+                // console.log("VOTED 1X")
 
             } catch (error) {
                 alert(`Something went wrong with voting the card: \n${handleError(error)}`);
@@ -172,7 +173,7 @@ const Voting = () => {
         const idx = str.indexOf(old);
 
         const text = str.substring(0,idx) + "\""+  cleanedWhite + "\" "+ str.substring((idx+old.length)+1);
-        //console.log("WEBSPEECH TEXT", text);
+        // console.log("WEBSPEECH TEXT", text);
         return text;
 
     }
@@ -191,7 +192,7 @@ const Voting = () => {
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get the returned users and update the state.
                 setUsers(response.data);
-                console.log(response);
+                // console.log(response);
             } catch (error) {
                 console.error(`Something went wrong while fetching the users of this specific match: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -214,7 +215,7 @@ const Voting = () => {
                 // feel free to remove it :)
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 setBlackCard(blackCard_response.data);
-                console.log(blackCard_response);
+                // console.log(blackCard_response);
             } catch (error) {
                 console.error(`Something went wrong while fetching the blackcard: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -235,7 +236,7 @@ const Voting = () => {
                 // retrieve round number
                 const roundNumberResponse = await api.get(`/matches/${matchId}/roundnumbers`)
                 setRoundNumber(roundNumberResponse.data)
-                console.log(roundNumberResponse);
+                // console.log(roundNumberResponse);
             } catch (error) {
                 console.error(`Something went wrong while fetching the round number: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -259,8 +260,8 @@ const Voting = () => {
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
                 if(timeResponse.data === 0 /*&& clickedCard.text != "X"*/){
-                    console.log("clicked card when timer == 0:")
-                    console.log(clickedCard)
+                    /*console.log("clicked card when timer == 0:")
+                    console.log(clickedCard)*/
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
                     await voteAndStartCountdown();
                 }
@@ -296,8 +297,6 @@ const Voting = () => {
         return () => clearInterval(t); // clear
     }, [clickedCard, usedLaugh]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
-
-
     let scoreboardContent = <Spinner/>;
     let cardContent = <div>waiting for cards</div>;
 
@@ -330,23 +329,25 @@ const Voting = () => {
         );
     }
 
-    let laughingButton = null;
+    let laughingButtonContent = null;
     if (allChosenCards) {
-        laughingButton =
-            <SecondaryButton
-                onClick={() => laugh()}
-                disabled={usedLaugh || user.superVote === 0}>
-                <BsEmojiLaughing
-                    className="voting laughingButton"
-                >
-                </BsEmojiLaughing>
-            </SecondaryButton>
+        laughingButtonContent =
+                <SecondaryButton
+                    onClick={() => laugh()}
+                    disabled={usedLaugh || user.superVote === 0}>
+                    <BsEmojiLaughing
+                        className="voting laughingButton"
+                    >
+                    </BsEmojiLaughing>
+                    <h4>(once you chose to supervote, you can't change it anymore)</h4>
+                </SecondaryButton>
+
         cardContent = (
-            <div className="round cards">
+            <div className="voting cards">
                 {allChosenCards.map(card => (
-                    <CardButton
+                    <CardButton className="cardButton activeWhiteCard"
                         onClick={() => selectCard(card)}
-                        disabled={usedLaugh}
+                        disabled={(card.owner.id==user.id) || usedLaugh}
                     >
                         {card.text}
                     </CardButton>
@@ -377,7 +378,7 @@ const Voting = () => {
                 </CardButton>
             </div>
             <div className="round grid-content3">
-                <h2>YOUR CURRENT CHOICE: {/*(used laugh: {usedLaugh.toString()})*/}</h2>
+                <h2>YOUR CURRENT CHOICE: {}</h2>
                 <h2>{clickedCard.text}</h2>
                     <div className= "round timer" >
                         {timer}
@@ -389,33 +390,10 @@ const Voting = () => {
 
                     <FiVolume2 fontSize="3em"/>
                     {cardContent}
-                    {laughingButton}
-                    {/*
-                    <SecondaryButton
-                        onClick={() => laugh()}
-                        disabled={usedLaugh}>
-                        <BsEmojiLaughing
-                            className="voting laughingButton"
-                        >
-                        </BsEmojiLaughing>
-                    </SecondaryButton>
-                    */}
-                    <h4>(once you chose to supervote, you can't change it anymore)</h4>
+                    {laughingButtonContent}
                 </div>
             </div>
             <div className="round grid-content6">
-                {/*<PrimaryButton
-                    width="100%"
-                    onClick={() => exit()}
-                >
-                    Exit
-                </PrimaryButton>
-                    <PrimaryButton
-                        width="100%"
-                        onClick={() => vote()}
-                    >
-                        chose this card
-                    </PrimaryButton>*/}
 
             </div>
             </div>

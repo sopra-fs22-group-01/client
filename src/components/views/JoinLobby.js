@@ -89,8 +89,8 @@ const JoinLobby = () => {
         try {
             const response = api.get(`/matches/${lobbyId}/status`);
             const status = (await response).data;
-            console.log("MATCH STATUS", lobbyId)
-            console.log(status)
+            // console.log("MATCH STATUS", lobbyId)
+            // console.log(status)
             /*
                         if (status === "NotYetCreated"){
                             console.log("FALSEE")
@@ -132,13 +132,14 @@ const JoinLobby = () => {
 
                 // This is just some data for you to see what is available.
                 // Feel free to remove it.
+                /*
                 console.log('request to:', response1.request.responseURL);
                 console.log('status code:', response1.status);
                 console.log('status text:', response1.statusText);
-                console.log('requested data:', response1.data);
+                console.log('requested data:', response1.data);*/
 
                 // See here to get more data.
-                console.log(response1);
+                // console.log(response1);
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);

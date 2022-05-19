@@ -99,7 +99,7 @@ const Round = () => {
                 const response = await api.get(`/matches/${matchId}/users`);
                 // Get the returned users and update the state.
                 setUsers(response.data);
-                console.log(response);
+                // console.log(response);
             } catch (error) {
                 console.error(`Something went wrong while fetching the users of this specific match: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -112,7 +112,7 @@ const Round = () => {
 
                 setBlackCard(blackCard_response.data);
                 // See here to get more data.
-                console.log(blackCard_response);
+                // console.log(blackCard_response);
             } catch (error) {
                 console.error(`Something went wrong while fetching the blackcard: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -122,7 +122,7 @@ const Round = () => {
                 //retrieve user hand
                 const whiteCardResponse = await api.get(`/matches/${matchId}/hands/${userId}`) ///matches/0/hands/1
                 setCards(whiteCardResponse.data)
-                console.log(whiteCardResponse);
+                // console.log(whiteCardResponse);
             } catch (error) {
                 console.error(`Something went wrong while fetching your hand: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -133,7 +133,7 @@ const Round = () => {
                 // retrieve round number
                 const roundNumberResponse = await api.get(`/matches/${matchId}/roundnumbers`)
                 setRoundNumber(roundNumberResponse.data)
-                console.log(roundNumberResponse);
+                // console.log(roundNumberResponse);
             } catch (error) {
                 console.error(`Something went wrong while fetching the round number: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -154,8 +154,8 @@ const Round = () => {
                 //sets time in frontend
                 setTimer(timeResponse.data);
                 if(timeResponse.data === 0){
-                    console.log("clicked card when timer == 0:")
-                    console.log(clickedCard)
+                    /*console.log("clicked card when timer == 0:")
+                    console.log(clickedCard)*/
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
                      await confirmSelectedCard();
 
@@ -172,6 +172,7 @@ const Round = () => {
         return () => clearInterval(t); // clear
     }, [clickedCard]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
                             // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
+
     let scoreboardContent = <Spinner/>;
     let cardContent = "nothing";
 
@@ -194,7 +195,7 @@ const Round = () => {
             <div className="round cards">
 
                 {cards.map(card => (
-                    <CardButton className="cardButton whiteCard"
+                    <CardButton className="cardButton activeWhiteCard"
                         onClick={() => selectCard(card)}
                     >
                         {card.text}
@@ -203,9 +204,7 @@ const Round = () => {
             </div>
         )
     }
-    else{
-        //console.log("NO CLICKED CARD YET")
-    }
+
 
 
     return (
@@ -239,16 +238,6 @@ const Round = () => {
                         {cardContent}
                     </div>
                 </div>
-              {/*  <div className="round grid-content6">
-                    <PrimaryButton
-                        width="100%"
-                        onClick={() => confirmSelectedCard()}
-                    >
-                        Select card
-                    </PrimaryButton>
-                </div>*/}
-
-
             </div>
         </BaseContainer>
     );

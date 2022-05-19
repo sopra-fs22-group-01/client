@@ -8,11 +8,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
 import "styles/ui/PopUp.scss";
-import {MdOutlineModeEditOutline} from "react-icons/ai";
-import {AiOutlineCheckCircle} from "react-icons/ai";
-import {BsCircle} from "react-icons/bs";
-import {BiCircle, BiCheckCircle} from "react-icons/bi";
-import user from "../../models/User";
+import "styles/ui/CardButton.scss"
 import {CardButton} from "../ui/CardButton";
 import {SecondaryButton} from "../ui/SecondaryButton";
 // test
@@ -112,7 +108,7 @@ const Lobby = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
-            console.log("LOBBY ID FROM LOBBY.JS", lobbyId)
+            // console.log("LOBBY ID FROM LOBBY.JS", lobbyId)
 
             // fetch all match players
             try{
@@ -217,8 +213,7 @@ const Lobby = () => {
                                     <b>Your current custom card</b>
                                     <div>______________________</div>
 
-                                    <CardButton  className="lobby custom_white_card"
-                                        disabled={true}>
+                                    <CardButton  className="cardButton inActiveWhiteCard">
                                         {user.customWhiteText}
                                     </CardButton>
                                 </>}

@@ -92,18 +92,7 @@
   &.game_rules{
     color:white;
   }
-  &.custom_white_card {
-    &:disabled {
-      opacity: 1;
-      background-color: white;
-      color: black;
 
-      &:hover {
-        cursor: default;
-        transform: none;
-      }
-    }
-  }
 }
 
 .player {
