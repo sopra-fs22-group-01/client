@@ -71,6 +71,7 @@ const EditProfile = () =>{
             "date":user.date,
             "userStatus":user.userStatus,
             password}); //creates .json file (?)
+
       await api.put(`/users/`+ user.id, requestBody);//request get to userController (GET sends to server)
       history.push(`/users/profile/${user.id}`)
 

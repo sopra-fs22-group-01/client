@@ -57,13 +57,13 @@ const Voting = () => {
         if (clickedCard.text !== "X") {
             setUsedLaugh(true);
             try {
-                // update user with userPutDTO -> decrease superVote
+                // update user with userPutDTO -> decrease superVote in database
                 const requestBody = JSON.stringify(
                     {
                         "id":userId,
                         "superVote": user.superVote-1
                     });
-                await api.put(`/users/${userId}`, requestBody);
+                await api.put(`/players/supervotes/${userId}`, requestBody);
                 console.log("USERPUTDTO FOR SUPERVOTE FOR ", user.username)
                 console.log(user.username, "'s UsedLaugh: ", usedLaugh)
 
@@ -73,8 +73,8 @@ const Voting = () => {
                 alert("Something went wrong while using up you super vote ! See the console for details.");
             }
             try {
-                // change laughStatus
-                await api.put(`/matches/${matchId}/supervote/${userId}`);
+                // change laughStatus & update user with userPutDTO -> decrease superVote in match.currentplayers()
+                await api.put(`/matches/${matchId}/supervotes/${userId}`);
                 console.log(user.username, " ACTIVATED LAUGH STATUS IN SERVER")
 
             } catch (error) {
@@ -115,8 +115,9 @@ const Voting = () => {
         }
     };
 
-    const voteAndStartCountdown = async() => {
-
+    const voteAndStartCountdown = async () => {
+        //console.log(user.username)
+        console.log("s UsedLaugh:", usedLaugh)
         //if no card chosen, vote goes to no-one
         let ownerId = null;
         if (clickedCard.text === "X"){
@@ -271,12 +272,13 @@ const Voting = () => {
                 alert("Something went wrong while fetching the timer! See the console for details.");
             }
             try {
-                //gets laughStatus
+                //gets laughStatus: as long as laughstatus is "active", play laughing sound on each device
                 const laughResponse = await api.get(`/matches/${matchId}/laughStatus`);
 
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
                 if(laughResponse.data === "Laughing" /*&& clickedCard.text != "X"*/){
+                    console.log("play laughter")
                     if (clickedCard.text !== "X") {
                         audio.volume = 0.25;
                         audio.play();
