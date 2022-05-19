@@ -128,7 +128,7 @@ const Voting = () => {
         //console.log("OWNER ID:", ownerId);
 
         //supervote
-        if (usedLaugh.toString() === "true"){
+        if (usedLaugh){
             try{
                 //const ownerId = clickedCard.owner.id
                 await api.put(`matches/${matchId}/white-cards/${ownerId}`)
@@ -245,7 +245,7 @@ const Voting = () => {
         fetchData();
     }, []);
 
-    //useEffect for Countdown
+    /*//useEffect for Countdown
     useEffect( () =>{
         async function fetchData() {
             try {
@@ -257,7 +257,7 @@ const Voting = () => {
 
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
-                if(timeResponse.data === 0 /*&& clickedCard.text != "X"*/){
+                if(timeResponse.data === 0 /!*&& clickedCard.text != "X"*!/){
                     console.log("clicked card when timer == 0:")
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
@@ -275,7 +275,7 @@ const Voting = () => {
 
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
-                if(laughResponse.data === "Laughing" /*&& clickedCard.text != "X"*/){
+                if(laughResponse.data === "Laughing" /!*&& clickedCard.text != "X"*!/){
                     if (clickedCard.text !== "X") {
                         audio.volume = 0.25;
                         audio.play();
@@ -294,8 +294,7 @@ const Voting = () => {
         return () => clearInterval(t); // clear
     }, [clickedCard, usedLaugh]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
-
-
+   */
     let scoreboardContent = <Spinner/>;
     let cardContent = <div>waiting for cards</div>;
 
@@ -328,23 +327,25 @@ const Voting = () => {
         );
     }
 
-    let laughingButton = null;
+    let laughingButtonContent = null;
     if (allChosenCards) {
-        laughingButton =
-            <SecondaryButton
-                onClick={() => laugh()}
-                disabled={usedLaugh || user.superVote === 0}>
-                <BsEmojiLaughing
-                    className="voting laughingButton"
-                >
-                </BsEmojiLaughing>
-            </SecondaryButton>
+        laughingButtonContent =
+                <SecondaryButton
+                    onClick={() => laugh()}
+                    disabled={usedLaugh || user.superVote === 0}>
+                    <BsEmojiLaughing
+                        className="voting laughingButton"
+                    >
+                    </BsEmojiLaughing>
+                    <h4>(once you chose to supervote, you can't change it anymore)</h4>
+                </SecondaryButton>
+
         cardContent = (
-            <div className="round cards">
+            <div className="voting cards">
                 {allChosenCards.map(card => (
                     <CardButton
                         onClick={() => selectCard(card)}
-                        disabled={usedLaugh}
+                        disabled={(card.owner.id==user.id) || usedLaugh}
                     >
                         {card.text}
                     </CardButton>
@@ -375,7 +376,7 @@ const Voting = () => {
                 </CardButton>
             </div>
             <div className="round grid-content3">
-                <h2>YOUR CURRENT CHOICE: {/*(used laugh: {usedLaugh.toString()})*/}</h2>
+                <h2>YOUR CURRENT CHOICE: {}</h2>
                 <h2>{clickedCard.text}</h2>
                     <div className= "round timer" >
                         {timer}
@@ -387,33 +388,10 @@ const Voting = () => {
 
                     <FiVolume2 fontSize="3em"/>
                     {cardContent}
-                    {laughingButton}
-                    {/*
-                    <SecondaryButton
-                        onClick={() => laugh()}
-                        disabled={usedLaugh}>
-                        <BsEmojiLaughing
-                            className="voting laughingButton"
-                        >
-                        </BsEmojiLaughing>
-                    </SecondaryButton>
-                    */}
-                    <h4>(once you chose to supervote, you can't change it anymore)</h4>
+                    {laughingButtonContent}
                 </div>
             </div>
             <div className="round grid-content6">
-                {/*<PrimaryButton
-                    width="100%"
-                    onClick={() => exit()}
-                >
-                    Exit
-                </PrimaryButton>
-                    <PrimaryButton
-                        width="100%"
-                        onClick={() => vote()}
-                    >
-                        chose this card
-                    </PrimaryButton>*/}
 
             </div>
             </div>
