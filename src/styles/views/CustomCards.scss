@@ -18,7 +18,6 @@
   }
 
   &.container {
-    margin-top: 10em;
     min-height: 300px;
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
@@ -66,16 +65,12 @@
     color: black;
     font-weight: bold;
     font-size: 1.3em;
-    //display: inline-block;
-    //word-break: break-word;
-    //flex-wrap: wrap;
-    //overflow-wrap: break-word;
+
   }
 
   /*this values define the labels (the texts "Username" and "Password")*/
   &.label {
     color: $textColor;
-    margin-bottom: 10px;
     text-transform: capitalize;
     font-weight: bold;
     font-size: 1.5em;
@@ -85,6 +80,8 @@
   &.button-container {
     display: flex;
     justify-content: center;
-    margin-top: 2em;
+  }
+  &.registrationText{
+    background-color: black;
   }
 }

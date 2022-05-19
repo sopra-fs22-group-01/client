@@ -194,7 +194,7 @@ const Round = () => {
             <div className="round cards">
 
                 {cards.map(card => (
-                    <CardButton className="card whiteCard"
+                    <CardButton className="cardButton whiteCard"
                         onClick={() => selectCard(card)}
                     >
                         {card.text}

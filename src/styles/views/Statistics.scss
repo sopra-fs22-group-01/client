@@ -24,6 +24,11 @@
     color: darkgray;
   }
 
+  ul{
+    padding-left: 0;
+    /*background-color: #97ABFF;*/
+  }
+
   a{
     color: $textColor;
   }
@@ -41,12 +46,13 @@
   }
 
   &.infos {
+    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 2em;
-    /*background-color: red;*/
+    /*background-color: green;*/
   }
 
   &.username{
@@ -55,7 +61,6 @@
 
   &.button-container{
     flex-direction: row;
-
     margin-top: 35px;
     /*background-color: red;*/
     padding:5px

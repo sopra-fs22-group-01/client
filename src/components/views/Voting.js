@@ -125,9 +125,8 @@ const Voting = () => {
         }
         else{
             ownerId = clickedCard.owner.id;
-            console.log("OWNER ID= ", clickedCard.owner.id)
         }
-        console.log("OWNER ID:", ownerId);
+        //console.log("OWNER ID:", ownerId);
 
         //supervote
         if (usedLaugh.toString() === "true"){
@@ -261,7 +260,7 @@ const Voting = () => {
                 //and needs some time to restart
                 if(timeResponse.data === 0 /*&& clickedCard.text != "X"*/){
                     console.log("clicked card when timer == 0:")
-                    console.log("Clicked card:", clickedCard.text)
+                    console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
                     await voteAndStartCountdown();
                 }

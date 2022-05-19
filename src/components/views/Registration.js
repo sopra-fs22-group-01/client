@@ -3,6 +3,7 @@ import {api, handleError} from 'helpers/api';
 import User from 'models/User';
 import {Link, useHistory} from 'react-router-dom';
 import {PrimaryButton} from 'components/ui/PrimaryButton';
+import {SecondaryButton} from 'components/ui/SecondaryButton';
 import 'styles/views/Registration.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
@@ -99,12 +100,14 @@ const Registration = props => {
                         type={passwordType}
                         onChange={(n) => setPassword(n) }
                     />
-                    <button
+                    <div className="registration button-container_show_password">
+                    <SecondaryButton className="registration show_password_button"
                         type="button"
                         onClick={() => togglePassword()}
                     >
                         {passwordType === "password" ? "Show password" : "Hide Password"}
-                    </button>
+                    </SecondaryButton>
+                    </div>
                     <div className="registration button-container">
                         <PrimaryButton
                             disabled={!username || !password} //if no birthday or username is entered, button cant be clicked

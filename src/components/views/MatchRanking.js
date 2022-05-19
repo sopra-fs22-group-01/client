@@ -1,9 +1,24 @@
 import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {PrimaryButton} from 'components/ui/PrimaryButton';
-import {useHistory, useParams} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
-import "styles/views/Round.scss";
+import "styles/views/MatchRanking.scss";
+
+const Ranking = ({ranking}) => (
+    <div className="ranking grid-container">
+        <div className="ranking rank">
+            Rank {ranking.rank}:
+        </div>
+        <div className="ranking username">
+            {ranking.username}
+        </div>
+        <div className="ranking score">
+            Points: {ranking.score}
+        </div>
+    </div>
+);
+
 
 
 const MatchRanking = () => {
@@ -12,9 +27,6 @@ const MatchRanking = () => {
 
     const {userId} = useParams();
     const {matchId} = useParams();
-
-
-
 
 
     const resetPlayerScoreAndGetToLobbies = async () => {
@@ -47,25 +59,35 @@ const MatchRanking = () => {
 
     let rankingContent = null;
 
-    if (ranking) {
+    /*if (ranking) {
         rankingContent = (
-            <div className="round cards">
+            <div className="matchRanking playerScores">
                 {ranking.map(ranking => (
-                    <h2>Rank {ranking.rank}: {ranking.username}..{ ".".repeat(10-ranking.username.length)}{ranking.score}</h2>
+                    <h2>Rank {ranking.rank}: {ranking.username}{ ".".repeat(30-ranking.username.length)}{ranking.score}</h2>
                 ))}
             </div>
         )
+    }*/
+
+    if (ranking){
+        rankingContent=(
+            <ul className="matchRanking user-list">
+                {ranking.map(ranking => (
+                        <Ranking ranking={ranking}/>
+                ))}
+            </ul>
+        )
     }
+
     return (
         <BaseContainer>
-            <div className="startpage container">
-                <div className="startpage text-container">
+            <div className="matchRanking base-container">
+                <div className="matchRanking text-container">
                     <text>END OF GAME</text>
                 </div>
-                <h1 className="round user-item">{rankingContent}</h1>
-                <div className="startpage button-container">
-                    <PrimaryButton
-                        //onClick={() => history.push(`/users/profile/${userId}`)}
+                {rankingContent}
+                <div className="matchRanking button-container">
+                    <PrimaryButton className="matchRanking back-to-lobby-button"
                         onClick={() => resetPlayerScoreAndGetToLobbies()}
                     >
                         back to lobbies
@@ -74,46 +96,5 @@ const MatchRanking = () => {
             </div>
         </BaseContainer>
     );
-
-
 }
-
 export default MatchRanking;
-
-{/*
-
-<BaseContainer className="round container">
-            <div className="round grid-container">
-                <div className="round grid-content1">
-                    <h1 className="round user-item">WINNER IS</h1>
-                </div>
-                <div className="round grid-content2">
-                <h1 className="round user-item">WINNER IS</h1>
-                    <CardButton className="blackCard"
-                    >
-                        {blackCard}
-                    </CardButton>
-                </div>
-                <div className="round grid-content3">
-                    <div className= "round timer" >
-                        {timer}
-                    </div>
-                </div>
-                <div className="round grid-content4">
-                    <div className="round card-list">
-                        {whiteCardContent}
-                    </div>
-                </div>
-                <div className="round grid-content6">
-                    <div className="round clickedCard">
-
-                    </div>
-                    <PrimaryButton
-                        width="100%"
-                        onClick={() => confirmSelectedCard()}
-                    >
-                        Select card
-                    </PrimaryButton>
-                </div>
-
-*/}

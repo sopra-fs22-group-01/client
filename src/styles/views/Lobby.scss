@@ -7,12 +7,13 @@
  */
 
 .lobby {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+
+  ul {
+    padding-left: 0;
+    display: table;
+    margin: 0 auto;
+    text-align: left;
+  }
 
   h1{
     font-size: 3.5em;
@@ -30,48 +31,79 @@
   }
 
 
-
-
   &.container {
-    width: 100%;
-    margin-top: 5em;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+/*    background-color: green;*/
   }
 
   &.user-list{
-    padding-left: 0;
-    align-items: stretch;
-    width: 75%;
-  }
-
-  &.button_container{
-    margin:1em;
-    flex-direction: row;
-    width: 100%;
-    background-color: $background;
+ /*   background-color: red;*/
+    width:100%;
+    margin-right: 0;
+    margin-bottom: 20px;
 
   }
 
-  &.button_normal{
-    margin:1em;
-    flex-direction: row;
-    width: 100%;
-    background-color: transparent;
+  &.grid-container{
+/*    background-color: blue;*/
+    display: grid;
+    grid-template-columns: 400px 400px 400px;
+    grid-auto-rows: minmax(10px,auto);
+    grid-row-gap: 50px;
+    grid-column-gap: 0px;
+    justify-content: center; //puts grid into the center of the page
+    text-align: center;
+  }
 
+  &.grid-content1{
+/*    background-color: red;*/
+  }
+  &.grid-content2{
+/*    background-color: #490b96;*/
+  }
+  &.grid-content3{
+/*    background-color: #6c0b96;*/
+
+  }
+  &.grid-content4{
+/*    background-color: purple;*/
+
+  }
+
+  &.ready_button{
+    min-width: 300px;
   }
 
   &.rules_button{
-    width: 50%;
-    padding-right: 20px;
-    padding-left:20px
+    min-width: 300px;
   }
-
+  &.leave_button{
+    min-width: 300px;
+  }
+  &.small_button{
+    min-width: 300px;
+    font-size: 1.5em;
+  }
 
   &.game_rules{
     color:white;
   }
+  &.custom_white_card {
+    &:disabled {
+      opacity: 1;
+      background-color: white;
+      color: black;
 
+      &:hover {
+        cursor: default;
+        transform: none;
+      }
+    }
+  }
 }
 
 .player {

@@ -144,7 +144,7 @@ const Winner = () => {
         whiteCardContent = (
             <div className="round cards">
                 {scores.map(card => (
-                    <CardButton className="card whiteCard"
+                    <CardButton className="cardButton whiteCard"
                     >
                         {card.text}
                     </CardButton>
