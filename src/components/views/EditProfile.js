@@ -9,6 +9,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import AiFillEye from 'react-icons/fa';
 import AiFillEyeInvisible from 'react-icons/fa';
+import {SecondaryButton} from "../ui/SecondaryButton";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -130,12 +131,14 @@ const EditProfile = () =>{
                 type={passwordType}
                 onChange={pw => setPassword(pw)}
             />
-            <button
-                type="button"
-                onClick={() => togglePassword()}
-            >
-              {passwordType === "password" ? "Show password" : "Hide Password"}
-            </button>
+            <div className="login button-container_show_password">
+              <SecondaryButton className="login show_password_button"
+                               type="button"
+                               onClick={() => togglePassword()}
+              >
+                {passwordType === "password" ? "Show password" : "Hide Password"}
+              </SecondaryButton>
+            </div>
             <div className="editProfile button-container">
               <PrimaryButton
                   width="100%"

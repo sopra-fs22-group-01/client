@@ -245,7 +245,7 @@ const Voting = () => {
         fetchData();
     }, []);
 
-    /*//useEffect for Countdown
+    //useEffect for Countdown
     useEffect( () =>{
         async function fetchData() {
             try {
@@ -257,7 +257,7 @@ const Voting = () => {
 
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
-                if(timeResponse.data === 0 /!*&& clickedCard.text != "X"*!/){
+                if(timeResponse.data === 0 /*&& clickedCard.text != "X"*/){
                     console.log("clicked card when timer == 0:")
                     console.log(clickedCard)
                     //sends put request to backend to set chosenCard in backend and makes history.push to election
@@ -275,7 +275,7 @@ const Voting = () => {
 
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
-                if(laughResponse.data === "Laughing" /!*&& clickedCard.text != "X"*!/){
+                if(laughResponse.data === "Laughing" /*&& clickedCard.text != "X"*/){
                     if (clickedCard.text !== "X") {
                         audio.volume = 0.25;
                         audio.play();
@@ -294,7 +294,6 @@ const Voting = () => {
         return () => clearInterval(t); // clear
     }, [clickedCard, usedLaugh]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
-   */
     let scoreboardContent = <Spinner/>;
     let cardContent = <div>waiting for cards</div>;
 
