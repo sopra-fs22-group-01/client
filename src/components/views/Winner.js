@@ -1,14 +1,11 @@
 import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import {Spinner} from 'components/ui/Spinner';
-import {PrimaryButton} from 'components/ui/PrimaryButton';
-import {Link, useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Round.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
-import {SecondaryButton} from "../ui/SecondaryButton";
 
 const ScoreBoardPlayer = ({user}) => (
     <div>
@@ -22,14 +19,7 @@ ScoreBoardPlayer.propTypes = {
 };
 
 const Winner = () => {
-    // use react-router-dom's hook to access the history
     const history = useHistory();
-
-    // define a state variable (using the state hook).
-    // if this variable changes, the component will re-render, but the variable will
-    // keep its value throughout render cycles.
-    // a component can have as many state variables as you like.
-    // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [users, setUsers] = useState(null);
     const [blackCard, setBlackCard] = useState(null);
     const [scores, setScores] = useState(null);
@@ -39,12 +29,9 @@ const Winner = () => {
     const {userId} = useParams();
     const {matchId} = useParams();
     const [timer, setTimer] = useState(15);
+    const [read,setRead] = useState(false);
 
 
-    // the effect hook can be used to react to change in your component.
-    // in this case, the effect hook is only run once, the first time the component is mounted
-    // this can be achieved by leaving the second argument an empty array.
-    // for more information on the effect hook, please see https://reactjs.org/docs/hooks-effect.html
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
@@ -63,7 +50,6 @@ const Winner = () => {
                 //retrieves blackCard
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
                 setBlackCard(blackCard_response.data);
-                // console.log(blackCard_response);
             } catch (error) {
                 console.error(`Something went wrong while fetching the blackcard: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -74,7 +60,6 @@ const Winner = () => {
                 // retrieve winner cards
                 const roundWinnerResponse = await api.get(`/matches/${matchId}/winner`) ///matches/0/hands/1
                 setScores(roundWinnerResponse.data)
-                // console.log(roundWinnerResponse);
             } catch (error) {
                 console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -94,7 +79,6 @@ const Winner = () => {
                 // retrieve round number
                 const roundNumberResponse = await api.get(`/matches/${matchId}/roundnumbers`)
                 setRoundNumber(roundNumberResponse.data)
-                // console.log(roundNumberResponse);
             } catch (error) {
                 console.error(`Something went wrong while fetching the round number: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -161,6 +145,35 @@ const Winner = () => {
                 ))}
             </div>
         )
+    }
+    function replaceCharwithChar(str,old, new_chr) { // replaces in str at idx with chr
+        //if(index > str.length-1) return str;
+        const cleanedWhite = new_chr
+        const idx = str.indexOf(old);
+
+        const text = str.substring(0,idx) + "\""+  cleanedWhite + "\" "+ str.substring((idx+old.length)+1);
+
+        return text;
+
+    }
+
+    if (blackCard && scores && !read ){
+        var synth = window.speechSynthesis;
+        let utter = new SpeechSynthesisUtterance();
+        utter.lang = 'en-US'
+
+        const blank = blackCard.toString().indexOf("____")
+        if (blank === -1){ // if there is no underscore (questions f.e) -> read normally
+            utter.text = blackCard.toString()
+            synth.speak(utter)
+            scores.map((card) => utter.text = card.text, synth.speak(utter)); //replacing allChosenCard with WhiteCard
+        }
+        else{
+            utter.text = ""
+            synth.speak(utter)
+            scores.map((card) => utter.text = replaceCharwithChar(blackCard.toString(), "____", card.text), synth.speak(utter));
+        }
+        setRead(true);
     }
 
     return (

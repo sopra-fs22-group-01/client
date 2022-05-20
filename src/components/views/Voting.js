@@ -300,6 +300,7 @@ const Voting = () => {
     let scoreboardContent = <Spinner/>;
     let cardContent = <div>waiting for cards</div>;
 
+    /*
     if (blackCard && allChosenCards && clickedCard.owner == null && !read){
         var synth = window.speechSynthesis;
         let utter = new SpeechSynthesisUtterance();
@@ -318,6 +319,7 @@ const Voting = () => {
         }
         setRead(true);
     }
+    */
 
     if (users) {
         scoreboardContent = (
