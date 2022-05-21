@@ -57,13 +57,13 @@ const Voting = () => {
         if (clickedCard.text !== "X") {
             setUsedLaugh(true);
             try {
-                // update user with userPutDTO -> decrease superVote in database
-                const requestBody = JSON.stringify(
+                // update user -> decrease superVote in DATABASE and in match
+                /*const requestBody = JSON.stringify(
                     {
                         "id":userId,
                         "superVote": user.superVote-1
-                    });
-                await api.put(`/players/supervotes/${userId}`, requestBody);
+                    });*/
+                await api.put(`/matches/${matchId}/supervotes/${userId}`);
                 console.log("USERPUTDTO FOR SUPERVOTE FOR ", user.username)
                 console.log(user.username, "'s UsedLaugh: ", usedLaugh)
 
@@ -71,9 +71,9 @@ const Voting = () => {
                 console.error(`Something went wrong while using up super vote: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while using up you super vote ! See the console for details.");
-            }
+            }/*
             try {
-                // change laughStatus & update user with userPutDTO -> decrease superVote in match.currentplayers()
+                // change laughStatus & update user with userPutDTO -> decrease superVote in match.currentplayers() (NOT IN DATABASE)
                 await api.put(`/matches/${matchId}/supervotes/${userId}`);
                 console.log(user.username, " ACTIVATED LAUGH STATUS IN SERVER")
 
@@ -81,7 +81,7 @@ const Voting = () => {
                 console.error(`Something went wrong while casting your super vote: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while casting your super vote ! See the console for details.");
-            }
+            }*/
         } else {
             alert("Vote for a card first!")
         }
@@ -284,6 +284,7 @@ const Voting = () => {
                         audio.play();
                         // tell server this specific user heard a laugh
                         await api.put(`/matches/${matchId}/laugh`);
+                        //console.log("played laughter")
                     }
                 }
 
