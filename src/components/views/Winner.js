@@ -146,6 +146,7 @@ const Winner = () => {
             </div>
         )
     }
+
     function replaceCharwithChar(str,old, new_chr) { // replaces in str at idx with chr
         //if(index > str.length-1) return str;
         const cleanedWhite = new_chr
@@ -156,6 +157,7 @@ const Winner = () => {
         return text;
 
     }
+
     function textToRead(){
         let text = ""
         const blank = blackCard.toString().indexOf("____")
