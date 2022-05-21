@@ -156,23 +156,25 @@ const Winner = () => {
         return text;
 
     }
+    function textToRead(){
+        let text = ""
+        const blank = blackCard.toString().indexOf("____")
+        if (blank === -1){
+            text = blackCard.toString();
+            scores.map(card => text += card.text);
+        }
+        else {
+            scores.map(card => text += replaceCharwithChar(blackCard.toString(), "____", card.text))
+        }
+        return text;
+    }
 
     if (blackCard && scores && !read ){
         var synth = window.speechSynthesis;
         let utter = new SpeechSynthesisUtterance();
-        utter.lang = 'en-US'
-
-        const blank = blackCard.toString().indexOf("____")
-        if (blank === -1){ // if there is no underscore (questions f.e) -> read normally
-            utter.text = blackCard.toString()
-            synth.speak(utter)
-            scores.map((card) => utter.text = card.text, synth.speak(utter)); //replacing allChosenCard with WhiteCard
-        }
-        else{
-            utter.text = ""
-            synth.speak(utter)
-            scores.map((card) => utter.text = replaceCharwithChar(blackCard.toString(), "____", card.text), synth.speak(utter));
-        }
+        utter.lang = 'en-US';
+        utter.text = textToRead();
+        synth.speak(utter);
         setRead(true);
     }
 
