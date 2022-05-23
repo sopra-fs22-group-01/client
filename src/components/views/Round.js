@@ -10,6 +10,7 @@ import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 import {SecondaryButton} from "../ui/SecondaryButton";
 import Card from "../../models/Card";
+import user from "../../models/User";
 
 const ScoreBoardPlayer = ({user}) => (
     <div>
@@ -114,6 +115,16 @@ const Round = () => {
                 const true_UserId = true_UserResponse.data.id
 
                 if (true_UserId !== userId){
+                    try {
+                        //retrieve user hand
+                        const whiteCardResponse = await api.get(`/matches/${matchId}/hands/${true_UserId}`) ///matches/0/hands/1
+                        setCards(whiteCardResponse.data)
+                        // console.log(whiteCardResponse);
+                    } catch (error) {
+                        console.error(`Something went wrong while fetching your hand: \n${handleError(error)}`);
+                        console.error("Details:", error);
+                        alert("Something went wrong while fetching your hand! See the console for details.");
+                    }
                     history.push(`/matches/${matchId}/hand/${true_UserId}`)
                 }
 
