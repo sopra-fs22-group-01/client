@@ -181,11 +181,19 @@ const Lobby = () => {
 
                 const true_lobbyId = findLobbyOfUser(lobbyListResponse, true_UserId)
                 console.log("true lobbyId: ", true_lobbyId)
+
                 // if trueUserId != Id || trueLobbyId != lobbyId
                 if (true_UserId !== userId){
                     history.push(`/lobbies/${lobbyId}/players/${true_UserId}`)
                 }
                 if (! checkIfUserInLobby(lobbyUsersResponse, true_UserId)){
+                    try{
+                        const deletionResponse = await api.delete(`/lobbies/-1/players/${userId}`);
+                    }catch{
+                        console.error(`Something went wrong while deleting user from all lobbies: }`);
+                        alert("Something went wrong while deleting user from all lobbies");
+                    }
+
                     history.push(`/lobbies/players/${true_UserId}`)
                 }
                 //history.push(`/users/profile/${true_id}`)
