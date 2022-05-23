@@ -58,30 +58,15 @@ const Voting = () => {
             setUsedLaugh(true);
             try {
                 // update user -> decrease superVote in DATABASE and in match
-                /*const requestBody = JSON.stringify(
-                    {
-                        "id":userId,
-                        "superVote": user.superVote-1
-                    });*/
                 await api.put(`/matches/${matchId}/supervotes/${userId}`);
-                console.log("USERPUTDTO FOR SUPERVOTE FOR ", user.username)
-                console.log(user.username, "'s UsedLaugh: ", usedLaugh)
+                //console.log("USERPUTDTO FOR SUPERVOTE FOR ", user.username)
+                //console.log(user.username, "'s UsedLaugh: ", usedLaugh)
 
             } catch (error) {
                 console.error(`Something went wrong while using up super vote: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while using up you super vote ! See the console for details.");
-            }/*
-            try {
-                // change laughStatus & update user with userPutDTO -> decrease superVote in match.currentplayers() (NOT IN DATABASE)
-                await api.put(`/matches/${matchId}/supervotes/${userId}`);
-                console.log(user.username, " ACTIVATED LAUGH STATUS IN SERVER")
-
-            } catch (error) {
-                console.error(`Something went wrong while casting your super vote: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while casting your super vote ! See the console for details.");
-            }*/
+            }
         } else {
             alert("Vote for a card first!")
         }
@@ -206,6 +191,22 @@ const Voting = () => {
                 console.error(`Something went wrong while fetching the current user: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the current user ! See the console for details.");
+            }
+            try{ // fetch true player and redirect to correct userId
+                const t = localStorage.getItem("token")
+                const true_UserResponse = await api.get(`/users/${t}`);
+                //console.log("TRUE USER DATA")
+                //console.log(true_UserResponse)
+                const true_UserId = true_UserResponse.data.id
+
+                if (true_UserId !== userId){
+                    history.push(`/matches/${matchId}/election/${true_UserId}`)
+                }
+
+            }catch (error) {
+                console.error(`Something went wrong while fetching the true user: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the true user! See the console for details.");
             }
             try {
                 // retrieve Black card

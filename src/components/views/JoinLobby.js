@@ -75,6 +75,7 @@ const JoinLobby = () => {
 
     const addUserLobby = async (lobbyId) => {
         try {
+            console.log("Add this user to lobby")
             const response = api.post(`/lobbies/${lobbyId}/lists/players/${userId}`);
             history.push(`/lobbies/${lobbyId}/players/${userId}`);
 
@@ -109,6 +110,23 @@ const JoinLobby = () => {
         }
     };
 
+    useEffect(() => {
+
+        // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
+        async function fetchData() {
+            try{ // deletes the user from all lobbies
+                const deletionResponse = await api.delete(`/lobbies/-1/players/${userId}`);
+            }catch{
+                console.error(`Something went wrong while deleting user from all lobbies: }`);
+                alert("Something went wrong while deleting user from all lobbies");
+            }
+        };
+        const t = setInterval(fetchData, 600);//this part is responsible for periodically fetching data
+        return () => clearInterval(t); // clear
+
+
+    }, []);
+
     // the effect hook can be used to react to change in your component.
     // in this case, the effect hook is only run once, the first time the component is mounted
     // this can be achieved by leaving the second argument an empty array.
@@ -129,6 +147,23 @@ const JoinLobby = () => {
 
                 // Get the returned users and update the state.
                 setUser(response1.data);
+
+                // REDIRECT TO OWN PROFILE
+                if (localStorage.getItem("token") !== response1.data.token){
+                    console.log("USER NOT THE SAME")
+                    try{
+                        const t = localStorage.getItem("token")
+                        const true_UserResponse = await api.get(`/users/${t}`);
+                        console.log("TRUE USER DATA")
+                        console.log(true_UserResponse)
+                        const true_id = true_UserResponse.data.id
+                        history.push(`/users/profile/${true_id}`)
+                    }catch (error) {
+                        console.error(`Something went wrong while fetching the true user: \n${handleError(error)}`);
+                        console.error("Details:", error);
+                        alert("Something went wrong while fetching the true user! See the console for details.");
+                    }
+                }
 
                 // This is just some data for you to see what is available.
                 // Feel free to remove it.

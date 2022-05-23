@@ -76,13 +76,26 @@ const CustomCards = props => {
             try {
                 const response1 = await api.get(`/users/?id=${userId}`);
                 setUser(response1.data);
-                //console.log(response1);
-
-
             } catch (error) {
                 console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the user! See the console for details.");
+            }
+            try{ // fetch true player and redirect to correct userId
+                const t = localStorage.getItem("token")
+                const true_UserResponse = await api.get(`/users/${t}`);
+                //console.log("TRUE USER DATA")
+                //console.log(true_UserResponse)
+                const true_UserId = true_UserResponse.data.id
+
+                if (true_UserId !== userId){
+                    history.push(`/lobbies/${lobbyId}/players/${true_UserId}/cards/custom`)
+                }
+
+            }catch (error) {
+                console.error(`Something went wrong while fetching the true user: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the true user! See the console for details.");
             }
         };
 

@@ -95,7 +95,25 @@ const EditProfile = () =>{
 
         // Get the returned users and update the state.
         setUser(response.data);
+        console.log("TOKEN")
+        console.log(response.data.token)
 
+        // REDIRECT TO OWN PROFILE
+        if (localStorage.getItem("token") !== response.data.token){
+          console.log("USER NOT THE SAME")
+          try{
+            const t = localStorage.getItem("token")
+            const true_UserResponse = await api.get(`/users/${t}`);
+            console.log("TRUE USER DATA")
+            console.log(true_UserResponse)
+            const true_id = true_UserResponse.data.id
+            history.push(`/users/profile/${true_id}`)
+          }catch (error) {
+            console.error(`Something went wrong while fetching the true user: \n${handleError(error)}`);
+            console.error("Details:", error);
+            alert("Something went wrong while fetching the true user! See the console for details.");
+          }
+        }
         // This is just some data for you to see what is available.
         // Feel free to remove it.
         /*

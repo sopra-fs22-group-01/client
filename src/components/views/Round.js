@@ -10,6 +10,7 @@ import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 import {SecondaryButton} from "../ui/SecondaryButton";
 import Card from "../../models/Card";
+import user from "../../models/User";
 
 const ScoreBoardPlayer = ({user}) => (
     <div>
@@ -106,6 +107,32 @@ const Round = () => {
                 alert("Something went wrong while fetching the users for this specific match! See the console for details.");
 
             }
+            try{ // fetch true player and redirect to correct userId
+                const t = localStorage.getItem("token")
+                const true_UserResponse = await api.get(`/users/${t}`);
+                //console.log("TRUE USER DATA")
+                //console.log(true_UserResponse)
+                const true_UserId = true_UserResponse.data.id
+
+                if (true_UserId !== userId){
+                    try {
+                        //retrieve user hand
+                        const whiteCardResponse = await api.get(`/matches/${matchId}/hands/${true_UserId}`) ///matches/0/hands/1
+                        setCards(whiteCardResponse.data)
+                        // console.log(whiteCardResponse);
+                    } catch (error) {
+                        console.error(`Something went wrong while fetching your hand: \n${handleError(error)}`);
+                        console.error("Details:", error);
+                        alert("Something went wrong while fetching your hand! See the console for details.");
+                    }
+                    history.push(`/matches/${matchId}/hand/${true_UserId}`)
+                }
+
+            }catch (error) {
+                console.error(`Something went wrong while fetching the true user: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the true user! See the console for details.");
+            }
             try {
                 // retrieve black card of this round
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
@@ -161,7 +188,6 @@ const Round = () => {
 
                     //await api.put(`/matches/${matchId}/countdown`) ///matches/0/hands/1
             }
-
             } catch (error) {
                 console.error(`Something went wrong while fetching the timer: \n${handleError(error)}`);
                 console.error("Details:", error);

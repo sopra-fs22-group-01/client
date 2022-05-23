@@ -89,6 +89,38 @@ const Lobby = () => {
 
     }
 
+    const checkIfUserInLobby = (userList, trueId) =>{
+        const length = userList.length;
+        for (var i = 0; i < length; i++){
+            //console.log("check for userId: ", i)
+            if (userList[i].id === trueId){
+                //console.log("return true, user in this lobby with Userid= ", trueId)
+                return true;
+            }
+        }
+        //console.log("user is not in lobby, return false")
+        return false;
+    }
+
+    const findLobbyOfUser = (lobbyList, trueUserId) =>{
+        const lobbyListLength = lobbyList.length;
+        // iterate through each lobbyId
+        for (var i = 0; i < lobbyListLength; i++){
+            //console.log("check for userId: ", i)
+            const lobbyLength = lobbyList[i].length
+            // iterate through each user in a lobby
+            for (var j = 0; i > lobbyLength; j++){
+                if (lobbyList[i].currentPlayers[j].id === trueUserId){
+                    return i
+                }
+            }
+        }
+        //console.log("user is not in any lobby, return false")
+        return false;
+    }
+
+
+
     /*
     //Removes a user from the list of all current players in the lobby
     @DeleteMapping("/lobbies/{lobbyId}/players")
@@ -104,16 +136,27 @@ const Lobby = () => {
         history.push(`/lobbies/players/${userId}`);
     }
 
-
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             // console.log("LOBBY ID FROM LOBBY.JS", lobbyId)
-
+            let lobbyUsersResponse = null;
+            let lobbyListResponse = null;
+            try{
+                const response2 = await api.get('/lobbies');
+                lobbyListResponse = response2.data
+                //console.log("ALL LOBBIES RESPONSE")
+                //console.log(lobbyListResponse)
+            }catch (error) {
+                console.error(`Something went wrong while fetching all lobbies: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching all lobbies ! See the console for details.");
+            }
             // fetch all match players
             try{
                 const response = await api.get(`lobbies/${lobbyId}/users`);
                 setUsers(response.data);
+                lobbyUsersResponse = response.data
             }catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -127,6 +170,37 @@ const Lobby = () => {
                 console.error(`Something went wrong while fetching the current user: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the current user ! See the console for details.");
+            }
+            try{ // fetch true player
+                const t = localStorage.getItem("token")
+                const true_UserResponse = await api.get(`/users/${t}`);
+                //console.log("TRUE USER DATA")
+                //console.log(true_UserResponse)
+                const true_UserId = true_UserResponse.data.id
+
+                const true_lobbyId = findLobbyOfUser(lobbyListResponse, true_UserId)
+               // console.log("true lobbyId: ", true_lobbyId)
+
+                // if trueUserId != Id || trueLobbyId != lobbyId
+                if (true_UserId !== userId){
+                    history.push(`/lobbies/${lobbyId}/players/${true_UserId}`)
+                }
+                if (! checkIfUserInLobby(lobbyUsersResponse, true_UserId)){
+                    try{ // deletes the user from all lobbies
+                        const deletionResponse = await api.delete(`/lobbies/-1/players/${userId}`);
+                    }catch{
+                        console.error(`Something went wrong while deleting user from all lobbies: }`);
+                        alert("Something went wrong while deleting user from all lobbies");
+                    }
+
+                    history.push(`/lobbies/players/${true_UserId}`)
+                }
+                //history.push(`/users/profile/${true_id}`)
+
+            }catch (error) {
+                console.error(`Something went wrong while fetching the true user: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the true user! See the console for details.");
             }
             try{
                 const rules = await api.get(`/rules`);
@@ -158,7 +232,7 @@ const Lobby = () => {
         content = (
             <div className="lobby">
 
-                    <h1>Lobby {lobbyId}</h1>
+                <h1>Lobby {lobbyId}</h1>
 
                 <ul className="lobby user-list">
                     {users.map(user => (
@@ -166,7 +240,7 @@ const Lobby = () => {
                             style={
                                 user.token === localStorage.getItem(`token`) ?
                                     ({ pointerEvents: 'none' }):({ pointerEvents: '' })
-                        }
+                            }
                             to={`/users/profile/${user.id}`}
                         >
                             <Player user={user}/>
