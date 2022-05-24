@@ -242,6 +242,7 @@ const Lobby = () => {
                                     ({ pointerEvents: 'none' }):({ pointerEvents: '' })
                             }
                             to={`/users/profile/${user.id}`}
+                            onClick={()=>isReady()}
                         >
                             <Player user={user}/>
                         </Link>

@@ -115,8 +115,6 @@ const ProfilePage = () => {
     if (user) {
         content = (
             <BaseContainer className="profilePage base-container">
-
-
                 <div className="profilePage titleContainer">
                     <h1>Profile</h1>
                 </div>
@@ -133,7 +131,7 @@ const ProfilePage = () => {
 
 
                         <div className="profilePage password">
-                            <text>Password: ● ● ● ● ●</text>
+                                <text>Password: ● ● ● ● ●</text>
                             <SecondaryButton
                                 disabled={!(user.token === localStorage.getItem(`token`))}
                                 onClick={() => history.push(`/editor/${user.id}`)}>
@@ -168,11 +166,7 @@ const ProfilePage = () => {
                             back
                         </PrimaryButton>
                     </div>
-
-
                 </div>
-
-
             </BaseContainer>
         );
     }
