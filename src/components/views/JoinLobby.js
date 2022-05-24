@@ -46,6 +46,7 @@ const JoinLobby = () => {
     const [lobbies, setLobbies] = useState(null);
     const [clickedLobby, setClickedLobby] = useState(null);
     const [hasMatchVar, setHasMatchVar] = useState(false);
+    const numberMaxPlayers = 5;
 
     const logout = async () => {
         try {
@@ -73,11 +74,18 @@ const JoinLobby = () => {
         }
     };
 
-    const addUserLobby = async (lobbyId) => {
+    const addUserLobby = async (lobbyModel) => {
         try {
-            console.log("Add this user to lobby")
-            const response = api.post(`/lobbies/${lobbyId}/lists/players/${userId}`);
-            history.push(`/lobbies/${lobbyId}/players/${userId}`);
+            const lobbyId = lobbyModel.id
+            if (lobbyModel.currentPlayerCount >= numberMaxPlayers){
+                alert("This lobby is full, chose a different one")
+            }
+            else{
+                console.log("Add this user to lobby")
+                const response = api.post(`/lobbies/${lobbyId}/lists/players/${userId}`);
+                history.push(`/lobbies/${lobbyId}/players/${userId}`);
+            }
+
 
 
         } catch (error) {
@@ -205,7 +213,7 @@ const JoinLobby = () => {
                     <ul className="joinLobby lobbyList">
                         {lobbies.map((lobbyModel, d) => (
                             <button className="joinLobby lobbyButton"
-                                    onClick={() => addUserLobby(lobbyModel.id)}
+                                    onClick={() => addUserLobby(lobbyModel)}
                                     disabled={!(user.token === localStorage.getItem(`token`))}
                             >
                                 <LobbyObject lobbyModel={lobbyModel}/>

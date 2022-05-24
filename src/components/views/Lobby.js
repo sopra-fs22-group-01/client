@@ -51,6 +51,7 @@ const Lobby = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
     const [hasCustom, setHasCustom] = useState(false);
+    const numberMaxPlayers = 5;
 
     //const [readyIcon, setReadyIcon] = useState(<BiCircle/>);
     const {userId} = useParams();
@@ -139,7 +140,6 @@ const Lobby = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
-            // console.log("LOBBY ID FROM LOBBY.JS", lobbyId)
             let lobbyUsersResponse = null;
             let lobbyListResponse = null;
             try{
@@ -178,7 +178,7 @@ const Lobby = () => {
                 //console.log(true_UserResponse)
                 const true_UserId = true_UserResponse.data.id
 
-                const true_lobbyId = findLobbyOfUser(lobbyListResponse, true_UserId)
+                //const true_lobbyId = findLobbyOfUser(lobbyListResponse, true_UserId)
                // console.log("true lobbyId: ", true_lobbyId)
 
                 // if trueUserId != Id || trueLobbyId != lobbyId
@@ -233,6 +233,7 @@ const Lobby = () => {
             <div className="lobby">
 
                 <h1>Lobby {lobbyId}</h1>
+                <h2>{users.length}/{numberMaxPlayers} Players</h2>
 
                 <ul className="lobby user-list">
                     {users.map(user => (
