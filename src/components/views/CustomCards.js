@@ -99,7 +99,7 @@ const CustomCards = props => {
             }
         };
 
-        const t = setInterval(fetchData, 10);//this part is responsible for periodically fetching data
+        const t = setInterval(fetchData, 100);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear
     }, [customText]);
 
