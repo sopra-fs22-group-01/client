@@ -213,7 +213,8 @@ const Lobby = () => {
             try{ // get lobby status
                 const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`); //
                 const lobby_stat = lobby_status_response.data;
-                if (lobby_stat === "All_Ready") {
+                //if (lobby_stat === "All_Ready") {
+                if (lobby_stat === "All_Ready" && users.length >=3) {
                     history.push(`/lobbies/${lobbyId}/players/${userId}/loading`)
                 }
             }catch (error) {
