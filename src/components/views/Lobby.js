@@ -279,10 +279,10 @@ const Lobby = () => {
                                        onClick={togglePopup2}
                                        disabled={!hasCustom}
                         >
-                            your custom card
+                            show custom card
                         </PrimaryButton>
 
-                        <div className="lobby game_rules">
+                        <div className="lobby small_button">
                             {isOpen2 && <Popup
                                 content={<>
                                     <b>Your current custom card</b>
@@ -298,7 +298,7 @@ const Lobby = () => {
                         <PrimaryButton className="lobby small_button"
                                        onClick={() => history.push(`/lobbies/${lobbyId}/players/${userId}/cards/custom`)}
                         >
-                            create custom card
+                            create/update custom card
                         </PrimaryButton>
                         <PrimaryButton className="lobby small_button"
                                        onClick={togglePopup}
