@@ -284,7 +284,7 @@ const Lobby = () => {
                             show custom card
                         </PrimaryButton>
 
-                        <div className="lobby small_button">
+                        <div className="lobby game_rules">
                             {isOpen2 && <Popup
                                 content={<>
                                     <b>Your current custom card</b>
