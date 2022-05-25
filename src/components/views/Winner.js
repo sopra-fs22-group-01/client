@@ -183,7 +183,6 @@ const Winner = () => {
         let text = ""
         const blank = blackCard.toString().indexOf("____")
         if (blank === -1){
-
             scores.map(card => text += questionText(card.text));
         }
         else {
