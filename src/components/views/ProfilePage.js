@@ -43,9 +43,8 @@ const ProfilePage = () => {
     // more information can be found under https://reactjs.org/docs/hooks-state.html
     const [user, setUser] = useState(null);
     const {userId} = useParams(); //extracts the id from the URL
-    const [lobbies, setLobbies] = useState(null);
-    const [clickedLobby, setClickedLobby] = useState(null);
-    const [hasMatchVar, setHasMatchVar] = useState(false);
+    const [password, setPassword]=useState(null);
+
 
     const logout = async () => {
         try {
@@ -69,37 +68,22 @@ const ProfilePage = () => {
     // this can be achieved by leaving the second argument an empty array.
     // for more information on the effect hook, please see https://reactjs.org/docs/hooks-effect.html
     useEffect(() => {
-
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             try {
                 const response1 = await api.get(`/users/?id=${userId}`);
-                const response2 = await api.get('/lobbies');
-                setLobbies(response2.data);
-
-                // delays continuous execution of an async operation for 1 second.
-                // This is just a fake async call, so that the spinner can be displayed
-                // feel free to remove it :)
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
                 // Get the returned users and update the state.
                 setUser(response1.data);
-
-                // This is just some data for you to see what is available.
-                // Feel free to remove it.
-                /*
-                console.log('request to:', response1.request.responseURL);
-                console.log('status code:', response1.status);
-                console.log('status text:', response1.statusText);
-                console.log('requested data:', response1.data);*/
-
-                // See here to get more data.
-                // console.log(response1);
+                console.log(response1);
+                if((response1.data.token === localStorage.getItem(`token`))){
+                    setPassword("Password: ● ● ● ● ●")
+                }
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the user! See the console for details.");
             }
+
         };
         fetchData();
     }, []); //there cold be something in this array,  the code inside
@@ -127,7 +111,7 @@ const ProfilePage = () => {
 
 
                         <div className="profilePage password">
-                                <text>Password: ● ● ● ● ●</text>
+                            {password}
                             <SecondaryButton
                                 disabled={!(user.token === localStorage.getItem(`token`))}
                                 onClick={() => history.push(`/editor/${user.id}`)}>
