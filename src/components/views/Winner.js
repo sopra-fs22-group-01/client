@@ -174,15 +174,19 @@ const Winner = () => {
 
     }
 
+    function questionText(cardText){
+        let blackCardText = blackCard.toString();
+        return blackCardText + cardText;
+    }
+
     function textToRead(){
         let text = ""
         const blank = blackCard.toString().indexOf("____")
         if (blank === -1){
-            text = blackCard.toString();
-            scores.map(card => text += card.text);
+            scores.map(card => text += questionText(card.text));
         }
         else {
-            scores.map(card => text += replaceCharwithChar(blackCard.toString(), "____", card.text))
+            scores.map(card => text += replaceCharwithChar(blackCard.toString(), "____", card.text));
         }
         return text;
     }
