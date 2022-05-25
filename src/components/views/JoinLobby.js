@@ -44,8 +44,7 @@ const JoinLobby = () => {
     const [user, setUser] = useState(null);
     const {userId} = useParams(); //extracts the id from the URL
     const [lobbies, setLobbies] = useState(null);
-    const [clickedLobby, setClickedLobby] = useState(null);
-    const [hasMatchVar, setHasMatchVar] = useState(false);
+    const [lobbyFull,setLobbyFull]=useState(null);
     const numberMaxPlayers = 5;
 
     const logout = async () => {
@@ -75,7 +74,8 @@ const JoinLobby = () => {
         try {
             const lobbyId = lobbyModel.id
             if (lobbyModel.currentPlayerCount >= numberMaxPlayers){
-                alert("This lobby is full, chose a different one")
+                setLobbyFull("The lobby is full, chose another one!")
+                /*alert("This lobby is full, chose a different one")*/
             }
             else{
                 console.log("Add this user to lobby")
@@ -185,6 +185,7 @@ const JoinLobby = () => {
 
                 <div className="joinLobby lobbyListContainer">
                     <h2>Choose a lobby:</h2>
+                    <h3> {lobbyFull} </h3>
                     <ul className="joinLobby lobbyList">
                         {lobbies.map((lobbyModel, d) => (
                             <button className="joinLobby lobbyButton"

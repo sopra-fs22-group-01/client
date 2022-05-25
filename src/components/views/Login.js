@@ -6,8 +6,6 @@ import {PrimaryButton} from 'components/ui/PrimaryButton';
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import AiFillEye from 'react-icons/fa';
-import AiFillEyeInvisible from 'react-icons/fa';
 import {SecondaryButton} from "../ui/SecondaryButton";
 
 /*
