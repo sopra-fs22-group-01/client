@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
-//import {Button} from 'components/ui/Button';
 import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
@@ -10,8 +9,7 @@ import "styles/views/Lobby.scss";
 import "styles/ui/PopUp.scss";
 import "styles/ui/CardButton.scss"
 import {CardButton} from "../ui/CardButton";
-import {SecondaryButton} from "../ui/SecondaryButton";
-// test
+
 
 
 
@@ -53,7 +51,6 @@ const Lobby = () => {
     const [hasCustom, setHasCustom] = useState(false);
     const numberMaxPlayers = 5;
 
-    //const [readyIcon, setReadyIcon] = useState(<BiCircle/>);
     const {userId} = useParams();
     const {lobbyId} = useParams(); // will be deleted after lobby creates match
 
@@ -103,30 +100,7 @@ const Lobby = () => {
         return false;
     }
 
-    const findLobbyOfUser = (lobbyList, trueUserId) =>{
-        const lobbyListLength = lobbyList.length;
-        // iterate through each lobbyId
-        for (var i = 0; i < lobbyListLength; i++){
-            //console.log("check for userId: ", i)
-            const lobbyLength = lobbyList[i].length
-            // iterate through each user in a lobby
-            for (var j = 0; i > lobbyLength; j++){
-                if (lobbyList[i].currentPlayers[j].id === trueUserId){
-                    return i
-                }
-            }
-        }
-        //console.log("user is not in any lobby, return false")
-        return false;
-    }
 
-
-
-    /*
-    //Removes a user from the list of all current players in the lobby
-    @DeleteMapping("/lobbies/{lobbyId}/players")
-    public void deleteUserFromLobby(@PathVariable long lobbyId, @RequestBody UserPostDTO userPostDTO){
-    */
     const leaveLobby = async () => {
         try {
             const deletionResponse = await api.delete(`/lobbies/${lobbyId}/players/${userId}`);
@@ -141,18 +115,8 @@ const Lobby = () => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             let lobbyUsersResponse = null;
-            let lobbyListResponse = null;
-            try{
-                const response2 = await api.get('/lobbies');
-                lobbyListResponse = response2.data
-                //console.log("ALL LOBBIES RESPONSE")
-                //console.log(lobbyListResponse)
-            }catch (error) {
-                console.error(`Something went wrong while fetching all lobbies: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching all lobbies ! See the console for details.");
-            }
-            // fetch all match players
+
+            // fetch all lobby players
             try{
                 const response = await api.get(`lobbies/${lobbyId}/users`);
                 setUsers(response.data);
@@ -192,10 +156,8 @@ const Lobby = () => {
                         console.error(`Something went wrong while deleting user from all lobbies: }`);
                         alert("Something went wrong while deleting user from all lobbies");
                     }
-
                     history.push(`/lobbies/players/${true_UserId}`)
                 }
-                //history.push(`/users/profile/${true_id}`)
 
             }catch (error) {
                 console.error(`Something went wrong while fetching the true user: \n${handleError(error)}`);
@@ -213,7 +175,6 @@ const Lobby = () => {
             try{ // get lobby status
                 const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`); //
                 const lobby_stat = lobby_status_response.data;
-                //if (lobby_stat === "All_Ready") {
                 if (lobby_stat === "All_Ready" && users.length >=3) {
                     history.push(`/lobbies/${lobbyId}/players/${userId}/loading`)
                 }
@@ -225,7 +186,7 @@ const Lobby = () => {
         }
         const t = setInterval(fetchData, 1000);//this part is responsible for periodically fetching data.
         return () => clearInterval(t); // clear
-    }, [user]);
+    }, []);
 
     let content = <Spinner/>;
 
