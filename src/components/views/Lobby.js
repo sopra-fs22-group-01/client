@@ -71,6 +71,7 @@ const Lobby = () => {
         }
     }
 
+
     const isReady = async () => {
 
         if (user.isReady === "READY") {
@@ -212,6 +213,7 @@ const Lobby = () => {
 
                 <h1>Lobby {lobbyId}</h1>
                 <h2>{users.length}/{numberMaxPlayers} Players</h2>
+                <h3> At least 3 players required to play, at most 5 possible</h3>
 
                 <ul className="lobby user-list">
                     {users.map(user => (
@@ -228,8 +230,6 @@ const Lobby = () => {
                     ))}
                 </ul>
 
-
-                {/*buttons in flex-grid*/}
                 <div className="lobby grid-container">
 
                     <div className="lobby grid-content1">
