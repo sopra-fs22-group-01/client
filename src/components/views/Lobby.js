@@ -9,6 +9,7 @@ import "styles/views/Lobby.scss";
 import "styles/ui/PopUp.scss";
 import "styles/ui/CardButton.scss"
 import {CardButton} from "../ui/CardButton";
+import customCards from "./CustomCards";
 
 
 
@@ -44,11 +45,12 @@ const Lobby = () => {
 
     const [users, setUsers] = useState(null);
     const [readyText, setReadyText] = useState("I am Ready");
+    const [createUpdate, setCreateUpdate]=useState("Create Custom Card");
     const [user, setUser] = useState(null);
     const [rules, setRules] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
-    const [hasCustom, setHasCustom] = useState(false);
+    const [hasCustom, setHasCustom] = useState("");
     const numberMaxPlayers = 5;
 
     const {userId} = useParams();
@@ -61,6 +63,12 @@ const Lobby = () => {
 
     const togglePopup2 = () => {
         setIsOpen2(!isOpen2);
+    }
+
+    const toggle_create_update=()=>{
+        if (hasCustom.length!==0){
+            setCreateUpdate("Update Custom Card")
+        }
     }
 
     const isReady = async () => {
@@ -120,6 +128,8 @@ const Lobby = () => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             let lobbyUsersResponse = null;
+            //changing text on button from create to update depending on if there is a custom card
+            toggle_create_update();
 
             // fetch all lobby players
             try{
@@ -188,10 +198,11 @@ const Lobby = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the lobby status ! See the console for details.");
             }
+            console.log(hasCustom);
         }
         const t = setInterval(fetchData, 1000);//this part is responsible for periodically fetching data.
         return () => clearInterval(t); // clear
-    }, []);
+    }, [hasCustom]);
 
     let content = <Spinner/>;
 
@@ -266,7 +277,7 @@ const Lobby = () => {
                         <PrimaryButton className="lobby small_button"
                                        onClick={() => unready_and_customCard()}
                         >
-                            create/update custom card
+                            {createUpdate}
                         </PrimaryButton>
                         <PrimaryButton className="lobby small_button"
                                        onClick={togglePopup}
