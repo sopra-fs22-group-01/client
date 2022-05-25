@@ -87,6 +87,11 @@ const Lobby = () => {
 
     }
 
+    const unready_and_customCard = () =>{
+        isReady()
+        history.push(`/lobbies/${lobbyId}/players/${userId}/cards/custom`)
+    }
+
     const checkIfUserInLobby = (userList, trueId) =>{
         const length = userList.length;
         for (var i = 0; i < length; i++){
@@ -259,7 +264,7 @@ const Lobby = () => {
                             />}
                         </div>
                         <PrimaryButton className="lobby small_button"
-                                       onClick={() => history.push(`/lobbies/${lobbyId}/players/${userId}/cards/custom`)}
+                                       onClick={() => unready_and_customCard()}
                         >
                             create/update custom card
                         </PrimaryButton>
