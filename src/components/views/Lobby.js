@@ -214,15 +214,17 @@ const Lobby = () => {
                         // create new Match using lobbyId (matchId receives same id)
                         const createdMatchResponse = await api.post(`/matches/${lobbyId}`); //starts a match
                         console.log(createdMatchResponse.data);
+
                     } catch (error) {
                         console.error(`Something went wrong while creating a match: \n${handleError(error)}`);
                         console.error("Details:", error);
                         alert("Something went wrong while creating a match ! See the console for details.");
                     }
 
+
                     //increments the request counter (vote count) in backend
                     try{
-                        await api.put(`/match/${lobbyId}/synchronization`)
+                        await api.put(`/matches/${lobbyId}/synchronization`)
                     }
                     catch (error){
                         alert(`Something went wrong when incrementing the vote count in the backend: \n${handleError(error)}`);
