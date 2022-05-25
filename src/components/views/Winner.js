@@ -176,8 +176,7 @@ const Winner = () => {
 
     function questionText(cardText){
         let blackCardText = blackCard.toString();
-        let textToRead = blackCardText + cardText;
-        return textToRead;
+        return blackCardText + cardText;
     }
 
     function textToRead(){
