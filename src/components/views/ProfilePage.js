@@ -80,7 +80,7 @@ const ProfilePage = () => {
                 // delays continuous execution of an async operation for 1 second.
                 // This is just a fake async call, so that the spinner can be displayed
                 // feel free to remove it :)
-                //await new Promise(resolve => setTimeout(resolve, 10000));
+                await new Promise(resolve => setTimeout(resolve, 1000));
 
                 // Get the returned users and update the state.
                 setUser(response1.data);
@@ -101,15 +101,11 @@ const ProfilePage = () => {
                 alert("Something went wrong while fetching the user! See the console for details.");
             }
         };
-        const t = setInterval(fetchData, 600);//this part is responsible for periodically fetching data
-        return () => clearInterval(t); // clear
-
-
+        fetchData();
     }, []); //there cold be something in this array,  the code inside
     //of the useEffect hook only renders, if something in the array changes. Since the
     //empty array never changes, the code inside useEffect never runs again
 
-    //ul = unordered list
     let content = <Spinner/>;
 
     if (user) {

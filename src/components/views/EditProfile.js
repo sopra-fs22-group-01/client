@@ -130,7 +130,6 @@ const EditProfile = () =>{
         alert("Something went wrong while fetching the users! See the console for details.");
       }
     }
-
     fetchData();
   }, []);
 
