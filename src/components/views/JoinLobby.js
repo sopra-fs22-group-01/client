@@ -51,9 +51,6 @@ const JoinLobby = () => {
     const logout = async () => {
         try {
             let currentToken = localStorage.getItem('token');
-
-            //const deletionResponse = await api.delete(`/lobbies/${lobbyId}/players/${userId}`);
-
             const response = await api.put(`/logout/?token=${currentToken}`)
             localStorage.removeItem('token');
             history.push('/users/login');
@@ -94,29 +91,7 @@ const JoinLobby = () => {
     };
 
 
-    const hasMatch = async (lobbyId) => {
-        try {
-            const response = api.get(`/matches/${lobbyId}/status`);
-            const status = (await response).data;
-            // console.log("MATCH STATUS", lobbyId)
-            // console.log(status)
-            /*
-                        if (status === "NotYetCreated"){
-                            console.log("FALSEE")
-                            setHasMatchVar(false)
 
-                        }
-                        else{
-                            console.log("TRUEE")
-                            setHasMatchVar(true)
-
-                        }*/
-
-            return status.toString();
-        } catch (error) {
-            alert(`Something went wrong fetching MatchStatus: \n${handleError(error)}`);
-        }
-    };
 
     useEffect(() => {
 

@@ -9,7 +9,7 @@ import "styles/views/Lobby.scss";
 import "styles/ui/PopUp.scss";
 import "styles/ui/CardButton.scss"
 import {CardButton} from "../ui/CardButton";
-import customCards from "./CustomCards";
+
 
 
 
@@ -50,7 +50,7 @@ const Lobby = () => {
     const [rules, setRules] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
-    const [hasCustom, setHasCustom] = useState("");
+    const [hasCustom, setHasCustom] = useState(null);
     const numberMaxPlayers = 5;
 
     const {userId} = useParams();
@@ -66,13 +66,31 @@ const Lobby = () => {
     }
 
     const toggle_create_update=()=>{
-        if (hasCustom.length!==0){
+        if (hasCustom!==null){
             setCreateUpdate("Update Custom Card")
         }
     }
 
+    const make_ready_status_unready= async ()=>{
+        if (user.isReady === "READY") {
+            setReadyText("I am Ready")
+            try {
+                //why do we have here a requestBody?
+                const requestBody = JSON.stringify(
+                    {
+                        "id": userId,
+                        "isReady": user.isReady
+                    }); //creates .json file
 
-    const isReady = async () => {
+                const updateResponse = await api.put(`/lobbies/${lobbyId}/users/${userId}`, requestBody);
+                console.log(updateResponse)
+            } catch (error) {
+                alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
+            }
+        }
+    }
+
+    const change_ready_status = async () => {
 
         if (user.isReady === "READY") {
             setReadyText("I am Ready")
@@ -93,11 +111,10 @@ const Lobby = () => {
         } catch (error) {
             alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
         }
-
     }
 
     const unready_and_customCard = () =>{
-        isReady()
+        make_ready_status_unready();
         history.push(`/lobbies/${lobbyId}/players/${userId}/cards/custom`)
     }
 
@@ -203,7 +220,7 @@ const Lobby = () => {
         }
         const t = setInterval(fetchData, 1000);//this part is responsible for periodically fetching data.
         return () => clearInterval(t); // clear
-    }, [hasCustom]);
+    }, [hasCustom,users]);
 
     let content = <Spinner/>;
 
@@ -223,7 +240,7 @@ const Lobby = () => {
                                     ({ pointerEvents: 'none' }):({ pointerEvents: '' })
                             }
                             to={`/users/profile/${user.id}`}
-                            onClick={()=>isReady()}
+                            onClick={()=>make_ready_status_unready()}
                         >
                             <Player user={user}/>
                         </Link>
@@ -234,7 +251,7 @@ const Lobby = () => {
 
                     <div className="lobby grid-content1">
                         <PrimaryButton className="lobby ready_button"
-                                       onClick={() => isReady()}
+                                       onClick={() => change_ready_status()}
                         >
                             {readyText}
                         </PrimaryButton>
