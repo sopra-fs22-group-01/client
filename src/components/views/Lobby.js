@@ -209,6 +209,25 @@ const Lobby = () => {
                 const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`); //
                 const lobby_stat = lobby_status_response.data;
                 if (lobby_stat === "All_Ready" && users.length >=3) {
+
+                    try {
+                        // create new Match using lobbyId (matchId receives same id)
+                        const createdMatchResponse = await api.post(`/matches/${lobbyId}`); //starts a match
+                        console.log(createdMatchResponse.data);
+                    } catch (error) {
+                        console.error(`Something went wrong while creating a match: \n${handleError(error)}`);
+                        console.error("Details:", error);
+                        alert("Something went wrong while creating a match ! See the console for details.");
+                    }
+
+                    //increments the request counter (vote count) in backend
+                    try{
+                        await api.put(`/match/${lobbyId}/synchronization`)
+                    }
+                    catch (error){
+                        alert(`Something went wrong when incrementing the vote count in the backend: \n${handleError(error)}`);
+                    }
+
                     history.push(`/lobbies/${lobbyId}/players/${userId}/loading`)
                 }
             }catch (error) {
@@ -218,7 +237,7 @@ const Lobby = () => {
             }
             console.log(hasCustom);
         }
-        const t = setInterval(fetchData, 1000);//this part is responsible for periodically fetching data.
+        const t = setInterval(fetchData, 1200);//this part is responsible for periodically fetching data.
         return () => clearInterval(t); // clear
     }, [hasCustom,users]);
 
