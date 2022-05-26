@@ -183,10 +183,10 @@ const Round = () => {
                 //resetting the votecount in the backend
                 if(timeResponse.data === 5){
                     try{
-                        await api.put(`"/matches/${matchId}/synchronization/reset"`)
+                        await api.put(`/matches/${matchId}/synchronization/reset`)
 
                         // just to get console logs about the voting status
-                        const votingStatusResponse = await api.get(`/matches/${lobbyId}/synchronization`);
+                        const votingStatusResponse = await api.get(`/matches/${matchId}/synchronization`);
                         console.log("Voting Status Response")
                         console.log(votingStatusResponse.data);
 
