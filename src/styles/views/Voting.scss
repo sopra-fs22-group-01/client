@@ -80,16 +80,21 @@
     margin-left: 3em;
     margin-top: 1em;
   }
+  &.superError{
+    color: darkred;
+    margin-top: 10px;
+  }
 
   &.laughingButton{
+    margin-top: 10px;
     height: 3em;
     width: 3em;
 
-    &:disabled {
+/*    &:disabled {
       display: none;
       cursor: default;
       opacity: 0.3;
-    }
+    }*/
 
   }
 

@@ -49,8 +49,17 @@ const Voting = () => {
     const {userId} = useParams();
     const {matchId} = useParams();
     const [timer, setTimer] = useState(null);
-
+    const [superError,setSuperError]=useState("")
     let audio = new Audio(Sitcom_Laugh_Track);
+
+    const toggleSuperError = () => {
+        if(superError === ""){
+            setSuperError("You must first select a card to supervote!")
+        }
+        else {
+            setSuperError("")
+        }
+    }
 
 
     const laugh = async () => {
@@ -68,7 +77,8 @@ const Voting = () => {
                 alert("Something went wrong while using up you super vote ! See the console for details.");
             }
         } else {
-            alert("Vote for a card first!")
+            toggleSuperError();
+            /*alert("Vote for a card first!")*/
         }
 
     }
@@ -301,6 +311,9 @@ const Voting = () => {
         return () => clearInterval(t); // clear
     }, [clickedCard]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
+
+
+
     let scoreboardContent = <Spinner/>;
     let cardContent = <div>waiting for cards</div>;
 
@@ -321,6 +334,7 @@ const Voting = () => {
                 <SecondaryButton
                     onClick={() => laugh()}
                     disabled={usedLaugh || user.superVote === 0}>
+                    <div className="voting superError"> {superError} </div>
                     <BsEmojiLaughing
                         className="voting laughingButton"
                     >
@@ -377,9 +391,7 @@ const Voting = () => {
                     {laughingButtonContent}
                 </div>
             </div>
-            <div className="round grid-content6">
 
-            </div>
             </div>
         </BaseContainer>
     );
