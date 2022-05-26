@@ -5,7 +5,7 @@
   // padding around the cards
   margin-left: auto;
   margin-right: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   margin-top: 10px;
   vertical-align: top; // aligns the card, not text
 
@@ -17,7 +17,7 @@
 
   // card dimensions
   width: 180px;
-  height: 230px;
+  height: 220px;
   border: none;
   border-radius: $borderRadius; // rounded corner
   opacity: 1;
@@ -26,6 +26,8 @@
 
   &.blackCard {
     cursor: default;
+    width: 210px;
+    height: 260px;
     &:hover {
       opacity: 1;
       transform: none;
