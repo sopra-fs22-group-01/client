@@ -80,7 +80,7 @@ const Statistics = () => {
                 <div className="statistics infos">
                     <ul> Overall wins: {user.overallWins}</ul>
                     <ul> Played games: {user.playedGames}</ul>
-                    <ul> Win/Loss ratio: {user.overallWins/ (user.playedGames - user.overallWins)}</ul>
+                    <ul> Win/Loss ratio: {(user.overallWins/ (user.playedGames - user.overallWins)).toFixed(1)}</ul>
 
                     <div className="statistics button-container">
 
