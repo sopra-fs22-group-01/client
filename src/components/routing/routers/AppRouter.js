@@ -46,31 +46,10 @@ const AppRouter = () => {
                 <Route path="/editor/:id">
                     <EditProfile/>
                 </Route>
-                {/*-------------------------------
-
-                <ProtectedRoute path="/editor/:id" component={EditProfile} isAuth={1}>
-                    <EditProfile/>
-
-                </ProtectedRoute>*/}
-
-                {/* <Route path="/matches/:matchId/hand/:userId">
-                    <GameGuard>
-                        <Round/>
-                    </GameGuard>
-                </Route>
-
-                <Route path="/lobbies/:lobbyId/players/:userId">
-                    <GameGuard>
-                        <LobbyView/>
-                    </GameGuard>
-                </Route>*/}
 
                 <Route path="/lobbies">
-                    <GameGuard>
                         <GameRouter base="/lobbies"/>
-                    </GameGuard>
                 </Route>
-
 
                 <Route exact path="/">
                     <Redirect to="/startpage"/>
