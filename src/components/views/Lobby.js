@@ -208,6 +208,7 @@ const Lobby = () => {
             try{ // get lobby status
                 const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`); //
                 const lobby_stat = lobby_status_response.data;
+                console.log(lobby_status_response.data);
                 if (lobby_stat === "All_Ready" && users.length >=3) {
 
                     try {
@@ -225,6 +226,7 @@ const Lobby = () => {
                     //increments the request counter (vote count) in backend
                     try{
                         await api.put(`/matches/${lobbyId}/synchronization`)
+                        console.log("incremented  vote count")
                     }
                     catch (error){
                         alert(`Something went wrong when incrementing the vote count in the backend: \n${handleError(error)}`);
