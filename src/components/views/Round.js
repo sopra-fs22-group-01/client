@@ -180,6 +180,22 @@ const Round = () => {
 
                 //sets time in frontend
                 setTimer(timeResponse.data);
+                //resetting the votecount in the backend
+                if(timeResponse.data === 5){
+                    try{
+                        await api.put(`/matches/${matchId}/synchronization/reset`)
+
+                        // just to get console logs about the voting status
+                        const votingStatusResponse = await api.get(`/matches/${matchId}/synchronization`);
+                        console.log("Voting Status Response")
+                        console.log(votingStatusResponse.data);
+
+                    }
+                    catch (error){
+                        alert(`Something went wrong when re-setting the vote count in the backend: \n${handleError(error)}`);
+                    }
+                }
+                // confirming selected card on moving on to the voting phase
                 if(timeResponse.data === 0){
                     /*console.log("clicked card when timer == 0:")
                     console.log(clickedCard)*/

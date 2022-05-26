@@ -95,8 +95,8 @@ const EditProfile = () =>{
 
         // Get the returned users and update the state.
         setUser(response.data);
-        console.log("TOKEN")
-        console.log(response.data.token)
+        /*console.log("TOKEN")
+        console.log(response.data.token)*/
 
         // REDIRECT TO OWN PROFILE
         if (localStorage.getItem("token") !== response.data.token){
@@ -130,7 +130,6 @@ const EditProfile = () =>{
         alert("Something went wrong while fetching the users! See the console for details.");
       }
     }
-
     fetchData();
   }, []);
 

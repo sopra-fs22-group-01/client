@@ -1,0 +1,22 @@
+@import 'styles/theme';
+
+/* The '&' is a shorthand for the containing element,
+  so for example a '&.user-list' inside .game will compile to
+  .game.user-list
+
+  for more information visit https://sass-lang.com/guide
+ */
+
+.winner {
+
+  &.grid-content1 {
+    text-align: right;
+  }
+
+  &.sound_icon{
+    margin-top: 20px;
+    font-size: 5em;
+    color:white;
+  }
+}
+

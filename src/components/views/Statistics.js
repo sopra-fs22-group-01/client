@@ -60,9 +60,7 @@ const Statistics = () => {
                 alert("Something went wrong while fetching the user! See the console for details.");
             }
         };
-        const t = setInterval(fetchData, 600);//this part is responsible for periodically fetching data
-        return () => clearInterval(t); // clear
-
+        fetchData();
 
     }, []); //there cold be something in this array,  the code inside
     //of the useEffect hook only renders, if something in the array changes. Since the

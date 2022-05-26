@@ -98,9 +98,7 @@ const CustomCards = props => {
                 alert("Something went wrong while fetching the true user! See the console for details.");
             }
         };
-
-        const t = setInterval(fetchData, 1000);//this part is responsible for periodically fetching data
-        return () => clearInterval(t); // clear
+        fetchData();
     }, [customText]);
 
     return (

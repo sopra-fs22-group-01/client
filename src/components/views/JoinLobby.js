@@ -44,16 +44,12 @@ const JoinLobby = () => {
     const [user, setUser] = useState(null);
     const {userId} = useParams(); //extracts the id from the URL
     const [lobbies, setLobbies] = useState(null);
-    const [clickedLobby, setClickedLobby] = useState(null);
-    const [hasMatchVar, setHasMatchVar] = useState(false);
+    const [lobbyFull,setLobbyFull]=useState(null);
     const numberMaxPlayers = 5;
 
     const logout = async () => {
         try {
             let currentToken = localStorage.getItem('token');
-
-            //const deletionResponse = await api.delete(`/lobbies/${lobbyId}/players/${userId}`);
-
             const response = await api.put(`/logout/?token=${currentToken}`)
             localStorage.removeItem('token');
             history.push('/users/login');
@@ -78,7 +74,8 @@ const JoinLobby = () => {
         try {
             const lobbyId = lobbyModel.id
             if (lobbyModel.currentPlayerCount >= numberMaxPlayers){
-                alert("This lobby is full, chose a different one")
+                setLobbyFull("The lobby is full, chose another one!")
+                /*alert("This lobby is full, chose a different one")*/
             }
             else{
                 console.log("Add this user to lobby")
@@ -94,29 +91,7 @@ const JoinLobby = () => {
     };
 
 
-    const hasMatch = async (lobbyId) => {
-        try {
-            const response = api.get(`/matches/${lobbyId}/status`);
-            const status = (await response).data;
-            // console.log("MATCH STATUS", lobbyId)
-            // console.log(status)
-            /*
-                        if (status === "NotYetCreated"){
-                            console.log("FALSEE")
-                            setHasMatchVar(false)
 
-                        }
-                        else{
-                            console.log("TRUEE")
-                            setHasMatchVar(true)
-
-                        }*/
-
-            return status.toString();
-        } catch (error) {
-            alert(`Something went wrong fetching MatchStatus: \n${handleError(error)}`);
-        }
-    };
 
     useEffect(() => {
 
@@ -210,6 +185,7 @@ const JoinLobby = () => {
 
                 <div className="joinLobby lobbyListContainer">
                     <h2>Choose a lobby:</h2>
+                    <h3> {lobbyFull} </h3>
                     <ul className="joinLobby lobbyList">
                         {lobbies.map((lobbyModel, d) => (
                             <button className="joinLobby lobbyButton"

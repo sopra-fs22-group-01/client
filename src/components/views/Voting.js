@@ -9,7 +9,7 @@ import "styles/views/Voting.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 import Card from "../../models/Card";
-import {FiVolume2} from "react-icons/fi";
+
 import Sitcom_Laugh_Track from 'images/Sitcom_Laugh_Track.mp3';
 
 import { BsEmojiLaughing } from "react-icons/bs";
@@ -170,11 +170,13 @@ const Voting = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
+            //this needs to be here to ensure that all chosen white cards are fetched even if some are handed in later !!
+            await new Promise(resolve => setTimeout(resolve, 2000));
             try {
                 //retrieves all user from specific match
                 const response = await api.get(`/matches/${matchId}/users`);
-
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                /*//this needs to be here to ensure that all chosen white cards are fetched even if some are handed in later !!
+                await new Promise(resolve => setTimeout(resolve, 1500));*/
                 // Get the returned users and update the state.
                 setUsers(response.data);
                 // console.log(response);
@@ -211,10 +213,10 @@ const Voting = () => {
             try {
                 // retrieve Black card
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
-                // delays continuous execution of an async operation for 1 second.
+               /* // delays continuous execution of an async operation for 1 second.
                 // This is just a fake async call, so that the spinner can be displayed
                 // feel free to remove it :)
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                await new Promise(resolve => setTimeout(resolve, 1000));*/
                 setBlackCard(blackCard_response.data);
                 // console.log(blackCard_response);
             } catch (error) {
@@ -280,13 +282,13 @@ const Voting = () => {
                 //and needs some time to restart
                 if(laughResponse.data === "Laughing" /*&& clickedCard.text != "X"*/){
                     console.log("play laughter")
-                    if (clickedCard.text !== "X") {
-                        audio.volume = 0.25;
-                        audio.play();
-                        // tell server this specific user heard a laugh
-                        await api.put(`/matches/${matchId}/laugh`);
-                        //console.log("played laughter")
-                    }
+                    //if (clickedCard.text !== "X") {
+                    audio.volume = 0.25;
+                    audio.play();
+                    // tell server this specific user heard a laugh
+                    await api.put(`/matches/${matchId}/laugh`);
+                    //console.log("played laughter")
+                    //}
                 }
 
             } catch (error) {
@@ -297,31 +299,11 @@ const Voting = () => {
         };
         const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear
-    }, [clickedCard, usedLaugh]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
+    }, [clickedCard]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
     let scoreboardContent = <Spinner/>;
     let cardContent = <div>waiting for cards</div>;
 
-    /*
-    if (blackCard && allChosenCards && clickedCard.owner == null && !read){
-        var synth = window.speechSynthesis;
-        let utter = new SpeechSynthesisUtterance();
-        utter.lang = 'en-US'
-
-        const blank = blackCard.toString().indexOf("____")
-        if (blank === -1){ // if there is no underscore (questions f.e) -> read normally
-            utter.text = blackCard.toString()
-            synth.speak(utter)
-            allChosenCards.map((card) => utter.text = card.text, synth.speak(utter));
-        }
-        else{
-            utter.text = ""
-            synth.speak(utter)
-            allChosenCards.map((card) => utter.text = replaceCharwithChar(blackCard.toString(), "____", card.text), synth.speak(utter));
-        }
-        setRead(true);
-    }
-    */
 
     if (users) {
         scoreboardContent = (
@@ -351,7 +333,7 @@ const Voting = () => {
                 {allChosenCards.map(card => (
                     <CardButton className="cardButton activeWhiteCard"
                         onClick={() => selectCard(card)}
-                        disabled={(card.owner.id==user.id) || usedLaugh}
+                        disabled={(card.owner.id===user.id) || usedLaugh}
                     >
                         {card.text}
                     </CardButton>
@@ -391,8 +373,6 @@ const Voting = () => {
             <div className="round grid-content4">
                 <div className="round card-list">
                     <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
-
-                    <FiVolume2 fontSize="3em"/>
                     {cardContent}
                     {laughingButtonContent}
                 </div>

@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
-//import {Button} from 'components/ui/Button';
 import {PrimaryButton} from 'components/ui/PrimaryButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
@@ -10,8 +9,8 @@ import "styles/views/Lobby.scss";
 import "styles/ui/PopUp.scss";
 import "styles/ui/CardButton.scss"
 import {CardButton} from "../ui/CardButton";
-import {SecondaryButton} from "../ui/SecondaryButton";
-// test
+
+
 
 
 
@@ -46,14 +45,14 @@ const Lobby = () => {
 
     const [users, setUsers] = useState(null);
     const [readyText, setReadyText] = useState("I am Ready");
+    const [createUpdate, setCreateUpdate]=useState("Create Custom Card");
     const [user, setUser] = useState(null);
     const [rules, setRules] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
-    const [hasCustom, setHasCustom] = useState(false);
+    const [hasCustom, setHasCustom] = useState(null);
     const numberMaxPlayers = 5;
 
-    //const [readyIcon, setReadyIcon] = useState(<BiCircle/>);
     const {userId} = useParams();
     const {lobbyId} = useParams(); // will be deleted after lobby creates match
 
@@ -66,7 +65,32 @@ const Lobby = () => {
         setIsOpen2(!isOpen2);
     }
 
-    const isReady = async () => {
+    const toggle_create_update=()=>{
+        if (hasCustom!==null){
+            setCreateUpdate("Update Custom Card")
+        }
+    }
+
+    const make_ready_status_unready= async ()=>{
+        if (user.isReady === "READY") {
+            setReadyText("I am Ready")
+            try {
+                //why do we have here a requestBody?
+                const requestBody = JSON.stringify(
+                    {
+                        "id": userId,
+                        "isReady": user.isReady
+                    }); //creates .json file
+
+                const updateResponse = await api.put(`/lobbies/${lobbyId}/users/${userId}`, requestBody);
+                console.log(updateResponse)
+            } catch (error) {
+                alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
+            }
+        }
+    }
+
+    const change_ready_status = async () => {
 
         if (user.isReady === "READY") {
             setReadyText("I am Ready")
@@ -87,7 +111,11 @@ const Lobby = () => {
         } catch (error) {
             alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
         }
+    }
 
+    const unready_and_customCard = () =>{
+        make_ready_status_unready();
+        history.push(`/lobbies/${lobbyId}/players/${userId}/cards/custom`)
     }
 
     const checkIfUserInLobby = (userList, trueId) =>{
@@ -103,30 +131,7 @@ const Lobby = () => {
         return false;
     }
 
-    const findLobbyOfUser = (lobbyList, trueUserId) =>{
-        const lobbyListLength = lobbyList.length;
-        // iterate through each lobbyId
-        for (var i = 0; i < lobbyListLength; i++){
-            //console.log("check for userId: ", i)
-            const lobbyLength = lobbyList[i].length
-            // iterate through each user in a lobby
-            for (var j = 0; i > lobbyLength; j++){
-                if (lobbyList[i].currentPlayers[j].id === trueUserId){
-                    return i
-                }
-            }
-        }
-        //console.log("user is not in any lobby, return false")
-        return false;
-    }
 
-
-
-    /*
-    //Removes a user from the list of all current players in the lobby
-    @DeleteMapping("/lobbies/{lobbyId}/players")
-    public void deleteUserFromLobby(@PathVariable long lobbyId, @RequestBody UserPostDTO userPostDTO){
-    */
     const leaveLobby = async () => {
         try {
             const deletionResponse = await api.delete(`/lobbies/${lobbyId}/players/${userId}`);
@@ -141,18 +146,10 @@ const Lobby = () => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             let lobbyUsersResponse = null;
-            let lobbyListResponse = null;
-            try{
-                const response2 = await api.get('/lobbies');
-                lobbyListResponse = response2.data
-                //console.log("ALL LOBBIES RESPONSE")
-                //console.log(lobbyListResponse)
-            }catch (error) {
-                console.error(`Something went wrong while fetching all lobbies: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching all lobbies ! See the console for details.");
-            }
-            // fetch all match players
+            //changing text on button from create to update depending on if there is a custom card
+            toggle_create_update();
+
+            // fetch all lobby players
             try{
                 const response = await api.get(`lobbies/${lobbyId}/users`);
                 setUsers(response.data);
@@ -192,10 +189,8 @@ const Lobby = () => {
                         console.error(`Something went wrong while deleting user from all lobbies: }`);
                         alert("Something went wrong while deleting user from all lobbies");
                     }
-
                     history.push(`/lobbies/players/${true_UserId}`)
                 }
-                //history.push(`/users/profile/${true_id}`)
 
             }catch (error) {
                 console.error(`Something went wrong while fetching the true user: \n${handleError(error)}`);
@@ -213,8 +208,30 @@ const Lobby = () => {
             try{ // get lobby status
                 const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`); //
                 const lobby_stat = lobby_status_response.data;
-                //if (lobby_stat === "All_Ready") {
+                console.log(lobby_status_response.data);
                 if (lobby_stat === "All_Ready" && users.length >=3) {
+
+                    try {
+                        // create new Match using lobbyId (matchId receives same id)
+                        const createdMatchResponse = await api.post(`/matches/${lobbyId}`); //starts a match
+                        console.log(createdMatchResponse.data);
+
+                    } catch (error) {
+                        console.error(`Something went wrong while creating a match: \n${handleError(error)}`);
+                        console.error("Details:", error);
+                        alert("Something went wrong while creating a match ! See the console for details.");
+                    }
+
+
+                    //increments the request counter (vote count) in backend
+                    try{
+                        await api.put(`/matches/${lobbyId}/synchronization`)
+                        console.log("incremented  vote count")
+                    }
+                    catch (error){
+                        alert(`Something went wrong when incrementing the vote count in the backend: \n${handleError(error)}`);
+                    }
+
                     history.push(`/lobbies/${lobbyId}/players/${userId}/loading`)
                 }
             }catch (error) {
@@ -222,10 +239,11 @@ const Lobby = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the lobby status ! See the console for details.");
             }
+            console.log(hasCustom);
         }
-        const t = setInterval(fetchData, 1000);//this part is responsible for periodically fetching data.
+        const t = setInterval(fetchData, 1200);//this part is responsible for periodically fetching data.
         return () => clearInterval(t); // clear
-    }, [user]);
+    }, [hasCustom,users]);
 
     let content = <Spinner/>;
 
@@ -235,6 +253,7 @@ const Lobby = () => {
 
                 <h1>Lobby {lobbyId}</h1>
                 <h2>{users.length}/{numberMaxPlayers} Players</h2>
+                <h3> At least 3 players required to play, at most 5 possible</h3>
 
                 <ul className="lobby user-list">
                     {users.map(user => (
@@ -244,20 +263,18 @@ const Lobby = () => {
                                     ({ pointerEvents: 'none' }):({ pointerEvents: '' })
                             }
                             to={`/users/profile/${user.id}`}
-                            onClick={()=>isReady()}
+                            onClick={()=>make_ready_status_unready()}
                         >
                             <Player user={user}/>
                         </Link>
                     ))}
                 </ul>
 
-
-                {/*buttons in flex-grid*/}
                 <div className="lobby grid-container">
 
                     <div className="lobby grid-content1">
                         <PrimaryButton className="lobby ready_button"
-                                       onClick={() => isReady()}
+                                       onClick={() => change_ready_status()}
                         >
                             {readyText}
                         </PrimaryButton>
@@ -298,9 +315,9 @@ const Lobby = () => {
                             />}
                         </div>
                         <PrimaryButton className="lobby small_button"
-                                       onClick={() => history.push(`/lobbies/${lobbyId}/players/${userId}/cards/custom`)}
+                                       onClick={() => unready_and_customCard()}
                         >
-                            create/update custom card
+                            {createUpdate}
                         </PrimaryButton>
                         <PrimaryButton className="lobby small_button"
                                        onClick={togglePopup}
