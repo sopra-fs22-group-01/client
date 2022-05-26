@@ -171,7 +171,7 @@ const Voting = () => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             //this needs to be here to ensure that all chosen white cards are fetched even if some are handed in later !!
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            await new Promise(resolve => setTimeout(resolve, 2000));
             try {
                 //retrieves all user from specific match
                 const response = await api.get(`/matches/${matchId}/users`);
