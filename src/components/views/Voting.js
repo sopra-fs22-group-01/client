@@ -282,13 +282,13 @@ const Voting = () => {
                 //and needs some time to restart
                 if(laughResponse.data === "Laughing" /*&& clickedCard.text != "X"*/){
                     console.log("play laughter")
-                    if (clickedCard.text !== "X") {
-                        audio.volume = 0.25;
-                        audio.play();
-                        // tell server this specific user heard a laugh
-                        await api.put(`/matches/${matchId}/laugh`);
-                        //console.log("played laughter")
-                    }
+                    //if (clickedCard.text !== "X") {
+                    audio.volume = 0.25;
+                    audio.play();
+                    // tell server this specific user heard a laugh
+                    await api.put(`/matches/${matchId}/laugh`);
+                    //console.log("played laughter")
+                    //}
                 }
 
             } catch (error) {
@@ -299,7 +299,7 @@ const Voting = () => {
         };
         const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear
-    }, [clickedCard, usedLaugh]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
+    }, [clickedCard]); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
     // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
     let scoreboardContent = <Spinner/>;
     let cardContent = <div>waiting for cards</div>;
