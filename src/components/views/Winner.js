@@ -108,7 +108,7 @@ const Winner = () => {
         fetchData();
     }, []);
 
-    /*//useEffect for Countdown
+    //useEffect for Countdown
     useEffect( () =>{
         async function fetchData() {
             try {
@@ -137,7 +137,7 @@ const Winner = () => {
         const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear
     }, []); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
-    // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.*/
+    // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
 
 
     let whiteCardContent = null;
