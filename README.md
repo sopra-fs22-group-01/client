@@ -15,11 +15,12 @@ The technologies used to develop the server side of this project were the follow
 -   Heroku for the deployment
 -   Node.js as JavaScript runtime environment
 
-##Main Components
+## Main Components
 In our frontend code, we have five main components that are crucial for the game. They are all contained in our [Main](/src/) folder. 
 1.  The most important views:
     -  The [Welcome view](src/components/views/StartPage.js) that greets the users and leads them to the login/registration views respectively
-    -  The [Login view](src/components/views/Login.js) responsible for letting to users log into their account, and a very similar [Registration view](src/components/views/Registration.js) for the registration of new users.![image](https://user-images.githubusercontent.com/91260375/170558048-b6485c1d-4d73-470d-9ae5-8c0235412c80.png)
+    -  The [Login view](src/components/views/Login.js) responsible for letting to users log into their account, and a very similar [Registration view](src/components/views/Registration.js) for the registration of new users.
+ ![image](https://user-images.githubusercontent.com/91260375/170558048-b6485c1d-4d73-470d-9ae5-8c0235412c80.png)
     -  The [Profile view](src/components/views/ProfilePage.js), providing the user to navigate to the [edit Profile view](src/components/views/EditProfile.js), to the [Statistics view](src/components/views/Statistics.js) of the profile, to the [Lobby overview](src/components/views/JoinLobby.js)  and also provides the possibility to log out and return to the [Login view](src/components/views/Login.js)![image](https://user-images.githubusercontent.com/91260375/170558153-b035d560-fc37-436b-9d8e-29cf1ec41cf9.png)
 
 
