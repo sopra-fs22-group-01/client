@@ -190,8 +190,8 @@ const Winner = () => {
         }
         return text;
     }
-
-    if (blackCard && scores && !read ){
+    //blackCard && scores && !read
+    if (!read){
         var synth = window.speechSynthesis;
         let utter = new SpeechSynthesisUtterance();
         utter.lang = 'en-US';
