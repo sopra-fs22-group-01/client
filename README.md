@@ -18,7 +18,7 @@ The technologies used to develop the server side of this project were the follow
 ## High Level Components
 In our frontend code, we have five main components that are crucial for the game. They are all contained in our [Main](/src/) folder. 
 1.  The most important views:
-  -   The [Login view](src/components/views/Login.js) responsible for letting to users log into their account, and a very similar [Registration view](src/components/views/Registration.js) for the registration of new users.
+    -  The [Login view](src/components/views/Login.js) responsible for letting to users log into their account, and a very similar [Registration view](src/components/views/Registration.js) for the registration of new users.
 3.  
 
 ## Getting started
