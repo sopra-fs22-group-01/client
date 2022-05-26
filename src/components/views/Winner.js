@@ -4,8 +4,10 @@ import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Round.scss";
+import "styles/views/Winner.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
+import {FiVolume2} from "react-icons/fi";
 
 const ScoreBoardPlayer = ({user}) => (
     <div>
@@ -106,7 +108,7 @@ const Winner = () => {
         fetchData();
     }, []);
 
-    //useEffect for Countdown
+    /*//useEffect for Countdown
     useEffect( () =>{
         async function fetchData() {
             try {
@@ -135,7 +137,9 @@ const Winner = () => {
         const t = setInterval(fetchData, 500);//this part is responsible for periodically fetching data
         return () => clearInterval(t); // clear
     }, []); // Use effect only checks clicked card once and logs the value, if the value changes later it takes it out of the log. Even if the value of the state variable changes in the mean time it will still use the logged value.
-    // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.
+    // To get the new state value one has to render the use effect every time the value changes -> therefor it needs to be in the [] in the end.*/
+
+
     let whiteCardContent = null;
     let winnersContent = null;
 
@@ -203,10 +207,14 @@ const Winner = () => {
     return (
         <BaseContainer className="round container">
             <div className="round grid-container">
-                <div className="round grid-content1">
+                <div className="winner grid-content1">
+                    <div className="winner sound_icon">
+                        <FiVolume2 />
+                    </div>
                 </div>
                 <div className="round grid-content2">
                     <h1 className="round user-item">WINNER(S) OF ROUND {roundNumber}</h1>
+
                     <h3 className="round user-item">{winnersContent}</h3>
                     <CardButton className="blackCard"
                     >
@@ -217,6 +225,7 @@ const Winner = () => {
                     <div className= "round timer" >
                         {timer}
                     </div>
+
                 </div>
                 <div className="round grid-content4">
                     <div className="round card-list">

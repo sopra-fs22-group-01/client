@@ -9,7 +9,7 @@ import "styles/views/Voting.scss";
 import {CardButton} from "../ui/CardButton";
 import {ScoreBoard} from "../ui/ScoreBoard";
 import Card from "../../models/Card";
-import {FiVolume2} from "react-icons/fi";
+
 import Sitcom_Laugh_Track from 'images/Sitcom_Laugh_Track.mp3';
 
 import { BsEmojiLaughing } from "react-icons/bs";
@@ -373,8 +373,6 @@ const Voting = () => {
             <div className="round grid-content4">
                 <div className="round card-list">
                     <h1>CHOSE YOUR FAVOURITE COMBINATION</h1>
-
-                    <FiVolume2 fontSize="3em"/>
                     {cardContent}
                     {laughingButtonContent}
                 </div>
