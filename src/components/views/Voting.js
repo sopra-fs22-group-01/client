@@ -170,11 +170,13 @@ const Voting = () => {
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
+            //this needs to be here to ensure that all chosen white cards are fetched even if some are handed in later !!
+            await new Promise(resolve => setTimeout(resolve, 1500));
             try {
                 //retrieves all user from specific match
                 const response = await api.get(`/matches/${matchId}/users`);
-
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                /*//this needs to be here to ensure that all chosen white cards are fetched even if some are handed in later !!
+                await new Promise(resolve => setTimeout(resolve, 1500));*/
                 // Get the returned users and update the state.
                 setUsers(response.data);
                 // console.log(response);
@@ -211,10 +213,10 @@ const Voting = () => {
             try {
                 // retrieve Black card
                 const blackCard_response = await api.get(`/matches/${matchId}/blackCard`)
-                // delays continuous execution of an async operation for 1 second.
+               /* // delays continuous execution of an async operation for 1 second.
                 // This is just a fake async call, so that the spinner can be displayed
                 // feel free to remove it :)
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                await new Promise(resolve => setTimeout(resolve, 1000));*/
                 setBlackCard(blackCard_response.data);
                 // console.log(blackCard_response);
             } catch (error) {
@@ -302,26 +304,6 @@ const Voting = () => {
     let scoreboardContent = <Spinner/>;
     let cardContent = <div>waiting for cards</div>;
 
-    /*
-    if (blackCard && allChosenCards && clickedCard.owner == null && !read){
-        var synth = window.speechSynthesis;
-        let utter = new SpeechSynthesisUtterance();
-        utter.lang = 'en-US'
-
-        const blank = blackCard.toString().indexOf("____")
-        if (blank === -1){ // if there is no underscore (questions f.e) -> read normally
-            utter.text = blackCard.toString()
-            synth.speak(utter)
-            allChosenCards.map((card) => utter.text = card.text, synth.speak(utter));
-        }
-        else{
-            utter.text = ""
-            synth.speak(utter)
-            allChosenCards.map((card) => utter.text = replaceCharwithChar(blackCard.toString(), "____", card.text), synth.speak(utter));
-        }
-        setRead(true);
-    }
-    */
 
     if (users) {
         scoreboardContent = (
@@ -351,7 +333,7 @@ const Voting = () => {
                 {allChosenCards.map(card => (
                     <CardButton className="cardButton activeWhiteCard"
                         onClick={() => selectCard(card)}
-                        disabled={(card.owner.id==user.id) || usedLaugh}
+                        disabled={(card.owner.id===user.id) || usedLaugh}
                     >
                         {card.text}
                     </CardButton>
