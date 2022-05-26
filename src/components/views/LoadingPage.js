@@ -17,7 +17,8 @@ const LoadingPage = props => {
                 console.log("Voting Status Response")
                 console.log(votingStatusResponse.data);
                 setVotingStatus(votingStatusResponse.data);
-                // console.log(votingStatus)
+                console.log("Voting Status Variable")
+                console.log(votingStatus)
             } catch (error) {
                 console.error(`Something went wrong while fetching the voting status: \n${handleError(error)}`);
                 console.error("Details:", error);
