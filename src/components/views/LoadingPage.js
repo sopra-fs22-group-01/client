@@ -32,7 +32,6 @@ const LoadingPage = props => {
                 } catch (error) {
                     alert(`Something went wrong when starting the selection timer in the backend: \n${handleError(error)}`);
                 }
-
                 try {
                     //resets the ReadyStatus of the user to Unready, so after the game, a new lobby
                     //can be joined without directly starting the game
