@@ -24,9 +24,9 @@ In our frontend code, we have five main components that are crucial for the game
     -  The [Lobbies overview](src/components/views/JoinLobby.js) that lets the user create new lobbies are join already present lobbies. <img src="https://user-images.githubusercontent.com/91260375/170558623-d770e333-95d2-4a32-8fbc-0328b105bd89.png" width=650>
     -  The [Lobby view](src/components/views/Lobby.js), where the users can see the other players and create their own custom card for the game. <img src="https://user-images.githubusercontent.com/91260375/170559234-79c40f85-0327-4550-9421-6e91d8dc5be6.png" width=650>
     -  The [Card selection view](src/components/views/Round.js), where the players select the cards they want to play. <img src="https://user-images.githubusercontent.com/91260375/170560319-b821abb6-12ef-4a47-ad64-aae0e037eae1.png" width=650>
-    -  The [Voting view](src/components/views/Voting.js), where the players can vote for the best played card. ![image](https://user-images.githubusercontent.com/91260375/170560372-dc776860-016b-4278-bb44-20de836b0de6.png)
-    -  The [Round winner view](src/components/views/Winner.js), where the winner(s) of the round is anounced and the winnig card combination is read to everyone. ![image](https://user-images.githubusercontent.com/91260375/170560441-ee93f5cf-6804-4ae5-9dfe-02ae05eb826e.png)
-    -  The [Match winner view](src/components/views/MatchRanking.js), where the winner of the match is announced. ![image](https://user-images.githubusercontent.com/91260375/170559865-fda30733-0755-4629-bfe0-ab9acdc9be09.png)
+    -  The [Voting view](src/components/views/Voting.js), where the players can vote for the best played card. <img src="https://user-images.githubusercontent.com/91260375/170560372-dc776860-016b-4278-bb44-20de836b0de6.png" width=650>
+    -  The [Round winner view](src/components/views/Winner.js), where the winner(s) of the round is anounced and the winnig card combination is read to everyone. <img src="https://user-images.githubusercontent.com/91260375/170560441-ee93f5cf-6804-4ae5-9dfe-02ae05eb826e.png" width=650>
+    -  The [Match winner view](src/components/views/MatchRanking.js), where the winner of the match is announced. <img src="https://user-images.githubusercontent.com/91260375/170559865-fda30733-0755-4629-bfe0-ab9acdc9be09.png" width=650>
 
 
 
