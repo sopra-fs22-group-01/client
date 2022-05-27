@@ -86,8 +86,17 @@ This software makes use of the following third party libraries:
 
 ## Roadmap
 **Possible  features that new developers can add:**
-- Accessible functionalities to personalize properties of matches, like the timers, how many points for the win are needed, and the number of supervotes each player gets.
-- Multiple sets of Cards to choose from; for example a family friendly with less offensive and less sexual content could be added.
+- Additional view to personalize properties of matches, like the timers, how many points for the win are needed, and the number of supervotes each player gets.
+- Possibility to choose from a list of avatar, to better personalize the users profile
 
-#Credit
-> Thanks to Lucas Pelloni and Kyrill Hux for working on the template.
+## Authors and acknowledgement
+### Authors
+- [Larissa Senning](https://github.com/orgs/sopra-fs22-group-01/people/lsenni)
+- [Nevio Liberato](https://github.com/orgs/sopra-fs22-group-01/people/sircher)
+- [Patric Salvisberg](https://github.com/orgs/sopra-fs22-group-01/people/PatSalvis)
+- [Seyyid Palta](https://github.com/orgs/sopra-fs22-group-01/people/SeyyidPalta)
+- [Thu An Phan](https://github.com/orgs/sopra-fs22-group-01/people/thphan21)
+
+### Acknowledgement
+We want acknowledge the work that was done for the template we used to create this project upon. The  client template was created by Lucas Pelloni and Kyrill Hux.
+
