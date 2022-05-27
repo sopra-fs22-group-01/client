@@ -16,7 +16,7 @@ The technologies used to develop the server side of this project were the follow
 -   Node.js as JavaScript runtime environment
 
 ## Main Components
-In our frontend code, we have four main components that are crucial for the game. They are all contained in our [Main](/src/) folder. 
+In our frontend code, we have four main components that are crucial for the game: View, Models, Ui components and Routing components. They are all contained in our [Main](/src/) folder. 
 1.  The most important views:
     -  The [Welcome view](src/components/views/StartPage.js) that greets the users and leads them to the login/registration views respectively
     -  The [Login view](src/components/views/Login.js) responsible for letting to users log into their account, and a very similar [Registration view](src/components/views/Registration.js) for the registration of new users.
