@@ -18,8 +18,8 @@ The technologies used to develop the server side of this project were the follow
 ## Main Components
 In our frontend code, we have four main components that are crucial for the game: View, Models, Ui components and Routing components. They are all contained in our [Main](/src/) folder. 
 1.  The most important views:
-    -  The [Welcome view](src/components/views/StartPage.js) that greets the users and leads them to the login/registration views respectively
-    -  The [Login view](src/components/views/Login.js) responsible for letting to users log into their account, and a very similar [Registration view](src/components/views/Registration.js) for the registration of new users.
+    i.  The [Welcome view](src/components/views/StartPage.js) that greets the users and leads them to the login/registration views respectively
+    ii.  The [Login view](src/components/views/Login.js) responsible for letting to users log into their account, and a very similar [Registration view](src/components/views/Registration.js) for the registration of new users.
     -  The [Profile view](src/components/views/ProfilePage.js), providing the user to navigate to the [edit Profile view](src/components/views/EditProfile.js), to the [Statistics view](src/components/views/Statistics.js) of the profile, to the [Lobbies overview](src/components/views/JoinLobby.js) and also provides the possibility to log out and return to the [Login view](src/components/views/Login.js)
     -  The [Lobbies overview](src/components/views/JoinLobby.js) that lets the user create new lobbies are join already present lobbies. <img src="https://user-images.githubusercontent.com/91260375/170558623-d770e333-95d2-4a32-8fbc-0328b105bd89.png" width=650>
     -  The [Lobby view](src/components/views/Lobby.js), where the users can see the other players and create their own custom card for the game. <img src="https://user-images.githubusercontent.com/91260375/170559234-79c40f85-0327-4550-9421-6e91d8dc5be6.png" width=650>
@@ -27,6 +27,7 @@ In our frontend code, we have four main components that are crucial for the game
     -  The [Voting view](src/components/views/Voting.js), where the players can vote for the best played card. <img src="https://user-images.githubusercontent.com/91260375/170560372-dc776860-016b-4278-bb44-20de836b0de6.png" width=650>
     -  The [Round winner view](src/components/views/Winner.js), where the winner(s) of the round is anounced and the winnig card combination is read to everyone. <img src="https://user-images.githubusercontent.com/91260375/170560441-ee93f5cf-6804-4ae5-9dfe-02ae05eb826e.png" width=650>
     -  The [Match winner view](src/components/views/MatchRanking.js), where the winner of the match is announced. <img src="https://user-images.githubusercontent.com/91260375/170559865-fda30733-0755-4629-bfe0-ab9acdc9be09.png" width=650>
+
 2.  The most important models:
     - The [Card model](src/models/Card.js)
     - The [User model](src/models/User.js)
@@ -67,21 +68,26 @@ Now you can open [http://localhost:3000](http://localhost:3000) to view it in th
 
 Notice that the page will reload if you make any edits. You will also see any lint errors in the console (use Google Chrome).
 
-### Testing
-Testing is optional, and you can run the tests with `npm run test`.
-This launches the test runner in an interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-> For macOS user running into a 'fsevents' error: https://github.com/jest-community/vscode-jest/issues/423
-
 ### Build
-Finally, `npm run build` builds the app for production to the `build` folder.<br>
+ `npm run build` builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance: the build is minified, and the filenames include hashes.<br>
-
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Learn More
+### Testing
+We did not implement any tests in our frontend. However if you decide to implement tests, you can run them with  `npm run test`. This launches the test runner in an interactive watch mode. Consult this documentation for more information: [running tests](https://facebook.github.io/create-react-app/docs/running-tests)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Client deployement
+For the deployement of the client, we recommend [Heroku](https://id.heroku.com/)
 
+## External dependencies
+This software makes use of the following third party libraries:
+- [Webspeech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API)
+- [React icons library](https://react-icons.github.io/react-icons/)
 
+## Roadmap
+**Possible  features that new developers can add:**
+- Accessible functionalities to personalize properties of matches, like the timers, how many points for the win are needed, and the number of supervotes each player gets.
+- Multiple sets of Cards to choose from; for example a family friendly with less offensive and less sexual content could be added.
+
+#Credit
 > Thanks to Lucas Pelloni and Kyrill Hux for working on the template.
