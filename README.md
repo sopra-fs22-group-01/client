@@ -18,8 +18,8 @@ The technologies used to develop the server side of this project were the follow
 ## Main Components
 In our frontend code, we have four main components that are crucial for the game: View, Models, Ui components and Routing components. They are all contained in our [Main](/src/) folder. 
 1.  The most important views:
-    i.  The [Welcome view](src/components/views/StartPage.js) that greets the users and leads them to the login/registration views respectively
-    ii.  The [Login view](src/components/views/Login.js) responsible for letting to users log into their account, and a very similar [Registration view](src/components/views/Registration.js) for the registration of new users.
+    1.  The [Welcome view](src/components/views/StartPage.js) that greets the users and leads them to the login/registration views respectively
+    2.s  The [Login view](src/components/views/Login.js) responsible for letting to users log into their account, and a very similar [Registration view](src/components/views/Registration.js) for the registration of new users.
     -  The [Profile view](src/components/views/ProfilePage.js), providing the user to navigate to the [edit Profile view](src/components/views/EditProfile.js), to the [Statistics view](src/components/views/Statistics.js) of the profile, to the [Lobbies overview](src/components/views/JoinLobby.js) and also provides the possibility to log out and return to the [Login view](src/components/views/Login.js)
     -  The [Lobbies overview](src/components/views/JoinLobby.js) that lets the user create new lobbies are join already present lobbies. <img src="https://user-images.githubusercontent.com/91260375/170558623-d770e333-95d2-4a32-8fbc-0328b105bd89.png" width=650>
     -  The [Lobby view](src/components/views/Lobby.js), where the users can see the other players and create their own custom card for the game. <img src="https://user-images.githubusercontent.com/91260375/170559234-79c40f85-0327-4550-9421-6e91d8dc5be6.png" width=650>
