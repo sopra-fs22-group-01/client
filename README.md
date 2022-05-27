@@ -16,7 +16,7 @@ The technologies used to develop the server side of this project were the follow
 -   Node.js as JavaScript runtime environment
 
 ## Main Components
-In our frontend code, we have five main components that are crucial for the game. They are all contained in our [Main](/src/) folder. 
+In our frontend code, we have three main components that are crucial for the game. They are all contained in our [Main](/src/) folder. 
 1.  The most important views:
     -  The [Welcome view](src/components/views/StartPage.js) that greets the users and leads them to the login/registration views respectively
     -  The [Login view](src/components/views/Login.js) responsible for letting to users log into their account, and a very similar [Registration view](src/components/views/Registration.js) for the registration of new users.
@@ -31,22 +31,17 @@ In our frontend code, we have five main components that are crucial for the game
     - The [Card model](src/models/Card.js)
     - The [User model](src/models/User.js)
 
-3. The most important UI components
-    - Two traditional Buttons
+3. The most important UI components:
+    - A [Primary button](src/components/ui/PrimaryButton.js) as a big and prominent button 
+    - A [Secondary button](src/components/ui/SecondaryButton.js) as a smaller and less prominet button that is only present if needed
+    - A [Card button](src/components/ui/CardButton.js) as a card that can be used like a button
 
+## Getting started 
 
+If you are new to React, CSS/SCSS and HTML, you might want to read through the following documentations and tutarials:
 
-
-
-
-
-
-## Getting started
-
-Read and go through these Tutorials. It will make your life easier!
-
-- Read the React [Docs](https://reactjs.org/docs/getting-started.html)
-- Do this React [Getting Started](https://reactjs.org/tutorial/tutorial.html) Tutorial (it doesn’t assume any existing React knowledge)
+- React documentation [Docs](https://reactjs.org/docs/getting-started.html)
+- React tutorial [Getting Started](https://reactjs.org/tutorial/tutorial.html) Tutorial (it doesn’t assume any existing React knowledge)
 - Get an Understanding of [CSS](https://www.w3schools.com/Css/), [SCSS](https://sass-lang.com/documentation/syntax), and [HTML](https://www.w3schools.com/html/html_intro.asp)!
 
 Next, there are two other technologies that you should look at:
