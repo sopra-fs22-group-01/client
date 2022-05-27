@@ -27,6 +27,12 @@ In our frontend code, we have five main components that are crucial for the game
     -  The [Voting view](src/components/views/Voting.js), where the players can vote for the best played card. <img src="https://user-images.githubusercontent.com/91260375/170560372-dc776860-016b-4278-bb44-20de836b0de6.png" width=650>
     -  The [Round winner view](src/components/views/Winner.js), where the winner(s) of the round is anounced and the winnig card combination is read to everyone. <img src="https://user-images.githubusercontent.com/91260375/170560441-ee93f5cf-6804-4ae5-9dfe-02ae05eb826e.png" width=650>
     -  The [Match winner view](src/components/views/MatchRanking.js), where the winner of the match is announced. <img src="https://user-images.githubusercontent.com/91260375/170559865-fda30733-0755-4629-bfe0-ab9acdc9be09.png" width=650>
+2.  The most important models:
+    - The [Card model](src/models/Card.js)
+    - The [User model](src/models/User.js)
+
+3. The most important UI components
+    - Two traditional Buttons
 
 
 
