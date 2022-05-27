@@ -194,18 +194,15 @@ const Winner = () => {
         }
         return text;
     }
-    //blackCard && scores && !read
-    function textToSpeech(){
-        if (!read){
-            var synth = window.speechSynthesis;
-            let utter = new SpeechSynthesisUtterance();
-            utter.lang = 'en-US';
-            utter.text = textToRead();
-            synth.speak(utter);
-            setRead(true);
-        }
+
+    if (blackCard && scores && !read){
+        var synth = window.speechSynthesis;
+        let utter = new SpeechSynthesisUtterance();
+        utter.lang = 'en-US';
+        utter.text = textToRead();
+        synth.speak(utter);
+        setRead(true);
     }
-    setTimeout(textToSpeech, 1000);
 
     return (
         <BaseContainer className="round container">
