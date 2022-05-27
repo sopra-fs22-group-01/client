@@ -11,7 +11,7 @@ Our general motivation for this project was to expand our knowledge about softwa
 The technologies used to develop the server side of this project were the following:
 
 -   WebStorm, IntelliJ and Visual Studio Code as IDEs
--   GitHub for the version control and project organization
+-   Git and GitHub for the version control and project organization
 -   Heroku for the deployment
 -   Node.js as JavaScript runtime environment
 
