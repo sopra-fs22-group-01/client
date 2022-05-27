@@ -1,6 +1,9 @@
 # Cards Against Humanity Online
 This project contains everything you need to play a fun game of Cards Against Humanity online with your friends. Enjoy our twist to the game and try out the additional features such as custom cards, and supervotes. 
 ## Introduction
+This project contains everything you need to play a fun game of Cards Against Humanity online. Enjoy our twist to the game and try out the additional features such as custom cards, and supervotes. You can play this game with 3-5 friends.
+The rules of Cards Against Humanity are quite simple. Each player has ten white cards and there is one black card per round. Every player must choose one white card to complete the sentence on the black card. Once all players chose a card, they vote for the card they think fits best. The player who receives the most votes, wins the round, and gets one point. Once a player reaches 5 points, he wins, and the match is over. There is also the possibility to use a supervote. This supervote counts as two votes and every player gets one supervote per match. While waiting in the lobby for the other players to get ready, the players also get the opportunity to create a custom white card. This custom white card is then one of the initial 10 cards the player gets to play with.
+
 ### Main Goal
 This project's main goal is to enable players to play Cards Against Humanity online. Compared to the original Cards Against Humanity game, we also changed some of the original mechanics and added some additional fun features. By doing so we learned a lot about developing a web application and how to work efficiently in a group of 5.
 
