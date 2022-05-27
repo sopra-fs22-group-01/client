@@ -16,7 +16,7 @@ The technologies used to develop the server side of this project were the follow
 -   Node.js as JavaScript runtime environment
 
 ## Main Components
-In our frontend code, we have three main components that are crucial for the game. They are all contained in our [Main](/src/) folder. 
+In our frontend code, we have four main components that are crucial for the game. They are all contained in our [Main](/src/) folder. 
 1.  The most important views:
     -  The [Welcome view](src/components/views/StartPage.js) that greets the users and leads them to the login/registration views respectively
     -  The [Login view](src/components/views/Login.js) responsible for letting to users log into their account, and a very similar [Registration view](src/components/views/Registration.js) for the registration of new users.
@@ -35,6 +35,11 @@ In our frontend code, we have three main components that are crucial for the gam
     - A [Primary button](src/components/ui/PrimaryButton.js) as a big and prominent button 
     - A [Secondary button](src/components/ui/SecondaryButton.js) as a smaller and less prominet button that is only present if needed
     - A [Card button](src/components/ui/CardButton.js) as a card that can be used like a button
+
+4. Our [Routing components](src/components/routing/routers/)
+
+# Launch and Development
+To help you get started with this application, in the following paragraph you will find all the important information on the used framework, what commands are used to build and run the project and how to run  tests.
 
 ## Getting started 
 
