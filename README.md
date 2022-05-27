@@ -100,3 +100,7 @@ This software makes use of the following third party libraries:
 ### Acknowledgement
 We want acknowledge the work that was done for the template we used to create this project upon. The  client template was created by Lucas Pelloni and Kyrill Hux.
 
+
+## License
+
+Consult this [License](LICENSE) for further information.
