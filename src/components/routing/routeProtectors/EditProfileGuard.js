@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 
 /**
  *
- * Another  way to export directly your functional component.
+ * Another  way to  export directly your functional component.
  */
 export const EditProfileGuard = () => {
     const {id} = useParams(); //extracts the id from the URL
