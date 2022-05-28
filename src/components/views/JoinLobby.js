@@ -78,7 +78,7 @@ const JoinLobby = () => {
                 /*alert("This lobby is full, chose a different one")*/
             }
             else{
-                console.log("Add this user to lobby")
+                //console.log("Add this user to lobby")
                 const response = api.post(`/lobbies/${lobbyId}/lists/players/${userId}`);
                 history.push(`/lobbies/${lobbyId}/players/${userId}`);
             }
@@ -133,12 +133,12 @@ const JoinLobby = () => {
 
                 // REDIRECT TO OWN PROFILE
                 if (localStorage.getItem("token") !== response1.data.token){
-                    console.log("USER NOT THE SAME")
+                    //console.log("USER NOT THE SAME")
                     try{
                         const t = localStorage.getItem("token")
                         const true_UserResponse = await api.get(`/users/${t}`);
-                        console.log("TRUE USER DATA")
-                        console.log(true_UserResponse)
+                        //console.log("TRUE USER DATA")
+                        //console.log(true_UserResponse)
                         const true_id = true_UserResponse.data.id
                         history.push(`/users/profile/${true_id}`)
                     }catch (error) {

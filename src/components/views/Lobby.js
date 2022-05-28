@@ -83,7 +83,7 @@ const Lobby = () => {
                     }); //creates .json file
 
                 const updateResponse = await api.put(`/lobbies/${lobbyId}/users/${userId}`, requestBody);
-                console.log(updateResponse)
+                //console.log(updateResponse)
             } catch (error) {
                 alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
             }
@@ -107,7 +107,7 @@ const Lobby = () => {
                 }); //creates .json file
 
             const updateResponse = await api.put(`/lobbies/${lobbyId}/users/${userId}`, requestBody);
-            console.log(updateResponse)
+            //console.log(updateResponse)
         } catch (error) {
             alert(`Something went wrong during ready-status update: \n${handleError(error)}`);
         }
@@ -135,7 +135,7 @@ const Lobby = () => {
     const leaveLobby = async () => {
         try {
             const deletionResponse = await api.delete(`/lobbies/${lobbyId}/players/${userId}`);
-            console.log(deletionResponse)
+            //console.log(deletionResponse)
         } catch (error) {
             alert(`Something went wrong during the deletion of the player from the lobby list: \n${handleError(error)}`);
         }

@@ -112,7 +112,7 @@ const Voting = () => {
 
     const voteAndStartCountdown = async () => {
         //console.log(user.username)
-        console.log("s UsedLaugh:", usedLaugh)
+        //console.log("s UsedLaugh:", usedLaugh)
         //if no card chosen, vote goes to no-one
         let ownerId = null;
         if (clickedCard.text === "X"){
@@ -291,7 +291,7 @@ const Voting = () => {
                 //!= "X" makes sure doesnt try to vote before card got selected --> would try to imediately vote since timer first at 0
                 //and needs some time to restart
                 if(laughResponse.data === "Laughing" /*&& clickedCard.text != "X"*/){
-                    console.log("play laughter")
+                    //console.log("play laughter")
                     //if (clickedCard.text !== "X") {
                     audio.volume = 0.25;
                     audio.play();

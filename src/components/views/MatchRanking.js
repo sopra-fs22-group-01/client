@@ -51,7 +51,7 @@ const MatchRanking = () => {
                 // console.log(response);
             } catch (error) {
                 alert("Something went wrong while fetching the ranking for this specific match! See the console for details.");
-                console.log("Error Fetch Scores", error)
+                //console.log("Error Fetch Scores", error)
             }
             try{ // fetch true player and redirect to correct userId
                 const t = localStorage.getItem("token")

@@ -74,7 +74,7 @@ const ProfilePage = () => {
                 const response1 = await api.get(`/users/?id=${userId}`);
                 // Get the returned users and update the state.
                 setUser(response1.data);
-                console.log(response1);
+                //console.log(response1);
                 if((response1.data.token === localStorage.getItem(`token`))){
                     setPassword("Password: ● ● ● ● ●")
                 }

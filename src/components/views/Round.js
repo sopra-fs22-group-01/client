@@ -187,8 +187,8 @@ const Round = () => {
 
                         // just to get console logs about the voting status
                         const votingStatusResponse = await api.get(`/matches/${matchId}/synchronization`);
-                        console.log("Voting Status Response")
-                        console.log(votingStatusResponse.data);
+                        //console.log("Voting Status Response")
+                        //console.log(votingStatusResponse.data);
                     }
                     catch (error){
                         alert(`Something went wrong when re-setting the vote count in the backend: \n${handleError(error)}`);

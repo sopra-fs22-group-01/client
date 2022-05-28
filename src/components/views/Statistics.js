@@ -53,7 +53,7 @@ const Statistics = () => {
 
                 // Get the returned users and update the state.
                 setUser(response1.data);
-                console.log(response1);
+                //console.log(response1);
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);

@@ -12,7 +12,7 @@ const EndOfRound = props => {
         try {
             // starts next round, or end Match if we're on the last round
             const response = await api.get(`/matches/${matchId}/rounds`)
-            console.log(response)
+            //console.log(response)
             if (response.data === "MatchOngoing"){
                 try{
                     await api.put(`/matches/${matchId}/countdown/selection`)

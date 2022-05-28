@@ -13,18 +13,18 @@ export const EditProfileGuard = () => {
     const getUser = async () => {
         try {
             const response = await api.get(`/users/?id=${id}`);
-            console.log("USER FETCHED in getUser(): ", response.data)
+            //console.log("USER FETCHED in getUser(): ", response.data)
 
             if (localStorage.getItem("token") === response.data.token) {
-                console.log("GetUser() 2")
-                console.log("USER: ", response.data.token)
+                //console.log("GetUser() 2")
+                //console.log("USER: ", response.data.token)
                 // eslint-disable-next-line no-restricted-globals
                 history.push(`/editor/${id}`)
 
                 //return <Redirect to="/editor/:id"/>;//props.children;
 
             } else {
-                console.log("FAILED")
+                //console.log("FAILED")
                 return <Redirect to="/startpage"/>;
             }
 
@@ -32,28 +32,28 @@ export const EditProfileGuard = () => {
             //console.log("USER USER USER USER.TOKE= ",user.token)
 
         } catch (error) {
-            console.error(`Something went wrong while fetching the user in GetUser: \n${handleError(error)}`);
-            console.error("Details:", error);
+            //console.error(`Something went wrong while fetching the user in GetUser: \n${handleError(error)}`);
+            //console.error("Details:", error);
             alert("Something went wrong while fetching the user in GetUser! See the console for details.");
         }
     }
 
     if (localStorage.getItem("token")/* === user.token*/) {
-        console.log("HERE 1")
+        //console.log("HERE 1")
         let response = null;
         response = getUser();
 
-        console.log("COMPARISON")
-        console.log(localStorage.getItem("token"))
-        console.log(response.data.token)
+        //console.log("COMPARISON")
+        //console.log(localStorage.getItem("token"))
+        //console.log(response.data.token)
 
         if (localStorage.getItem("token") === response.data.token) {
-            console.log("HERE 2")
-            console.log("USER: ", response.data.token)
+            //console.log("HERE 2")
+            //console.log("USER: ", response.data.token)
             return <Redirect to="/editor/:id"/>;//props.children;
 
         } else {
-            console.log("FAILED")
+            //console.log("FAILED")
             return <Redirect to="/startpage"/>;
         }
     }

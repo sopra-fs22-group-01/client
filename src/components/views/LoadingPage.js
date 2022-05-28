@@ -14,11 +14,11 @@ const LoadingPage = props => {
 
             try {
                 const votingStatusResponse = await api.get(`/matches/${lobbyId}/synchronization`);
-                console.log("Voting Status Response")
-                console.log(votingStatusResponse.data);
+                //console.log("Voting Status Response")
+                //console.log(votingStatusResponse.data);
                 setVotingStatus(votingStatusResponse.data);
-                console.log("Voting Status Variable")
-                console.log(votingStatus)
+                //console.log("Voting Status Variable")
+                //console.log(votingStatus)
             } catch (error) {
                 console.error(`Something went wrong while fetching the voting status: \n${handleError(error)}`);
                 console.error("Details:", error);
