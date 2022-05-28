@@ -200,6 +200,7 @@ const Winner = () => {
         let utter = new SpeechSynthesisUtterance();
         utter.lang = 'en-US';
         utter.text = textToRead();
+        synth.cancel();
         synth.speak(utter);
         setRead(true);
     }
