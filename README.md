@@ -84,7 +84,7 @@ For the deployment of the client, we recommend [Heroku](https://id.heroku.com/)
 
 ## External dependencies
 This software makes use of the following third party libraries:
-- [Web speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API): For the text to speech feature to work properly, use google chrome. If you still encounter problems try deleting you cache and try it in a new window again.
+- [Web speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API): For the text to speech feature to work properly, use google chrome. If you still encounter problems try deleting you cache and open a new window.
 - [React icons library](https://react-icons.github.io/react-icons/)
 
 ## Roadmap
