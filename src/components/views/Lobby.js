@@ -208,13 +208,13 @@ const Lobby = () => {
             try{ // get lobby status
                 const lobby_status_response = await api.get(`/lobbies/${lobbyId}/status`); //
                 const lobby_stat = lobby_status_response.data;
-                console.log(lobby_status_response.data);
+                //console.log(lobby_status_response.data);
                 if (lobby_stat === "All_Ready" && users.length >=3) {
 
                     try {
                         // create new Match using lobbyId (matchId receives same id)
                         const createdMatchResponse = await api.post(`/matches/${lobbyId}`); //starts a match
-                        console.log(createdMatchResponse.data);
+                        //console.log(createdMatchResponse.data);
 
                     } catch (error) {
                         console.error(`Something went wrong while creating a match: \n${handleError(error)}`);
@@ -226,7 +226,7 @@ const Lobby = () => {
                     //increments the request counter (vote count) in backend
                     try{
                         await api.put(`/matches/${lobbyId}/synchronization`)
-                        console.log("incremented  vote count")
+                        //console.log("incremented  vote count")
                     }
                     catch (error){
                         alert(`Something went wrong when incrementing the vote count in the backend: \n${handleError(error)}`);
@@ -239,7 +239,7 @@ const Lobby = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the lobby status ! See the console for details.");
             }
-            console.log(hasCustom);
+            //console.log(hasCustom);
         }
         const t = setInterval(fetchData, 1200);//this part is responsible for periodically fetching data.
         return () => clearInterval(t); // clear
